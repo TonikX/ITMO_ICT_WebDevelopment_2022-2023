@@ -5,18 +5,18 @@ LOCALHOST = "127.0.0.1"
 PORT = 3000
 
 tcp_socket = socket(AF_INET, SOCK_STREAM)
+tcp_socket.connect((LOCALHOST, PORT))
+tcp_socket.send("989796".encode())
+res = tcp_socket.recv(4096)
+res = res.decode('utf-8')
 
 
-def connectServer():
-    tcp_socket.connect((LOCALHOST, PORT))
-
-
-data = input("Введите длинны оснований трапеции и высоту трапеции в таком формате 'a b h'\n")
+data = input(res)
 if not data:
+    tcp_socket.close()
     sys.exit(1)
 
 while True:
-    connectServer()
     data = str.encode(data)
     tcp_socket.send(data)
     data = tcp_socket.recv(4096)
