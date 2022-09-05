@@ -84,7 +84,6 @@ conn.close()
 ```
 
 ## **3 task**
-**Основная часть 3 задания**
 
 * `server.py`
 ```python
