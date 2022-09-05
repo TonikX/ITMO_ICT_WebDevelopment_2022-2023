@@ -1,4 +1,4 @@
-import socket, threading
+import socket
 import time
 
 LOCALHOST = "127.0.0.1"
