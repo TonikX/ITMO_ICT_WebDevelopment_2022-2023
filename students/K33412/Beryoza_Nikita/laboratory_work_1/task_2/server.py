@@ -32,7 +32,4 @@ while True:
     except socket.error:
         print("Ожидаю")
         time.sleep(1)
-    except KeyboardInterrupt:
-        server.close()
-        break
 
