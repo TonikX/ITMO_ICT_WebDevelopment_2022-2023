@@ -1,0 +1,5 @@
+site_name: Kozlov Ivan - WEB - ICT
+nav:
+ - 1 lab: index.md
+
+theme: readthedocs
