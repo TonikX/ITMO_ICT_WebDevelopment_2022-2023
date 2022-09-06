@@ -13,31 +13,22 @@ def server():
 
     print(f"Connected: {addr}")
 
-    conn.send(str.encode(f"Hello, {addr[0]}:{addr[1]}\n"
-                         f"I solve Pythagorean theorem\n"
-                         f"Enter side a A\n"))
-
     a = ""
     b = ""
     result = ""
 
     while not result:
         while not a:
+            conn.send("Side A".encode())
             data = conn.recv(1024).decode()
             if data.isdigit():
                 a = float(data)
-                conn.send(b"Enter a side B\n")
-            else:
-                conn.send(b"It's not number!\n"
-                          b"Enter a side A\n")
 
         while not b:
+            conn.send("Side B".encode())
             data = conn.recv(1024).decode()
             if data.isdigit():
                 b = float(data)
-            else:
-                conn.send(b"It's not number!\n"
-                          b"Enter a side B\n")
 
         result = pythagorean_theorem(a, b)
         conn.send(str.encode(f"Result is {result}"))
