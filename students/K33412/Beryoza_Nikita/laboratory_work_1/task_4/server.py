@@ -17,14 +17,15 @@ clients = {}
 print(f'Сервер запущен на IP {IP}:{PORT}')
 
 
-def receive_message(client_socket):
+def receive_message(c_socket):
     try:
-        message_header = client_socket.recv(HEADER_LENGTH)
+        message_header = c_socket.recv(HEADER_LENGTH)
         if not len(message_header):
             return False
         message_length = int(message_header.decode('utf-8').strip())
-        return {'header': message_header, 'data': client_socket.recv(message_length)}
+        return {'header': message_header, 'data': c_socket.recv(message_length)}
     except Exception as e:
+        print(e)
         return False
 
 
@@ -54,4 +55,3 @@ while True:
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)
         del clients[notified_socket]
-
