@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25f5f43a-3825-4733-b15f-c531f0a121ea" name="Changes" comment="added task1">
+      <change afterPath="$PROJECT_DIR$/task5/Request.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/Response.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task2/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/task2/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task2/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/task2/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task4/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/task4/client.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -26,7 +29,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2ELUKyaVO93gmogKrNq3MvPsvjx" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -36,6 +39,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -50,7 +54,7 @@
       <recent name="$PROJECT_DIR$/task1" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.server (1)">
+  <component name="RunManager" selected="Python.server (3)">
     <configuration name="client (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="laboratory_work_1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,7 +121,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="server (2)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="server (3)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="laboratory_work_1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -125,12 +129,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/task4" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/task5" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/task4/server.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/task5/server.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,12 +165,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="utils" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="laboratory_work_1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/task5" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/task5/utils.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.server (3)" />
+        <item itemvalue="Python.utils" />
         <item itemvalue="Python.server (1)" />
         <item itemvalue="Python.client (1)" />
         <item itemvalue="Python.client" />
-        <item itemvalue="Python.server (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -181,7 +208,10 @@
       <workItem from="1662374300567" duration="2121000" />
       <workItem from="1662376889083" duration="6193000" />
       <workItem from="1662396590843" duration="5222000" />
-      <workItem from="1662480498026" duration="1492000" />
+      <workItem from="1662480498026" duration="2080000" />
+      <workItem from="1662487629628" duration="1754000" />
+      <workItem from="1662565240881" duration="14013000" />
+      <workItem from="1662659319589" duration="5304000" />
     </task>
     <task id="LOCAL-00001" summary="added task1">
       <created>1662375899287</created>
@@ -212,8 +242,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="added task1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/laboratory_work_1$utils.coverage" NAME="utils Coverage Results" MODIFIED="1662577110546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task5" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$client.coverage" NAME="client Coverage Results" MODIFIED="1662480899080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task4" />
-    <SUITE FILE_PATH="coverage/laboratory_work_1$server__1_.coverage" NAME="server (1) Coverage Results" MODIFIED="1662481991809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task2" />
+    <SUITE FILE_PATH="coverage/laboratory_work_1$server__1_.coverage" NAME="server (1) Coverage Results" MODIFIED="1662482043185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task2" />
+    <SUITE FILE_PATH="coverage/laboratory_work_1$server__3_.coverage" NAME="server (3) Coverage Results" MODIFIED="1662664643338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task5" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$server.coverage" NAME="server Coverage Results" MODIFIED="1662375839826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$client__1_.coverage" NAME="client (1) Coverage Results" MODIFIED="1662480950464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task2" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$server__2_.coverage" NAME="server (2) Coverage Results" MODIFIED="1662402671623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task4" />
