@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25f5f43a-3825-4733-b15f-c531f0a121ea" name="Changes" comment="added task1">
-      <change afterPath="$PROJECT_DIR$/task5/Request.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task5/Response.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task5/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task5/server.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/task5/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/res/form.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/task5/res/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task5/Request.py" beforeDir="false" afterPath="$PROJECT_DIR$/task5/Request.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/task5/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/task5/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/task5/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +19,7 @@
       <list>
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -37,20 +38,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kovalev-vxx/Code/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/laboratory_works/Kovalev_Valery/laboratory_work_1&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/kovalev-vxx/Code/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/laboratory_works/Kovalev_Valery/laboratory_work_1",
+    "list.type.of.created.stylesheet": "CSS"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/task5/res" />
       <recent name="$PROJECT_DIR$/task1" />
     </key>
   </component>
@@ -211,7 +214,7 @@
       <workItem from="1662480498026" duration="2080000" />
       <workItem from="1662487629628" duration="1754000" />
       <workItem from="1662565240881" duration="14013000" />
-      <workItem from="1662659319589" duration="5304000" />
+      <workItem from="1662659319589" duration="17078000" />
     </task>
     <task id="LOCAL-00001" summary="added task1">
       <created>1662375899287</created>
@@ -245,7 +248,7 @@
     <SUITE FILE_PATH="coverage/laboratory_work_1$utils.coverage" NAME="utils Coverage Results" MODIFIED="1662577110546" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task5" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$client.coverage" NAME="client Coverage Results" MODIFIED="1662480899080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task4" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$server__1_.coverage" NAME="server (1) Coverage Results" MODIFIED="1662482043185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task2" />
-    <SUITE FILE_PATH="coverage/laboratory_work_1$server__3_.coverage" NAME="server (3) Coverage Results" MODIFIED="1662664643338" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task5" />
+    <SUITE FILE_PATH="coverage/laboratory_work_1$server__3_.coverage" NAME="server (3) Coverage Results" MODIFIED="1662723488333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task5" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$server.coverage" NAME="server Coverage Results" MODIFIED="1662375839826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$client__1_.coverage" NAME="client (1) Coverage Results" MODIFIED="1662480950464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task2" />
     <SUITE FILE_PATH="coverage/laboratory_work_1$server__2_.coverage" NAME="server (2) Coverage Results" MODIFIED="1662402671623" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/task4" />
