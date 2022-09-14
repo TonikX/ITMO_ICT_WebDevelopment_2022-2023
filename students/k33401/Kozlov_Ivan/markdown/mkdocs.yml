@@ -1,5 +1,8 @@
 site_name: Kozlov Ivan - WEB - ICT
 nav:
- - 1 lab: index.md
+ - 1 lab: lr_1.md
 
 theme: readthedocs
+
+markdown:
+  extra: true
