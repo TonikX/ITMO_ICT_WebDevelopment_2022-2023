@@ -2,28 +2,48 @@ import socket
 import threading
 
 
-def in_data(t_conn):
-    t_user = str(t_conn.getpeername()[1])
+def accept():
     while 1:
         try:
-            data = t_conn.recv(16384)
-            decode_data = data.decode('utf-8')
-            if decode_data == '/exit':
-                users.remove(t_conn)
-                for user in users:
-                    user.send(f"...User {t_user} left...\n".encode('utf-8'))
-                t_conn.close()
-                if len(users) == 0:
-                    s.close()
-                break
+            conn, addr = s.accept()
+            print(f"New user {conn.getpeername()[1]} was added")
+            conn.send(b"...Write \"/exit\" for live this chat...\n")
+            message = f"...New member: {addr[1]}...\n"
             for user in users:
-                if user == t_conn:
-                    continue
-                user.send(('User ' + t_user + ': ' + decode_data).encode('utf-8'))
+                user.send(message.encode('utf-8'))
+            users.append(conn)
+            t_in = threading.Thread(target=in_data, name='in', args=(conn,))
+            t_in.start()
         except socket.error:
-            print("Error in in_data()")
-            print(len(users))
             break
+
+
+def in_data(t_conn):
+    t_user = t_conn.getpeername()[1]
+    while 1:
+        try:
+            data = t_conn.recv(1024)
+            decode_data = data.decode('utf-8')
+            t_out = threading.Thread(target=out_data, name='out', args=(t_conn, decode_data, ), daemon=True)
+            t_out.start()
+            t_out.join()
+        except socket.error:
+            print(f"User {t_user} left")
+            break
+
+
+def out_data(t_conn, message):
+    t_user = t_conn.getpeername()[1]
+    if message == '/exit':
+        users.remove(t_conn)
+        specific_message = f"...User {t_user} left...\n".encode('utf-8')
+        t_conn.close()
+    else:
+        specific_message = f"User {t_user}: {message}".encode('utf-8')
+    for user in users:
+        if user == t_conn:
+            continue
+        user.send(specific_message)
 
 
 if __name__ == "__main__":
@@ -34,16 +54,11 @@ if __name__ == "__main__":
         s.listen(5)
         users = []
         print('Chat\'s started')
+        t_accept = threading.Thread(target=accept, name='accept', daemon=True)
+        t_accept.start()
         while 1:
-            try:
-                conn, addr = s.accept()
-                conn.send(b"...Write \"/exit\" for live this chat...\n")
-                message = f"...New member: {addr[1]}...\n"
-                for user in users:
-                    user.send(message.encode('utf-8'))
-                users.append(conn)
-                t = threading.Thread(target=in_data, name='in', args=(conn,))
-                t.start()
-            except socket.error:
+            check = input('Write \"/terminate\" to stop this chat\n')
+            if check == '/terminate':
+                s.close()
                 print('Chat\' stopped')
                 break
