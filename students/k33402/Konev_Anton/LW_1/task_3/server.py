@@ -8,14 +8,13 @@ while True:
     try:
         client_socket, addr = conn.accept()
         client_socket.recv(1024)
-        # Set appropriate headers
         response_type = "HTTP/1.0 200 OK\n"
         headers = "Content-Type: text/html\n\n"
-        # Read HTML from file
-        with open("index.html", "r") as f:
-            body = f.read()
+        f = open("index.html", "r")
+        body = f.read()
         res = response_type + headers + body
-        client_socket.send(res.encode())
+        client_socket.send(res.encode("utf-8"))
+        f.close()
         client_socket.close()
     except KeyboardInterrupt:
         conn.close()
