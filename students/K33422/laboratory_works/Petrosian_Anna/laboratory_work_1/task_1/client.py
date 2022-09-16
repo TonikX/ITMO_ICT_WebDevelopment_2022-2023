@@ -12,5 +12,5 @@ sock.send(message)
  
 data = sock.recv(1024)
 print(data.decode())
-#print (message)
+
 sock.close()
