@@ -12,6 +12,7 @@ def accept():
             for user in users:
                 user.send(message.encode('utf-8'))
             users.append(conn)
+            # Start a thread which receives messages
             t_in = threading.Thread(target=in_data, name='in', args=(conn,))
             t_in.start()
         except socket.error:
@@ -24,6 +25,7 @@ def in_data(t_conn):
         try:
             data = t_conn.recv(1024)
             decode_data = data.decode('utf-8')
+            # Start a thread which sends messages
             t_out = threading.Thread(target=out_data, name='out', args=(t_conn, decode_data, ), daemon=True)
             t_out.start()
             t_out.join()
@@ -54,9 +56,11 @@ if __name__ == "__main__":
         s.listen(5)
         users = []
         print('Chat\'s started')
+        # Start a thread which accepts sockets
         t_accept = threading.Thread(target=accept, name='accept', daemon=True)
         t_accept.start()
         while 1:
+            # Checking server shutdown
             check = input('Write \"/terminate\" to stop this chat\n')
             if check == '/terminate':
                 s.close()
