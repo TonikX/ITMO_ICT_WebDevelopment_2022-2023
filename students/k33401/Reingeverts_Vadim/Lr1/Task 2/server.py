@@ -37,6 +37,7 @@ while True:
         # Handle timeout
         except IOError:
             continue
+
         data = connection.recv(2048)
         data = data.decode('utf-8')
         print('Recived:\n' + data)
