@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+      <meta charset="UTF-8">
+      <title>Task 5</title>
+  </head>
+  <body >
+    <a href="index.html">Вернуться ставить оценку</a>
+  </body>
+  <script>
+      fetch('http://localhost:3000/table', {method: 'GET'})
+          .then((data) => {
+              console.log(data)
+              let table = document.getElementById("tableId")
+              table.appendChild(data)
+          })
+  </script>
+</html>
