@@ -11,6 +11,6 @@ try:
     data = connection.decode('utf-8')
     print('Recived:', data)
 except ConnectionResetError:
-    print("Could not connect the to server")
+    print("Could not connect to the server")
 
 sock.close()

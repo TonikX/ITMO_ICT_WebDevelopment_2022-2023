@@ -6,11 +6,12 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Ensures that port is always ready to be used again
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.bind(('localhost', 12346))
-print(f"Started server at {sock.getsockname()}")
-
 
 # Makes keyboard interrupt possible at all times
 sock.settimeout(1.0)
+
+print(
+    f"Started server at udp://{sock.getsockname()[0]}:{sock.getsockname()[1]}")
 
 while True:
     try:
