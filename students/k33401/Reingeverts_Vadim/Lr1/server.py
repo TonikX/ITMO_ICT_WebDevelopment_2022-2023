@@ -1,20 +1,17 @@
 import socket
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# UDP
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 sock.bind(('localhost', 12346))
 
-sock.listen(10)
-
 while True:
     try:
-        client_sock, address = sock.accept()
-
-        data = client_sock.recv(10240)
+        data, client_address = sock.recvfrom(2048)
         data = data.decode('utf-8')
         print('Recived:', data)
 
-        client_sock.send(b"Hello, client")
+        sock.sendto(b"Hello, client", client_address)
     except KeyboardInterrupt:
         print("Stopping server...")
         sock.close()
