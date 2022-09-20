@@ -25,10 +25,7 @@
         async function fetchTable() {
             await fetch('http://localhost:3000/table')
                 .then((response) => {
-                    // data.json()
                     response.text()
-                    // let table = document.getElementById("tableId")
-                    // table.appendChild(data.body)
                 }).then((data) => {
                     console.log(data)
                 })
