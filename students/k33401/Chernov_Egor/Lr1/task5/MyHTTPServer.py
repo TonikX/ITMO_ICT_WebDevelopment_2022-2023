@@ -85,13 +85,13 @@ class MyHTTPServer:
         return subject, grade
 
     def handle_request(self, req):
-        if req.path == '/welcome' and req.method == 'GET':
+        if req.target == '/welcome' and req.method == 'GET':
             return self.handle_get_welcome()
 
         if req.method == 'POST':
             return self.handle_post_subjects(req)
 
-        if req.path == '/subjects' and req.method == 'GET':
+        if req.target.startswith('/subjects') and req.method == 'GET':
             return self.handle_get_subjects()
 
         raise HTTPError(404, 'Not found')

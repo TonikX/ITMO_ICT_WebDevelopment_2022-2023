@@ -18,10 +18,6 @@ sock = socket.socket()
 sock.bind(("", 8080))
 sock.listen(1)
 conn, addr = sock.accept()
-
-# massage_in = "Which formula do you prefer?\na. S = a*h\nb. S = a*b*sin(a^b)\nc. S = 0.5*d1*d2+sin(d1^d2)\nInput latter and params: "
-# conn.send(massage_in.encode("utf-8"))
-
 try:
     while 1:
         try:
