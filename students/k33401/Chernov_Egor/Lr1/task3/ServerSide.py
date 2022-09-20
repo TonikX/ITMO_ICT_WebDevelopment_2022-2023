@@ -1,4 +1,5 @@
 import socket
+import os
 
 
 with socket.socket() as s:
@@ -6,7 +7,9 @@ with socket.socket() as s:
     s.listen(1)
     conn, addr = s.accept()
     with conn:
-        with open('C:/Users/krish/Учеба/5 семестр/Web-разработка/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/Chernov_Egor/Lr1/res/index.html') as fin:
+        work_path = os.getcwd()
+        res_path = ('\\'.join(work_path.split('\\')[:-1]) + '\\res\\index.html').replace('\\', '/')
+        with open(res_path) as fin:
             message = fin.read()
         print(conn.recv(16348).decode('utf-8'))
         response = 'HTTP/1.0 200 OK\n\n' + message
