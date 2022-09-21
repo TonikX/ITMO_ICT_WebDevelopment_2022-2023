@@ -15,14 +15,90 @@
                 background-color: #181a1b;
                 color: #d3cfc9;
             }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin-bottom: 1.25em;
+            }
+            input,
+            select,
+            button {
+                color: #d3cfc9;
+                background-color: #333;
+                border: 1px solid #787673;
+                border-radius: 4px;
+                padding: 0.4rem 0.2rem;
+            }
+            button:hover {
+                filter: brightness(125%);
+                cursor: pointer;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid #d3cfc9;
+                border-collapse: collapse;
+            }
+            table th,
+            table td {
+                text-align: left;
+                padding: 0.75rem;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            table {
+                margin: 1em 0;
+            }
+            table.display th,
+            table.display td {
+                border: 1px solid #b3bfaa;
+                padding: 0.5em 1em;
+            }
+
+            table.display th {
+                background: #d5e0cc;
+            }
+            table.display td {
+                background: #fff;
+            }
+
+            table.responsive-table {
+                box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+            }
         </style>
     </head>
     <body>
-        <h1 style="margin-bottom: 4rem">This page is being served from <i>python's socket</i>!</h1>
+        <h1>Grades</h1>
+        <h2>Table:</h2>
+        {{ table }}
 
-        <p>Here are some cool emojis:</p>
-        <marquee behavior="alternate" scrollamount="12">
-            <p style="font-size: 3rem; margin: 0">💥 ❄ 🌨 💻 🎁</p>
-        </marquee>
+        <h2>Add more:</h2>
+        <form
+            action="/add"
+            method="POST"
+            autocomplete="off"
+            style="display: flex; flex-direction: column; width: 10rem; gap: 0.5rem"
+        >
+            <label for="subject">Subject:</label>
+            <select name="subject">
+                <option>Math</option>
+                <option>P.E.</option>
+                <option>Physics</option>
+                <option>Programming</option>
+                <option>History</option>
+            </select>
+
+            <label for="mark">Mark:</label>
+            <input name="mark" type="numer" />
+            <label for="semester">Semester:</label>
+            <input name="semester" type="numer" />
+            <br />
+            <button type="submit">Submit</button>
+        </form>
     </body>
 </html>
