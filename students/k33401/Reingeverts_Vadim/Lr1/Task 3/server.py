@@ -7,8 +7,6 @@ import webbrowser
 # 1. Running .py file directly `python server.py`
 # 2. Running .py file from another directory `python ./someComplicatedPath/server.py`
 # 3. Running cell from .ipynb notebook
-
-curr_dirname = None
 ipynb_path = "./Task 3"
 if "__file__" in globals():
     dirname = path.dirname(__file__)
@@ -16,6 +14,7 @@ else:
     dirname = Path(path.abspath("") + ipynb_path)
 
 index_file = Path(dirname) / 'index.html'
+
 # TCP
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Ensures that port is always ready to be used again
@@ -33,7 +32,6 @@ webbrowser.open(url)
 
 while True:
     try:
-        connection, client_address = None, None
         try:
             connection, client_address = sock.accept()
         # Handle timeout
@@ -44,10 +42,10 @@ while True:
 
         response_type = "HTTP/1.1 200 OK\n"
         headers = "Content-Type: text/html; charset=utf-8\n\n"
-        body = None
 
         with open(index_file, 'r', encoding="utf-8") as file:
             body = file.read()
+
         response = response_type + headers + body
         connection.sendall(response.encode('utf-8'))
 
