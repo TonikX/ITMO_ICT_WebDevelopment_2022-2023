@@ -1,0 +1,15 @@
+site_name: Kondratev Aleksey, K33412
+
+theme:
+  name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  
+nav:
+ - Знакомство: index.md
+ - Лабораторная работа №1: lr1.md

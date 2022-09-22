@@ -1,21 +1,31 @@
-import socket, time
+import socket
+from threading import Thread
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 9090))
-sock.listen(1)
-sock.setblocking(False)
-print("Сервер запущен \nСервер ждет клиента")
+HOST = "127.0.0.1"
+PORT = 9090
+clients = []
+sock = socket.socket()
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.bind((HOST, PORT))
+sock.listen(10)
+print(f"Сервер запущен {HOST}:{PORT}")
+
+def listen_for_client(people):
+    while True:
+        try:
+            message = people.recv(1024).decode()
+        except Exception as e:
+            print(f"[!] Ошибка: {e}")
+            clients.pop(people)
+        else:
+            message = message.replace(" ", ": ")
+        for client in clients:
+            client.send(message.encode())
 
 while True:
-    try:
-        clientsocket, address = sock.accept()
-        data = clientsocket.recv(16384)
-        numbers = data.decode("utf-8")
-        clientsocket.close()
-        break
-    except socket.error:
-        print("Жду")
-        time.sleep(3)
-    except KeyboardInterrupt:
-        clientsocket.close()
-    break
+    client, (port, host) = sock.accept()
+    print(f"подключен {port}:{host}.")
+    clients.append(client)
+    thread = Thread(target=listen_for_client, args=(client,))
+    thread.daemon = True
+    thread.start()
