@@ -31,11 +31,10 @@ while True:
         if message == 'bye':
             print('You left the chat')
             shutdown = True
-            rt.join()
             break
     except:
+        s.sendall('Error'.encode('utf-8'))
         print('Error. Disconected')
         shutdown = True
-        rt.join()
         break
 s.close()

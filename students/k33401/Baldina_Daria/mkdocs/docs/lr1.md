@@ -143,10 +143,18 @@ def handle_client(cl_sock, cl_addr): #обработка клиента
     print(f'Client {cl_addr[0]}:{cl_addr[1]} join the chat')
 
     while True:
-        message = cl_sock.recv(1024) 
-        if message.decode('utf-8').find('bye') != -1:  
+        try:
+            message = cl_sock.recv(1024) #принимаем сообщение от клиента
+            if message.decode('utf-8').find('bye') != -1: #клиент покидает 
+                send_to_chat(cl_sock, message) 
+                break
+            elif message.decode('utf-8').find('Error') != -1:
+                break
+            send_to_chat(cl_sock, message)  #отправляем сообщение участникам чата
+        except socket.error:
+            print(f'Client {cl_addr[0]}:{cl_addr[1]} suddenly left')
             break
-        send_to_chat(cl_sock, message) 
+
     print (f'Client {cl_addr[0]}:{cl_addr[1]} left the chat')
     clients.remove(cl_sock)
     cl_sock.close()
@@ -156,7 +164,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host = 'localhost'
 port = 9090
 s.bind((host,port))
-s.listen(5)
+s.listen(100)
 clients = []
 
 print('Starting chat server')
@@ -171,7 +179,8 @@ while True:
             t1.start()
         except KeyboardInterrupt:
             print('Server stopped')
-            s.close()
+            break
+s.close()
 ```
 
 * `client.py`
@@ -209,12 +218,11 @@ while True:
         if message == 'bye':
             print('You left the chat')
             shutdown = True
-            rt.join()
             break
     except:
+        s.sendall('Error'.encode('utf-8'))
         print('Error. Disconected')
         shutdown = True
-        rt.join()
         break
 s.close()
 ```
