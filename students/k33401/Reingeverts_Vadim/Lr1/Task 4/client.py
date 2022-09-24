@@ -46,7 +46,9 @@ class ChatClient(socket.socket):
     def client_send(self):
         while self.is_connected:
             try:
-                text = input("You: ")
+                text = input("")
+                print()
+
                 msg_dict = {"name": self.name, "text": text}
 
                 # Serialize dict
@@ -68,13 +70,16 @@ class ChatClient(socket.socket):
                 # Deserialize dict
                 msg_dict = json.loads(data)
                 name, text, id = destructure(msg_dict)
-                if (id != self.id):
-                    print(f"\n{name}: {text}")
+                local_name = "You" if id == self.id else name
+
+                print(f"{local_name}: {text}")
 
             except TimeoutError:
                 continue
-            except (ConnectionResetError, ConnectionAbortedError, OSError):
+            except (ConnectionResetError, ConnectionAbortedError):
                 print("\nServer closed connection.")
+                break
+            except OSError:
                 break
             except KeyboardInterrupt:
                 break
