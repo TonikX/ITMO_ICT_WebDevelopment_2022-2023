@@ -21,5 +21,6 @@ def start():
         UDPServer.sendto(CONNECT_MESSAGE, addr)
 
 
-print("[STARTING] server is starting...")
-start()
+if __name__ == "__main__":
+    print("[STARTING] server is starting...")
+    start()

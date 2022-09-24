@@ -12,5 +12,11 @@ CONNECT_MESSAGE = "Hello, server!".encode(FORMAT)
 UDPClient = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 UDPClient.sendto(CONNECT_MESSAGE, ADDR)
 
-msg, addr = UDPClient.recvfrom(BUFFER_SIZE)
-print(f"[{addr}]: {msg.decode(FORMAT)}")
+
+def connect():
+    msg, addr = UDPClient.recvfrom(BUFFER_SIZE)
+    print(f"[{addr}]: {msg.decode(FORMAT)}")
+
+
+if __name__ == "__main__":
+    connect()
