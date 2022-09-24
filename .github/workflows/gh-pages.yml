@@ -18,9 +18,9 @@ jobs:
           tinytex: false
           
       - name: Create Quarto project
-      # cd students/k33401/Reingeverts_Vadim/Lr1
         run: |
-          quarto create-project docs/ --type website
+          cd students/k33401/Reingeverts_Vadim/Lr1
+          quarto create-project Docs --type website
           quarto publish
           
           
@@ -53,7 +53,7 @@ jobs:
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
-          path: docs/
-#           path: students/k33401/Reingeverts_Vadim/Lr1/
+#           path: docs/
+          path: students/k33401/Reingeverts_Vadim/Lr1/Docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
