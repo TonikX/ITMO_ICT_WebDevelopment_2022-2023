@@ -1,17 +1,19 @@
 import socket
 from threading import Thread
 
+# ref: https://stackoverflow.com/a/43936317
+
 
 class SocketServer(socket.socket):
     clients = []
 
-    def __init__(self):
+    def __init__(self, host='localhost', port=12344):
         # TCP
         socket.socket.__init__(self, socket.AF_INET, socket.SOCK_STREAM)
         # Ensures that port is always ready to be used again
         self.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-        self.bind(('localhost', 12344))
+        self.bind((host, port))
         self.listen(10)
         # Makes keyboard interrupt possible at all times
         self.settimeout(1.0)
