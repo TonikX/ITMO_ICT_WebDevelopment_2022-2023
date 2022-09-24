@@ -1,7 +1,4 @@
-on:
-  push:
-    branches: "Lr1"
-
+on: [push]
 name: Lab 1
 
 jobs:
