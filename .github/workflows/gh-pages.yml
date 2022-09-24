@@ -19,9 +19,8 @@ jobs:
           
       - name: Create Quarto project
         run: |
-          cd ../students/k33401/Reingeverts_Vadim/Lr1
+          cd students/k33401/Reingeverts_Vadim/Lr1
           quarto create-project Docs --type website
-          quarto publish
           
           
       # add software dependencies here
