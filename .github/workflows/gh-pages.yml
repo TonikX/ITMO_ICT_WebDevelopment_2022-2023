@@ -1,10 +1,12 @@
 name: Lab 1
-on: [push]
+on:
+  push:
+      branches:
+        - Lr1
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
-    concurrency: ci-${{github-ref}}
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
