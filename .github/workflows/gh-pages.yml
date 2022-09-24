@@ -20,7 +20,7 @@ jobs:
       - name: Create Quarto project
         run: |
           cd students/k33401/Reingeverts_Vadim/Lr1
-          quarto create-project Web-dev --type website
+          quarto create-project --type website
       # add software dependencies here
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
