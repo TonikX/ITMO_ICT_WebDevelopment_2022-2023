@@ -1,5 +1,5 @@
-on: [push]
 name: Lab 1
+on: [push]
 
 jobs:
   build-deploy:
