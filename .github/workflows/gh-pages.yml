@@ -1,6 +1,10 @@
 name: Lab 1
-on: [push]
-
+on:
+  push:
+    branches:
+      - 'Lr**'
+      - 'Lr1'
+      - 'gh-pages'
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
