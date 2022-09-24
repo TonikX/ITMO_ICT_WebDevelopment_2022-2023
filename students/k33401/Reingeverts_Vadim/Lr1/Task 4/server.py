@@ -1,4 +1,6 @@
 import socket
+import threading
+import json
 from threading import Thread
 
 # ref: https://stackoverflow.com/a/43936317
@@ -33,6 +35,7 @@ class SocketServer(socket.socket):
         for client in self.clients:
             client.close()
         self.close()
+        print("Server has stopped.")
 
     def accept_clients(self):
         while True:
@@ -40,8 +43,9 @@ class SocketServer(socket.socket):
             try:
                 connection, client_address = self.accept()
             # Handle timeout
-            except IOError:
+            except TimeoutError:
                 continue
+
             # Adding client to clients list
             self.clients.append(connection)
             # Client Connected
@@ -49,18 +53,15 @@ class SocketServer(socket.socket):
             # Receiving data from client
             thread = Thread(target=self.recieve, args=(connection,))
             thread.start()
-            thread.join()
 
     def recieve(self, connection):
         while True:
-            print("LOOP recieve")
-
             try:
                 data = connection.recv(2048)
             # Handle timeout
-            except IOError:
-                print("break")
-                # continue
+            except TimeoutError:
+                continue
+            except ConnectionAbortedError:
                 break
             if data == b"":
                 break
@@ -98,9 +99,15 @@ class ChatServer(SocketServer):
         SocketServer.__init__(self)
 
     def on_message(self, connection, message):
-        print(message.decode("utf-8"))
+
+        msg_dict = json.loads(message)  # data loaded
+        msg_dict["id"] = f"{connection.getpeername()[0]}:{connection.getpeername()[1]}"
+        print(msg_dict)
+        # Serialize dict
+        serialized = json.dumps(msg_dict).encode("utf-8")
+
         # Sending message to all clients
-        self.broadcast(message)
+        self.broadcast(serialized)
 
     def on_open(self, connection):
         print("Client Connected")

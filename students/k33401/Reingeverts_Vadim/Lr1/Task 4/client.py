@@ -1,9 +1,17 @@
+import os
 import socket
 from threading import Thread
+import json
 
 
-class SocketClient(socket.socket):
+def destructure(dict):
+    return (t[1] for t in dict.items())
+
+
+class ChatClient(socket.socket):
     name = ""
+    id = ""
+    is_connected = False
 
     def __init__(self):
         # TCP
@@ -18,39 +26,67 @@ class SocketClient(socket.socket):
     def client_connect(self, host='localhost', port=12344):
         try:
             self.connect((host, port))
+            self.id = f"{self.getsockname()[0]}:{self.getsockname()[1]}"
+            self.is_connected = True
+
         except IOError:
             print("Could not connect to the server.")
-            self.stop()
-            return
+            self.client_disconnect()
+
         self.talk_with_server()
 
     def talk_with_server(self):
-        while True:
-            try:
-                text = input("Your message: ")
-                message = f"{self.name}: {text}".encode("utf-8")
-                self.send(message)
 
-                try:
-                    connection = self.recv(2048)
-                    message = connection.decode('utf-8')
-                    print(message)
-                # Handle timeout
-                except IOError:
-                    continue
-            except ConnectionResetError or ConnectionAbortedError:
-                print("Server closed connection.")
-            except ConnectionRefusedError:
-                print("Could not connect to the server.")
+        thread1 = Thread(target=self.client_send)
+        thread2 = Thread(target=self.client_receive)
+
+        thread1.start()
+        thread2.start()
+
+    def client_send(self):
+        while self.is_connected:
+            try:
+                text = input("You: ")
+                msg_dict = {"name": self.name, "text": text}
+
+                # Serialize dict
+                serialized = json.dumps(msg_dict).encode("utf-8")
+                self.send(serialized)
+
+            except TimeoutError:
+                continue
+            except (EOFError, IOError, OSError):
+                break
             except KeyboardInterrupt:
                 break
-        self.stop()
+        self.client_disconnect()
 
-    def stop(self):
-        print("\nDisconnecting...")
-        self.close()
+    def client_receive(self):
+        while self.is_connected:
+            try:
+                data = self.recv(2048)
+                # Deserialize dict
+                msg_dict = json.loads(data)
+                name, text, id = destructure(msg_dict)
+                if (id != self.id):
+                    print(f"\n{name}: {text}")
+
+            except TimeoutError:
+                continue
+            except (ConnectionResetError, ConnectionAbortedError, OSError):
+                print("\nServer closed connection.")
+                break
+            except KeyboardInterrupt:
+                break
+        self.client_disconnect()
+
+    def client_disconnect(self):
+        if (self.is_connected):
+            self.close()
+        self.is_connected = False
+        os._exit(0)
 
 
 if __name__ == "__main__":
-    client = SocketClient()
+    client = ChatClient()
     client.client_connect()
