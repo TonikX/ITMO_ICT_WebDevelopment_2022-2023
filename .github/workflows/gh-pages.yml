@@ -26,10 +26,10 @@ jobs:
       # add software dependencies here
       
       
-      - name: Render Quarto Project
-        uses: quarto-dev/quarto-actions/render@v2
-        with:
-          to: html # If set, it will be equivalent to `quarto render --to html`
+#       - name: Render Quarto Project
+#         uses: quarto-dev/quarto-actions/render@v2
+#         with:
+#           to: html # If set, it will be equivalent to `quarto render --to html`
 #           path: students/k33401/Reingeverts_Vadim/Lr1/ # By default, the current working dir is used i.e `quarto render .`
 
       # To publish to Netlify, RStudio Connect, or GitHub Pages, uncomment
