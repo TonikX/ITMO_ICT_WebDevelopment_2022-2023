@@ -21,6 +21,7 @@ jobs:
       # cd students/k33401/Reingeverts_Vadim/Lr1
         run: |
           quarto create-project --type website
+          quarto publish
           
           
       # add software dependencies here
