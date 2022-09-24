@@ -1,1 +1,0 @@
-Sitemap: https://github.com/LiprikON2/Web-Development/sitemap.xml
