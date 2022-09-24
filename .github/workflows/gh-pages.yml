@@ -1,8 +1,5 @@
 name: Lab 1
-on:
-  push:
-      branches:
-        - Lr1
+on: [push]
 
 jobs:
   build-deploy:
