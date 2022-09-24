@@ -44,7 +44,7 @@ class ChatClient(socket.socket):
         thread2.start()
 
     def client_send(self):
-        while self.is_connected:
+        while True:
             try:
                 text = input("")
                 print()
@@ -64,7 +64,7 @@ class ChatClient(socket.socket):
         self.client_disconnect()
 
     def client_receive(self):
-        while self.is_connected:
+        while True:
             try:
                 data = self.recv(2048)
                 # Deserialize dict

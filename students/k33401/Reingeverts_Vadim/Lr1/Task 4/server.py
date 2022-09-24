@@ -39,7 +39,6 @@ class SocketServer(socket.socket):
 
     def accept_clients(self):
         while True:
-            print("LOOP accept_clients")
             try:
                 connection, client_address = self.accept()
             # Handle timeout
@@ -74,7 +73,7 @@ class SocketServer(socket.socket):
         # Closing connection with client
         connection.close()
 
-        print(self.clients)
+        print("Current clients:", len(self.clients))
         return
 
     def broadcast(self, message):
@@ -102,7 +101,7 @@ class ChatServer(SocketServer):
 
         msg_dict = json.loads(message)  # data loaded
         msg_dict["id"] = f"{connection.getpeername()[0]}:{connection.getpeername()[1]}"
-        print(msg_dict)
+        print("Recived:", msg_dict)
         # Serialize dict
         serialized = json.dumps(msg_dict).encode("utf-8")
 
@@ -111,7 +110,6 @@ class ChatServer(SocketServer):
 
     def on_open(self, connection):
         print("Client Connected")
-        # connection.settimeout(5.0)
 
     def on_close(self, connection):
         print("Client Disconnected")
