@@ -1,7 +1,7 @@
 import socket
 
-sock = socket.socket()
-sock.connect(('localhost', 9090))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 9523))
 
 data = input("Введите значение одного из катетов: ").replace(" ", "")
 data += " " + input("Введите значение второго катета, если оно известно, иначе - введите 0: ").replace(" ", "")

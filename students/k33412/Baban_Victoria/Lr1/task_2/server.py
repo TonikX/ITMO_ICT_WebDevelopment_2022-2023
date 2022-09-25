@@ -1,8 +1,8 @@
 import socket
 from math import sqrt
 
-sock = socket.socket()
-sock.bind(('', 9090))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 9523))
 sock.listen(10)
 conn, addr = sock.accept()
 
