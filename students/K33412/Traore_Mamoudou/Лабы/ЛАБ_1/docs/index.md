@@ -141,99 +141,180 @@ while True:
 ## TASK 4
 * client.py
 ``` py
+import socket
+import threading
 
+
+conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = '127.0.0.1', 8080
+conn.connect(server)
+
+username = input('Выберите псевдоним: ')
+
+
+def recv_msg():
+    while True:
+        msg = conn.recv(2000).decode()
+        if msg == 'username':
+            conn.send(username.encode())
+        else:
+            print(msg)
+
+
+def print_msg():
+    while True:
+        msg = '{} says: {}'.format(username, input(''))
+        conn.send(msg.encode())
+
+
+recv_thr = threading.Thread(target=recv_msg)
+print_thr = threading.Thread(target=print_msg)
+recv_thr.start()
+print_thr.start()
 ```
 * server.py
 ``` py
+import socket, threading
 
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = '127.0.0.1'
+port = 8080
+server.bind((host, port))
+server.listen()
+
+clients = []
+users = []
+
+
+def broadcast(msg, client):
+    for each in clients:
+        if each != client:
+            each.send(msg)
+
+
+def handle(client):
+    while True:
+        msg = client.recv(2000)
+        broadcast(msg, client)
+
+
+def receive():
+    while True:
+        client, addr = server.accept()
+        client.send('username'.encode())
+        user = client.recv(2000).decode()
+        clients.append(client)
+        users.append(user)
+        client.send('Connection established'.encode())
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
+
+
+receive()
 ```
-# TASK 5
-* client.py
+## TASK 5
+* server.py
 ``` py
 import socket
-import sys
-
 
 class MyHTTPServer:
 
-        def __init__(self, host, port):
-                self.host = host
-                self.port = port
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
-        def serve_forever(self):
-                conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                conn.bind((self.host, self.port))
-                conn.listen(10)
-                while True:
-                        client, address = conn.accept()
-                        self.serve_client(client)
+    def serve_forever(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind((self.host, self.port))
+        sock.listen(2)
+        while True:
+            clientsocket, _ = sock.accept()
+            self.serve_client(clientsocket)
 
-        def serve_client(self, client):
-                text = client.recv(16384)
-                text = text.decode('utf-8') # change
-                url, method, headers, body = self.parse_request(text)
-                resp = self.handle_request(url, method, body)
-                if resp:
-                        self.send_response(client, resp)
+    def serve_client(self, clientsocket):
+        data = clientsocket.recv(18456)
+        data = data.decode('utf-8')
+        target, method = self.parse_request(data)
+        headers, body = self.parse_headers(data)
+        resp = self.handle_request(target, method, body)
+        if resp:
+            self.send_response(clientsocket, resp)
 
-        def parse_request(self, text):
-                text = text.replace('\r', '')
-                lines = text.split('\n')
-                method, url, protocol = lines[0].split()
-                i = lines.index('')
-                headers = lines[1:i]
-                body = lines[-1]
-                # exception
-                return url, method, headers, body
+    def parse_request(self, data):
+        data = data.replace('\r', '')
+        lines = data.split('\n')
+        method, target, protocol = lines[0].split()
+        return target, method
 
-        def handle_request(self, url, method, body):
-                        resp = "HTTP/1.1 200 OK\n\n"
-                        error = f" 400\n\nErorr"
-                        if method == 'GET' and url == '/':
-                                with open('index.html', 'r') as f: #change
-                                        resp += f.read()
-                                return resp
-                        elif Exception:
-                            return error
-                        if method == "POST" and url == '/':
-                                newbody = body.split('&')
-                                for i in newbody:
-                                        if i.split('=')[0] == 'subject':
-                                                subjects.append(i.split('=')[1])
-                                        if i.split('=')[0] == 'mark':
-                                                marks.append(i.split('=')[1])
-                                resp += "<html><head><title>Journal</title></head><body><table border=1>"
-                                for s, m in zip(subjects, marks):
-                                        resp += f"<tr><td>{s}</td><td>{m}</td></tr>"
-                                resp += "</table></body></html>"
-                                return resp
-                        elif Exception:
-                            return error
+    def parse_headers(self, data):
+        data = data.replace('\r', '')
+        lines = data.split('\n')
+        i = lines.index('')
+        headers = lines[1:i]
+        body = lines[-1]
+        return headers, body
 
+    def handle_request(self, target, method, body):
+        if target == "/":
+            if method == "GET":
+                resp = "HTTP/1.1 200 OK\n\n"
+                with open('index.html') as f:
+                    resp += f.read()
+                return resp
 
-        def send_response(self, clientsocket, resp):
-                clientsocket.send(resp.encode('utf-8'))
+            if method == "POST":
+                newbody = body.split('&')
+                for a in newbody:
+                    if a.split('=')[0] == 'subject':
+                        subjects.append(a.split('=')[1])
+                    if a.split('=')[0] == 'mark':
+                        marks.append(a.split('=')[1])
 
+                resp = "HTTP/1.1 200 OK\n\n"
+                resp += "<html><head><title>Journal</title></head><body>"
+                for s, m in zip(subjects, marks):
+                    resp += f"<p>{s}: {m}</p>"
+                resp += "</body></html>"
+                return resp
+
+    def send_response(self, clientsocket, resp):
+        clientsocket.send(resp.encode('utf-8'))
 
 if __name__ == '__main__':
-        host = '127.0.0.1'
-        port = 3000
-        serv = MyHTTPServer(host, port)
-        subjects = []
-        marks = []
-        try:
-                serv.serve_forever()
-        except KeyboardInterrupt:
-                pass
-
+    host = 'localhost'
+    port = 8081
+    serv = MyHTTPServer(host, port)
+    subjects = []
+    marks = []
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass
 ```
-* server.py
-``` py
+* index.html
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+</head>
+<body>
+<form action="/" method="post">
+    <div>
+        <label for="name">Subject:</label>
+        <input type="text" id="name" name="subject"/>
+    </div>
+    <div>
+        <label for="mail">Mark:</label>
+        <input type="number" id="mail" name="mark"/>
+    </div>
+    <div>
+        <input type="submit">
+    </div>
 
+</body>
+</html>
 ```
-## Project layout
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
