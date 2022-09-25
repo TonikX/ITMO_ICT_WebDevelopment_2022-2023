@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Лабораторная работа №1 - Чжао Цюансень docs</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 \u21161";
+        var mkdocs_page_input_path = "Lr1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Чжао Цюансень docs
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Лабораторная работа №1</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#work-1">Work 1</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#work-2">Work 2</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#work-3">Work 3</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#work-4">Work 4</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#work-5">Work 5</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Чжао Цюансень docs</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Лабораторная работа №1</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="1">Лабораторная работа 1</h1>
+<h2 id="work-1">Work 1</h2>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind((&quot;127.0.0.1&quot;, 4245))
+
+while True:
+   data, addr = s.recvfrom(1024)
+   print(f&quot;Получено от {addr}\nЗапрос: {data.decode()}\n&quot;)
+   if data == b&quot;Hello, server&quot;:
+       s.sendto(b&quot;Hello, client&quot;, addr)
+   else:
+       s.sendto(&quot;Я не понимаю...&quot;.encode(), addr)
+
+s.close()
+print(&quot;Сервер закончил работу!&quot;)
+</code></pre>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+socket_ = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+server_addr = ('127.0.0.1', 4245)
+
+message = input(&quot;Ваше сообщение: &quot;)
+socket_.sendto(message.encode(), server_addr)
+response, server_addr = socket_.recvfrom(1024)
+print(f'Ответ от сервера: {response.decode()}\n')
+socket_.close()
+</code></pre>
+<h2 id="work-2">Work 2</h2>
+<p>*<code>server.py</code></p>
+<pre><code class="language-python">import socket
+import math
+
+tcp_socket_host = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+tcp_socket_host.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
+tcp_socket_host.bind(('127.0.0.1', 4245))
+tcp_socket_host.listen()
+
+while True:
+    client, addr = tcp_socket_host.accept()
+    data = [float(i) for i in client.recv(1024).decode().split(',')]
+    a = data[0]
+    b = data[1]
+    c = data[2]
+    dis = b ** 2 - 4 * a * c
+
+    if dis &gt; 0:
+        x1 = (-b + math.sqrt(dis)) / (2 * a)
+        x2 = (-b - math.sqrt(dis)) / (2 * a)
+        client.send(f'x1 = {x1}\nx2 = {x2}'.encode())
+    elif dis == 0:
+        x = -b / (2 * a)
+        client.send(f&quot;x = {x}&quot;.encode())
+    else:
+        client.send(&quot;Корней нет&quot;.encode())
+</code></pre>
+<p>*<code>client.py</code></p>
+<pre><code class="language-python">from socket import *
+
+socket = socket(AF_INET,SOCK_STREAM)
+socket.connect(('127.0.0.1', 4245))
+
+print(&quot;Решение квадратного уравнения.&quot;)
+print(&quot;Введите коэффициенты для уравнения: ax^2 + bx + c = 0&quot;)
+a = float(input(&quot;a: &quot;))
+b = float(input(&quot;b: &quot;))
+c = float(input(&quot;c: &quot;))
+socket.send(f'{a},{b},{c}'.encode())
+recv_data = socket.recv(1024)
+print(f'Решение: \n{recv_data.decode()}')
+
+socket.close()
+</code></pre>
+<h2 id="work-3">Work 3</h2>
+<p>*<code>sever.py</code></p>
+<pre><code class="language-python">import socket
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server_socket.bind(('127.0.0.1', 4245))
+server_socket.listen()
+
+while True:
+    client, address = server_socket.accept()
+    req = client.recv(1024).decode()
+    code = open('index.html')
+    res = 'HTTP/1.0 200 OK\n\n' + code.read()
+    code.close()
+    if req == 'адрес страницы':
+        client.send(f'Адрес страницы: http://127.0.0.1:4245'.encode())
+    else:
+        client.sendall(res.encode())
+    client.close()
+</code></pre>
+<p>*<code>client.py</code></p>
+<pre><code class="language-python">from socket import *
+
+socket = socket(AF_INET,SOCK_STREAM)
+socket.connect(('127.0.0.1', 4245))
+
+socket.send('адрес страницы'.encode())
+adress = socket.recv(1024)
+print(adress.decode())
+
+socket.close()
+</code></pre>
+<h2 id="work-4">Work 4</h2>
+<p>*<code>server.py</code></p>
+<pre><code class="language-python">import socket
+import threading
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('127.0.0.1', 4245))
+server.listen()
+
+conns = []
+names = []
+
+def print_msg(message, name = 'Сервер', conn_not_send = ''):
+    for conn in conns:
+        if conn != conn_not_send:
+            conn.send(f'{name} говорит &gt; {message.decode()}'.encode())
+
+def control(conn):
+    while True:
+        try:
+            message = conn.recv(1024)
+            print_msg(message, names[conns.index(conn)], conn)
+        except:
+            index = conns.index(conn)
+            conns.remove(conn)
+            conn.close()
+            nickname = names[index]
+            print_msg(f'{nickname} отключился.'.encode())
+            names.remove(nickname)
+            break
+
+def get():
+    while True:
+        conn, addr = server.accept()
+
+        conn.send('регистрация'.encode())
+        name = conn.recv(1024).decode()
+        names.append(name)
+        conns.append(conn)
+
+        conn.send('Подключился к серверу!\n'.encode())
+        print_msg(f&quot;{name} подключился!--&gt;&quot;.encode())
+
+        thread = threading.Thread(target=control, args=(conn,))
+        thread.start()
+
+get()
+</code></pre>
+<p>*<code>client.py</code></p>
+<pre><code class="language-python">import socket
+import threading
+
+nickname = input(&quot;Имя пользователя: &quot;)
+
+socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+socket.connect(('127.0.0.1', 4245))
+
+def get():
+    while True:
+        try:
+            message = socket.recv(1024).decode()
+            if message == 'регистрация':
+                socket.send(nickname.encode())
+            else:
+                print(message)
+        except:
+            break
+
+def send():
+    while True:
+        msg = input('')
+        if msg == 'out':
+            socket.close()
+            break
+        socket.send(msg.encode())
+
+get_thread = threading.Thread(target = get)
+get_thread.start()
+
+send_thread = threading.Thread(target = send)
+send_thread.start()
+</code></pre>
+<h2 id="work-5">Work 5</h2>
+<p>*<code>server.py</code></p>
+<pre><code class="language-python">import socket
+
+lessons = [
+  {'name': 'Python', 'desc': 'Client/Server', 'marks' : [4,5]}
+]
+
+def post_func(post_msg):
+  info = post_msg.split('&amp;')
+  return [info[0][7:], info[1][5:], [int(i) for i in info[2][6:].split('%2C')]]
+
+def get():
+  html = '&lt;ol&gt;'
+  for lesson in lessons:
+    html += '&lt;li&gt;'
+    html += f'&lt;h1&gt;Lesson: {lesson[&quot;name&quot;]}&lt;/h1&gt;'
+    for mark in lesson['marks']:
+      html += f'&lt;p&gt;grade: {mark}&lt;/p&gt;'
+    html += '&lt;/li&gt;'
+  html += '&lt;/ol&gt;'
+  return html
+
+def add():
+  form = &quot;&quot;&quot;
+  &lt;form action=&quot;/&quot; method=&quot;post&quot;&gt;
+    &lt;P&gt;Lesson: &lt;/p&gt;
+    &lt;input type=&quot;text&quot; name=&quot;lesson&quot; value=&quot;math&quot;/&gt;
+    &lt;P&gt;Description: &lt;/p&gt;
+    &lt;input type=&quot;text&quot; name=&quot;desc&quot; value=&quot;numbers&quot;/&gt;
+    &lt;P&gt;Grades: &lt;/p&gt;
+    &lt;input type=&quot;text&quot; name=&quot;marks&quot; value=&quot;5,5,5&quot;/&gt;
+    &lt;br/&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;Add lesson&quot;/&gt;
+  &lt;/form&gt;&quot;&quot;&quot;
+  return form
+
+def start_server():
+  server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  server.bind(('127.0.0.1', 4245))
+  server.listen()
+
+  while True:
+    client, addr = server.accept()
+
+    with client:
+      request = client.recv(1024).decode()
+      method = request.split(' ')[0]
+      message = request.split(' ')[1][1:-1]
+      setting = 'HTTP/1.1 200 OK\r\nContent-Type: text.html; charset=UTF-8\r\n\r\n'
+      html = '&lt;html&gt;&lt;head&gt;&lt;title&gt;Website&lt;/title&gt;&lt;/head&gt;&lt;body&gt;'
+      html += &quot;&quot;&quot;
+      &lt;form method=&quot;get&quot;&gt;
+        &lt;input type=&quot;submit&quot; formaction=&quot;add&quot; value=&quot;Add&quot; /&gt;
+        &lt;input type=&quot;submit&quot; formaction=&quot;get&quot; value=&quot;Show&quot; /&gt;
+      &lt;/form&gt;
+      &quot;&quot;&quot;
+      if method == 'GET':
+        if message == 'get':
+          html += get()
+        elif message == 'add':
+          html += add()
+      else:
+        post = post_func(request.split(' ')[-1].split('\r\n\r\n')[1])
+        lessons.append({'name': post[0], 'desc': post[1], 'marks' : post[2]})
+
+      html += &quot;&lt;/body&gt;&lt;/html&gt;&quot;
+      client.send(setting.encode('utf-8') + html.encode('utf-8'))  
+
+start_server();
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
