@@ -1,4 +1,4 @@
-import socket, sys
+import socket
 
 # address properties
 HOST = socket.gethostbyname(socket.gethostname())
