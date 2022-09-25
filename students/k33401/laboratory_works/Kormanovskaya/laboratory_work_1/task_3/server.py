@@ -10,12 +10,12 @@ FORMAT = 'utf-8'
 
 
 def send_answer(conn, status="200 OK", typ="text/html; charset=utf-8", data=""):
-    conn.send(b"HTTP/1.1 " + status.encode(FORMAT) + b"\r\n")
-    conn.send(b"Server: simplehttp\r\n")
-    conn.send(b"Connection: close\r\n")
-    conn.send(b"Content-Type: " + typ.encode(FORMAT) + b"\r\n")
-    conn.send(b"\r\n")
-    conn.send(data.encode(FORMAT))
+    conn.broadcast(b"HTTP/1.1 " + status.encode(FORMAT) + b"\r\n")
+    conn.broadcast(b"Server: simplehttp\r\n")
+    conn.broadcast(b"Connection: close\r\n")
+    conn.broadcast(b"Content-Type: " + typ.encode(FORMAT) + b"\r\n")
+    conn.broadcast(b"\r\n")
+    conn.broadcast(data.encode(FORMAT))
 
 
 def main():
