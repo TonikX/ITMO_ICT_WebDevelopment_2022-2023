@@ -16,20 +16,16 @@ def broadcast(message):
 
 def handle(interlocuteur):
     while True:
-        try:
-            message = interlocuteur.recv(4096)
-            broadcast(message)
+        message = interlocuteur.recv(4096)
+        #broadcast(message)
 
-        except Exception as e:
-            print('Exception:', e)
-            index = clients.index(interlocuteur)
+        if message == b"EXIT":
+            interlocuteur.connection.close()
             clients.remove(interlocuteur)
-            interlocuteur.close()
-
-            username = usernames[index]
             broadcast(f'{username} left'.encode('utf-8'))
-            usernames.remove(username)
             break
+        else:
+                broadcast(message)
 
 
 def receive():
