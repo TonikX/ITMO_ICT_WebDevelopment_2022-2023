@@ -3,11 +3,21 @@ import typing as tp
 
 
 class Server:
-    def __init__(self):
-        self.socket = self.create_socket()
+    def __init__(self, protocol_type: str):
+        if protocol_type == "UDP":
+            self.socket = self.__create_UDP_socket()
+        elif protocol_type == "TCP":
+            self.socket = self.__create_TCP_socket()
 
-    def create_socket(self) -> socket:
+    def __create_TCP_socket(self) -> socket:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind((socket.gethostname(), 1234))
+        sock.listen(1)
+
+        return sock
+
+    def __create_UDP_socket(self):
+        sock = socket.socket()
         sock.bind((socket.gethostname(), 1234))
         sock.listen(1)
 
@@ -23,5 +33,5 @@ class Server:
 
         return data
 
-    def get_client_info(self) -> (socket, tp.Any):
+    def accept_connection(self) -> (socket, tp.Any):
         return self.socket.accept()

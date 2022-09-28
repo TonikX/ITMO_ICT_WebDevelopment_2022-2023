@@ -4,7 +4,7 @@ from ..server import Server
 class FirstTaskServer(Server):
     def start(self):
         # create connection
-        client_socket, address = self.get_client_info()
+        client_socket, address = self.accept_connection()
         client_socket.send(bytes("Hello, client", "utf-8"))
 
         client_data = self.get_str_data(client_socket)
@@ -14,5 +14,6 @@ class FirstTaskServer(Server):
         self.socket.close()
 
 
-server = FirstTaskServer()
-server.start()
+if __name__ == '__main__':
+    server = FirstTaskServer("UDP")
+    server.start()

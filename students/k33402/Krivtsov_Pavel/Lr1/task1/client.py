@@ -12,5 +12,5 @@ class FirstTaskClient(Client):
 
 
 if __name__ == '__main__':
-    client = FirstTaskClient()
+    client = FirstTaskClient("UDP")
     client.start()
