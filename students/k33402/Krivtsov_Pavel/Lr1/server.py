@@ -23,13 +23,13 @@ class Server:
 
         return sock
 
-    def get_str_data(self, client_socket: socket) -> str:
-        data = ""
+    def get_str_data(self, client_socket: socket) -> tp.List[str]:
+        data = []
         while True:
             encoded_data = client_socket.recv(1024)
             if len(encoded_data) <= 0:
                 break
-            data += encoded_data.decode("utf-8")
+            data.append(encoded_data.decode("utf-8"))
 
         return data
 
