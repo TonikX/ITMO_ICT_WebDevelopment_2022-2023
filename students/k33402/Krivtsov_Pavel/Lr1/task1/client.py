@@ -1,4 +1,4 @@
-from ..client import Client
+from Lr1.client import Client
 
 
 class FirstTaskClient(Client):

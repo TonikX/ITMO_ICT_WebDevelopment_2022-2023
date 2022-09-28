@@ -1,4 +1,4 @@
-from ..server import Server
+from Lr1.server import Server
 
 
 class FirstTaskServer(Server):
