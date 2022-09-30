@@ -350,9 +350,14 @@
 
 <h1 id="no1">Лабораторная работа №1</h1>
 <h2 id="no1_1">Задача №1</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент отсылает серверу
+сообщение «Hello, server». Сообщение должно отразиться на стороне сервера.
+Сервер в ответ отсылает клиенту сообщение «Hello, client». Сообщение должно
+отобразиться у клиента.</p>
 <ul>
-<li>
-<p><code>server.py</code>
+<li><code>server.py</code></li>
+</ul>
+<p>Сервер, который ждет подключение клиента, чтобы отправить ему привет</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span> <span class="nn">time</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
@@ -378,10 +383,11 @@
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>        <span class="k">break</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><code>client.py</code>
+</code></pre></div>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<p>Клиент, который подключается к серверу, чтобы отправить ему привет</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">sock</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
@@ -391,13 +397,16 @@
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">res</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div></p>
-</li>
-</ul>
+</code></pre></div>
 <h2 id="no2">Задача №2</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент запрашивает у
+сервера выполнение математической операции, параметры, которые вводятся с
+клавиатуры. Сервер обрабатывает полученные данные и возвращает результат
+клиенту. Поиск площади параллелограмма</p>
 <ul>
-<li>
-<p><code>server.py</code>
+<li><code>server.py</code></li>
+</ul>
+<p>Серверная часть, которая получает данные и с помощью них совераеш подсчет и отправляет назад конечное значение</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span> <span class="nn">numbers</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span> <span class="nn">socket</span><span class="o">,</span> <span class="nn">time</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
@@ -424,10 +433,11 @@
 <a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
 <a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>        <span class="n">clientsocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>        <span class="k">break</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><code>client.py</code>
+</code></pre></div>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<p>Клиент говорит с помощью каких чисел нужно посчитать нашу площадь</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">str</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Введите сторону и высоту параллелограмма: &quot;</span><span class="p">)</span>
@@ -439,12 +449,15 @@
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="n">res</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Площадь параллелограмма </span><span class="si">{</span><span class="n">res</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div></p>
-</li>
-</ul>
+</code></pre></div>
 <h2 id="no3">Задача №3</h2>
+<p>Реализовать серверную часть приложения. Клиент подключается к серверу. В ответ
+клиент получает http-сообщение, содержащее html-страницу, которую сервер
+подгружает из файла index.html.</p>
 <ul>
-<li><code>server.py</code>
+<li><code>server.py</code></li>
+</ul>
+<p>Серверно условно получает GET запрос и отправляет на него нашу страничку которая лежит на сервере</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">import</span> <span class="nn">time</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
@@ -480,12 +493,15 @@
 <a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
 <a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>        <span class="n">clientsocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div></li>
-</ul>
+</code></pre></div>
 <h2 id="no4">Задача №4</h2>
+<p>Реализовать двухпользовательский или многопользовательский чат. Реализация
+многопользовательского часа позволяет получить максимальное количество
+баллов.</p>
 <ul>
-<li>
-<p><code>server.py</code>
+<li><code>server.py</code></li>
+</ul>
+<p>Сервеная часть задания, где мы обрабатываем сообщения одного пользователя, а после рассылаем отправленное сообщение каждому</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
@@ -517,10 +533,11 @@
 <a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">listen_for_client</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">client</span><span class="p">,))</span>
 <a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>    <span class="n">thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span>
 <a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><code>client.py</code>
+</code></pre></div>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<p>Клиентская часть, где мы подключаемся к серверу и отправляем сообщения на него, чтобы уже тот разослал его другим пользователям</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span> <span class="nn">datetime</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
@@ -550,13 +567,18 @@
 <a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>    <span class="n">sock</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
 <a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>
 <a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="n">sock</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div></p>
-</li>
-</ul>
+</code></pre></div>
 <h2 id="no5">Задача №5</h2>
+<p>Необходимо написать простой web-сервер для обработки GET и POST http
+запросов средствами Python и библиотеки socket.</p>
+<p>Задание: сделать сервер, который может:</p>
+<p>Принять и записать информацию о дисциплине и оценке по дисциплине.</p>
+<p>Отдать информацию обо всех оценах по дсициплине в виде html-страницы.</p>
 <ul>
-<li>
-<p><code>server.py</code>
+<li><code>server.py</code></li>
+</ul>
+<p>Сервер, который реализует запись в локальную "базу данных", которая работает пока 
+запущен сервер и в последствие ее вывод, чтобы пользователь мог понять какие оценки были уже записаны</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span> <span class="nn">socket</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">class</span> <span class="nc">MyHTTPServer</span><span class="p">:</span>
@@ -632,10 +654,11 @@
 <a id="__codelineno-7-73" name="__codelineno-7-73" href="#__codelineno-7-73"></a>        <span class="n">serv</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
 <a id="__codelineno-7-74" name="__codelineno-7-74" href="#__codelineno-7-74"></a>    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
 <a id="__codelineno-7-75" name="__codelineno-7-75" href="#__codelineno-7-75"></a>        <span class="k">pass</span>
-</code></pre></div></p>
-</li>
-<li>
-<p><code>index.html</code>
+</code></pre></div>
+<ul>
+<li><code>index.html</code></li>
+</ul>
+<p>Простой HTML для отправки оценки по какому-то предмету </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
@@ -659,9 +682,7 @@
 <a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>
 <a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
-</code></pre></div></p>
-</li>
-</ul>
+</code></pre></div>
 
 
 
