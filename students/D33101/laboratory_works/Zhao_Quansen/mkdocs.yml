@@ -1,0 +1,4 @@
+site_name: Чжао Цюансень docs
+nav:
+ - Лабораторная работа №1: Lr1.md
+theme: readthedocs
