@@ -101,7 +101,7 @@ while True:
     conn.close()
 ```
 - index.html
-![Скриншот сайта](https://drive.google.com/file/d/18ier4wck3OQ-BsMHfytTerQ0hAQ_5yTX/view?usp=sharing)
+![Скриншот сайта](\Desktop\site.png)
 
 4 задание.
 Реализовать двухпользовательский или многопользовательский чат.
