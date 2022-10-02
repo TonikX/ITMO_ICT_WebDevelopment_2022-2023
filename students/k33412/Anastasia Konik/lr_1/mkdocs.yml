@@ -1,0 +1,8 @@
+site_name: ITMO-ICT-WebDevelopment
+
+theme:
+ name: mkdocs
+
+nav:
+- Главная: index.md
+- Лабораторная работа №1: lr1.md

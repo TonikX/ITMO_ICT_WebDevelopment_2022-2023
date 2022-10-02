@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №1 - ITMO-ICT-WebDevelopment</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">ITMO-ICT-WebDevelopment</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Главная</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no1" class="nav-link">Лабораторная работа №1</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#no1_1" class="nav-link">Задача №1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#no2" class="nav-link">Задача №2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#no3" class="nav-link">Задача №3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#no4" class="nav-link">Задача №4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#no5" class="nav-link">Задача №5</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no1">Лабораторная работа №1</h1>
+<h2 id="no1_1">Задача №1</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент отсылает серверу
+сообщение «Hello, server». Сообщение должно отразиться на стороне сервера.
+Сервер в ответ отсылает клиенту сообщение «Hello, client». Сообщение должно
+отобразиться у клиента.</p>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+# UDP server
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+server_sock.bind(('localhost', 9090))
+
+while True:
+    data, address = server_sock.recvfrom(1024)
+    if data == b'Hello, server':
+        print(data)
+        server_sock.sendto(b'Hello, client', address)
+    else:
+        server_sock.close()
+        break
+</code></pre>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+# UDP client
+client_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+client_sock.connect(('localhost', 9090))
+client_sock.sendto(b'Hello, server', ('localhost', 9090))
+data, server = client_sock.recvfrom(1024)
+client_sock.close()
+
+print(data)
+</code></pre>
+<h2 id="no2">Задача №2</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент запрашивает у
+сервера выполнение математической операции, параметры, которые вводятся с
+клавиатуры. Сервер обрабатывает полученные данные и возвращает результат
+клиенту. </p>
+<p>Теорема Пифагора</p>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_sock.bind(('localhost', 8081))
+server_sock.listen(5)
+
+while True:
+    client_sock, client_addr = server_sock.accept()
+    data = client_sock.recv(1024)
+    if not data:
+        break
+    print(data.decode(&quot;utf-8&quot;))
+    client_sock.sendall('Enter the sides (for ex. 5,9)'.encode(&quot;utf-8&quot;))
+
+    data = client_sock.recv(1024)
+    sides = data.decode(&quot;utf-8&quot;)
+
+    try:
+        a, b = map(int, sides.split(','))
+        c = (a ** 2 + b ** 2) ** 0.5
+        ans = str(round(c, 3))
+        client_sock.sendall(ans.encode(&quot;utf-8&quot;))
+    except Exception:
+        client_sock.sendall('Error. Try again'.encode(&quot;utf-8&quot;))
+
+    client_sock.close()
+</code></pre>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_sock.connect(('localhost', 8081))
+client_sock.sendall('Pyfagorean theorem'.encode(&quot;utf-8&quot;))
+
+data = client_sock.recv(1024)
+print(data.decode(&quot;utf-8&quot;))
+
+sides = input()
+client_sock.sendall(sides.encode(&quot;utf-8&quot;))
+
+data = client_sock.recv(1024)
+
+client_sock.close()
+
+print(data.decode(&quot;utf-8&quot;))
+</code></pre>
+<h2 id="no3">Задача №3</h2>
+<p>Реализовать серверную часть приложения. Клиент подключается к серверу. В ответ
+клиент получает http-сообщение, содержащее html-страницу, которую сервер
+подгружает из файла index.html.</p>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_sock.bind(('localhost', 8080))
+server_sock.listen(5)
+
+while True:
+    client_sock, client_addr = server_sock.accept()
+    data = client_sock.recv(1024)
+    if not data:
+        break
+    status_line = &quot;HTTP/1.0 200 OK\n&quot;
+    resp_headers = &quot;Content-Type: text/html\n\n&quot;
+    body = open('index.html', 'r').read()
+    response = status_line + resp_headers + body
+    client_sock.sendall(response.encode(&quot;utf-8&quot;))
+    open('index.html', 'r').close()
+    client_sock.close()
+</code></pre>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_sock.connect(('localhost', 8080))
+client_sock.sendall('Hi!'.encode(&quot;utf-8&quot;))
+
+data = client_sock.recv(1024)
+print(data.decode(&quot;utf-8&quot;))
+
+client_sock.close()
+</code></pre>
+<ul>
+<li><code>index.html</code></li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Message&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+Hello from server!
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="no4">Задача №4</h2>
+<p>Реализовать двухпользовательский или многопользовательский чат. Реализация
+многопользовательского часа позволяет получить максимальное количество
+баллов.</p>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+import threading
+
+server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_sock.bind(('localhost', 9090))
+server_sock.listen(5)
+
+clients = dict()
+
+
+# send message to everyone
+def broadcast(message):
+    for client in clients:
+        client.sendall(message)
+
+
+# handling a client
+def handle(client):
+    while True:
+        try:
+            message = client.recv(1024)
+            if message.decode(&quot;utf-8&quot;) == &quot;{}:bye&quot;.format(clients[client]):
+                broadcast('{} has left'.format(clients.pop(client)).encode(&quot;utf-8&quot;))
+                client.close()
+                break
+            broadcast(message)
+        except:
+            broadcast('{} has left'.format(clients.pop(client)).encode(&quot;utf-8&quot;))
+            client.close()
+            break
+
+
+def chat():
+    while True:
+        client_sock, client_addr = server_sock.accept()
+        client_sock.sendall('Nick:'.encode(&quot;utf-8&quot;))
+        nick = client_sock.recv(1024).decode(&quot;utf-8&quot;)
+        clients[client_sock] = nick
+        broadcast('{} joined!'.format(nick).encode(&quot;utf-8&quot;))
+
+        thread = threading.Thread(target=handle, args=(client_sock,))
+        thread.start()
+
+
+chat()
+</code></pre>
+<ul>
+<li><code>client.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+import threading
+
+client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_sock.connect(('localhost', 9090))
+
+nick = input(&quot;Your nick: &quot;)
+
+
+def get_message():
+    while True:
+        try:
+            message = client_sock.recv(1024)
+            if len(message) == 0:
+                client_sock.close()
+                break
+
+            if message.decode(&quot;utf-8&quot;) == 'Nick:':
+                client_sock.sendall(nick.encode(&quot;utf-8&quot;))
+            else:
+                print(message.decode(&quot;utf-8&quot;))
+        except:
+            client_sock.close()
+            break
+
+
+def send_message():
+    while True:
+        try:
+            text = input(&quot;&quot;)
+            message = '{}:{}'.format(nick, text)
+            client_sock.sendall(message.encode(&quot;utf-8&quot;))
+            if text == &quot;bye&quot;:
+                break
+        except:
+            client_sock.close()
+            break
+
+
+get_thread, send_thread = threading.Thread(target=get_message), threading.Thread(target=send_message)
+get_thread.start()
+send_thread.start()
+
+</code></pre>
+<h2 id="no5">Задача №5</h2>
+<p>Необходимо написать простой web-сервер для обработки GET и POST http
+запросов средствами Python и библиотеки socket.</p>
+<p>Задание: сделать сервер, который может:</p>
+<p>Принять и записать информацию о дисциплине и оценке по дисциплине.</p>
+<p>Отдать информацию обо всех оценах по дсициплине в виде html-страницы.</p>
+<ul>
+<li><code>server.py</code></li>
+</ul>
+<pre><code class="language-python">import socket
+
+MAX_LINE = 64 * 1024
+
+
+class MyHTTPServer:
+    # Параметры сервера
+    def __init__(self, host, port):
+        self._host = host
+        self._port = port
+
+    # Запуск сервера на сокете, обработка входящих соединений
+    def serve_forever(self):
+        server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_sock.bind((self._host, self._port))
+        server_sock.listen(5)
+
+        while True:
+            client_sock, client_addr = server_sock.accept()
+            try:
+                self.serve_client(client_sock)
+            except:
+                server_sock.close()
+                break
+
+    # Обработка клиентского подключения
+    def serve_client(self, client_sock):
+        try:
+            req_str = client_sock.recv(65536).decode(&quot;utf-8&quot;)
+            method, url, params, headers, body = self.parse_request(req_str)
+            resp = self.handle_request(method, url, params, headers, body)
+            if resp is not None:
+                self.send_response(client_sock, resp)
+        except ConnectionResetError:
+            client_sock = None
+
+        if client_sock:
+            client_sock.close()
+
+    @staticmethod
+    def parse_request(req_str):
+        req_str.replace('\r', '')
+        req_lines = req_str.split('\n')
+
+        headers, method, url, version, body, params = dict(), &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;
+        body_start_idx = -1
+        for i in range(0, len(req_lines)):
+            line = req_lines[i]
+            if i == 0:  # Если первая строка, то парсить как строку запроса
+                words = line.split()  # разделяем по символам
+                if len(words) != 3:  # ожидаем ровно 3 части
+                    raise Exception('Malformed request line')
+
+                method, url, version = words
+                if '?' in url:
+                    url, params = url.split('?')
+                    params_strings = params.split(&quot;&amp;&quot;)
+                    params = dict()
+                    for param_string in params_strings:
+                        params[param_string.split(&quot;=&quot;)[0]] = param_string.split(&quot;=&quot;)[1]
+
+                if version != 'HTTP/1.1':
+                    raise Exception('Unexpected HTTP version')
+
+                continue
+            # Если строки заголовков или тела
+            if not &quot;:&quot; in line:  # дальше тело
+                body_start_idx = i + 1
+                break
+
+            # Еще заголовки
+            headers[line.split(':')[0]] = line.split(':')[1]
+
+        if body_start_idx != -1 and body_start_idx &lt; len(req_lines):
+            body = req_lines[body_start_idx:]
+
+        return method, url, params, headers, body
+
+    # Функция для обработки url в соответствии с нужным методом. В случае данной работы, нужно будет создать набор
+    # условий, который обрабатывает GET или POST запрос. GET запрос должен возвращать данные. POST запрос должен
+    # записывать данные на основе переданных параметров.
+    @staticmethod
+    def handle_request(method, url, params, headers, body):
+        if not url == &quot;/&quot;:
+            return &quot;&quot;
+
+        if method == &quot;GET&quot;:
+            if params == &quot;&quot;:
+                resp = &quot;HTTP/1.1 200 OK\n\n&quot;
+                with open('index.html', 'r') as f:
+                    resp += f.read()
+                f.close()
+                return resp
+
+            if 'subject' in params and params['subject'] in subjects:
+                subject = params['subject']
+                resp = &quot;HTTP/1.1 200 OK\n\n&quot;
+                resp += f&quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;Journal for {subject}&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&quot;
+                resp += f&quot;&lt;p&gt;{subject}: &quot;
+                for grade in subjects[subject]:
+                    resp += f&quot;{grade}, &quot;
+                resp = resp[:-2]
+                resp += &quot;&lt;/p&gt;&quot;
+                resp += &quot;&lt;/body&gt;&lt;/html&gt;&quot;
+                return resp
+
+            raise &quot;invalid get request&quot;
+
+        if method == &quot;POST&quot;:
+            body_kvps = body[0].split('&amp;')
+            body_params = dict()
+            for kvp in body_kvps:
+                body_params[kvp.split('=')[0]] = kvp.split('=')[1]
+
+            if 'subject' in body_params and 'grade' in body_params and len(body_params) == 2:
+                subject = body_params['subject'].strip()
+                grade = body_params['grade'].strip()
+                if grade != '' and subject != '':
+                    if subject not in subjects:
+                        subjects[subject] = []
+
+                    subjects[subject].append(grade)
+
+            resp = &quot;HTTP/1.1 200 OK\n\n&quot;
+            resp += &quot;&lt;html&gt;&lt;head&gt;&lt;title&gt;Journal&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&quot;
+            for subject in subjects:
+                resp += f&quot;&lt;p&gt;{subject}: &quot;
+                for grade in subjects[subject]:
+                    resp += f&quot;{grade}, &quot;
+                resp = resp[:-2]
+                resp += &quot;&lt;/p&gt;&quot;
+            resp += &quot;&lt;/body&gt;&lt;/html&gt;&quot;
+            return resp
+
+    # Функция для отправки ответа. Необходимо записать в соединение status line вида HTTP/1.1 &lt;status_code&gt; &lt;reason&gt;.
+    # Затем, построчно записать заголовки и пустую строку, обозначающую конец секции заголовков.
+    @staticmethod
+    def send_response(client_sock, resp):
+        client_sock.sendall(resp.encode(&quot;utf-8&quot;))
+
+
+if __name__ == '__main__':
+    host = 'localhost'
+    port = 9091
+    serv = MyHTTPServer(host, port)
+    subjects = dict()
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass
+</code></pre>
+<ul>
+<li><code>index.html</code></li>
+</ul>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Journal&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form action=&quot;/&quot; method=&quot;post&quot;&gt;
+        &lt;label for=&quot;name&quot;&gt;Subject:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;subject&quot;/&gt;
+        &lt;label for=&quot;grade&quot;&gt;Grade:&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;grade&quot; name=&quot;grade&quot;/&gt;
+        &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
