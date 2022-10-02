@@ -101,7 +101,23 @@ while True:
     conn.close()
 ```
 - index.html
-![Скриншот сайта](/task3/site.png)
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Коты</title>
+</head>
+<body>
+    <p>
+        Кошка (лат. Felis catus) — домашнее животное, одно из наиболее популярных (наряду с собакой) «животных-компаньонов».
+    </p>
+    <p>
+        <img src="https://murkoshka.ru/wp-content/uploads/NeedFull.NET_porody_koshek_i_kotov_cr.jpg" width="30%" align="center" border="3" hspace="10%" vspace="10%" />
+    </p>
+</body>
+</html>
+```
 
 4 задание.
 Реализовать двухпользовательский или многопользовательский чат.
