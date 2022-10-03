@@ -6,7 +6,7 @@ POST /marks?name=Web&mark=5 HTTP/1.1
 Host: example.local
 
 # get marks
-HTTP/1.1 200 OK
-Content-Type: text/html; charset=utf-8
-Content-Length: 86
+GET /marks HTTP/1.1
+Host: example.local
+Accept: text/html
 

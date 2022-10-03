@@ -207,6 +207,7 @@ receive()
 * MyHTTPServer.py
 ```python
 
+
 import json
 import socket
 import sys
@@ -261,13 +262,6 @@ class MyHTTPServer:
     rfile = conn.makefile('rb')
     method, target, ver = self.parse_request_line(rfile)
     headers = self.parse_headers(rfile)
-    host = headers.get('Host')
-    if not host:
-      raise HTTPError(400, 'Bad request',
-        'Host header is missing')
-    if host not in (self._server_name,
-                    f'{self._server_name}:{self._port}'):
-      raise HTTPError(404, 'Not found')
     return Request(method, target, ver, headers, rfile)
 
   def parse_request_line(self, rfile):
@@ -378,29 +372,6 @@ class MyHTTPServer:
     elif 'application/json' in accept:
       contentType = 'application/json; charset=utf-8'
       body = json.dumps(self.marks)
-
-    else:
-      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-      return Response(406, 'Not Acceptable')
-
-    body = body.encode('utf-8')
-    headers = [('Content-Type', contentType),
-               ('Content-Length', len(body))]
-    return Response(200, 'OK', headers, body)
-    mark = self.marks.get(int(mark_id))
-    if not mark:
-      raise HTTPError(404, 'Not found')
-
-    accept = req.headers.get('Accept')
-    if 'text/html' in accept:
-      contentType = 'text/html; charset=utf-8'
-      body = '<html><head></head><body>'
-      body += f'#{mark["id"]} {mark["name"]}, {mark["age"]}'
-      body += '</body></html>'
-
-    elif 'application/json' in accept:
-      contentType = 'application/json; charset=utf-8'
-      body = json.dumps(mark)
 
     else:
       # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
