@@ -27,7 +27,6 @@ class MyClient:
             self.sock.send(message.encode())
 
     def start(self):
-        self.alias = input("Enter your alias: ")
         receive_thread = threading.Thread(target=self.receive)
         receive_thread.start()
 
