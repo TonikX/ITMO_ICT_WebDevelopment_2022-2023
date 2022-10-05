@@ -1,27 +1,36 @@
 import socket
 import threading
 
-host = '127.0.0.1'
-port = 1234
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.connect((host, port))
+HOST = '127.0.0.1'
+PORT = 50000
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect((HOST, PORT))
+username = input("Please Enter a User Name: ")
 
 
-def sender():
-    global server
+def read_message():
     while True:
-        msg = input("[+] Type your message > ")
-        if len(msg) > 0:
-            server.send(msg.encode())
+        try:
+            message = client.recv(1204).decode('ascii')
+            if message == "UserName":
+                client.send(username.encode('ascii'))
+            else:
+                print(message)
+        except:
+            print("Error!")
+            client.close()
+            break
 
 
-def recv():
+def write_message():
     while True:
-        print(server.recv(1024).decode())
+        message = f"{username}: {input(': ')}"
+        client.send(message.encode("ascii"))
 
 
-if __name__ == "__main__":
-    t = threading.Thread(target=recv)
-    t.start()
-    sender()
+read_thread = threading.Thread(target=read_message)
+read_thread.start()
 
+write_thread = threading.Thread(target=write_message)
+write_thread.start()

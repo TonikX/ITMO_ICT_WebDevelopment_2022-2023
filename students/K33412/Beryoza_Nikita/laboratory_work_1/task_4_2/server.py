@@ -1,80 +1,57 @@
 import socket
-import select
 import threading
 
-HEADER_LENGTH = 10
+HOST = '127.0.0.1'
+PORT = 50000
 
-IP = "127.0.0.1"
-PORT = 1234
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server_socket.bind((IP, PORT))
-server_socket.listen()
+server.bind((HOST, PORT))
+server.listen()
 
-connections = []
-addresses = []
-
-print(f'Сервер запущен на IP {IP}:{PORT}')
+clients = []
+client_names =[]
 
 
-def accept_connections():
-    global server_socket
+def broadcast_message(message):
+    for client in clients:
+        client.send(message)
+
+
+def message_manager(client):
     while True:
-        new_connection, new_address = server_socket.accept()
-        connections.append(new_connection)
-        addresses.append(new_address)
-        print("[!] Подключение " + str(new_address[0]) + ":" + str(new_address[1]))
-
-
-def handler(connection):
-    while True:
-        msg = input("[+] Type your message > ")
-        if len(msg) > 0:
-            try:
-                connection.send(msg.encode())
-            except Exception as error:
-                print("Невозможно отправить сообщение из-за:\n" + str(error))
-        if msg == "back":
-            main()
+        try:
+            message = client.recv(1024)
+            broadcast_message(message.decode('ascii'))
+        except:
+            index = clients.index(client)
+            clients.remove(client)
+            client.close()
+            client_name = client_names[index]
+            print(f"Client {client_name} Disconnected!".encode('ascii'))
+            client_names.remove(client_name)
             break
 
 
-def recv():
+def connection():
     while True:
-        for i, x in enumerate(connections):
-            try:
-                print(x.recv(1024).decode())
-            except:
-                del connections[i]
-                del addresses[i]
+        client, address = server.accept()
+        print(f"{address} Connected[+]")
+        client.send("UserName".encode('ascii'))
+        client_name = client.recv(1024).decode('ascii')
+
+        client_names.append(client_name)
+        clients.append(client)
+
+        print(f"{client_name} Connected[+]")
+        message = f"{client_name} Connected[+]".encode('ascii')
+        broadcast_message(message)
+
+        client.send("You are connected to server".encode('ascii'))
+
+        thread = threading.Thread(target=message_manager, args=(client,))
+        thread.start()
 
 
-def list_connections():
-    global connections
-    res = ""
-    for i, cc in enumerate(connections):
-        try:
-            cc.send("Новое подключение".encode())
-            res = str(addresses[i][0]) + ":" + str(addresses[0][1]) + "\n"
-        except Exception as error:
-            print(str(error))
-            pass
-    return res
-
-
-def main():
-    t1 = threading.Thread(target=accept_connections)
-    t1.daemon = True
-    t2 = threading.Thread(target=recv)
-    t1.start()
-    t2.start()
-    while True:
-        req = input("[+] main > ")
-        if req == 'list':
-            print(list_connections())
-        if req[:7] == "select ":
-            handler(connections[int(req[8:])])
-
-
-main()
+print("Server[127.0.0.1] localhost is running.... ")
+connection()
