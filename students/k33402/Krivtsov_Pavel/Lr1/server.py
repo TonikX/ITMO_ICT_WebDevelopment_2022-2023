@@ -23,7 +23,7 @@ class Server:
 
         return sock
 
-    def get_str_data(self, client_socket: socket) -> tp.List[str]:
+    def get_data(self, client_socket: socket) -> tp.List[str]:
         data = []
         while True:
             encoded_data = client_socket.recv(1024)
