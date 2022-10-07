@@ -23,13 +23,9 @@ class Server:
 
         return sock
 
-    def get_data_from_client(self, client_socket: socket) -> tp.List[str]:
-        data = []
-        while True:
-            encoded_data = client_socket.recv(1024)
-            if len(encoded_data) <= 0:
-                break
-            data.append(encoded_data.decode("utf-8"))
+    def get_data_from_client(self, client_socket: socket) -> str:
+        encoded_data = client_socket.recv(1024)
+        data = encoded_data.decode("utf-8")
 
         return data
 
