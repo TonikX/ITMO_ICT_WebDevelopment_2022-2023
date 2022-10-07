@@ -1,19 +1,4 @@
 import socket
-from urllib.parse import parse_qs, urlparse
-#from request import Request
-#from response import Response
-#from subject import Subject
-
-class Request:
-    def __init__(self, method, target, headers, version, data):
-        self.method = method
-        self.target = target
-        self.version = version
-        self.url = urlparse(self.target)
-        self.query = parse_qs(self.url.query)
-        self.path = self.url.path
-        self.headers = headers
-        self.data = data
 
 class Response:
     def __init__(self, status, reason, headers=None, body=None):
@@ -22,14 +7,6 @@ class Response:
         self.headers = headers
         self.body = body
 
-class Subject:
-    def __init__(self, name, marks):
-        self.name = name
-        self.marks = marks
-
-    def add_mark(self, mark):
-        self.marks.append(mark)
-
 
 class MyHTTPServer:
     def __init__(self, host, port, name):
@@ -37,7 +14,7 @@ class MyHTTPServer:
         self.port = port
         self.name = name
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.subjects = [Subject("Test Subject", [5, 4, 3])]
+        self.points = {"Maths": ["4"]}
 
     def serve_forever(self):
         try:
@@ -62,57 +39,75 @@ class MyHTTPServer:
         client.close()
 
     def parse_request(self, data):
-        req = data.split("\r\n")
-        method, target, ver = req[0].split(" ")
-        headers = self.parse_headers(req)
-        return Request(
-            method=method, target=target, version=ver, headers=headers, data=data
-        )
+        #из соединения необходимо прочитать строку, т.е. последовательность байт, заканчивающуюся комбинацией \r\n
+        req = data.rstrip('\r\n')
+        text = req[:data.index("\n")].split()
+        if len(text) != 3:
+            raise Exception('Malformed request line')
 
-    def parse_headers(self, req):
-        headers = [h for h in req[1 : req[1:].index("") + 1]]
-        header_dict = {}
-        for header in headers:
-            key, value = header.split(":", 1)
-            header_dict[key] = value
-        return header_dict
+        method, target, version = text
+        if version != 'HTTP/1.1':
+            raise Exception('Unexpected HTTP version')
 
-    def handle_request(self, req):
-        try:
-            if req.method == "GET" and req.path == "/":
-                return self.handle_root()
+        req = {'data': {}, 'method': method}
+        if '?' in target:
+            req['method'] = 'POST'
+            data = target.split('?')[1].split('&')
+            for value in data:
+                index, info = value.split('=')
+                req['data'][index] = info
 
-            elif req.method == "POST" and req.path.startswith("/api"):
-                name = str(req.query["name"][0])
-                value = int(req.query["mark"][0])
-                for subject in self.subjects:
-                    if subject.name == name:
-                        subject.add_mark(value)
-                        return self.handle_root()
-                self.subjects.append(Subject(name, [value]))
-                return self.handle_root()
+        return req
 
-            return self.get_error(404, "Error 404: Not Found")
-        except Exception as e:
-            print(f"ERROR: {e}")
-            return self.get_error(500, e)
 
-    def send_response(self, client, res):
-        client.sendall(
-            f"HTTP/1.1 {res.status} OK\r\n{res.headers}\r\n\r\n{res.body}".encode()
-        )
+    def handle_request(self, req): #в этом методе начинается обработка запросов
+        if req['method'] == 'POST':
+            return self.handle_post(req)
+        else:
+            return self.handle_get()
 
-    def handle_root(self):
-        body = """<!DOCTYPE html><html lang="en"><head>"""
-        body += (
-            """<meta charset="UTF-8"><title>Super Cool Page</title></head><body><table>"""
-        )
-        body += f"<thead><tr><th>Subject</th><th>Marks</th></tr></thead><tbody>"
-        for subject in self.subjects:
-            body += f"<tr><td>{subject.name}</td><td>{', '.join(str(x) for x in subject.marks)}</td></tr>"
-        body += """</tbody></table>"""
-        body += """</body></html>"""
-        return Response(200, "OK", "Content-Type: text/html; charset=utf-8", body)
+    def handle_post(self, req):
+        course = req["data"]["course"]
+        points = req["data"]["points"]
+        if course not in self.points:
+            self.points[course] = []
+        if int(points) < 1 or int(points) > 5:
+            raise Exception(f"Неправильное значение оценки")
+        self.points[course].append(points)
+        return self.handle_get()
+
+    def handle_get(self):
+        type = "text/html; charset=utf-8"
+        first_settings = "<html><head><style></style></head><body>"
+        course = "<form><label>Subject: </label><input name='course' /><br><br>"
+        points = "<label>Grade: </label><input name='points' /><br><br>"
+        button = "<input type='submit'></form>"
+        body = first_settings + course + points + button
+        for course_name in self.points:
+            body += f"<div><span>{course_name}: {self.points[course_name]}</span></div>"
+        second_settings = "</body></html>"
+        body += second_settings
+        body = body.encode("utf-8")
+        headers = [("Content-Type", type),
+                   ("Content-Length", len(body))]
+        return Response(200, "OK", headers, body)
+
+
+    def send_response(self, client, res): #отправка ответа
+        file = client.makefile('wb')
+        status_line = f"HTTP/1.1 {res.status} {res.reason}\r\n"
+        status_line = status_line.encode("utf-8")
+        file.write(status_line)
+        if res.headers:
+            for (index, info) in res.headers:
+                header_line = f"{index}: {info}\r\n"
+                file.write(header_line.encode("utf-8"))
+        file.write(b"\r\n")
+        if res.body:
+            file.write(res.body)
+        file.flush()
+        file.close()
+
 
     def get_error(self, code, text):
         return Response(code, "OK", "Content-Type: text/html; charset=utf-8", text)
