@@ -20,7 +20,7 @@ class Client:
 
         return sock
 
-    def get_str_data(self) -> str:
+    def get_data_from_server(self) -> str:
         encoded_data = self.socket.recv(1024)
         data = encoded_data.decode("utf-8")
 

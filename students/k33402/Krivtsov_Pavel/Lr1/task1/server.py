@@ -7,7 +7,7 @@ class FirstTaskServer(Server):
         client_socket, address = self.accept_connection()
         client_socket.send(bytes("Hello, client", "utf-8"))
 
-        client_data = self.get_data(client_socket)
+        client_data = self.get_data_from_client(client_socket)
         print("".join(client_data))
 
         client_socket.close()
