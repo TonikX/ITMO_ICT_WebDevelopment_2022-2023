@@ -111,5 +111,5 @@ class Response:
 
 
 if __name__ == '__main__':
-    serv = MyHTTPServer('127.0.0.1', 7781, )
+    serv = MyHTTPServer('127.0.0.1', 7781)
     serv.serve_forever()
