@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Owner</title>
+    <title>Car Info</title>
 </head>
 <body>
-    Имя: {{owner.first_name}}, Фамилия: {{owner.last_name}}, Дата рождения: {{owner.birth_day}}<br> 
+    <h1>{{ object }}</h1>
+    <li>Id_car: {{ car.id_car }}</li>
+    <li>State_number: {{ car.state_number }}</li>
+    <li>Mark: {{ car.mark_car}}</li>
+    <li>Model: {{ car.model_car }}</li>
+    <li>Color: {{ car.color }}</li>
     <a href="/admin/">Get back</a>
 </body>
 </html>
