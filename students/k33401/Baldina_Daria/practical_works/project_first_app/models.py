@@ -1,11 +1,16 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
-class Car_owner(models.Model):
+
+
+class Car_owner(AbstractUser):
     id_owner = models.IntegerField(primary_key = True)
     last_name = models.CharField(max_length = 30, null = False)
     first_name = models.CharField(max_length = 30, null = False)
-    birth_day = models.DateField()
+    birth_day = models.DateField(null = True)
+    passport = models.IntegerField(null=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    nationality = models.CharField(max_length=20, null=True, blank=True)
 
 class Car(models.Model):
     id_car = models.IntegerField(primary_key = True)
