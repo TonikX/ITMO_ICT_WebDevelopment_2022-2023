@@ -12,3 +12,6 @@ coverage.xml
 
 # Mypy cache
 .mypy_cache/
+
+# MCDocs
+site/
