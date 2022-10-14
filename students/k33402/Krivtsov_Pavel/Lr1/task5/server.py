@@ -60,6 +60,14 @@ class HTTPServer:
         if 'application/json' in accept:
             content_type = 'application/json; charset=utf-8'
             body = json.dumps(self._grades)
+        elif "text/htm" in accept:
+            content_type = "text/html; charset=utf-8"
+            body = '<html><head></head><body>'
+            body += '<ul>'
+            for subject in self._grades.keys():
+                body += f'<li>{subject}: {self._grades[subject]}</li>'
+            body += '</ul>'
+            body += '</body></html>'
         else:
             return Response(406, 'Not Acceptable')
 
@@ -100,7 +108,7 @@ class HTTPServer:
 
         method, target, ver = self.parse_request_line(rfile)
         headers = self.parse_headers(rfile)
-
+        print(method, target, ver, headers)
         return Request(method, target, ver, headers)
 
     def parse_headers(self, rfile) -> tp.Dict[str, tp.Any]:
