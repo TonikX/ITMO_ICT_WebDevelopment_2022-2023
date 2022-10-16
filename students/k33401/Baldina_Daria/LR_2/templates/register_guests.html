@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Register new guest{% endblock %}
+
+{% block content %}  
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Регистрация</h1>
+          <hr class="mt-0 mb-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success g-5">Регистрация</button>
+                  </div>
+            </form> 
+        </div>
+      </div>
+    </div>
+{% endblock %}

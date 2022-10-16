@@ -1,0 +1,22 @@
+{% extends 'base.html' %}   
+{% block title %}All guests{% endblock %}
+
+{% block content %}
+    <h1 class="d-flex justify-content-center"> Гости отеля {{ hotel_name }}</h1>
+    <table class="table table-hover table-bordered">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+            </tr>
+        </thead>
+        {% for guest in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ guest.last_name }}</td>
+                <td>{{ guest.first_name }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}
