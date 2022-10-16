@@ -36,7 +36,7 @@ class StudentGroup(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True)
-    birthdate = models.DateField(auto_now=True)
+    birthdate = models.DateField()
 
 
 class Teacher(models.Model):
@@ -48,11 +48,20 @@ class Homework(models.Model):
     student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
     subject = models.CharField(max_length=30, choices=SUBJECTS)
-    start_date = models.DateTimeField(auto_now=True, blank=True)
-    end_date = models.DateTimeField(auto_now=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     task_description = models.TextField()
     fine_info = models.CharField(max_length=150)
+    max_points = models.IntegerField()
 
+
+class HomeworkAnswer(models.Model):
+    homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True, blank=True)
+    points = models.IntegerField(default=0, null=True, blank=True)
+    answer = models.TextField(null=True, blank=True)
+    teacher_message = models.TextField(null=True, blank=True)
 
 class Mark(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

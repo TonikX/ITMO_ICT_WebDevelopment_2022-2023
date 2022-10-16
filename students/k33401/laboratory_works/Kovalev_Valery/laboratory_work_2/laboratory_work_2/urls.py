@@ -23,6 +23,11 @@ urlpatterns = [
     path('register/', timetable.views.registerPage, name="register"),
     path('login/', timetable.views.loginPage, name="login"),
     path("", timetable.views.home, name="home"),
-    path("teacher/", timetable.views.for_student, name="student"),
-    path("add_info/", timetable.views.add_info, name="add_info")
+    path("add_info/", timetable.views.add_info, name="add_info"),
+    path("logout/", timetable.views.logoutUser, name="logout"),
+    path("marks/", timetable.views.marks, name="marks"),
+    path("teacher_marks/", timetable.views.teacher_marks_page, name="teacher_marks"),
+    path("student_marks/", timetable.views.student_marks_page, name="student_marks"),
+    path("make_homework/<int:work_id>/", timetable.views.make_homework, name="make_homework"),
+    path("create_homework/<int:work_id>/", timetable.views.create_homework, name="create_homework")
 ]

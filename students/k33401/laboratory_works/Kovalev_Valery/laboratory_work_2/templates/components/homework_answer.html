@@ -1,0 +1,37 @@
+<div class="col">
+  <div class="card shadow-sm">
+    <div class="card-body">
+        <h5>{{ answer.answer.homework.subject }}</h5>
+        <small class="text-muted">Описание:</small>
+        <p class="card-text">{{ answer.answer.homework.task_description }}</p>
+        <small class="text-muted">Ответ:</small>
+        <p class="m-0">{{ answer.answer.answer }}</p>
+        <small class="text-muted">Сдано:</small>
+        <p class="m-0">{{ answer.answer.date }}</p>
+
+
+      {% if request.user.is_teacher %}
+          <small class="text-muted">От:</small>
+          <p class="m-0">{{ answer.answer.student.user.first_name }} {{ answer.answer.student.user.last_name }}</p>
+          <small class="text-muted">Группа:</small>
+          <p class="m-0">{{ answer.answer.student.student_group.character }}{{ answer.answer.student.student_group.number }}</p>
+          <small class="text-muted">Оценить:</small>
+          <form method="POST">
+            {% csrf_token %}
+            {{ answer.form.as_p }}
+            <button type="submit" class="btn btn-sm btn-outline-secondary mt-2">Оценить</button>
+          </form>
+          <a href=""></a>
+      {% endif %}
+      {% if request.user.is_student %}
+          <small class="text-muted">Оценка:</small>
+        <p class="m-0">{{ answer.points }}</p>
+          <small class="text-muted">Сообщение:</small>
+        <p class="m-0">{{ answer.answer.teacher_message }}</p>
+        <small class="text-muted">Проверил:</small>
+        <p class="m-0">{{ answer.answer.homework.teacher.user.first_name }} {{ answer.answer.homework.teacher.user.last_name }}</p>
+
+      {% endif %}
+    </div>
+  </div>
+</div>

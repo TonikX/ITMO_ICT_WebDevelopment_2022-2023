@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if homeworks %}
+        {% include 'components/homeworks_album.html' %}
+    {% else %}
+        <h3>Нет заданий</h3>
+    {% endif %}
+{% endblock %}

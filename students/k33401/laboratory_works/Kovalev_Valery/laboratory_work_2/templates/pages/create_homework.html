@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-sm btn-outline-secondary">Отправить</button>
+    </form>
+{% endblock %}

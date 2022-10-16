@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <article>{{ homework.task_description }}</article>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+    <button class="btn btn-sm btn-outline-secondary">Отправить</button>
+    </form>
+{% endblock %}
