@@ -4,7 +4,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 
 
-
 class Hotel(models.Model):
     name = models.CharField("Название отеля", primary_key = True, max_length=255)
     address = models.CharField("Адрес", max_length=255)
@@ -73,7 +72,6 @@ class Comment(models.Model):
     sing_author = models.CharField("Укажите ваш ник", max_length=30)
 
     def save(self, *args, **kwargs):
-        # Calculate the price based on number of nights at the hotel
         self.date_start  = self.reservation.arrival_date
         self.date_end = self.reservation.departure_date
         super(Comment, self).save(*args, **kwargs)

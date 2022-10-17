@@ -19,6 +19,7 @@ class RegGuests(CreateView):
         "passport",
     ]
     template_name = "register_guests.html"
+    success_url = '/registration/'
 
 #просмотр всех номеров
 class RoomsList(ListView):
