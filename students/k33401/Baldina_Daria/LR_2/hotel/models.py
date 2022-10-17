@@ -2,8 +2,7 @@ from tabnanny import verbose
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from django.db.models import Q
-from datetime import timedelta
+
 
 
 class Hotel(models.Model):

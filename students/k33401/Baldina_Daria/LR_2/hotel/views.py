@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from msilib.schema import ListView
 from django.http import Http404 
 from .models import Hotel, Reservation,Room, Guest, Comment
-from django.views.generic import ListView, UpdateView, CreateView, DeleteView, DetailView
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from .forms import CreateComment, CreateReservation
 
 
