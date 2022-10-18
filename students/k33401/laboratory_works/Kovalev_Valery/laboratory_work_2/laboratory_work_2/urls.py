@@ -29,5 +29,10 @@ urlpatterns = [
     path("teacher_marks/", timetable.views.teacher_marks_page, name="teacher_marks"),
     path("student_marks/", timetable.views.student_marks_page, name="student_marks"),
     path("make_homework/<int:work_id>/", timetable.views.make_homework, name="make_homework"),
-    path("create_homework/<int:work_id>/", timetable.views.create_homework, name="create_homework")
+    path("change_homework/<int:work_id>/", timetable.views.change_homework, name="change_homework"),
+    path("create_homework/", timetable.views.create_homework, name="create_homework"),
+    path("teacher_home/", timetable.views.teacher_home_page, name="teacher_home"),
+    path("student_home/", timetable.views.student_home_page, name="student_home"),
+    path("delete_homework/<int:work_id>/", timetable.views.delete_homework, name="delete_homework"),
+    path("rate_homework/<int:work_id>/", timetable.views.rate_homework, name="rate_homework")
 ]

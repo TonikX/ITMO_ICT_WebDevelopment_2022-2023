@@ -1,11 +1,13 @@
+import django.db
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from .decorators import student_required, teacher_required, allowed_users, additional_info_check
+from .decorators import student_required, teacher_required, additional_info_check
 from django.contrib.auth import authenticate, login, logout
 
-from .forms import RegisterForm, TeacherForm, StudentForm, TeacherAnswerOnHomework, MakeHomeworkForm, CreateHomeworkForm
-from .models import Homework, Teacher, Student, StudentGroup, HomeworkAnswer
+from .forms import RegisterForm, TeacherForm, StudentForm, HomeworkAnswerForm, HomeworkForm, \
+    TeacherAnswerOnHomeworkForm
+from .models import Homework, Teacher, Student, StudentGroup, HomeworkAnswer, TeacherAnswerOnHomework
 
 
 def registerPage(requset):
@@ -37,7 +39,7 @@ def loginPage(request):
     return render(request, 'pages/login.html', context)
 
 
-@login_required()
+@login_required(login_url='login')
 def add_info(request):
     if request.user.is_teacher:
         if request.method == "POST":
@@ -60,99 +62,178 @@ def add_info(request):
             form = StudentForm(user=request.user)
             context = {"form": form}
             return render(request, "pages/add_info.html", context)
+    return HttpResponse("You are not teacher or student")
 
 
 @login_required(login_url='login')
 @additional_info_check()
 def home(request):
-    context = {}
     if request.user.is_teacher:
-        teacher = Teacher.objects.get(user=request.user)
-        homeworks = Homework.objects.filter(teacher=teacher)
-        context = {"homeworks": homeworks}
+        return redirect("teacher_home")
     if request.user.is_student:
-        student = Student.objects.get(user=request.user)
-        completed_words = HomeworkAnswer.objects.all()
-        completed_words = [work.homework for work in completed_words]
-        homeworks = Homework.objects.filter(student_group=student.student_group)
-        homeworks = [homework for homework in homeworks if homework not in completed_words]
-        context = {"homeworks": homeworks}
-    return render(request, "pages/home.html", context)
+        return redirect("student_home")
+    return HttpResponse("You are not teacher or student")
 
 
+def get_checked_and_unchecked_homeworks(homeworks):
+    checked_homeworks = []
+    unchecked_homeworks = []
+    for homework in homeworks:
+        try:
+            t = homework.teacheransweronhomework
+            if t:
+                checked_homeworks.append(homework)
+        except TeacherAnswerOnHomework.DoesNotExist:
+            unchecked_homeworks.append(homework)
+    return {"checked_homeworks": checked_homeworks, "unchecked_homeworks": unchecked_homeworks}
+
+
+@login_required(login_url='login')
 @teacher_required()
 def teacher_marks_page(request):
-    if request.method == "POST":
-        form = TeacherAnswerOnHomework(request.POST)
-        if form.is_valid():
-            points = form.cleaned_data['points']
-            message = form.cleaned_data['message']
-            homework_answer_id = form.cleaned_data["homework_answer_id"]
-            homework_answer = HomeworkAnswer.objects.get(pk=homework_answer_id)
-            homework_answer.teacher_message = message
-            homework_answer.points = points
-            homework_answer.save()
-    teacher = Teacher.objects.get(user=request.user)
-    homeworks = Homework.objects.filter(teacher=teacher)
-    answers = []
+    homeworks = Homework.objects.filter(teacher=request.user.teacher)
+    homework_answers = []
     for homework in homeworks:
-        answer = HomeworkAnswer.objects.get(homework=homework)
-        points = answer.points
-        form = TeacherAnswerOnHomework(points=points, homework_answer=answer, message=answer.teacher_message)
-        answers.append({"answer": answer, "form": form})
-    context = {"answers": answers}
+        try:
+            homework_answers.append(HomeworkAnswer.objects.get(homework=homework))
+        except HomeworkAnswer.DoesNotExist:
+            continue
+
+    filtered_homeworks = get_checked_and_unchecked_homeworks(homework_answers)
+    context = {"homework_answers": homework_answers, "checked_homeworks": filtered_homeworks["checked_homeworks"],
+               "unchecked_homeworks": filtered_homeworks["unchecked_homeworks"]}
     return render(request, 'pages/marks.html', context)
 
 
+@login_required(login_url='login')
 @student_required()
 def student_marks_page(request):
     student = Student.objects.get(user=request.user)
     homeworks = Homework.objects.filter(student_group=student.student_group)
-    answers = []
+    homework_answers = []
     for homework in homeworks:
-        answer = HomeworkAnswer.objects.get(homework=homework)
-        points = answer.points
-        answers.append({"answer": answer, "points": points})
-    context = {"answers": answers}
-    print(answers)
+        try:
+            homework_answers.append(HomeworkAnswer.objects.get(homework=homework))
+        except HomeworkAnswer.DoesNotExist:
+            continue
+
+    filtered_homeworks = get_checked_and_unchecked_homeworks(homework_answers)
+    context = {"homework_answers": homework_answers, "checked_homeworks": filtered_homeworks["checked_homeworks"],
+               "unchecked_homeworks": filtered_homeworks["unchecked_homeworks"]}
     return render(request, 'pages/marks.html', context)
 
 
-def make_homework(request, work_id):
+@login_required(login_url='login')
+@teacher_required()
+def delete_homework(request, work_id):
     homework = Homework.objects.get(pk=work_id)
-    student = Student.objects.get(user=request.user)
-    homework_answer = HomeworkAnswer.objects.get_or_create(homework=homework, student=student)[0]
-    if request.method == "POST":
-        form = MakeHomeworkForm(request.POST)
-        if form.is_valid():
-            print("DATA", form.cleaned_data)
-            homework_answer.answer = form.cleaned_data["answer"]
-            homework_answer.points = 0
-            homework_answer.teacher_message = ""
-            homework_answer.save()
-            return redirect("marks")
-    form = MakeHomeworkForm(answer=homework_answer.answer, homework=homework)
-    context = {"word_id": work_id, "form": form, "homework": homework}
-    return render(request, 'pages/make_homework.html', context)
+    homework.delete()
+    return redirect("home")
 
 
-def create_homework(request, work_id):
+@login_required(login_url='login')
+@teacher_required()
+def change_homework(request, work_id):
     homework = Homework.objects.get_or_create(pk=work_id)[0]
     if request.method == "POST":
-        form = CreateHomeworkForm(request.POST, instance=homework, user=request.user)
+        form = HomeworkForm(request.POST, instance=homework, user=request.user)
         if form.is_valid():
             form.save()
             return redirect("home")
-    form = CreateHomeworkForm(instance=homework, user=request.user)
+    form = HomeworkForm(instance=homework, user=request.user)
     context = {"word_id": work_id, "form": form, "homework": homework}
     return render(request, 'pages/create_homework.html', context)
 
+
+@login_required(login_url='login')
+@teacher_required()
+def create_homework(request):
+    if request.method == "POST":
+        form = HomeworkForm(request.POST, user=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect("home")
+    form = HomeworkForm(user=request.user)
+    context = {"form": form}
+    return render(request, 'pages/create_homework.html', context)
+
+
+@login_required(login_url='login')
+@teacher_required()
+def teacher_home_page(request):
+    teacher = Teacher.objects.get(user=request.user)
+    homeworks = Homework.objects.filter(teacher=teacher)
+    context = {"homeworks": homeworks}
+    return render(request, "pages/home.html", context)
+
+
+@login_required(login_url='login')
+@student_required()
+def student_home_page(request):
+    student = Student.objects.get(user=request.user)
+    completed_words = HomeworkAnswer.objects.all()
+    completed_words = [work.homework for work in completed_words]
+    homeworks = Homework.objects.filter(student_group=student.student_group)
+    homeworks = [homework for homework in homeworks if homework not in completed_words]
+    context = {"homeworks": homeworks}
+    return render(request, "pages/home.html", context)
+
+
+@login_required(login_url='login')
 @login_required()
 def marks(request):
     if request.user.is_teacher:
         return redirect('teacher_marks')
     if request.user.is_student:
         return redirect('student_marks')
+
+
+def rate_homework(request, work_id):
+    try:
+        homework_answer = HomeworkAnswer.objects.get(pk=work_id)
+    except HomeworkAnswer.DoesNotExist:
+        return HttpResponse("Homework answer does not exist")
+
+    try:
+        if request.method == "POST":
+            form = TeacherAnswerOnHomeworkForm(request.POST, instance=homework_answer.teacheransweronhomework,
+                                               homework_answer=homework_answer)
+            if form.is_valid():
+                form.save()
+                return redirect("marks")
+        form = TeacherAnswerOnHomeworkForm(instance=homework_answer.teacheransweronhomework,
+                                           homework_answer=homework_answer)
+        context = {"form": form, "homework_answer": homework_answer}
+        return render(request, 'pages/rate_homework.html', context)
+    except TeacherAnswerOnHomework.DoesNotExist:
+        if request.method == "POST":
+            form = TeacherAnswerOnHomeworkForm(request.POST, homework_answer=homework_answer)
+            if form.is_valid():
+                form.save()
+                return redirect("marks")
+        form = TeacherAnswerOnHomeworkForm(homework_answer=homework_answer)
+        context = {"form": form, "homework_answer": homework_answer}
+        return render(request, 'pages/rate_homework.html', context)
+
+
+@login_required(login_url='login')
+@student_required()
+def make_homework(request, work_id):
+    student = Student.objects.get(user=request.user)
+
+    try:
+        homework = Homework.objects.get(pk=work_id)
+    except Homework.DoesNotExist:
+        return HttpResponse("Homework answer does not exist")
+
+    if request.method == "POST":
+        form = HomeworkAnswerForm(request.POST, homework=homework, student=student)
+        if form.is_valid():
+            form.save()
+            return redirect("marks")
+    form = HomeworkAnswerForm(homework=homework, student=student)
+    context = {"form": form, "homework": homework}
+    return render(request, 'pages/make_homework.html', context)
 
 
 def logoutUser(request):

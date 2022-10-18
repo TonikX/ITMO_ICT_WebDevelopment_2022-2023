@@ -21,16 +21,20 @@ NUMBERS = [
 ]
 
 SUBJECTS = [
-    ("Math", "Math"),
-    ("History", "History"),
-    ("Art", "Art"),
-    ("English", "English")
+    ("Математика", "Математика"),
+    ("История", "История"),
+    ("ИЗО", "ИЗО"),
+    ("Русский язык", "Русский язык"),
+    ("География", "География")
 ]
 
 
 class StudentGroup(models.Model):
-    character = models.CharField(max_length=1, choices=CHARACTERS, default="A")
-    number = models.IntegerField(choices=NUMBERS, default=1)
+    character = models.CharField(max_length=1, choices=CHARACTERS, default="A", verbose_name="Литера")
+    number = models.IntegerField(choices=NUMBERS, default=1, verbose_name="Номер")
+
+    def __str__(self):
+        return f"{self.character}{self.number}"
 
 
 class Student(models.Model):
@@ -38,31 +42,39 @@ class Student(models.Model):
     student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True)
     birthdate = models.DateField()
 
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
+
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    subject = models.CharField(max_length=30, choices=SUBJECTS)
+    subject = models.CharField(max_length=30, choices=SUBJECTS, verbose_name="Предмет")
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
 
 class Homework(models.Model):
     student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
-    subject = models.CharField(max_length=30, choices=SUBJECTS)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    task_description = models.TextField()
-    fine_info = models.CharField(max_length=150)
-    max_points = models.IntegerField()
+    subject = models.CharField(max_length=30, choices=SUBJECTS, verbose_name="Предмет")
+    start_date = models.DateTimeField(verbose_name="Дата выдачи")
+    end_date = models.DateTimeField(verbose_name="Сдать до")
+    task_description = models.TextField(verbose_name="Описание")
+    fine_info = models.CharField(max_length=150, verbose_name="Информация о штрафах")
+    max_points = models.IntegerField(verbose_name="Максимальное количество баллов")
 
 
 class HomeworkAnswer(models.Model):
     homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True, blank=True)
-    points = models.IntegerField(default=0, null=True, blank=True)
-    answer = models.TextField(null=True, blank=True)
-    teacher_message = models.TextField(null=True, blank=True)
+    answer = models.TextField(null=True, blank=True, verbose_name="Ответ")
 
-class Mark(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    homework = models.ForeignKey(Homework, on_delete=models.CASCADE)
+
+class TeacherAnswerOnHomework(models.Model):
+    homework_answer = models.OneToOneField(HomeworkAnswer, on_delete=models.CASCADE, primary_key=True)
+    points = models.IntegerField(default=0, verbose_name="Баллы")
+    message = models.TextField(null=True, blank=True, verbose_name="Сообщение")
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now=True, blank=True)

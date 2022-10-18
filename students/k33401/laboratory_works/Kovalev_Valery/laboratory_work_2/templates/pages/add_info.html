@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST">
+    <h1>Требуется дополнительная информация</h1>
+    <form method="POST" class="d-flex flex-column col-lg-3">
         {% csrf_token %}
         {{ form }}
-        <button type="submit">Подтвердить</button>
+        <button type="submit" class="btn btn-sm btn-outline-secondary mt-2">Подтвердить</button>
     </form>
 {% endblock %}

@@ -1,12 +1,36 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
-from timetable.models import Teacher, Student, User, Homework, StudentGroup, HomeworkAnswer
+from timetable.models import Teacher, Student, User, Homework, StudentGroup, HomeworkAnswer, TeacherAnswerOnHomework
 
 ROLES = [
     ('teacher', 'Teacher'),
     ('student', 'Student'),
 ]
+
+groups = [(group.pk, group) for group in StudentGroup.objects.all()]
+
+
+class RegisterForm(UserCreationForm):
+    role = forms.ChoiceField(
+        required=True,
+        choices=ROLES
+    )
+
+    class Meta:
+        model = User
+        fields = ("username", "first_name", "last_name", "password1", "password2")
+
+    def save(self, commit=True):
+        user = super(RegisterForm, self).save(commit=False)
+        print("ROLE", self.cleaned_data["role"])
+        if self.cleaned_data["role"] == "teacher":
+            user.is_teacher = True
+        if self.cleaned_data["role"] == "student":
+            user.is_student = True
+        if commit:
+            user.save()
+        return user
 
 
 class TeacherForm(forms.ModelForm):
@@ -28,68 +52,7 @@ class TeacherForm(forms.ModelForm):
         return teacher
 
 
-class TeacherAnswerOnHomework(forms.Form):
-    def __init__(self, *args, **kwargs):
-        points = kwargs.pop('points', None)
-        homework_answer = kwargs.pop('homework_answer', None)
-        message = kwargs.pop('message', None)
-        super(TeacherAnswerOnHomework, self).__init__(*args, **kwargs)
-        if points:
-            self.fields['points'].widget = forms.NumberInput(attrs={'value': points})
-        if homework_answer:
-            self.fields["homework_answer_id"].widget = forms.HiddenInput(attrs={'value': homework_answer.pk})
-        if message:
-            self.fields["message"].widget = forms.TextInput(attrs={'value': message})
-
-    homework_answer_id = forms.IntegerField()
-    points = forms.IntegerField(label='points', min_value=0, max_value=15)
-    message = forms.CharField(label='message', max_length=180)
-
-
-class MakeHomeworkForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        answer = kwargs.pop('answer', None)
-        homework = kwargs.pop('homework', None)
-        super(MakeHomeworkForm, self).__init__(*args, **kwargs)
-        if homework:
-            self.fields["homework_id"].widget = forms.HiddenInput(attrs={'value': homework.pk})
-        if answer:
-            self.fields["answer"].widget = forms.TextInput(attrs={'value': answer})
-
-    homework_id = forms.IntegerField()
-    answer = forms.CharField(label='message', max_length=180)
-
-
-class CreateHomeworkForm(forms.ModelForm):
-    groups = [(group.pk, f"{group.character}{group.number}") for group in StudentGroup.objects.all()]
-
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(CreateHomeworkForm, self).__init__(*args, **kwargs)
-
-    class Meta:
-        model = Homework
-        fields = ["task_description", "start_date", "end_date", "max_points"]
-        widgets = {
-            "start_date": forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'}),
-            "end_date": forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'})
-        }
-
-    student_group = forms.ChoiceField(required=True, choices=groups)
-
-    def save(self, commit=True):
-        homework = super(CreateHomeworkForm, self).save(commit=False)
-        print("DATA", self.cleaned_data)
-        homework.student_group = StudentGroup.objects.get(pk=self.cleaned_data["student_group"])
-        homework.teacher = Teacher.objects.get(user=self.user)
-        if commit:
-            homework.save()
-        return homework
-
-
 class StudentForm(forms.ModelForm):
-    groups = [(group.pk, f"{group.character}{group.number}") for group in StudentGroup.objects.all()]
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(StudentForm, self).__init__(*args, **kwargs)
@@ -114,23 +77,65 @@ class StudentForm(forms.ModelForm):
         return student
 
 
-class RegisterForm(UserCreationForm):
-    role = forms.ChoiceField(
-        required=True,
-        choices=ROLES
-    )
-
+class TeacherAnswerOnHomeworkForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ("username", "first_name", "last_name", "password1", "password2")
+        model = TeacherAnswerOnHomework
+        fields = ["points", "message"]
+
+    def __init__(self, *args, **kwargs):
+        self.homework_answer = kwargs.pop('homework_answer', None)
+        super(TeacherAnswerOnHomeworkForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        user = super(RegisterForm, self).save(commit=False)
-        print("ROLE", self.cleaned_data["role"])
-        if self.cleaned_data["role"] == "teacher":
-            user.is_teacher = True
-        if self.cleaned_data["role"] == "student":
-            user.is_student = True
+        teacher_homework_answer = super(TeacherAnswerOnHomeworkForm, self).save(commit=False)
+        teacher_homework_answer.homework_answer = self.homework_answer
         if commit:
-            user.save()
-        return user
+            teacher_homework_answer.save()
+        return teacher_homework_answer
+
+
+class HomeworkAnswerForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.homework = kwargs.pop('homework', None)
+        self.student = kwargs.pop('student', None)
+        super(HomeworkAnswerForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = HomeworkAnswer
+        fields = ["answer"]
+
+    answer = forms.CharField(label='message', max_length=180)
+
+    def save(self, commit=True):
+        homework_answer = super(HomeworkAnswerForm, self).save(commit=False)
+        homework_answer.homework = self.homework
+        homework_answer.student = self.student
+        if commit:
+            homework_answer.save()
+        return homework_answer
+
+
+class HomeworkForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(HomeworkForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Homework
+        fields = ["task_description", "start_date", "end_date", "max_points", "fine_info"]
+        widgets = {
+            "start_date": forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'}),
+            "end_date": forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'})
+        }
+
+    student_group = forms.ChoiceField(required=True, choices=groups)
+
+    def save(self, commit=True):
+        homework = super(HomeworkForm, self).save(commit=False)
+        homework.student_group = StudentGroup.objects.get(pk=self.cleaned_data["student_group"])
+        homework.teacher = Teacher.objects.get(user=self.user)
+        homework.subject = homework.teacher.subject
+        if commit:
+            homework.save()
+        return homework
