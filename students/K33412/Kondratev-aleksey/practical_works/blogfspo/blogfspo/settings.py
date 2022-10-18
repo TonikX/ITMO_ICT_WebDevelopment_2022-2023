@@ -55,7 +55,9 @@ ROOT_URLCONF = 'blogfspo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "project_first_app/",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
