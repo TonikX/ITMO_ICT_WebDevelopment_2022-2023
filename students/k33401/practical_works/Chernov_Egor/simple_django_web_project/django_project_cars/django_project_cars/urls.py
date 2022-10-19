@@ -1,8 +1,8 @@
-from django.urls import path
+from django.urls import include, path
 from cars_first_app import views
 
 
 urlpatterns = [
     path('', views.index),
-    path("driver/<int:id>/", views.get_driver),
+    path('', include('cars_first_app.urls')),
 ]
