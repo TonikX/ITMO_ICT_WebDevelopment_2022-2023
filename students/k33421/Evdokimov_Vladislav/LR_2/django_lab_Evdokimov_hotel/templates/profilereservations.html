@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Брони</title>
+</head>
+<body>
+     <h1>Кабинет {{user.username}}'a</h1>
+
+     {% for reservation in reservation_list %}
+
+     <strong>Тур: </strong>{{ reservation.tour }} <br>
+     <strong>Начало брони: </strong>{{ reservation.start_date }} <br>
+     <strong>Конец брони: </strong>{{ reservation.end_date }} <br>
+     <strong>Статус брони: </strong>{{ reservation.status|yesno:"Забронировано!,Ждите подтверждения"  }}<br/>
+
+
+     <a href="lcreservations/deletereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Удалить</button></a>
+     <a href="lcreservations/updatereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Обновить</button></a>
+         <a href="/tours/"><button class="btn btn-secondary">Туры и комментарии</button></a>
+     <br><br><br>
+     {% empty %}
+     <li>Нет брони</li>
+     {% endfor %}
+
+     <a href="/tours">Создать бронь</a><br>
+     <a href="/profile">Назад в личный кабинет</a><br>
+     <a href="/main">Главная страница</a>
+</body>
+</html>

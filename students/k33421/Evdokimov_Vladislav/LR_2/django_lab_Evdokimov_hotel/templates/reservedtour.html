@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+{% block content %}
+
+    <table id="myTable" width="25%">
+        <thead>
+        <tr>
+            <th><h1>Уже купили!</h1></th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for reservation in reservations %}
+
+            <tr>
+                <td>Название тура: {{ reservation.tour.naming }} </td>
+                <td>Страна: {{ reservation.tour.country }} </td>
+                <td>Пользователь: {{ reservation.username.username }} </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+</body>
+</html>

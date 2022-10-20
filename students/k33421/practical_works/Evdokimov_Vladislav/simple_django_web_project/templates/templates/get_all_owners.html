@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        {% for owner in get_all_owners %}
+
+        {{ owner.first_name }}<br />
+        {{ owner.second_name }}<br />
+        {{ owner.id_owner }}<br />
+        {{ owner.passport_data }}<br />
+        {{ owner.email }}<br />
+        {{ owner.DOB }}<br />
+        {{ owner.nationality }}<br />
+        {{ owner.home_adress }}
+        <hr />
+
+        {% endfor %}
+    </p>
+</body>
+
+</html>

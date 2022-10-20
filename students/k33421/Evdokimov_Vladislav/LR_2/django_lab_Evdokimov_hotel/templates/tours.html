@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Туры</title>
+</head>
+<body>
+<div class="main">
+    {% for tour in tours %}
+        ID: {{ tour.id }} <br><a href="/tours/{{ tour.id }}/reservation">Зарезервировать!</a></br>
+        <strong>Название: </strong>{{ tour.naming }} <br>
+        <strong>Описание: </strong>{{ tour.description }} <br>
+        <strong>Начинается: </strong>{{ tour.start_date }} <br>
+        <strong>Заканчивается: </strong>{{ tour.end_date }} <br>
+        <strong>Страна: </strong>{{ tour.country }} <br>
+        <strong>Метод оплаты: </strong>{{ tour.paid_with }} <br><br>
+        <a href="/tours/{{ tour.id }}/createcomment">Оставить комментарии</a></br>
+        <a href="/profile">Вернуться в личный кабинет</a></br>
+        <a href="/main">Главная страница</a></br>
+    {% endfor %}
+</div>
+</body>
+</html>
