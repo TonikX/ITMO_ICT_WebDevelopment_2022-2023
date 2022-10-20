@@ -5,7 +5,17 @@
     <title>Cars</title>
 </head>
 <body>
-    <h1>Driver {{ driver.id }}:</h1>
-    <h2>{{ driver.first_name }} {{ driver.last_name }}, {{ driver.birthday }}</h2>
+<!--    <h1>Driver {{ dataset.id }}:</h1>-->
+<!--    <h2>{{ driver.first_name }} {{ driver.last_name }}, {{ driver.birthday }}</h2>-->
+
+    {% if driver %}
+        <h1>Driver:</h1>
+        <h2>{{ dataset.first_name }} {{ dataset.last_name }}, {{ dataset.birthday }}</h2>
+    {% else %}
+        <h1>Drivers:</h1>
+        {% for data in dataset %}
+            <h2>{{ data.first_name }} {{ data.last_name }}, {{ data.birthday }}</h2>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
