@@ -10,11 +10,11 @@
 
     {% if driver %}
         <h1>Driver:</h1>
-        <h2>{{ dataset.first_name }} {{ dataset.last_name }}, {{ dataset.birthday }}</h2>
+        <p>{{ dataset.first_name }} {{ dataset.last_name }}, {{ dataset.birthday }}</p>
     {% else %}
         <h1>Drivers:</h1>
         {% for data in dataset %}
-            <h2>{{ data.first_name }} {{ data.last_name }}, {{ data.birthday }}</h2>
+            <p>{{ data.first_name }} {{ data.last_name }}, {{ data.birthday }}</p>
         {% endfor %}
     {% endif %}
 </body>

@@ -7,7 +7,7 @@
 </head>
 <body>
     {% for data in object_list %}
-        <h2>{{ data.pk }}. {{ data.car_brand }} {{ data.model }}, {{ data.license_plate }}, {{ data.color }}</h2>
+        <p>{{ data.pk }}. {{ data.car_brand }} {{ data.model }}, {{ data.license_plate }}, {{ data.color }}</p>
     {% endfor %}
 </body>
 </html>

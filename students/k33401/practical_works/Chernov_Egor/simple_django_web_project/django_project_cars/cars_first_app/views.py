@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .models import *
 from .forms import DriverForm
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
 
 
 def index(request):
@@ -53,4 +56,23 @@ def create_driver(request):
     if form.is_valid():
         form.save()
     context['form'] = form
-    return render(request, 'create_driver.html', context)
+    return render(request, 'driver_form.html', context)
+
+
+class CarCreate(CreateView):
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['license_plate', 'car_brand', 'model', 'color']
+
+
+class CarUpdateView(UpdateView):
+    model = Car
+    template_name = 'car_form.html'
+    fields = ['license_plate', 'car_brand', 'model', 'color']
+    success_url = '/cars/'
+
+
+class CarDeleteView(DeleteView):
+    model = Car
+    template_name = 'car_confirm_delete.html'
+    success_url = '/cars/'
