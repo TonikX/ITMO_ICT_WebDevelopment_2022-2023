@@ -15,6 +15,7 @@ class DriverLicense(models.Model):
 
 
 class Car(models.Model):
+    owners = models.ManyToManyField(Driver, through='Ownership')
     license_plate = models.CharField(max_length=15)
     car_brand = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
