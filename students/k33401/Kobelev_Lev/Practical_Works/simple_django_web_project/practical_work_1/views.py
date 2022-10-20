@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.shortcuts import render
-from task_1_2.models import Car, Owner, Ownership, DriverLicense
+from practical_work_1.models import Car, Owner, Ownership, DriverLicense
 
 
 def detail(request, owner_id):

@@ -63,13 +63,13 @@ class Migration(migrations.Migration):
                 (
                     "ownership_car",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="task_1_2.car"
+                        on_delete=django.db.models.deletion.CASCADE, to="practical_work_1.car"
                     ),
                 ),
                 (
                     "ownership_owner",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="task_1_2.owner"
+                        on_delete=django.db.models.deletion.CASCADE, to="practical_work_1.owner"
                     ),
                 ),
             ],
@@ -92,7 +92,7 @@ class Migration(migrations.Migration):
                 (
                     "license_owner",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="task_1_2.owner"
+                        on_delete=django.db.models.deletion.CASCADE, to="practical_work_1.owner"
                     ),
                 ),
             ],
