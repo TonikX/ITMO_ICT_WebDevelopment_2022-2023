@@ -24,6 +24,9 @@ class Car(models.Model):
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30, null=True, blank=True)
 
+    def __str__(self):
+        return "{}. {} {}, {}".format(self.pk, self.car_brand, self.model, self.license_plate, self.color)
+
 
 class Ownership(models.Model):
     id_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
