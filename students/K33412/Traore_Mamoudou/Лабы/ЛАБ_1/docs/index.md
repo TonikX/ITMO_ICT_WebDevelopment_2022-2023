@@ -1,5 +1,4 @@
 # ЛАБОРАТОРНАЯ РАБОТА 1
-mamou
 ## TASK 1
 * client.py
 ``` py
