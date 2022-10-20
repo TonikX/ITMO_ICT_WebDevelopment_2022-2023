@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Driver
-from .models import Car
+from .models import *
+from .forms import DriverForm
 from django.views.generic.list import ListView
 
 
@@ -45,3 +45,12 @@ class CarList(ListView):
                 queryset = self.model.objects.none()
             return queryset
         return self.queryset
+
+
+def create_driver(request):
+    context = {}
+    form = DriverForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context['form'] = form
+    return render(request, 'create_driver.html', context)
