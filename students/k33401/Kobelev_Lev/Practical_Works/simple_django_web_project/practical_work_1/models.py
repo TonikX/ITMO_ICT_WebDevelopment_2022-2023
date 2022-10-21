@@ -6,6 +6,13 @@ class Owner(models.Model):
     second_name = models.CharField(max_length=30)
     birthday = models.DateField(null=True, blank=True)
 
+    def __str__(self):
+        return '{} {}'.format(self.first_name, self.second_name)
+
+    @classmethod
+    def as_view(cls):
+        pass
+
 
 class DriverLicense(models.Model):
     license_owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
@@ -19,6 +26,13 @@ class Car(models.Model):
     brand = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30, null=True, blank=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.brand, self.model)
+
+    @classmethod
+    def as_view(cls):
+        pass
 
 
 class Ownership(models.Model):
