@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drivers</title>
+</head>
+<body>
+<div class="main">
+    <ol>
+        {% for data in dataset %}
+        <li>
+            <h2>{{data}}</h2>
+            <b>Birth date:</b> {{data.birth_date}} <br>
+            <b>Passport:</b> {{data.passport}} <br>
+            <b>Nationality:</b> {{data.nationality}} <br>
+            <b>Address:</b> {{data.address}} <br>
+            <hr/>
+        </li>
+        {% endfor %}
+
+    </ol>
+</div>
+</body>
+</html>
