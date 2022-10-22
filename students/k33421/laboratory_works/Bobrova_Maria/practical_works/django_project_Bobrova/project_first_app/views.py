@@ -47,7 +47,7 @@ class CarCreate(CreateView):
 
 class CarDelete(DeleteView):
     model = Car
-    template_name = 'delete_car.html'
+    template_name = 'delete_cars.html'
     success_url = '/list_cars/'
 
 
