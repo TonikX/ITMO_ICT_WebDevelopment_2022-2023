@@ -70,7 +70,7 @@ class Room(models.Model):
     ]
     id_room = models.IntegerField(primary_key=True, verbose_name='ID Room')
     id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='ID Hotel')
-    id_rt = models.ForeignKey(RoomType, on_delete=models.SET_NULL, verbose_name='ID Room type')
+    id_rt = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True, verbose_name='ID Room type')
     number_room = models.IntegerField(verbose_name='Number')
     status_room = models.CharField(max_length=1, choices=STATUS_CHOICES, default='F', verbose_name='Status')
     review_room = models.CharField(max_length=255, null=True, blank=True, verbose_name='Review')
@@ -93,9 +93,9 @@ class Registration(models.Model):
         (NO_PAID, 'Not paid for'),
     ]
     id_reg = models.IntegerField(primary_key=True, verbose_name='ID Reg')
-    id_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, verbose_name='ID Employee')
-    id_guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, verbose_name='ID Guest')
-    id_room = models.ForeignKey(Room, on_delete=models.SET_NULL, verbose_name='ID Room')
+    id_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='ID Employee')
+    id_guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
+    id_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, verbose_name='ID Room')
     status_reg = models.CharField(max_length=1, choices=STATUS_REG_CHOICES, verbose_name='Registration status')
     status_pay = models.CharField(max_length=2, choices=STATUS_PAY_CHOICES, verbose_name='Payment status')
     check_in = models.DateField(null=False, blank=False, verbose_name='Check in')

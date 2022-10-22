@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'hotel.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "django_hotel",
         "USER": "postgres",
         "PASSWORD": "Rabotadb123",
         "HOST": "localhost",
-        "PORT": "",
+        "PORT": "5433",
     }
 }
 
