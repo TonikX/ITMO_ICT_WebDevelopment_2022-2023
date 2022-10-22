@@ -4,8 +4,8 @@ from . import views
 urlpatterns = [
     path('', views.RegView.as_view(), name='index'),
     path('home/', views.home, name='home'),
-    path('login/', views.mlogin, name='login'),
-    path('logout/', views.mlogout, name='logout'),
+    path('login/', views.LogInView.as_view(), name='login'),
+    path('logout/', views.LogOutView.as_view(), name='logout'),
 ]
 
 # Просмотр отелей и номеров

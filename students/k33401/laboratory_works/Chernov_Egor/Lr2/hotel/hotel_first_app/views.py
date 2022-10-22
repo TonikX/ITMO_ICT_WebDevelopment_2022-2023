@@ -1,6 +1,9 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from django.urls import reverse_lazy
+
+from .forms import *
 from django.views.generic import CreateView
 
 
@@ -9,7 +12,17 @@ def index(request):
 
 
 def mlogin(request):
-    return render(request, 'login.html')
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        ...
+    else:
+        # Return an 'invalid login' error message.
+        ...
+    # return render(request, 'login.html')
 
 
 def mlogout(request):
@@ -34,4 +47,14 @@ class RegView(CreateView):
         return redirect(self.success_url)
 
 
-class LogInView(View):
+class LogInView(LoginView):
+    form_class = CustomAuthenticationForm
+    template_name = 'login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+class LogOutView(LogoutView):
+    def get_success_url(self):
+        return reverse_lazy('index')

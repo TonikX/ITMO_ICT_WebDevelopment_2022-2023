@@ -7,6 +7,9 @@
 {% endblock %}
 
 {% block mbody %}
-<h1>Log in</h1>
-<p>My log in body</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Connect</button>
+</form>
 {% endblock %}
