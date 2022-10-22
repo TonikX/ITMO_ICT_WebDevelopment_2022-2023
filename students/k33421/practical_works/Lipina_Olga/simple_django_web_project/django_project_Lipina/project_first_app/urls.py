@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from .views import get_car_owner, get_all_owners, AutoList, AutoRetrieveView, create_owner, AutoCreate, AutoDelete, \
-    AutoUpdate
+    AutoUpdate, CreateOwnerForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +16,6 @@ urlpatterns = [
     path('autos/create', AutoCreate.as_view()),
     path('autos/<int:pk>/delete', AutoDelete.as_view()),
     path('autos/<int:pk>/update', AutoUpdate.as_view()),
+
+    path("owners/create/new", CreateOwnerForm.as_view()),
 ]

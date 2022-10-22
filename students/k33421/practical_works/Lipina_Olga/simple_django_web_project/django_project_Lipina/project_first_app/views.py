@@ -56,3 +56,19 @@ class AutoUpdate(UpdateView):
     fields = ['number', 'mark', 'model', 'color']
     template_name = 'update_auto.html'
     success_url = '/all_autos/'
+
+class CreateOwnerForm(CreateView):
+    model = Owner
+    fields = [
+        "username",
+        "password",
+
+        "last_name",
+        "first_name",
+        "date_birth",
+        "passport",
+        "address",
+        "national",
+    ]
+    success_url = "/owners/"
+    template_name = "create_owner.html"
