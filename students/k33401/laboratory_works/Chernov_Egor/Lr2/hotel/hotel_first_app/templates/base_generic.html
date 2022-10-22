@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% block title %}<title>Local Library</title>{% endblock %}
+    {% block title %}<title>Hotel24</title>{% endblock %}
 </head>
 <body>
-
+    {% block mheader %}
+    <nav>
+        <p><a href="{% url 'login' %}">Log in</a></p>
+    </nav>
+    {% endblock %}
+    {% block mbody %}{% endblock %}
+    {% block mfooter %}{% endblock %}
 </body>
 </html>

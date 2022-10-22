@@ -2,7 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index)
+    path('', views.RegView.as_view(), name='index'),
+    path('home/', views.home, name='home'),
+    path('login/', views.mlogin, name='login'),
+    path('logout/', views.mlogout, name='logout'),
 ]
 
 # Просмотр отелей и номеров
@@ -20,3 +23,7 @@ urlpatterns = [
 
 # Написание отзыва
 # catalog/hotel/<int:id>/room/<int:id>/review
+
+# username: test1
+# mail: test1@mail.ru
+# password: test112345678
