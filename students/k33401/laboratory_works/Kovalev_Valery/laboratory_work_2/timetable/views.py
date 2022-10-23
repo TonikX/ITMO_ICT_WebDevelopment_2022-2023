@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from .forms import RegisterForm, TeacherForm, StudentForm, HomeworkAnswerForm, HomeworkForm, \
     TeacherAnswerOnHomeworkForm
-from .models import Homework, Teacher, Student, StudentGroup, HomeworkAnswer, TeacherAnswerOnHomework
+from .models import Homework, Teacher, Student, HomeworkAnswer, TeacherAnswerOnHomework
 
 
 def registerPage(requset):
@@ -188,6 +188,8 @@ def marks(request):
         return redirect('student_marks')
 
 
+@login_required(login_url='login')
+@teacher_required()
 def rate_homework(request, work_id):
     try:
         homework_answer = HomeworkAnswer.objects.get(pk=work_id)
@@ -197,21 +199,21 @@ def rate_homework(request, work_id):
     try:
         if request.method == "POST":
             form = TeacherAnswerOnHomeworkForm(request.POST, instance=homework_answer.teacheransweronhomework,
-                                               homework_answer=homework_answer)
+                                               homework_answer=homework_answer, user=request.user)
             if form.is_valid():
                 form.save()
                 return redirect("marks")
         form = TeacherAnswerOnHomeworkForm(instance=homework_answer.teacheransweronhomework,
-                                           homework_answer=homework_answer)
+                                           homework_answer=homework_answer, user=request.user)
         context = {"form": form, "homework_answer": homework_answer}
         return render(request, 'pages/rate_homework.html', context)
     except TeacherAnswerOnHomework.DoesNotExist:
         if request.method == "POST":
-            form = TeacherAnswerOnHomeworkForm(request.POST, homework_answer=homework_answer)
+            form = TeacherAnswerOnHomeworkForm(request.POST, homework_answer=homework_answer, user=request.user)
             if form.is_valid():
                 form.save()
                 return redirect("marks")
-        form = TeacherAnswerOnHomeworkForm(homework_answer=homework_answer)
+        form = TeacherAnswerOnHomeworkForm(homework_answer=homework_answer, user=request.user)
         context = {"form": form, "homework_answer": homework_answer}
         return render(request, 'pages/rate_homework.html', context)
 
@@ -236,6 +238,7 @@ def make_homework(request, work_id):
     return render(request, 'pages/make_homework.html', context)
 
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('login')

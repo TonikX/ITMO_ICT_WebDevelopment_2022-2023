@@ -11,6 +11,7 @@ def student_required():
                 return view_func(requset, *args, **kwargs)
             else:
                 return HttpResponse('You are not student')
+
         return wrapper_func
 
     return decorator
@@ -36,25 +37,6 @@ def teacher_required():
                 return view_func(requset, *args, **kwargs)
             else:
                 return HttpResponse('You are not teacher')
-        return wrapper_func
-
-    return decorator
-
-
-def allowed_users(allowed_roles=None):
-    if allowed_roles is None:
-        allowed_roles = []
-
-    def decorator(view_func):
-        def wrapper_func(requset, *args, **kwargs):
-            group = None
-            if requset.users.exists():
-                group = requset.users.groups.all()[0].name
-
-            if group in allowed_roles:
-                return view_func(requset, *args, **kwargs)
-            else:
-                return HttpResponse('You are not student')
 
         return wrapper_func
 

@@ -52,22 +52,15 @@ class TeacherForm(forms.ModelForm):
         return teacher
 
 
-class StudentForm(forms.ModelForm):
+class StudentForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(StudentForm, self).__init__(*args, **kwargs)
 
     student_group = forms.ChoiceField(required=True, choices=groups)
 
-    class Meta:
-        model = Student
-        fields = ["birthdate"]
-        widgets = {
-            "birthdate": forms.DateInput(format='%d/%m/%Y', attrs={'type': 'date'})
-        }
-
     def save(self, commit=True):
-        student = super(StudentForm, self).save(commit=False)
+        student = Student()
         student.user = self.user
         student.user.with_additional_info = True
         student.student_group = StudentGroup.objects.get(pk=self.cleaned_data["student_group"])
@@ -84,11 +77,13 @@ class TeacherAnswerOnHomeworkForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.homework_answer = kwargs.pop('homework_answer', None)
+        self.user = kwargs.pop('user', None)
         super(TeacherAnswerOnHomeworkForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
         teacher_homework_answer = super(TeacherAnswerOnHomeworkForm, self).save(commit=False)
         teacher_homework_answer.homework_answer = self.homework_answer
+        teacher_homework_answer.teacher = self.user.teacher
         if commit:
             teacher_homework_answer.save()
         return teacher_homework_answer

@@ -7,17 +7,18 @@
         <small class="text-muted">Ответ:</small>
         <p class="m-0">{{ homework_answer.answer }}</p>
         <small class="text-muted">Сдано:</small>
-        <p class="m-0">{{ homework_answer.date }}</p>
+        <p class="m-0">{{ homework_answer.date | date:"d M, Y"  }}</p>
         <small class="text-muted">Выдано:</small>
-        <p class="m-0">{{ homework_answer.homework.start_date }}</p>
+        <p class="m-0">{{ homework_answer.homework.start_date | date:"d M, Y"  }}</p>
         <small class="text-muted">Выполнить до:</small>
-        <p class="m-0">{{ homework_answer.homework.end_date }}</p>
+        <p class="m-0">{{ homework_answer.homework.end_date | date:"d M, Y"  }}</p>
 
       {% if request.user.is_teacher %}
           <small class="text-muted">От:</small>
           <p class="m-0">{{ homework_answer.student }}</p>
           <small class="text-muted">Группа:</small>
           <p class="m-0">{{ homework_answer.student.student_group }}</p>
+
           {% if homework_answer.teacheransweronhomework %}
               <small class="text-muted">Оценка:</small>
               <p class="m-0">{{ homework_answer.teacheransweronhomework.points }}</p>
@@ -33,6 +34,8 @@
           {% endif %}
       {% endif %}
       {% if request.user.is_student %}
+          <small class="text-muted">Выдал:</small>
+        <p class="m-0">{{ homework_answer.homework.teacher }}</p>
           {% if homework_answer.teacheransweronhomework %}
               <small class="text-muted">Оценка:</small>
               <p class="m-0">{{ homework_answer.teacheransweronhomework.points }}</p>

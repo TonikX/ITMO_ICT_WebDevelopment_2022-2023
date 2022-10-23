@@ -12,9 +12,9 @@
                 <small class="text-muted">Описание:</small>
                 <p class="card-text">{{ homework.task_description }}</p>
                 <small class="text-muted">Выдано:</small>
-                <p class="m-0">{{ homework.start_date }}</p>
+                <p class="m-0">{{ homework.start_date | date:"d M, Y"  }}</p>
                 <small class="text-muted">Выполнить до:</small>
-                <p class="m-0">{{ homework.end_date }}</p>
+                <p class="m-0">{{ homework.end_date | date:"d M, Y" }}</p>
                 <small class="text-muted">Максимальный балл:</small>
                 <p class="m-0">{{ homework.max_points }}</p>
                 <small class="text-muted">Штраф:</small>
