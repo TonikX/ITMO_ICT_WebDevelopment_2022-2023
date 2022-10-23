@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Зарезервировать рейс - Авиатабло</title>
+</head>
+<body>
+    <h1>Зарезервировать рейс</h1>
+    {% if error %}
+    <strong style="color:red">{{ error }}</strong>
+    {% else  %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="flight">
+            Номер рейса:
+            <input type="text" name="flight" id="flight" value="{{flight.flight_number}}">
+        </label>
+        <label for="seat">
+            Номер места:
+            <input type="text" name="seat" id="seat">
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+    {% endif  %}
+    <br>
+    <a href="/table">Назад</a>
+</body>
+</html>
