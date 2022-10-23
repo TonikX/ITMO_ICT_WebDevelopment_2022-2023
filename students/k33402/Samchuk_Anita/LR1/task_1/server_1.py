@@ -1,15 +1,13 @@
 import socket
 
-sock = socket.socket()
-sock.bind( ('', 9090) )
-sock.listen(10)
-conn, addr = sock.accept()
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(('', 9090))
 
 while True:
-    data = conn.recv(16384)
-    if not data:
-        break
-    conn.send(b'Hello, client')
+    conn, addr = sock.recvfrom(1024)
+    print('client addr: ', addr)
 
-conn.close
+    sock.sendto(b'Hello, client', addr)
+
+sock.close
 
