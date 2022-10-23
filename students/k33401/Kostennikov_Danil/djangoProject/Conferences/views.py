@@ -1,13 +1,14 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render,redirect
 from django.http import Http404
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .models import *
 
-from .forms import  RegistrUser
-from django.contrib.auth import login
+from .forms import RegistrUser, LoginUser, ConferenceApply
+from django.contrib.auth import login, authenticate
 from django.contrib import messages
 # Create your views here.
 
@@ -15,26 +16,36 @@ def main_page(request):
     n = ["Foo", "Bar"]
     return render(request, 'main_page.html', context={'names': n})
 
+class Reg_user(CreateView):
+    model = User
+    fields = [
+        'email',
+        'first_name',
+        'last_name',
+        'password'
+    ]
+    template_name = "reg_user.html"
+    success_url = reverse_lazy('get_all_conferences')
 
-
-def registr_user(request):
-    data = {}
-    form = RegistrUser(request.POST)
+def conference_apply(request, id):
+    form = ConferenceApply(request.POST)
     if form.is_valid():
         email = form.cleaned_data['email']
-        user = User.objects.filter(email=email).exists()
-        if user:
-            raise ValidationError(('This email already registerd'))
-        else:
-            form.save()
-        messages.success(request, "Registration successful.")
-       # return redirect("")
-   # data['form'] = form
-    return render (request, 'reg_user.html', context={"register_form":form})
+        password = form.cleaned_data['password']
+        user = User.objects.filter(email=email,password=password).first()
+        if not user:
+            message = "Wrong email or password, or user is not registered"
+            return render(request, 'conference_apply.html', context={"form": form, "message": message})
 
-def Create_User(request):
-    return True
-
+        conference = Сonference.objects.get(id=id)
+        user_conf = User_confirence.objects.filter(user_id=user,conference_id=conference).exists()
+        if user_conf:
+            message = "You have alreade applied"
+            return render(request, 'conference_apply.html', context={"form": form, "message": message})
+        User_confirence.objects.create(user_id=user, conference_id=conference)
+        message = "Success"
+        return render(request, 'conference_apply.html', context={"form": form, "message": message})
+    return render(request, 'conference_apply.html', context={"form": form})
 
 def get_conferences(request):
     conferences = Сonference.objects.all()
@@ -47,5 +58,6 @@ def get_conference_by_id(request, id):
     coments = Comment.objects.filter(conference_id=id)
     return render(request, 'conference.html', context={'conference': conference, 'users_conf': users_conf,
                                                        'coments': coments})
+
 
 

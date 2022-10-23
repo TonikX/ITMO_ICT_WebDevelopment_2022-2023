@@ -1,4 +1,5 @@
-
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.shortcuts import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -16,13 +17,17 @@ class Сonference(models.Model):
     def get_absolute_url(self):
         return reverse('get_conference_by_id', kwargs={'id': self.id})
 
+    def get_absolute_apply_url(self):
+        return reverse('conference_apply', kwargs={'id': self.id})
+
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
-    email = models.CharField(max_length=50)
-    password = models.CharField(max_length=60)
+    email = models.CharField(unique=True,max_length=50)
+    password = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+
 
 class Comment(models.Model):
     comment = models.TextField()
