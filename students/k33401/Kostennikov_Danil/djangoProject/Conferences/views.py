@@ -12,9 +12,6 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages
 # Create your views here.
 
-def main_page(request):
-    n = ["Foo", "Bar"]
-    return render(request, 'main_page.html', context={'names': n})
 
 class Reg_user(CreateView):
     model = User

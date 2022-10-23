@@ -16,14 +16,6 @@ class RegistrUser(forms.ModelForm):
         fields = ["email", "password", "first_name", "last_name"]
 
 
-class LoginUser(forms.ModelForm):
-    email = forms.CharField(max_length=50)
-    password = forms.CharField(max_length=60)
-
-    class Meta:
-        model = User
-        fields = ["email", "password"]
-
 
 class ConferenceApply(forms.ModelForm):
     email = forms.CharField(max_length=50)
