@@ -1,3 +1,4 @@
+from distutils.log import error
 import socket
 import sys
 
@@ -17,8 +18,8 @@ class MyHTTPServer:
 						self.serve_client(client)
 
 		def serve_client(self, client):
-				text = client.recv(16384)
-				text = text.decode('utf-8') # change
+				text = client.recv(15000)
+				text = text.decode('utf-8') 
 				url, method, headers, body = self.parse_request(text)
 				resp = self.handle_request(url, method, body)
 				if resp:
@@ -31,18 +32,16 @@ class MyHTTPServer:
 				i = lines.index('')
 				headers = lines[1:i]
 				body = lines[-1]
-				# exception
 				return url, method, headers, body
 
-		def handle_request(self, url, method, body):
-						resp = "HTTP/1.1 200 OK\n\n"
-						error = f" 400\n\nErorr"
+		def handle_request(self, url, method, body): 
+						error = f" 400\n\nErrorr"
 						if method == 'GET' and url == '/':
-								with open('index.html', 'r') as f: #change
+								resp = "HTTP/1.1 200 OK\n\n"
+								with open('index.html', 'r') as f: 
 										resp += f.read()
 								return resp
-						elif Exception:
-							return error
+
 						if method == "POST" and url == '/':
 								newbody = body.split('&')
 								for i in newbody:
@@ -50,6 +49,8 @@ class MyHTTPServer:
 												subjects.append(i.split('=')[1])
 										if i.split('=')[0] == 'mark':
 												marks.append(i.split('=')[1])
+
+								resp = "HTTP/1.1 200 OK\n\n"
 								resp += "<html><head><title>Journal</title></head><body><table border=1>"
 								for s, m in zip(subjects, marks):
 										resp += f"<tr><td>{s}</td><td>{m}</td></tr>"
@@ -58,10 +59,8 @@ class MyHTTPServer:
 						elif Exception:
 							return error
 
-
 		def send_response(self, clientsocket, resp):
 				clientsocket.send(resp.encode('utf-8'))
-
 
 if __name__ == '__main__':
 		host = '127.0.0.1'
