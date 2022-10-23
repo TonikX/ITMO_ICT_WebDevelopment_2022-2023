@@ -1,9 +1,9 @@
 # Лабораторная работа №2
 
 ## Видеоматериалы
-1. [Практическая работа №2](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023)
-2. [Лабораторная работа №2 (демонстрация работы)](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023)
-3. [Практическая работа №2 (исходный код)](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023)
+1. [Практическая работа №2](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023/blob/main/students/k33402/laboratory_works/Zaytseva_Anastasiya/laboratory_work_2/videos/pr2.mp4)
+2. [Лабораторная работа №2 (демонстрация работы)](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023/blob/main/students/k33402/laboratory_works/Zaytseva_Anastasiya/laboratory_work_2/videos/lr2demo.mp4)
+3. [Практическая работа №2 (исходный код)](https://github.com/chiclassie/ITMO_ICT_WebDevelopment_2022-2023/blob/main/students/k33402/laboratory_works/Zaytseva_Anastasiya/laboratory_work_2/videos/lr2code.mp4)
 
 ## Основные файлы исходного кода
 
