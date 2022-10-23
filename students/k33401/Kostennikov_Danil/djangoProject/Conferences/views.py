@@ -7,7 +7,7 @@ from django.views.generic.list import ListView
 
 from .models import *
 
-from .forms import RegistrUser, LoginUser, ConferenceApply
+from .forms import RegistrUser, LoginUser, ConferenceApply, CreateComment
 from django.contrib.auth import login, authenticate
 from django.contrib import messages
 # Create your views here.
@@ -59,5 +59,44 @@ def get_conference_by_id(request, id):
     return render(request, 'conference.html', context={'conference': conference, 'users_conf': users_conf,
                                                        'coments': coments})
 
+def applies(request):
+    try:
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = User.objects.get(email=email, password=password)
+        if not user:
+            return False
+        return redirect(f"/applies/{email}")
+    except:
+        return render(request, "applies.html")
 
+def user_applies(request, email):
+    user = User.objects.get(email=email)
+    user_conf = User_confirence.objects.filter(user_id=user)
+    return render(request, 'user_applies.html', context={"user_conf": user_conf})
 
+def delete_apply(request, email,id):
+    try:
+        User_confirence.objects.get(id=id).delete()
+        return redirect(f"/applies/{email}")
+    except:
+        return redirect(f"/applies/{email}")
+
+def create_comment(request,id):
+    form = CreateComment(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = User.objects.filter(email=email,password=password).first()
+        if not user:
+            message = "Wrong email or password, or user is not registered"
+            return render(request, 'create_comment.html', context={"form": form, "message": message})
+
+        conference = Сonference.objects.get(id=id)
+        comment = form.cleaned_data['comment']
+        rank = form.cleaned_data['rank']
+
+        Comment.objects.create(user_id=user,conference_id=conference, comment=comment,rank=rank)
+        return redirect(f"/conference/{id}")
+
+    return render(request, 'create_comment.html', context={"form": form})

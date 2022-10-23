@@ -23,9 +23,12 @@
             <br></br>
         {% endfor %}
     </div>
-    <a href="{{ conference.get_absolute_apply_url }}" class="button">Apply</a>
+    <a href="{{ conference.get_absolute_apply_url }}" class="btn btn-success g-5">Apply</a>
     <br></br>
     <h6>Coments</h6>
+    <div>
+            <a href="{{ conference.get_absolute_comment_url }}" class="btn btn-success g-5">Create comment</a>
+    </div>
     {% for coment in coments %}
         <div class="card">
             <div class="card-header">

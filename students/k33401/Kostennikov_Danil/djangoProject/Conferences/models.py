@@ -20,6 +20,8 @@ class Сonference(models.Model):
     def get_absolute_apply_url(self):
         return reverse('conference_apply', kwargs={'id': self.id})
 
+    def get_absolute_comment_url(self):
+        return reverse('create_comment', kwargs={'id': self.id})
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -31,9 +33,9 @@ class User(models.Model):
 
 class Comment(models.Model):
     comment = models.TextField()
-    date = models.DateField()
+    date = models.DateField(auto_now=True)
     rank = models.IntegerField(validators=[
-            MaxValueValidator(100),
+            MaxValueValidator(10),
             MinValueValidator(1)
         ]
      )
