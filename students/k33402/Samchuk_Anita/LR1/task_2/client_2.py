@@ -1,6 +1,6 @@
 import socket
 
-sock = socket.socket()
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(('', 8080))
 
 print('Что вам надо посчитать?\n1)Гипотенуза\n2)Катет')
