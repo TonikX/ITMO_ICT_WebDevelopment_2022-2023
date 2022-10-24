@@ -8,7 +8,7 @@ class CarOwner(AbstractUser):
     last_name = models.CharField(max_length = 30, null = False)
     first_name = models.CharField(max_length = 30, null = False)
     birth_day = models.DateField(null = True)
-    passport = models.IntegerField(null=True)
+    passport = models.IntegerField(null=True, blank=True, default='111')
     address = models.CharField(max_length=50, null=True, blank=True)
     nationality = models.CharField(max_length=20, null=True, blank=True)
 
