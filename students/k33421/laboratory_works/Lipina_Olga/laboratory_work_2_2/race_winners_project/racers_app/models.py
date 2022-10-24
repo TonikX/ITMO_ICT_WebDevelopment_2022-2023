@@ -48,7 +48,7 @@ class RegistrationRace(models.Model):
 
 class Comment(models.Model):
     id_review = models.AutoField(primary_key=True)
-    num_race =  models.ForeignKey("Гонка", Race, on_delete=models.CASCADE)
+    num_race =  models.ForeignKey(Race, on_delete=models.CASCADE)
     time_race = models.DateTimeField("Дата и время заезда")
     comment_time = models.DateTimeField(default=datetime.now(), blank=True)
 
