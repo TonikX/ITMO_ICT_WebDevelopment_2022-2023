@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Комнаты в отеле</title>
+    <style>
+        button {
+            background: aqua;
+        }
+        body {
+            zoom: 100%;
+            background-color: Blue;
+            background-image: url(https://cdn.decoratorist.com/wp-content/uploads/fancy-residence-mykonos-luxury-star-hotel-suites-360504.jpg);
+            text-align: left;
+            font-size: 15px;
+            color: whitesmoke;
+        }
+        .button1 {
+            background: crimson;
+        }
+        .button2 {
+            background: aqua;
+            right: 15px;
+            top: 15px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <h1>{{hotel.first.hotel}} Rooms</h1>
+
+    {% for room in hotel %}
+        Room number: {{ room.number }} <br/>
+        Room type: {{ room.get_room_type_display }} <br/>
+        Price per night: {{ room.price }} <br/>
+
+        <a href="/rooms/{{ room.id }}/book"><button>Забронировать</button></a>
+
+
+    <hr/>
+
+    {% empty %}
+    <li>Извините, свободных комнат сейчас нет!</li>
+    {% endfor %}
+</ul>
+
+    <a href="/hotels/"><button class="button button1">Назад к отелям</button></a>
+    <a href="/"><button class="button button2">На главную</button></a>
+</body>
+</html>

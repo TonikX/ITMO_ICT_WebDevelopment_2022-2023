@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы</title>
+    <style>
+        .button2 {
+            background: aqua;
+            right: 15px;
+            top: 15px;
+            position: absolute;
+        }
+        .button1 {
+            background: crimson;
+        }
+        body {
+            background-image: url(https://www.americanexpress.com/en-us/travel/fine-hotels-resorts/img/destinations_hero.jpg);
+            zoom: 100%;
+            background-color: Blue;
+            text-align: left;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <h1>Отзывы</h1>
+
+    {% for review in reviews %}
+
+    Пользователь: {{ review.user }} <br/>
+    Отель: {{ review.room.hotel }} <br/>
+    Номер: {{ review.room.number }} <br/>
+    Дата заезда: {{review.date_start}} <br/>
+    Дата выезда: {{ review.date_end }} <br/>
+    Рейтинг: {{review.get_rating_display}} <br/>
+    Текст: {{ review.text }} <br/>
+
+    <hr/>
+
+    {% empty %}
+    Ещё нет отзывов!
+    {% endfor %}
+    <p></p>
+    <a href="/account/login"><button class="button button1">Назад</button></a>
+</ul>
+    <a href="/"><button class="button button2">На главную</button></a>
+</body>
+</html>

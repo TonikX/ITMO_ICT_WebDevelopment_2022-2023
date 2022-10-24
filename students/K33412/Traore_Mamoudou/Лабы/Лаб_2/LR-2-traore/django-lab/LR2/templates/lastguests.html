@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Постояльцы</title>
+    <style>
+        body {
+            zoom: 100%;
+            background-color: Blue;
+            background-image: url(https://1.bp.blogspot.com/-MpYCmUKgWdQ/Xt5TQXL1v-I/AAAAAAAAZiI/2vousB0YhTYf8lXlW8eF3l2Z9L8fWAOsQCLcBGAsYHQ/s1600/daios-cove-luxury-resort-and-villas-28905082-1508946855-ImageGalleryLightboxLarge.jpg);
+            text-align: left;
+            font-size: 17px;
+        }
+        .button2 {
+            background: aqua;
+            right: 15px;
+            top: 15px;
+            position: absolute;
+        }
+        button {
+            background: aquamarine;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Список постояльцев за последний месяц</h1>
+
+<br>
+
+{% for guest in guests_list %}
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отель</th>
+            <th>Номер</th>
+        </tr>
+
+        <tr>
+            <td>{{ guest.client.id }}</td>
+            <td>{{ guest.client.first_name }}</td>
+            <td>{{ guest.client.last_name }}</td>
+            <td>{{ guest.room.hotel }}</td>
+            <td>{{ guest.room.number }}</td>
+        </tr>
+
+
+    </table>
+
+
+    <hr/>
+
+{% empty %}
+    <li>no bookings yet</li>
+{% endfor %}
+
+<a href="/">
+    <button class="button button2">На главную</button>
+</a>
+
+<a href="/account/login/">
+    <button>В профиль</button>
+</a>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронь</title>
+    <style>
+        body {
+            background-image: url(https://eskipaper.com/images/swimming-pool-santorini-1.jpg);
+            zoom: 105%;
+            background-color: Blue;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        input {
+            background: aqua;
+        }
+
+        button {
+            background: aquamarine;
+        }
+
+        .button1 {
+            background: crimson;
+        }
+    </style>
+</head>
+<body>
+<ul>
+<h1>Список ваших путешествий: <br/></h1>
+    {% for booking in bookings_list %}
+        Отель: {{ booking.room.hotel }} <br/>
+        Номер: {{ booking.room.number }} <br/>
+        Дата заезда: {{ booking.start_date }} <br/>
+        Дата выезда: {{ booking.end_date }} <br/>
+        Чек-ин: <strong>{{ booking.check_in|yesno:"Да,Нет" }}</strong> <br/>
+
+
+        <a href="bookings/delete/{{ booking.id }}/">
+            <button class="btn btn-secondary">Удалить</button>
+        </a>
+
+        {% if booking.check_in is True %}
+            <a href="/rooms/{{ booking.room.id }}/add_review"><button>Оставить отзыв</button></a>
+
+        {% endif %}
+
+        <hr/>
+
+    {% empty %}
+        <li>Ещё не было путешествий</li>
+    {% endfor %}
+    <form action="/hotels/">
+        <button class="button button1">Новая бронь</button>
+    </form>
+</ul>
+
+
+<a href="/account/login/">
+    <button>В профиль</button>
+</a>
+
+</body>
+</html>

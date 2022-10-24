@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отели</title>
+    <style type="text/css">
+        button {
+            background: Red;
+        }
+
+        a {
+            right: 15px;
+            top: 15px;
+            position: absolute;
+        }
+        input {
+            background: aqua;
+        }
+        body {
+            zoom: 100%;
+            background-color: Blue;
+            background-image: url(https://www.ecestaticos.com/image/clipping/f96754647a2195dd910ef92a034f2cb3/de-viaje-ocho-rincones-de-grecia-que-no-te-puedes-perder.jpg);
+            text-align: left;
+            font-size: 15px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <h1>Доступные отели</h1>
+
+    {% for hotel in hotels %}
+
+        {{ hotel.name }} <br/>
+        {{ hotel.address }} <br/>
+        {% if user.is_authenticated %}
+            <form action="/hotels/{{ hotel.id }}/">
+                <button>
+                    Забронировать комнату
+                </button>
+            </form>
+        {% else %}
+            <div>
+                <button>
+                    Чтобы забронировать комнату, войдите в систему.
+                </button>
+            </div></duv>
+        {% endif %}
+        <a href="/">
+            <input type="button" value="На главную">
+        </a>
+        <hr/>
+
+    {% empty %}
+        <li>no hotels yet</li>
+    {% endfor %}
+
+
+</ul>
+</body>
+</html>

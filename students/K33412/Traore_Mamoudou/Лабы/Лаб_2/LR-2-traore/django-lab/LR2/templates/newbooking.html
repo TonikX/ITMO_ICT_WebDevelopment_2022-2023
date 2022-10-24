@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Бронь</title>
+    <style>
+        button {
+            background: aquamarine;
+        }
+        body {
+            background-image: url(https://wallpaper-house.com/data/out/10/wallpaper2you_453485.jpg);
+            zoom: 100%;
+            background-color: Blue;
+            text-align: left;
+            font-size: 15px;
+        }
+        .button2 {
+            right: 15px;
+            top: 15px;
+            position: absolute;
+            background: aqua;
+        }
+         
+    </style>
+</head>
+<body>
+
+    <h1>Забронировать номер {{booking.room.hotel}}</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-secondary">Забронировать</button>
+
+</form>
+    <a href="/hotels/"><input type="button" class="b1" value="Назад"></a>
+    <a href="/"><button class="button button2">На главную</button></a>
+</body>
+</html>

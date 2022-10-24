@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete booking</title>
+    <style>
+        button {
+            background: crimson;
+        }
+        input {
+            background: aqua;
+        }
+        body {
+            background-image: url(https://www.teahub.io/photos/full/221-2217974_santorini-beautiful-wallpaper-santorini-scenery.jpg);
+            zoom: 200%;
+            background-color: Blue;
+            text-align: Center;
+            font-size: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+{% if booking.check_in is False %}
+
+    <form method="post">{% csrf_token %}
+    <p><strong>Вы точно хотите удалить бронь номера {{ booking.room.number }}, отеля {{ booking.room.hotel.name }}?</strong></p>
+    <button class="btn btn-secondary">Да</button>
+    <a href="/profile/bookings"><input type="button" value="Нет, назад"></a>
+
+
+{% else %}
+    Извините, бронь не удаляется после заселения! </br>
+    <p></p>
+    <a href="/profile/bookings"><input type="button" value="Назад"></a>
+{% endif %}
+
+</form>
+</body>
+</html>
