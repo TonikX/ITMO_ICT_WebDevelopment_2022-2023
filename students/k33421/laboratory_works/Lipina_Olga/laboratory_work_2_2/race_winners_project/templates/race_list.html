@@ -1,0 +1,18 @@
+<p>Чтобы получить подробную информацию о гонке, введите
+<u>http:.../race/<b>number</b></u>,
+    где number = номер гонки.</p>
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <li>{{ object.num_race }}</li>
+    <span>{{ object.name_race }}</span>
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <span>No objects yet.</span>
+    {% endfor %}
+
+</ul>
+<a href="/reg_race/">Присоединиться к гонке</a><br>
+<a href="/main/">Get back</a> <br>

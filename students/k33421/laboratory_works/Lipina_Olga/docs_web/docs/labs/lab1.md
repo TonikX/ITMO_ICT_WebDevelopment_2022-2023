@@ -80,32 +80,35 @@ if __name__ == "__main__":
 ```python
 import socket
 
-SERVER_HOST = '0.0.0.0'
-SERVER_PORT = 8000
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('localhost', 8002))
+s.listen(1)
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.bind(('', SERVER_PORT))
-sock.listen(1)
-print('Listening on port %s ...' % SERVER_PORT)
+while True:
+    conn, addr = s.accept()
+    html_page = open('index.html')
+    html_content = html_page.read()
+    html_page.close()
 
-while True:    
-    # Wait for client connections
-    client_connection, client_address = sock.accept()
+    html_response = 'HTTP/1.0 200 OK\n' + html_content 
 
-    # When enter localhost in browser, we as a client send a GET request.
-    request = client_connection.recv(1024).decode()
-
-    with open('index.html') as f:
-        content = f.read()
-
-    # Send HTTP response
-    response = 'HTTP/1.0 200 OK\n\n'+ content
-    client_connection.sendall(response.encode())
-    client_connection.close()
-
+    conn.sendall(html_response.encode('utf-8'))
+    conn.close()
 #sock.close()
 ```
+
+* `client.py`
+```python
+import socket 
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.connect(('localhost',8002))
+data = s.recv(1024) #получаем сообщение из сокета.
+print(data.decode('utf-8'))
+s.close()
+```
+
 
 * `index.html`
 ```html

@@ -1,0 +1,12 @@
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Security token -->
+    {% csrf_token %}
+
+    <!-- Using the formset -->
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit">
+</form>
+<a href="/comments/list/">К комментариям</a> <br>
+<a href="/comments/list/">Get back</a> <br>
