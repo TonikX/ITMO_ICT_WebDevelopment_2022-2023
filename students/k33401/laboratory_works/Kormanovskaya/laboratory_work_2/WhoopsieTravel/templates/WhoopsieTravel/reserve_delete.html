@@ -1,0 +1,19 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> Reservation of <span class="text-primary">{{ object.tour }}</span></h1>
+<h3 class="mx-5 text-muted">{{ object.date_start }}</h3>
+<div class="w-75 mx-auto container mt-5 px-5 form-floating">
+    <form method="POST" action="" class="row g-3 justify-content-center">
+        {% csrf_token %}
+        <p>Are you sure you want to delete reserve?</p>
+        <div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
