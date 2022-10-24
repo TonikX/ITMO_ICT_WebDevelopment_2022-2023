@@ -31,6 +31,7 @@ def register(request):
 
 
 def user_login(request):
+    global form
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -39,10 +40,8 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 return redirect('/main')
-            else:
-                return HttpResponse('Disabled account')
         else:
-            return HttpResponse('Invalid login')
+            return HttpResponse('Неправильный логин или пароль!')
     else:
         form = LoginForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -112,13 +111,12 @@ class CreateComment(CreateView):
     model = Feedback
     template_name = 'comment.html'
     context_object_name = 'comment'
-    success_url = '/tours'
+    success_url = '/comments'
 
     def get_initial(self):
         initial = super(CreateComment, self).get_initial()
         initial = initial.copy()
         initial['username'] = self.request.user.pk
-        initial['tour'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
         return initial
 
 

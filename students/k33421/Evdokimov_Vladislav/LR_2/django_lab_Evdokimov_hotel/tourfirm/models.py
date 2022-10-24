@@ -30,7 +30,7 @@ class Feedback(models.Model):
     username = models.ForeignKey('User', on_delete=models.CASCADE)
     comment = models.CharField(max_length=5000)
     tour = models.ForeignKey("Tour", on_delete=models.CASCADE)
-    user_rating = models.IntegerField( choices=rating)
+    user_rating = models.IntegerField(choices=rating)
     date_of_publication = models.DateField()
     start_date = models.DateField()
     end_date = models.DateField()

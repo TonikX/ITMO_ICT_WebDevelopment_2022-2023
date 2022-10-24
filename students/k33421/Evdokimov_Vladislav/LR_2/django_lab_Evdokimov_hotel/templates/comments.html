@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>Комментарии</title>
 </head>
 <body>
 <div class="main">
      {% for comment in comments %}
-     <strong>Никнейм пользователя: </strong>{{comment.username}} <br>
+     <strong>Пользователя: </strong>{{comment.username}} <br>
      <strong>Название тура: </strong>{{comment.tour}} <br>
      <strong>Дата путешествия от: </strong>{{comment.start_date}} <br>
      <strong>До: </strong>{{comment.end_date}} <br>
