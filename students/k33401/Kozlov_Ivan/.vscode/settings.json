@@ -1,0 +1,14 @@
+{
+    "editor.fontSize": 15,
+    "editor.fontLigatures": "JetBrains Mono NL",
+    "editor.fontFamily": "JetBrains Mono NL",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=100"
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "python.pythonPath": "/Users/yunet/.virtualenvs/WEB_5_sem/bin/python3"
+}

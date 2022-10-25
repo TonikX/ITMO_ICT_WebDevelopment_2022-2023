@@ -1,5 +1,5 @@
-import socket
 import math
+import socket
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 conn.bind(("127.0.0.1", 8081))
@@ -12,7 +12,7 @@ parametrs = data_from_client.decode("utf-8")
 a = float(parametrs[0])
 b = float(parametrs[2])
 c = float(parametrs[4])
-discr = b ** 2 - 4 * a * c
+discr = b**2 - 4 * a * c
 if discr > 0:
     x1 = (-b + math.sqrt(discr)) / (2 * a)
     x2 = (-b - math.sqrt(discr)) / (2 * a)
