@@ -231,113 +231,79 @@ while True:
 * server.py
 
 ```
-import socket, time
+import socket, threading
 
-host = socket.gethostbyname(socket.gethostname())
-port = 9090
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+host = '127.0.0.1'
+port = 8080
+server.bind((host, port))
+server.listen()
 
 clients = []
+users = []
 
-s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.bind((host,port))
 
-quit = False
-print("[ Server Started ]")
+def broadcast(msg, client):
+    for each in clients:
+        if each != client:
+            each.send(msg)
 
-while not quit:
-	try:
-		data, addr = s.recvfrom(1024)
 
-		if addr not in clients:
-			clients.append(addr)
+def handle(client):
+    while True:
+        msg = client.recv(2000)
+        broadcast(msg, client)
 
-		itsatime = time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime())
 
-		print("["+addr[0]+"]=["+str(addr[1])+"]=["+itsatime+"]/",end="")
-		print(data.decode("utf-8"))
+def receive():
+    while True:
+        client, addr = server.accept()
+        client.send('username'.encode())
+        user = client.recv(2000).decode()
+        clients.append(client)
+        users.append(user)
+        client.send('Connection established'.encode())
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
 
-		for client in clients:
-			if addr != client:
-				s.sendto(data,client)
-	except:	
-		print("\n[ Server Stopped ]")
-		quit = True
-		
-s.close()
+
+receive()
+
 ```
 
 * client.py
 
 ```
-import socket, threading, time
+import socket
+import threading
 
-key = 8194
 
-shutdown = False
-join = False
+conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server = '127.0.0.1', 8080
+conn.connect(server)
 
-def receving (name, sock):
-	while not shutdown:
-		try:
-			while True:
-				data, addr = sock.recvfrom(1024)
-				#print(data.decode("utf-8"))
+username = input('Выберите псевдоним: ')
 
-				# Begin
-				decrypt = ""; k = False
-				for i in data.decode("utf-8"):
-					if i == ":":
-						k = True
-						decrypt += i
-					elif k == False or i == " ":
-						decrypt += i
-					else:
-						decrypt += chr(ord(i)^key)
-				print(decrypt)
-				# End
 
-				time.sleep(0.2)
-		except:
-			pass
-host = socket.gethostbyname(socket.gethostname())
-port = 0
+def recv_msg():
+    while True:
+        msg = conn.recv(2000).decode()
+        if msg == 'username':
+            conn.send(username.encode())
+        else:
+            print(msg)
 
-server = ("192.168.1.5",9090)
 
-s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
-s.bind((host,port))
-s.setblocking(0)
+def print_msg():
+    while True:
+        msg = '{} says: {}'.format(username, input(''))
+        conn.send(msg.encode())
 
-alias = input("Name: ")
 
-rT = threading.Thread(target = receving, args = ("RecvThread",s))
-rT.start()
-
-while shutdown == False:
-	if join == False:
-		s.sendto(("["+alias + "] => join chat ").encode("utf-8"),server)
-		join = True
-	else:
-		try:
-			message = input()
-
-			# Begin
-			crypt = ""
-			for i in message:
-				crypt += chr(ord(i)^key)
-			message = crypt
-			# End
-
-			if message != "":
-				s.sendto(("["+alias + "] :: "+message).encode("utf-8"),server)
-			
-			time.sleep(0.2)
-		except:
-			s.sendto(("["+alias + "] <= left chat ").encode("utf-8"),server)
-			shutdown = True
-
-rT.join()
-s.close()
+recv_thr = threading.Thread(target=recv_msg)
+print_thr = threading.Thread(target=print_msg)
+recv_thr.start()
+print_thr.start()
 ```
 
 ### Часть: GET и POST запросы
