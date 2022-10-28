@@ -2,7 +2,7 @@ import socket
 
 def serverImplementtaion():
     socketVar = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socketVar.bind(('127.0.0.1', 9090))
+    socketVar.bind(('127.0.0.1', 9796))
     socketVar.listen(1)
     connection, address = socketVar.accept()
 
