@@ -24,7 +24,7 @@ def mathAreas(_data):
 
 def server():
     sock = socket.socket()
-    sock.bind(("", 1337))
+    sock.bind(('127.0.0.1', 9080))
     sock.listen(1)
     connection, address = sock.accept()
 

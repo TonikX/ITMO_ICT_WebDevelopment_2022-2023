@@ -2,7 +2,7 @@ import socket
 
 def client():
     socketVar = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socketVar.connect(('127.0.0.1', 1337))
+    socketVar.connect(('127.0.0.1', 9080))
 
     massage = input("Which formula do you prefer?\n"
                 "a is Piffagor theorem\n"
@@ -15,3 +15,5 @@ def client():
     decData = data.decode("utf-8")
     print("Result: " + decData)
 
+if __name__ == "__main__":
+    client()
