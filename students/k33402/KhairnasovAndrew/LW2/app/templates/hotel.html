@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Hotel Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="hotel">
+
+        <h1>HOTEL!</h1>
+
+        <div>
+            <p> {{ hotel.desk }} </p>
+            <p> {{ hotel.address }} </p>
+        </div>
+
+        <table>
+            <tr>
+                <th>Room list in {{ hotel.name }}</th>
+            </tr>
+            {% for i in rooms %}
+                <tr>
+                    <td><a href="room/{{ i.id }}">{{ i.number }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <table>
+            <tr>
+                <th>User</th>
+                <th>Room</th>
+                <th>StartAt</th>
+                <th>EndAt</th>
+            </tr>
+            {% for i in reservations %}
+                <tr>
+                    <td>{{ i.user }}</td>
+                    <td>{{ i.room.number }}</td>
+                    <td>{{ i.start_at }}</td>
+                    <td>{{ i.end_at }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}

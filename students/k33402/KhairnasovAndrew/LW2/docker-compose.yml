@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    main_db:
+        image: postgres:14.5
+        ports:
+                - "5430:5432"
+        environment:
+                - POSTGRES_USER=main_db
+                - POSTGRES_PASSWORD=main_db
+                - POSTGRES_DB=main_db
+        volumes:
+                - ./dbs/postgres-data:/var/lib/postgresql
+
+    backend:
+        restart: always
+        build: ./app
+        command: bash -c "
+                python3 manage.py makemigrations *_app &&
+                python3 manage.py migrate &&
+                gunicorn hotels.wsgi:application --bind 0.0.0.0:8000 --reload"
+        volumes:
+                - ./app:/app
+        ports:
+                - "8000:8000"
+        depends_on:
+                - main_db
