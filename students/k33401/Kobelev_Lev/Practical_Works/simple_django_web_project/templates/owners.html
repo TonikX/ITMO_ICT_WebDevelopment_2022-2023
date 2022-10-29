@@ -11,8 +11,12 @@
 
         {{ obj }}
         <br>
-        {{ obj.birthday }}
-        <br>
+        <ul>
+            <li>B-day: {{ obj.birthday }}</li>
+            <li>Passport: {{ obj.passport }}</li>
+            <li>Nationality: {{ obj.nationality }}</li>
+            <li>Address: {{ obj.address }}</li>
+        </ul>
         <hr>
 
         {% endfor %}
