@@ -1,0 +1,20 @@
+<!-- owner_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Owner detail </title>
+</head>
+<body>
+  <h1> {{ object.surname }} {{ object.name }}</h1>
+  <p><strong>Surname:</strong> {{ object.surname }}</p>
+  <p><strong>Name:</strong> {{ object.name }}</p>
+  <p><strong>Birthday date:</strong> {{ object.birthday_date }}</p>
+  <p><strong>Passport:</strong> {{ object.passport }}</p>
+  <p><strong>Address:</strong> {{ object.address }}</p>
+  <p><strong>Nationality:</strong> {{ object.nationality }}</p>
+  <a href="/owner/list/">Get back</a>
+</body>
+</html>
