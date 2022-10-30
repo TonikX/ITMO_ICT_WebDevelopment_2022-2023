@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Список отзывов{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+        <table class="table table-hover table-bordered">
+            <thead class="table-info">
+                <tr>
+                    <th scope="col">Автор/Author</th>
+                    <th scope="col">Отель/Hotel</th>
+                    <th scope="col">Номер комнаты/Room number</th>
+                    <th scope="col">Рейтинг/Rating</th>
+                    <th scope="col">Возможности/Features</th>
+                </tr>
+            </thead>
+            {% for review in object_list %}
+            <tbody>
+                <tr>
+                    <td>{{ review.reservation.guest.username }}</td>
+                    <td>{{ review.reservation.room.hotel.hotel_name }}</td>
+                    <td>{{ review.reservation.room.number }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td class="d-flex justify-content-start gap-2">
+                    <a href="/reviews/{{ review.id }}">
+                        <button type="button" class="btn btn-info">Подробнее/More</button>
+                    </a>
+                    <td/>
+                </tr>
+            </tbody>
+  {% endfor %}
+</table>
+{% endif %}
+{% load bootstrap4 %}
+<div class="pagination justify-content-center">
+{% bootstrap_pagination page_obj %}
+</div>
+{% endblock %}

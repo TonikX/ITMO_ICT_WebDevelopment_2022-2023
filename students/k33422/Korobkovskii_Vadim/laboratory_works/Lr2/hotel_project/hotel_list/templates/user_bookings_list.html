@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Список броней{% endblock %}
+
+{% block content %}
+  <table class="table table-striped table-hover table-bordered">
+    <thead class="table-info">
+      <tr>
+        <th scope="col">ID брони/Booking ID</th>
+        <th scope="col">Номер комнаты/Room number</th>
+        <th scope="col">Дата заселения/Check-in date</th>
+        <th scope="col">Дата выселения/Check-out date</th>
+        <th scope="col">Полная цена/Full price</th>
+        <th scope="col">Возможности/Features</th>
+      </tr>
+    </thead>
+    {% for booking in object_list %}
+    <tbody>
+      <tr>
+        <td>{{ booking.booking_id }}</td>
+        <td>{{ booking.room.number }}</td>
+        <td>{{ booking.check_in }}</td>
+        <td>{{ booking.check_out }}</td>
+        <td>{{ booking.price }}</td>
+        <td class="d-flex justify-content-start gap-2">
+          <a href="/update_booking/{{ booking.booking_id }}">
+            <button type="button" class="btn btn-info">Редактировать/Change</button>
+          </a>
+          <a href="/delete_booking/{{ booking.booking_id }}">
+            <button type="button" class="btn btn-danger">Удалить/Delete</button>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  {% endblock %}

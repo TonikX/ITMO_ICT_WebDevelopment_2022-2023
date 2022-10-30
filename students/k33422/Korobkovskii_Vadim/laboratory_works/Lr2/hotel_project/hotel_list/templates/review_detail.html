@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Подробный просмотр отзыва{% endblock %}
+
+{% block content %}
+<ul>
+  <h1> Отзыв №{{ review.id }} / Review №{{ review.id }}</h1>
+        <p> <strong>Автор/Author:</strong> {{review.reservation.guest.username }}</p>
+        <p> <strong>Название отеля/Hotel name:</strong> {{ review.reservation.room.hotel.hotel_name }}</p>
+        <p> <strong>Номер комнаты/Room number:</strong> {{ review.reservation.room.number }}</p>
+        <p> <strong>Дата заселения/Check-in date:</strong> {{ review.check_in_date }}</p>
+        <p> <strong>Дата выселения/Check-out date:</strong> {{ review.check_out_date }}</p>
+        <p> <strong>Отзыв/Review</strong></strong> {{ review.review }}</p>
+        <p> <strong>Рейтинг/Rating:</strong> {{ review.rating }}</p>
+</ul>
+{% endblock %}

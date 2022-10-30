@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Подробный просмотр номера{% endblock %}
+
+{% block content %}
+<ul>
+  <h1> Номер {{  room.number  }} в отеле "{{ room.hotel.hotel_name }}"</h1>
+        <p> <strong>Название отеля/Hotel name:</strong> {{ room.hotel.hotel_name }}</p>
+        <p> <strong>Номер комнаты/Room number:</strong> {{ room.number }} </p>
+        <p> <strong>Этаж/Floor:</strong> {{ room.floor }} этаж/floor</p>
+        <p> <strong>Тип комнаты/Room type:</strong> {{ room.get_type_display }} ({{ room.type }})</p>
+        <p> <strong>Количество кроватей/Number of beds:</strong></strong> {{ room.persons }}</p>
+        <p> <strong>Цена за ночь/Price for night:</strong> {{ room.price }}</p>
+        <p> <strong>Описание/Description:</strong> {{ room.description }}</p>
+</ul>
+{% endblock %}

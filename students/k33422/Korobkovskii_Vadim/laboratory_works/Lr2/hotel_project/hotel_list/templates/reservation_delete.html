@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Удаление брони{% endblock %}
+
+{% block content %}
+<div class="container">
+     <div class="row justify-content-center">
+         <div class="col-8">
+             <h2 class="mt-2">Удаление брони №{{ reservation.id }}/Booking №{{ reservation.id }} delete</h2>
+             <hr class="mt-0 mb-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div>
+                        <p class="d-flex justify-content-left">Вы уверены в удалении брони №"{{ reservation.id }}"? / Are you sure you want to delete booking №"{{ reservation.id }}"?</p>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-left">
+                        <input class="btn btn-danger btn-sm" type="submit" value="Удалить/Delete">
+                    </div>
+                    <br/>
+                    <a href="/reservations/">
+                        <button type="button" class="btn btn-info">Назад/Back</button>
+                    </a>
+                </form>
+         </div>
+     </div>
+</div>
+{% endblock %}
