@@ -3,7 +3,7 @@ import random
 from threading import Thread
 
 host = "127.0.0.1"
-port = 334
+port = 560
 separator_token = " "
 sock = socket.socket()
 sock.connect((host, port))

@@ -1,4 +1,5 @@
 site_name: Ttretiakova Ekaterina, K33422
+site_url: https://kttre.github.io/ITMO_ICT_WebDevelopment_2022-2023/
 
 theme:
   name: material
@@ -9,7 +10,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-  
+
 nav:
  - Знакомство: index.md
  - Лабораторная работа №1: lr1.md

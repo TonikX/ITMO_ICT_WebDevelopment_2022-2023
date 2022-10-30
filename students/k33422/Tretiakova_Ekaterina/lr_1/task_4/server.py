@@ -2,7 +2,7 @@ import socket
 from threading import Thread
 
 host = "127.0.0.1"
-port = 334
+port = 560
 clients = set()
 sock = socket.socket()
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
