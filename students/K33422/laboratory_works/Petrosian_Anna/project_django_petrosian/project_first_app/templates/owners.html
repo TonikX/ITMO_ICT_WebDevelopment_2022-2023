@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owners</title>
+
+    <style>
+        table {
+            border-spacing: 20px 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+{% if new %}
+    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+{% else %}
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date of birth</th>
+            <th>Passport</th>
+            <th>Address</th>
+            <th>Nationality</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if all %}
+            {% for owner in owners %}
+                <tr>
+                    <th>{{ owner.first_name }}</th>
+                    <th>{{ owner.last_name }}</th>
+                    <th>{{ owner.date_of_birth }}</th>
+                    <th>{{ owner.passport }}</th>
+                    <th>{{ owner.address }}</th>
+                    <th>{{ owner.nationality }}</th>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        {% if one %}
+            <tr>
+                <th>{{ owner.first_name }}</th>
+                <th>{{ owner.last_name }}</th>
+                <th>{{ owner.date_of_birth }}</th>
+                <th>{{ owner.passport }}</th>
+                <th>{{ owner.address }}</th>
+                <th>{{ owner.nationality }}</th>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+{% endif %}
+
+<a href="../create_owner">New</a>
+</body>
+</html>
