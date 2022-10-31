@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <span><h1>Your bookings:</h1></span>
+    <div class="main">
+
+        {% for booking in bookings %}
+
+        <br>
+        <ul>
+            <li>{{ booking.date_start }} <a href="/bookings/{{ booking.id }}/delete/">Delete</a></li> | <a href="/bookings/{{ booking.id }}/update/">Update</a></li>
+        </ul>
+        <hr>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <span><h1>Rooms</h1></span>
+    <div class="main">
+
+        {% for room in data %}
+
+        <br>
+        <ul>
+            <li><a href="/hotel/{{ room.hotel.id }}/rooms/{{ room.number }}">Room №{{ room.number }}</a></li>
+        </ul>
+        <hr>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>
