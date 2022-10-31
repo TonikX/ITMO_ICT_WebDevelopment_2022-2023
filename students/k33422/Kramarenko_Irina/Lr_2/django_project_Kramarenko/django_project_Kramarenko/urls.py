@@ -20,5 +20,13 @@ from project_first_app import views
 urlpatterns = [
     path('owner/<int:owner_id>', views.detail),
     path('admin/', admin.site.urls),
+    path('list_owners/', views.list_owners),
+    path('list_cars/', views.CarsList.as_view()),
+    path('car/<int:pk>/', views.CarByID.as_view()),
+    path('update_car/<int:pk>/', views.UpdateCar.as_view()),
+    path('create_owner/', views.create_owner),
+    path('car/<int:pk>/update/', views.FormUpdateCar.as_view()),
+    path('car/create/', views.CreateCar.as_view()),
+    path('car/<int:pk>/delete/', views.DeleteCar.as_view()),
     # path('', include('django_project_Kramarenko.urls')),
 ]

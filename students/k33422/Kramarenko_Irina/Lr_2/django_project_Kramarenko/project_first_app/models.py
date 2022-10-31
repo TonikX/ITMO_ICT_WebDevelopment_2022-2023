@@ -8,6 +8,8 @@ class Car(models.Model):
     brand = models.CharField(max_length=20, choices=BRAND_CAR)
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30, null=True)
+    def __str__(self):
+        return "{} {} {} {}".format(self.reg_number, self.brand, self.model, self.color)
 
 class Owner(models.Model):
     # owner_id = models.IntegerField(primary_key=True)
@@ -15,6 +17,9 @@ class Owner(models.Model):
     last_name = models.CharField(max_length=30)
     birthdate = models.DateField(null=True)
     case = models.ManyToManyField(Car, through='Owning')
+
+    def __str__(self):
+        return self.first_name, self.last_name, self.birthdate
 
 class License(models.Model):
     TYPE_L = (('M', 'm'), ('A', 'a'), ('B', 'b'), ('BE', 'be'), ('C', 'c'), ('CE', 'ce'), ('D', 'd'), ('DE', 'de'), ('TM', 'tm'), ('TB', 'tb'))

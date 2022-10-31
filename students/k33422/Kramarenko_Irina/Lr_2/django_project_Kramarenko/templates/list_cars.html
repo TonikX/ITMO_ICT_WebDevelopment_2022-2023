@@ -1,0 +1,12 @@
+<ul>
+  {% for object in object_list %}
+  <li>{{ object.reg_number }}</li>
+  <li>{{ object.brand }}</li>
+  <li>{{ object.model }}</li>
+  <li>{{ object.color }}</li>
+
+  <hr/>
+  {% empty %}
+  <li>No cars yet.</li>
+  {% endfor %}
+</ul>
