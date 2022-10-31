@@ -1,0 +1,8 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../../../../../../../:\Users\Admin\PycharmProjects\django_project_nikiforova\LR2\ITMO_ICT_WebDevelopment_2022-2023\students\k33401\laboratory_works\Nikiforova_Kyunney\mkdocs\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
