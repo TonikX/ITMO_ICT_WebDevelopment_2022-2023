@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №2 - Anna Petrosian, K33422</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Anna Petrosian, K33422</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Знакомство</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../l1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../l1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#2" class="nav-link">Лабораторная работа 2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Практические задания</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#-" class="nav-link">Лабораторная работа - Доска домашних заданий</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="2">Лабораторная работа 2</h1>
+<ul>
+<li><a href="https://github.com/TonikX/ITMO_ICT_WebDevelopment_2022-2023/pull/64">github</a> - пул-реквест</li>
+<li><a href="https://github.com/joemccann/dillinger.git">gd</a> - скринкаст (есть в пр)</li>
+</ul>
+<h2 id="_1">Практические задания</h2>
+<p>Работаем в виртуальном окружении, досутп у серверу http://127.0.0.1:8000/
+models.py - структура данных, база данных</p>
+<div class="highlight"><pre><span></span><code>from django.db import models
+from datetime import date
+from django.contrib.auth.models import AbstractUser
+
+# Create your models here.
+class Owner(AbstractUser):
+    owner_id = models.IntegerField(primary_key=True)
+    date_of_birth = models.DateField(null=True)
+    passport = models.CharField(max_length=15, blank=False, null=False, unique=True)
+    address = models.CharField(max_length=100, blank=False, null=False)
+    nationality = models.CharField(max_length=30, blank=True, null=False)
+
+class Car(models.Model):
+    id_number = models.IntegerField(primary_key=True)
+    brand = models.CharField(max_length=30)
+    car_model = models.CharField(max_length=30)
+    color = models.CharField(max_length=30)
+official_number = models.CharField(max_length=30)
+
+class Owning(models.Model):
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    begin_date = models.DateField(default=date(2010, 1, 1))
+    end_date = models.DateField(default=date(2020, 1, 1))
+
+class DrivingLicense(models.Model):
+    LICENCE_TYPES = (
+        (&#39;A&#39;, &#39;Motorcycles&#39;),
+        (&#39;B&#39;, &#39;Cars&#39;),
+        (&#39;D&#39;, &#39;Buses&#39;),
+    )
+    number = models.IntegerField(primary_key=True)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    date_of_issue = models.DateField(default=date(2010, 1, 1))
+    type = models.CharField(max_length=3, choices=LICENCE_TYPES)
+</code></pre></div>
+<p>Добавим формы для работы, для этого нужно в настройках проекта прописать путь к папке, в которой они хранятся:</p>
+<div class="highlight"><pre><span></span><code>TEMPLATES = [
+    {
+        &#39;BACKEND&#39;: &#39;django.template.backends.django.DjangoTemplates&#39;,
+        &#39;DIRS&#39;: [BASE_DIR / &#39;templates&#39;],
+        &#39;APP_DIRS&#39;: True,
+        &#39;OPTIONS&#39;: {
+            &#39;context_processors&#39;: [
+                &#39;django.template.context_processors.debug&#39;,
+                &#39;django.template.context_processors.request&#39;,
+                &#39;django.contrib.auth.context_processors.auth&#39;,
+                &#39;django.contrib.messages.context_processors.messages&#39;,
+            ],
+        },
+    },
+]
+</code></pre></div>
+<p>Для авторизации пользователей:</p>
+<div class="highlight"><pre><span></span><code>AUTH_USER_MODEL = &#39;project_first_app.Owner&#39;
+</code></pre></div>
+<p>Например, owners.html для добавления нового владельца
+    &lt;!DOCTYPE html&gt;
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Owners</title></p>
+<div class="highlight"><pre><span></span><code>    &lt;style&gt;
+        table {
+            border-spacing: 20px 10px;
+            font-weight: bold;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+{% if new %}
+    &lt;form method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt; {% csrf_token %}
+        {{ form.as_p }}
+        &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+    &lt;/form&gt;
+{% else %}
+    &lt;table&gt;
+        &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Name&lt;/th&gt;
+            &lt;th&gt;Surname&lt;/th&gt;
+            &lt;th&gt;Date of birth&lt;/th&gt;
+            &lt;th&gt;Passport&lt;/th&gt;
+            &lt;th&gt;Address&lt;/th&gt;
+            &lt;th&gt;Nationality&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;/thead&gt;
+    &lt;tbody&gt;
+        {% if all %}
+            {% for owner in owners %}
+                &lt;tr&gt;
+                    &lt;th&gt;{{ owner.first_name }}&lt;/th&gt;
+                    &lt;th&gt;{{ owner.last_name }}&lt;/th&gt;
+                    &lt;th&gt;{{ owner.date_of_birth }}&lt;/th&gt;
+                    &lt;th&gt;{{ owner.passport }}&lt;/th&gt;
+                    &lt;th&gt;{{ owner.address }}&lt;/th&gt;
+                    &lt;th&gt;{{ owner.nationality }}&lt;/th&gt;
+                &lt;/tr&gt;
+            {% endfor %}
+        {% endif %}
+        {% if one %}
+            &lt;tr&gt;
+                &lt;th&gt;{{ owner.first_name }}&lt;/th&gt;
+                &lt;th&gt;{{ owner.last_name }}&lt;/th&gt;
+                &lt;th&gt;{{ owner.date_of_birth }}&lt;/th&gt;
+                &lt;th&gt;{{ owner.passport }}&lt;/th&gt;
+                &lt;th&gt;{{ owner.address }}&lt;/th&gt;
+                &lt;th&gt;{{ owner.nationality }}&lt;/th&gt;
+            &lt;/tr&gt;
+        {% endif %}
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+{% endif %}
+
+&lt;a href=&quot;../create_owner&quot;&gt;New&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<p>Перенаправление запросов:
+Проект - urls.py:
+    urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('app/', include('project_first_app.urls')),
+]</p>
+<p>Приложение - urls.py:</p>
+<div class="highlight"><pre><span></span><code>urlpatterns = [
+    path(&#39;owners/&#39;, views.all_owners_detail),
+    path(&#39;owner/&lt;int:owner_id&gt;/&#39;, views.owner_detail),
+    path(&#39;create_owner/&#39;, views.create_owner),
+    path(&#39;cars/&#39;, AllCars.as_view()),
+    path(&#39;car/&lt;int:pk&gt;/&#39;, OneCar.as_view()),
+    path(&#39;car/&lt;int:pk&gt;/update/&#39;, CarUpdate.as_view()),
+    path(&#39;car/create/&#39;, CarCreate.as_view()),
+    path(&#39;car/&lt;int:pk&gt;/delete/&#39;, CarDelete.as_view()),
+]
+</code></pre></div>
+<p>views.py - отправляет запросы, возвращает ответы</p>
+<div class="highlight"><pre><span></span><code>from django.shortcuts import render , get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from project_first_app.form import OwnerForm
+from .models import Owner, Car
+
+def all_owners_detail(request):
+    context = {&quot;owners&quot;: Owner.objects.all(), &quot;all&quot;: True}
+
+    return render(request, &#39;owners.html&#39;, context)
+
+
+def owner_detail(request, owner_id):
+    context = get_object_or_404(Owner, pk=owner_id)
+
+    return render(request, &#39;owners.html&#39;, {&quot;owner&quot;: context, &quot;one&quot;: True})
+
+def create_owner(request):
+    form = OwnerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect(&#39;/owners&#39;)
+    return render(request, &quot;owners.html&quot;, {&quot;form&quot;: form, &quot;new&quot;: True})
+
+class AllCars(ListView):
+    model = Car
+    template_name = &quot;cars.html&quot;
+
+class OneCar(DetailView):
+    model = Car
+    template_name = &quot;cars.html&quot;
+
+class CarDelete(DeleteView):
+    model = Car
+    template_name = &#39;car_confirm_delete.html&#39;
+    success_url = &#39;/cars/&#39;
+
+
+class CarCreate(CreateView):
+    model = Car
+    template_name = &#39;car_create_update.html&#39;
+    fields = [&#39;id_number&#39;, &#39;brand&#39;, &#39;car_model&#39;, &#39;color&#39;, &#39;official_number&#39;]
+    success_url = &#39;/cars/
+
+class CarUpdate(UpdateView):
+    model = Car
+    fields = [&#39;id_number&#39;, &#39;brand&#39;, &#39;car_model&#39;, &#39;color&#39;, &#39;official_number&#39;]
+    success_url = &#39;/cars/&#39;
+    template_name = &#39;car_create_update.html&#39;
+</code></pre></div>
+<h2 id="-">Лабораторная работа - Доска домашних заданий</h2>
+<blockquote>
+<p>О домашнем задании должна храниться следующая информация: предмет,
+преподаватель, дата выдачи, период выполнения, текст задания, информация о штрафах.
+Необходимо реализовать следующий функционал:
+    - Регистрация новых пользователей.
+    - Просмотр домашних заданий по всем дисциплинам (сроки выполнения,
+описание задания).
+    - Сдача домашних заданий в текстовом виде.
+    - Администратор (учитель) должен иметь возможность поставить оценку за
+задание средствами Django-admin.
+    - В клиентской части должна формироваться таблица, отображающая оценки
+всех учеников класса.</p>
+</blockquote></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
