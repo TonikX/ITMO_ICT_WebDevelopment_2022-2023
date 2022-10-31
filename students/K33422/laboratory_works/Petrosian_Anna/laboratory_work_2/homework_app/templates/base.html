@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+    <style>
+        body {
+            padding-left: 30px;
+        }
+        nav {
+            background-color: lightgray;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    {% if user.is_authenticated %}
+        <a href="{% url 'class_grades' %}">Class grades</a>
+        <a href="{% url 'homework_list' %}">My homework</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}">Log in</a>
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+</nav>
+<br/>
+{% block body %}
+{% endblock %}
+
+</body>
+</html>
