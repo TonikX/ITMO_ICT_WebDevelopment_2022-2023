@@ -37,7 +37,7 @@ def send():
         print()
         if to_send == "exit":
             break
-        print("Отправить всем: %s"% to_send)
+        print("Отправить: %s"% to_send)
         for client in clients:
             client.send(f"Сервер: {to_send}".encode("utf-8"))
 

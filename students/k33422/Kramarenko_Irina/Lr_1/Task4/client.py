@@ -29,7 +29,7 @@ def recv():
         print("\n" + rcvd.decode("utf-8"))
 
 
-thread1 = threading.Thread(target=recv, name="input")
+thread1 = threading.Thread(target=recv, name="in")
 
 thread2 = threading.Thread(target=send, name="out")
 
