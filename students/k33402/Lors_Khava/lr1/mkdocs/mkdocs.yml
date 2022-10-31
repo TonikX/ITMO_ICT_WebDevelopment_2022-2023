@@ -4,7 +4,9 @@ theme:
   name: readthedocs
   
 nav:
+ - Начальная страница: index.md
  - Лабораторная работа №1: lr1.md
+ - Лабораторная работа №2: lr2.md
 
 markdown_extensions:
     - toc:

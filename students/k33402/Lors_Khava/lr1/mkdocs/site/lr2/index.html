@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Лабораторная работа №2 - ITMO-ICT-WebDevelopment</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 \u21162";
+        var mkdocs_page_input_path = "lr2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ITMO-ICT-WebDevelopment
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Начальная страница</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Лабораторная работа №1</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Лабораторная работа №2</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#django">Реализация простого сайта на django</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ITMO-ICT-WebDevelopment</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Лабораторная работа №2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="laboratory-work-2">Laboratory work 2<a class="headerlink" href="#laboratory-work-2" title="Permanent link">&para;</a></h1>
+<h2 id="django">Реализация простого сайта на django<a class="headerlink" href="#django" title="Permanent link">&para;</a></h2>
+<p>Вариант1: Список отелей.
+Необходимо учитывать название отеля, владельца отеля, адрес, описание, типы
+номеров, стоимость, вместимость, удобства.
+Необходимо реализовать следующий функционал:</p>
+<ul>
+<li>
+<p>Регистрация новых пользователей.</p>
+</li>
+<li>
+<p>Просмотр и резервирование номеров. Пользователь должен иметь
+возможность редактирования и удаления своих резервирований.</p>
+</li>
+<li>
+<p>Написание отзывов к номерам. При добавлении комментариев, должны
+сохраняться период проживания, текст комментария, рейтинг (1-10),
+информация о комментаторе.</p>
+</li>
+<li>
+<p>Администратор должен иметь возможность заселить пользователя в отель и
+выселить из отеля средствами Django-admin.</p>
+</li>
+<li>
+<p>В клиентской части должна формироваться таблица, отображающая
+постояльцев отеля за последний месяц.</p>
+</li>
+</ul>
+<hr />
+<ul>
+<li><code>models.py</code></li>
+</ul>
+<pre><code class="language-python">
+from django.db import models
+
+class Client(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    birthday = models.DateField(null=True)
+    passport = models.CharField(max_length=30, null=True)
+
+    def __str__(self):
+        return f'{self.last_name} {self.first_name}'
+
+
+class Hotel(models.Model):
+    clients = models.ManyToManyField(Client, through='Booking', related_name='clients')
+    hotel_name = models.CharField(max_length=30)
+    owner = models.CharField(max_length=30)
+    address = models.CharField(max_length=40, null=True)
+
+    def __str__(self):
+        return self.hotel_name
+
+class Room(models.Model):
+    number = models.CharField(max_length=5)
+    type = models.CharField(max_length=30, null=True)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, related_name='hotel_room')
+    price = models.IntegerField(null=True)
+
+    def __str__(self):
+        return f&quot;{self.number}&quot;
+
+class Booking(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='book_client')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='book_hotel')
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='book_room')
+    check_in_date = models.DateField()
+    check_out_date = models.DateField()
+
+    def __str__(self):
+        return f&quot;{self.client}: {self.check_in_date} - {self.check_out_date}&quot;
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, related_name='author')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, related_name='inf_author')
+    rating = models.IntegerField(choices=[(i, i) for i in range(0, 11)])
+    review_comment = models.CharField(max_length=500)
+
+    def __str__(self):
+        return f&quot;{self.author}: {self.rating}&quot;
+
+</code></pre>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path(&quot;home/&quot;, home),
+    path(&quot;client_list/&quot;, clients_list),
+    path(&quot;client_create/&quot;, clients_create),
+    path(&quot;room_list/&quot;, room_list),
+    path(&quot;book/&quot;, book),
+    path(&quot;book_list/&quot;, book_list),
+    path(&quot;month/&quot;, last_month),
+    path(&quot;book_update/&lt;int:pk&gt;/&quot;, BookUpdate.as_view()),
+    path(&quot;book_delete/&lt;int:pk&gt;/&quot;, BookDelete.as_view()),
+    path('hotel_list/', HotelList.as_view()),
+    path('hotel/&lt;str:pk&gt;', hotel_view),
+    path('hotel/review/&lt;str:pk&gt;', comment)
+]
+</code></pre>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
+from django.views.generic import ListView, UpdateView, DeleteView
+from .forms import ClientForm, BookingForm, CommentForm
+from .models import Client, Hotel, Room, Booking, Comment
+import datetime
+
+# основная страница
+def home(request):
+    return render(request, &quot;home.html&quot;)
+
+# данные о клиентах
+def clients_list(request):
+    data = {&quot;clients&quot;: Client.objects.all()}
+    return render(request, &quot;clients_list.html&quot;, data)
+
+# создание нового клиента для регистрации
+def clients_create(request):
+    data = {}
+    form = ClientForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('/client_list')
+    data[&quot;form&quot;] = form
+    return render(request, &quot;register.html&quot;, data)
+
+# данные о номерах
+def room_list(request):
+    data = {&quot;rooms&quot;: Room.objects.all()}
+    return render(request, &quot;room_list.html&quot;, data)
+
+# бронирование
+def book(request):
+    data = {}
+    form = BookingForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    data[&quot;form&quot;] = form
+    return render(request, &quot;booking.html&quot;, data)
+
+# данные о бронировании
+def book_list(request):
+    data = {&quot;booking&quot;: Booking.objects.all()}
+    return render(request, &quot;book_list.html&quot;, data)
+
+# cписок клиентов последнего месяца
+def last_month(request):
+    data = {}
+    try:
+        month = datetime.date.today() - datetime.timedelta(days=31)
+        data[&quot;booking&quot;] = Booking.objects.all().filter(check_in_date__gte=str(month),
+        check_out_date__lte=str(datetime.date.today()))
+        print(data)
+    except Booking.DoesNotExist:
+        raise Http404(&quot;No guests this month yet :(&quot;)
+    return render(request, &quot;book_list.html&quot;, data)
+
+# редактирование брони
+class BookUpdate(UpdateView):
+    model = Booking
+    template_name = &quot;book_update.html&quot;
+    fields = [&quot;check_in_date&quot;, &quot;check_out_date&quot;, &quot;client&quot;, &quot;room&quot;]
+    success_url = &quot;/book_list/&quot;
+
+# удаление брони
+class BookDelete(DeleteView):
+    model = Booking
+    template_name = &quot;book_delete.html&quot;
+    success_url = &quot;/book_list/&quot;
+
+# таблица гостей отеля
+class HotelList(ListView):
+    model = Hotel
+    template_name = 'hotel.html'
+    all_hotels = Hotel.objects
+
+# обзор на отели
+def hotel_view(request, pk):
+    hotel = Hotel.objects.get(id=pk)
+    comments = Comment.objects.filter(hotel=hotel)
+    return render(request, 'hotel_detail.html', {'hotel': hotel, 'comments': comments})
+
+# написание комментария и просмотр 
+def comment(request, pk):
+    obj = get_object_or_404(Hotel, id=pk)
+    author = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form['review_comment'].value():
+            if form['rating'].value():
+                if form.is_valid():
+                    com = form.save(commit=False)
+                    com.client = author
+                    com.hotel = obj
+                    com.save()
+    else:
+        form = CommentForm()
+    return render(request, 'review.html', {'form': form})
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr1/" class="btn btn-neutral float-left" title="Лабораторная работа №1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lr1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

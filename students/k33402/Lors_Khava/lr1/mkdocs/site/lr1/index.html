@@ -40,6 +40,10 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Начальная страница</a>
+                </li>
+              </ul>
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Лабораторная работа №1</a>
     <ul class="current">
@@ -54,6 +58,10 @@
     <li class="toctree-l2"><a class="reference internal" href="#task-5">Task 5</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Лабораторная работа №2</a>
                 </li>
               </ul>
       </div>
@@ -87,6 +95,10 @@
 </ul>
 <hr />
 <h2 id="task-1">Task 1<a class="headerlink" href="#task-1" title="Permanent link">&para;</a></h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент отсылает серверу
+сообщение «Hello, server». Сообщение должно отразиться на стороне сервера.
+Сервер в ответ отсылает клиенту сообщение «Hello, client». Сообщение должно
+отобразиться у клиента.</p>
 <ul>
 <li>server.py</li>
 </ul>
@@ -117,6 +129,10 @@ client.close()
 </code></pre>
 <hr />
 <h2 id="task-2">Task 2<a class="headerlink" href="#task-2" title="Permanent link">&para;</a></h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент запрашивает у
+сервера выполнение математической операции, параметры, которые вводятся с
+клавиатуры. Сервер обрабатывает полученные данные и возвращает результат
+клиенту. Вариант: решение квадратного уравнения</p>
 <ul>
 <li>server.py </li>
 </ul>
@@ -163,6 +179,9 @@ client.close()
 </code></pre>
 <hr />
 <h2 id="task-3">Task 3<a class="headerlink" href="#task-3" title="Permanent link">&para;</a></h2>
+<p>Реализовать серверную часть приложения. Клиент подключается к серверу. В ответ
+клиент получает http-сообщение, содержащее html-страницу, которую сервер
+подгружает из файла index.html.</p>
 <ul>
 <li>index.html</li>
 </ul>
@@ -220,6 +239,9 @@ client.close()
 </code></pre>
 <hr />
 <h2 id="task-4">Task 4<a class="headerlink" href="#task-4" title="Permanent link">&para;</a></h2>
+<p>Реализовать двухпользовательский или многопользовательский чат. Реализация
+многопользовательского часа позволяет получить максимальное количество
+баллов. Обязательно использовать библиотеку threading.</p>
 <ul>
 <li>server.py </li>
 </ul>
@@ -307,6 +329,8 @@ write_thread.start()
 </code></pre>
 <hr />
 <h2 id="task-5">Task 5<a class="headerlink" href="#task-5" title="Permanent link">&para;</a></h2>
+<p>Необходимо написать простой web-сервер для обработки GET и POST http
+запросов средствами Python и библиотеки socket.</p>
 <ul>
 <li>server.py </li>
 </ul>
@@ -421,6 +445,10 @@ if __name__ == '__main__':
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Начальная страница"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../lr2/" class="btn btn-neutral float-right" title="Лабораторная работа №2">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -442,6 +470,10 @@ if __name__ == '__main__':
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../lr2/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
