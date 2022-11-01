@@ -107,5 +107,5 @@ class Registration(models.Model):
         ordering = ["-check_in", "-check_out"]
 
 
-class User(AbstractUser):
-    pass
+# class User(AbstractUser):
+#     pass

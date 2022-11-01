@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hotel_first_app.apps.HotelFirstAppConfig'
+    'hotel_first_app.apps.HotelFirstAppConfig',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [
@@ -127,4 +128,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'HotelFirstApp.User'
+AUTH_USER_MODEL = 'Account.User'
