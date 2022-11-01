@@ -1,9 +1,16 @@
 from django.urls import path, include
-from . import views
+from .views import *
 
 urlpatterns = [
-    path('', views.RegView.as_view(), name='index'),
-    path('login/', views.LogInView.as_view(), name='login'),
-    path('logout/', views.LogOutView.as_view(), name='logout'),
+    path('', RegView.as_view(), name='index'),
+    path('login/', LogInView.as_view(), name='login'),
+    path('logout/', LogOutView.as_view(), name='logout'),
     path('hotels/', include('hotel_first_app.urls')),
 ]
+
+# Вход/рег
+# account/login/
+# account/registration/
+
+# Личный акк
+# account/user/<int:id>
