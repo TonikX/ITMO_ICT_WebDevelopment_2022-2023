@@ -28,6 +28,11 @@
         {% if room_type.des_rt|length > 0 %}
             <p style="font-size: 1.5rem"><strong>Review</strong>: {{ room_type.des_rt }}</p>
         {% endif %}
-
+        {% if comments|length > 0 %}
+            {% for comment in comments %}
+                <p>Address: {{ hotel.address_hotel }}</p>
+            {% endfor %}
+        {% endif %}
+        <a href="{% url 'comment' hotel.pk room_type.pk room.pk %}" class="button btn btn-primary">Add review</a>
     </div>
 {% endblock %}

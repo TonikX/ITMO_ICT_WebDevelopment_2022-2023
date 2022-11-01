@@ -22,7 +22,8 @@ class RegView(CreateView):
         if form.is_valid():
             form.save()
             context['username'] = form.cleaned_data.get('username')
-            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
+            user = authenticate(username=form.cleaned_data.get('username'),
+                                password=form.cleaned_data.get('password1'))
             login(request, user)
             return render(request, 'hotels.html', context)
         return render(request, 'error.html')

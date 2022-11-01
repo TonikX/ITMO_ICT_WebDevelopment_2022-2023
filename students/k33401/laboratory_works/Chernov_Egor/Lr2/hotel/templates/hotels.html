@@ -15,7 +15,7 @@
 {% block mbody %}
     <div class="mx-auto w-50">
         <h1 id="title">Hello, {{ user.username }}!</h1>
-        <h4>Which hotel do you visit?</h4>
+        <h4>Which hotel do you want to visit?</h4>
         <div class="list-group py-4">
             {% for hotel in hotels %}
             <a href="{% url 'hotel' hotel.pk %}" class="list-group-item list-group-item-action">

@@ -18,7 +18,7 @@
 {% block mbody %}
     <div class="mx-auto w-50">
         <h1 id="title">{{ hotel.name_hotel }}</h1>
-        <h4>Which room type do you want?</h4>
+        <h4>Which room type do you choose?</h4>
         <div class="list-group py-4">
             {% for room_type in room_types %}
                 <a href="{% url 'hotel-rooms' hotel.pk room_type.pk %}" class="list-group-item list-group-item-action">

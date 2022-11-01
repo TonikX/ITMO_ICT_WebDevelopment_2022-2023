@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from account.models import User
+
 
 class Hotel(models.Model):
     id_hotel = models.IntegerField(primary_key=True, verbose_name='ID Hotel')
@@ -14,15 +16,15 @@ class Hotel(models.Model):
     des_hotel = models.CharField(max_length=255, null=True, blank=True, verbose_name='Description')
 
 
-class Guest(models.Model):
-    id_guest = models.IntegerField(primary_key=True, verbose_name='ID Guest')
-    first_name_guest = models.CharField(max_length=30, verbose_name='First name')
-    last_name_guest = models.CharField(max_length=30, verbose_name='Last name')
-    phone_guest = models.CharField(max_length=12, verbose_name='Phone')
-    passport_guest = models.CharField(max_length=10, verbose_name='Passport')
-
-    class Meta:
-        ordering = ["first_name_guest", "last_name_guest"]
+# class Guest(models.Model):
+#     id_guest = models.IntegerField(primary_key=True, verbose_name='ID Guest')
+#     first_name_guest = models.CharField(max_length=30, verbose_name='First name')
+#     last_name_guest = models.CharField(max_length=30, verbose_name='Last name')
+#     phone_guest = models.CharField(max_length=12, verbose_name='Phone')
+#     passport_guest = models.CharField(max_length=10, verbose_name='Passport')
+#
+#     class Meta:
+#         ordering = ["first_name_guest", "last_name_guest"]
 
 
 class Employee(models.Model):
@@ -94,7 +96,7 @@ class Registration(models.Model):
     ]
     id_reg = models.IntegerField(primary_key=True, verbose_name='ID Reg')
     id_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='ID Employee')
-    id_guest = models.ForeignKey(Guest, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
+    id_guest = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
     id_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, verbose_name='ID Room')
     status_reg = models.CharField(max_length=1, choices=STATUS_REG_CHOICES, verbose_name='Registration status')
     status_pay = models.CharField(max_length=2, choices=STATUS_PAY_CHOICES, verbose_name='Payment status')
@@ -104,3 +106,13 @@ class Registration(models.Model):
 
     class Meta:
         ordering = ["-check_in", "-check_out"]
+
+
+class Comment(models.Model):
+    id_guest = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
+    id_room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, verbose_name='ID Room')
+    rating_c = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
+                                                verbose_name='Rating')
+    review_c = models.TextField(max_length=255, null=True, blank=True, verbose_name='Review')
+    check_in = models.DateField(null=False, blank=False, verbose_name='Check in')
+    check_out = models.DateField(null=False, blank=False, verbose_name='Check out')
