@@ -2,49 +2,73 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-
+from django.views.generic import CreateView, ListView, DetailView
 from .forms import *
-from django.views.generic import CreateView
+from .models import *
 
 
-def index(request):
-    return render(request, 'index.html')
+class RoomView(DetailView):
+    model = Room
+    template_name = 'room.html'
+    context_object_name = 'room'
+
+    def get_context_data(self, **kwargs):
+        context = super(RoomView, self).get_context_data(**kwargs)
+        context['hotel'] = Hotel.objects.get(pk=self.kwargs['id_hotel'])
+        context['room_type'] = RoomType.objects.get(pk=self.kwargs['id_rt'])
+        return context
 
 
-def mlogin(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        # Redirect to a success page.
-        ...
-    else:
-        # Return an 'invalid login' error message.
-        ...
-    # return render(request, 'login.html')
+class RoomListView(ListView):
+    model = Room
+    template_name = 'rooms.html'
+    context_object_name = 'rooms'
+
+    def get_context_data(self, **kwargs):
+        context = super(RoomListView, self).get_context_data(**kwargs)
+        context['hotel'] = Hotel.objects.get(pk=self.kwargs['id_hotel'])
+        context['room_type'] = RoomType.objects.get(pk=self.kwargs['id_rt'])
+        return context
+
+    def get_queryset(self):
+        return Room.objects.filter(id_rt=self.kwargs['id_rt'])
 
 
-def mlogout(request):
-    return redirect('/')
+class HotelView(DetailView):
+    model = Hotel
+    template_name = 'hotel.html'
+    context_object_name = 'hotel'
+
+    def get_context_data(self, **kwargs):
+        context = super(HotelView, self).get_context_data(**kwargs)
+        context['room_types'] = RoomType.objects.filter(id_hotel=self.kwargs['pk'])
+        return context
 
 
-def home(request):
-    return render(request, 'home.html')
+class HotelListView(ListView):
+    model = Hotel
+    template_name = 'hotels.html'
+    context_object_name = 'hotels'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(HotelListView, self).get_context_data(**kwargs)
+        return context
 
 
 class RegView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = 'home/'
     template_name = 'index.html'
+    success_url = 'hotels'
 
     def post(self, request, *args, **kwargs):
-        super(RegView, self).post(request)
-        login_username = request.POST['username']
-        login_password = request.POST['password1']
-        user = authenticate(username=login_username, password=login_password)
-        login(request, user)
-        return redirect(self.success_url)
+        form = CustomUserCreationForm(request.POST)
+        context = {'username': ""}
+        if form.is_valid():
+            form.save()
+            context['username'] = form.cleaned_data.get('username')
+            user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
+            login(request, user)
+        return render(request, 'hotels.html', context)
 
 
 class LogInView(LoginView):
@@ -52,7 +76,7 @@ class LogInView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('hotels')
 
 
 class LogOutView(LogoutView):

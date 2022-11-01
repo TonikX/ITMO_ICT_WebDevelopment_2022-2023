@@ -12,4 +12,12 @@
 {% block mbody %}
 <h1 id="title">Hello, {{ user.username }}!</h1>
 <p>Which hotel do you choose?</p>
+{% for hotel in hotels %}
+    <div>
+        <a href="{% url 'hotel' hotel.pk %}">
+            <p>{{ hotel.rating_hotel }} {{ hotel.des_hotel }}</p>
+            <p>{{ hotel.pk }}. {{ hotel.name_hotel }} - {{ hotel.address_hotel }}</p>
+        </a>
+    </div>
+{% endfor %}
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block mheader %}
+<nav>
+    <ul>
+        <li><a href="#title">Hotel list</a></li>
+        <li><a href="{% url 'logout' %}">Log out</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block mbody %}
+<h1 id="title">{{ user.username }}, welcome to {{ hotel.name_hotel }}!</h1>
+<p>You chose {{ room_type.get_type_rt_display }}. Which room do you choose?</p>
+<ol>
+    {% for room in rooms %}
+        <li>
+            <a href="{% url 'room' hotel.pk room_type.pk room.pk %}">
+                <p>Number: {{ room.number_room }} - {{ room.get_status_room_display }}, price: {{ room_type.price_rt }}</p>
+            </a>
+        </li>
+    {% endfor %}
+</ol>
+{% endblock %}

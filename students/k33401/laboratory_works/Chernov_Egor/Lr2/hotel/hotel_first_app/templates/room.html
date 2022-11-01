@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block mheader %}
+<nav>
+    <ul>
+        <li><a href="#title">Hotel</a></li>
+        <li><a href="{% url 'logout' %}">Log out</a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block mbody %}
+<h1 id="title">{{ user.username }}, welcome to {{ hotel.name_hotel }}!</h1>
+<p>You chose {{ room_type.get_type_rt_display }} and the {{ room.number_room }} room.</p>
+
+{% endblock %}
