@@ -4,6 +4,8 @@ from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
+    # username = forms.CharField(label='Username')
+
     class Meta:
         model = User
         fields = ('username',

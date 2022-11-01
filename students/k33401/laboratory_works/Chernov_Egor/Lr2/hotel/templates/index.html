@@ -1,10 +1,11 @@
 {% extends "base_generic.html" %}
 
 {% block mbody %}
-<h1>Registration</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+    <div class="mx-auto w-50">
+        <form class="pt-4" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
 {% endblock %}

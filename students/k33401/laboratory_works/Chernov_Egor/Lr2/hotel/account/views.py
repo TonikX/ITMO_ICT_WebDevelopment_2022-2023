@@ -7,6 +7,10 @@ from django.views.generic import CreateView
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 
+def error(request):
+    return render(request, 'error.html')
+
+
 class RegView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'index.html'
@@ -15,16 +19,13 @@ class RegView(CreateView):
     def post(self, request, *args, **kwargs):
         form = CustomUserCreationForm(request.POST)
         context = {'username': ""}
-        print('before', context['username'])
         if form.is_valid():
             form.save()
             context['username'] = form.cleaned_data.get('username')
-            print('inside', context['username'])
             user = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password1'))
             login(request, user)
             return render(request, 'hotels.html', context)
-        print('after', context['username'])
-        return render(request, 'hotels.html', context)
+        return render(request, 'error.html')
 
 
 class LogInView(LoginView):

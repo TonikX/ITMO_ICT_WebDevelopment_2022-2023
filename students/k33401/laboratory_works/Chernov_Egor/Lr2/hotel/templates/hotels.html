@@ -1,23 +1,28 @@
 {% extends "base_generic.html" %}
 
-{% block mheader %}
-<nav>
-    <ul>
-        <li><a href="#title">Hotel list</a></li>
-        <li><a href="{% url 'logout' %}">Log out</a></li>
-    </ul>
-</nav>
+{% block mheader_left_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'hotels' %}">Hotels</a>
+    </li>
+{% endblock %}
+
+{% block mheader_right_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+    </li>
 {% endblock %}
 
 {% block mbody %}
-<h1 id="title">Hello, {{ user.username }}!</h1>
-<p>Which hotel do you choose?</p>
-{% for hotel in hotels %}
-    <div>
-        <a href="{% url 'hotel' hotel.pk %}">
-            <p>{{ hotel.rating_hotel }} {{ hotel.des_hotel }}</p>
-            <p>{{ hotel.pk }}. {{ hotel.name_hotel }} - {{ hotel.address_hotel }}</p>
-        </a>
+    <div class="mx-auto w-50">
+        <h1 id="title">Hello, {{ user.username }}!</h1>
+        <h4>Which hotel do you visit?</h4>
+        <div class="list-group py-4">
+            {% for hotel in hotels %}
+            <a href="{% url 'hotel' hotel.pk %}" class="list-group-item list-group-item-action">
+                <p>{{ hotel.name_hotel }} - {{ hotel.rating_hotel }} stars</p>
+                <p>Address: {{ hotel.address_hotel }}</p>
+            </a>
+            {% endfor %}
+        </div>
     </div>
-{% endfor %}
 {% endblock %}
