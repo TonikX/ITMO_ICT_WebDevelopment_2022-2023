@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete accommodation</title>
+</head>
+
+<body>
+<h1>Delete</h1>
+<form method="post">{% csrf_token %}
+    <p>Do you want to delete the accommodation "{{ object }}"?</p>
+    <input type="submit" value="Confirm">
+</form>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>
