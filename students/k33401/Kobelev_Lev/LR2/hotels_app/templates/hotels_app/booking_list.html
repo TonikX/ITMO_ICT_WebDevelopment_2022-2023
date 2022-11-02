@@ -5,17 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-    <span><h1>Your bookings:</h1></span>
+    <span><h1>Your bookings</h1></span>
     <div class="main">
-
-        {% for booking in bookings %}
-
-        <br>
-        <ul>
-            <li>{{ booking.date_start }} <a href="/bookings/{{ booking.id }}/delete/">Delete</a></li> | <a href="/bookings/{{ booking.id }}/update/">Update</a></li>
-        </ul>
-        <hr>
-
+        {% for booking in booking_list %}
+            Room №{{ booking.reservation.number }} at {{ booking.reservation.hotel.name }} from {{ booking.date_start }} to {{ booking.date_end }}
+            <br>
+            Status:
+            {% if booking.approved %}
+                approved
+            {% else %}
+                not approved
+            {% endif %}
+            <br>
+            <a href="/bookings/{{ booking.id }}/delete/">Cancel</a></li> | <a href="/bookings/{{ booking.id }}/update/">Update</a>
+            <hr>
         {% endfor %}
 
     </div>

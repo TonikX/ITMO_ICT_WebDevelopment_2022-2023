@@ -5,43 +5,32 @@
     <title>Room Detail</title>
 </head>
 <body>
-    <span><h1>Rooms</h1></span>
-    <div class="main">
+    <h1>Room {{ room.number }}</h1>
+    <h2>Details</h2>
+    Beds: room.beds
 
-        {% for r in room %}
+    <h2>Booking</h2>
+    {% if user.is_active and booking_form %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ booking_form.as_p }}
+            <button type="submit" name="booking_post">Post</button>
+        </form>
+    {% endif %}
 
-        <br>
-        <ul>
-            <li>Number: {{ r.number }}</li>
-        </ul>
-        <hr>
-
-        {% endfor %}
-
-        {% if user.is_active %}
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ booking_form.as_p }}
-                <button type="submit" name="booking_post">Post</button>
-            </form>
-        {% endif %}
-
-        <h2>Reviews:</h2>
-        {% for obj in reviews %}
+    <h2>Reviews</h2>
+    {% for obj in reviews %}
         <p> {{ obj.text }}, {{ obj.rating }} / 10 </p>
-            <p> by <b>{{ obj.booking.reservee }}</b> who rented a room from {{ obj.booking.date_start }} to {{ obj.booking.date_end }}</p>
-
+        <p> by <b>{{ obj.booking.reservee }}</b> who rented a room from {{ obj.booking.date_start }} to {{ obj.booking.date_end }}</p>
         <hr>
+    {% endfor %}
 
-        {% endfor %}
-
-        {% if user.is_active %}
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ review_form.as_p }}
-                <button type="submit" name="review_post">Post</button>
-            </form>
-        {% endif %}
-    </div>
+    {% if user.is_active and review_form %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit" name="review_post">Post</button>
+        </form>
+    {% endif %}
 </body>
 </html>

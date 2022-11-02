@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from .models import Room, Booking, Hotel, Review
+from .models import Room, Booking, Hotel, Review, User
 from .forms import ReviewForm, BookingForm
 
 
@@ -9,22 +9,43 @@ class HotelListView(ListView):
     model = Hotel
 
 
-def get_hotel_rooms(request, hotel_id):
-    context = {"data": Room.objects.filter(hotel=hotel_id)}
-    return render(request, "hotels_app/rooms.html", context)
+class HotelDetailView(DetailView):
+    model = Hotel
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["rooms"] = Room.objects.filter(hotel=self.object.id)
+        room_ids = [room["id"] for room in context["rooms"].values()]
+        context["bookings"] = Booking.objects.filter(reservation__in=room_ids)
+        context["reservees"] = User.objects.filter(id__in=set(
+            [booking["reservee_id"] for booking in Booking.objects.filter(reservation__in=room_ids).values()]))
+        return context
 
 
 def get_room(request, hotel_id, room_number):
+    user = request.user
+
     room_id = Room.objects.filter(hotel=hotel_id, number=room_number).values().first()["id"]
-    booking_ids = [booking['id'] for booking in Booking.objects.filter(reservation=room_id).values()]
+    bookings = Booking.objects.filter(reservation=room_id)
+    booking_ids = [booking['id'] for booking in bookings.values()]
     reviews = Review.objects.filter(booking__in=booking_ids)
     rooms = Room.objects.filter(hotel=hotel_id, number=room_number)
 
+    reviews_by_user = 0
+    for review in reviews:
+        if review.booking.reservee == user:
+            reviews_by_user += 1
+
+    for booking in bookings:
+        if booking.reservee == user:
+            reviews_by_user -= 1
+
     review_form = ReviewForm()
+    if reviews_by_user == 0:
+        review_form = None
     booking_form = BookingForm()
 
     if request.method == "POST":
-        user = request.user
         if 'review_post' in request.POST:
             review_form = ReviewForm(request.POST)
             if review_form.is_valid():
@@ -45,11 +66,11 @@ def get_room(request, hotel_id, room_number):
                   context={"room": rooms, "reviews": reviews, "review_form": review_form, "booking_form": booking_form})
 
 
-def get_bookings(request):
-    user = request.user
-    context = {"bookings": Booking.objects.filter(reservee=user)}
+class BookingListView(ListView):
+    model = Booking
 
-    return render(request, "hotels_app/booking_list.html", context)
+    def get_queryset(self):
+        return self.model.objects.filter(reservee=self.request.user)
 
 
 class BookingDeleteView(DeleteView):
@@ -61,4 +82,3 @@ class BookingUpdateView(UpdateView):
     model = Booking
     fields = ['date_start', 'date_end']
     success_url = '/bookings/'
-
