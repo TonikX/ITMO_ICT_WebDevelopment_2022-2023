@@ -1,17 +1,18 @@
 from django.db import models
 
 
-class CarOwner(models.Model):
-    first_name = models.CharField(max_length=30)
-    second_name = models.CharField(max_length=30)
-    date_of_birth = models.DateTimeField(blank=True, null=True)
-
-
 class Car(models.Model):
     state_number = models.CharField(max_length=15)
     make = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30, blank=True, null=True)
+
+
+class CarOwner(models.Model):
+    first_name = models.CharField(max_length=30)
+    second_name = models.CharField(max_length=30)
+    cars = models.ManyToManyField(Car, through='Ownership')
+    date_of_birth = models.DateTimeField(blank=True, null=True)
 
 
 class DriversLicense(models.Model):
