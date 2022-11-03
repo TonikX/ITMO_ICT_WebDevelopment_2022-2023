@@ -2,7 +2,9 @@ from django.http import Http404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render
+
 from .models import CarOwner, Car
+from .forms import CreateOwnerForm
 
 
 def owner_details(request, owner_id):
@@ -17,6 +19,15 @@ def owner_details(request, owner_id):
 def owners_list(request):
     context = {"owners": CarOwner.objects.all()}
     return render(request, 'owners_list.html', context)
+
+
+def create_owner(request):
+    form = CreateOwnerForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {"form": form}
+
+    return render(request, "create_owner.html", context)
 
 
 class CarList(ListView):
