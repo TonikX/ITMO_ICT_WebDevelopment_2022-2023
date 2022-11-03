@@ -24,7 +24,12 @@
         <h4>Write a good comment, please!</h4>
         <form class="py-4" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                <div class="form-group p-2 row">
+                    <div class="col-2">{{ field.label_tag }}</div>
+                    <div class="col-4">{{ field }}</div>
+                </div>
+            {% endfor %}
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
