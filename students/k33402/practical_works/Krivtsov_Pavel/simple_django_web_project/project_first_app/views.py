@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from .models import CarOwner, Car
 
@@ -21,3 +22,6 @@ def owners_list(request):
 class CarList(ListView):
     model = Car
     template_name = "car_list.html"
+
+class CarRetrieveView(DetailView):
+    model = Car
