@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bookings</title>
 </head>
 <body>
-    <span><h1>Your bookings</h1></span>
-    <div class="main">
-        {% for booking in booking_list %}
-            Room №{{ booking.reservation.number }} at {{ booking.reservation.hotel.name }} from {{ booking.date_start }} to {{ booking.date_end }}
-            <br>
-            Status:
-            {% if booking.approved %}
-                approved
-            {% else %}
-                not approved
-            {% endif %}
-            <br>
-            <a href="/bookings/{{ booking.id }}/delete/">Cancel</a></li> | <a href="/bookings/{{ booking.id }}/update/">Update</a>
-            <hr>
-        {% endfor %}
-
-    </div>
+<div class="main">
+    <h1>Your bookings</h1>
+    {% for booking in booking_list %}
+        <a href="/hotel/{{ booking.reservation.hotel.id }}/{{ booking.reservation.id }}/">Room №{{ booking.reservation.number }}</a> at <a href="/hotel/{{ booking.reservation.hotel.id }}/">{{ booking.reservation.hotel.name }}</a> from {{ booking.date_start }} to {{ booking.date_end }}
+    <br>
+    Status:
+    {% if booking.approved %}
+        <b>approved</b>
+    {% else %}
+        <b>not approved</b>, <a href="/bookings/{{ booking.id }}/update/">Update</a>
+    {% endif %}
+    <br>
+    <a href="/bookings/{{ booking.id }}/delete/">Cancel booking</a>
+    <hr>
+    {% endfor %}
+</div>
 </body>
 </html>

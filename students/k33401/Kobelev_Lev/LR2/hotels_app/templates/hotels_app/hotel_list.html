@@ -5,23 +5,20 @@
     <title>Hotels</title>
 </head>
 <body>
-    <span><h1>Hotels</h1>
-    <div class="main">
-
-        {% for hotel in hotel_list %}
-        <ul>
-            <li>
-                {{ hotel.name }} hotel located in {{ hotel.address }} and owned by {{ hotel.owner }}.
-                <br>
-                {{ hotel.description }}
-                <br>
-                <a href="/hotel/{{ hotel.id }}/">Check rooms</a>
-            </li>
-        </ul>
-        <hr>
-
-        {% endfor %}
-
-    </div>
+<div class="main">
+    <h1>Hotels</h1>
+    {% for hotel in hotel_list %}
+    <ul>
+        <li>
+            {{ hotel.name }} hotel located in {{ hotel.address }} and owned by {{ hotel.owner }}.
+            <br>
+            {{ hotel.description }}
+            <br>
+            <a href="/hotel/{{ hotel.id }}/">Check rooms</a>
+        </li>
+    </ul>
+    <hr>
+    {% endfor %}
+</div>
 </body>
 </html>

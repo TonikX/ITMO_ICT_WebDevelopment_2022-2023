@@ -5,20 +5,20 @@
     <title>Hotel</title>
 </head>
 <body>
+<div class="main">
     <h1>{{ object.name }}</h1>
-
     <h2>Rooms</h2>
     <ul>
-    {% for room in rooms %}
-        <li><a href="/hotel/{{ room.hotel.id }}/{{ room.number }}">Room №{{ room.number }}</a></li>
-    {% endfor %}
+        {% for room in rooms %}
+        <li><a href="/hotel/{{ object.id }}/{{ room.id }}">Room №{{ room.number }}</a></li>
+        {% endfor %}
     </ul>
-
     <h2>Reservees</h2>
     <ul>
-    {% for reservee in reservees %}
+        {% for reservee in reservees %}
         <li>{{reservee}}</li>
-    {% endfor %}
+        {% endfor %}
     </ul>
+</div>
 </body>
 </html>

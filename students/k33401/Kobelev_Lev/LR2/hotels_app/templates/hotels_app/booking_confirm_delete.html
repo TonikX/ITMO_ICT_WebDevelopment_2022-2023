@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delete Booking</title>
+    <meta charset="UTF-8">
+    <title>Delete Booking</title>
 </head>
-
 <body>
-  <form method="post">{% csrf_token %}
-    <p>Are you sure you want to delete booking at "{{ object.reservation.hotel.name }}"?</p>
-    <input type="submit" value="Confirm">
-  </form>
-  <br>
-  <br>
-  <a href="/bookings/">Get back</a>
+<div class="main">
+    {% if valid_user %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Are you sure you want to delete booking at "{{ object.reservation.hotel.name }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+    {% else %}
+    <p>You have not enough permissions</p>
+    {% endif %}
+    <br>
+    <br>
+    <a href="/bookings/">Get back</a>
+</div>
 </body>
-
 </html>

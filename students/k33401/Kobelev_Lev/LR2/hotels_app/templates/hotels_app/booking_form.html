@@ -2,13 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Booking</title>
 </head>
 <body>
-      <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Save">
-      </form>
+<div class="main">
+    {% if valid_user %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+    {% else %}
+    <p>You have not enough permissions</p>
+    {% endif %}
+    <br>
+    <br>
+    <a href="/bookings/">Get back</a>
+</div>
 </body>
 </html>
