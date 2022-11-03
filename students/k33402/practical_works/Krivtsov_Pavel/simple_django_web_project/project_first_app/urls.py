@@ -6,5 +6,6 @@ urlpatterns = [
     path('owners', views.owners_list),
     path('cars', views.CarList.as_view()),
     path('car/<int:pk>/', views.CarRetrieveView.as_view()),
-    path('create_owner', views.create_owner)
+    path('create_owner', views.create_owner),
+    path('create_car', views.CarCreate.as_view()),
 ]
