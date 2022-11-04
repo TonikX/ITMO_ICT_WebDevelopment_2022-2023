@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
 from django.shortcuts import render
 
 from .models import CarOwner, Car
@@ -41,15 +42,21 @@ class CarRetrieveView(DetailView):
     model = Car
 
 
-class CarCreate(CreateView):
+class CarCreateView(CreateView):
     model = Car
     template_name = "car_create.html"
     fields = ["state_number", "make", "model", "color"]
     success_url = "/cars"
 
 
-class CarUpdate(UpdateView):
+class CarUpdateView(UpdateView):
     model = Car
     template_name = "car_update.html"
     fields = ["state_number", "color"]
+    success_url = "/cars"
+
+
+class CarDeleteView(DeleteView):
+    model = Car
+    template_name = "car_delete.html"
     success_url = "/cars"
