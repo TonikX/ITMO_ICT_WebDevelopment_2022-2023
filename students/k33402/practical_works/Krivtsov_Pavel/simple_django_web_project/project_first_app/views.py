@@ -2,6 +2,7 @@ from django.http import Http404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView
 from django.shortcuts import render
 
 from .models import CarOwner, Car
@@ -44,4 +45,11 @@ class CarCreate(CreateView):
     model = Car
     template_name = "car_create.html"
     fields = ["state_number", "make", "model", "color"]
+    success_url = "/cars"
+
+
+class CarUpdate(UpdateView):
+    model = Car
+    template_name = "car_update.html"
+    fields = ["state_number", "color"]
     success_url = "/cars"
