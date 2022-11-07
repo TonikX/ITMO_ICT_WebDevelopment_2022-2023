@@ -1,0 +1,12 @@
+<ul>
+  {% for object in object_list %}
+  <li>{{ object.subject }}</li>
+  <li>{{ object.date_start }}</li>
+  <li>{{ object.date_end }}</li>
+  <li>{{ object.info }}</li>
+
+  <hr/>
+  {% empty %}
+  <li>No homeworks yet.</li>
+  {% endfor %}
+</ul>
