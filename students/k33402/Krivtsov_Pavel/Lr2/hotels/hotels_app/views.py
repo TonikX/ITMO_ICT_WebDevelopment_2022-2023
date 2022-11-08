@@ -1,5 +1,7 @@
+from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -33,6 +35,11 @@ class LoginUser(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('hotels')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('hotels')
 
 
 class HotelList(ListView):
