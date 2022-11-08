@@ -1,0 +1,32 @@
+<h1>{{ hotel.name }}</h1>
+<p>{{ hotel.description }}</p>
+<hr/>
+<p>{{ hotel.address }}</p>
+<p>Владелец: {{ hotel.owner.organization_name }} {{ hotel.owner.contact_phone }}</p>
+<hr/>
+<h2>Номера:</h2>
+<ul>
+    {% for room in rooms %}
+    <li>
+        <h3>{{ room.name }}</h3>
+        <p>Вместимость: {{ room.capacity }}</p>
+        <p>Тип: {{ room.type }}</p>
+        <p>Цена: {{ room.price }}руб/ночь</p>
+
+        <h4>Удобства:</h4>
+        <ul>
+            {% for facility, value in room.facilities.get_fields %}
+                {% if value %}
+                <li>{{ facility }}</li>
+                {% endif %}
+
+            {% empty %}
+            <li>No objects yet.</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>

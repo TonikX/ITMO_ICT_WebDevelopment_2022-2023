@@ -1,0 +1,8 @@
+{% for hotel in object_list %}
+<h2><a href="{% url 'hotel_info' pk=hotel.id %}">{{ hotel.name }}</a></h2>
+<p>{{ hotel.address }}</p>
+<hr/>
+
+{% empty %}
+<li>No objects yet.</li>
+{% endfor %}
