@@ -40,14 +40,22 @@ class Facilities(models.Model):
     fitness_centre = models.BooleanField()
     facilities_for_disabled = models.BooleanField()
 
+    def get_fields(self):
+        fields = []
+        for field in Facilities._meta.fields:
+            if field.name != "id":
+                fields.append((field.name, getattr(self, field.name)))
+
+        return fields
+
 
 class Room(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    type = models.ManyToManyField(RoomType)
+    type = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True)
     capacity = models.IntegerField()
     price = models.FloatField()
-    facilities = models.ManyToManyField(Facilities)
+    facilities = models.ForeignKey(Facilities, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.hotel.name + " " + self.name
