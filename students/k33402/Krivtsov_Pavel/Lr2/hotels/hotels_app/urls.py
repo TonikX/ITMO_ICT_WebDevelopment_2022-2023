@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path("", views.HotelList.as_view(), name="hotels"),
-    path("hotel/<int:pk>", views.hotel_info, name="hotel_info")
+    path("hotel/<int:pk>", views.HotelInfo.as_view(), name="hotel_info")
 ]
