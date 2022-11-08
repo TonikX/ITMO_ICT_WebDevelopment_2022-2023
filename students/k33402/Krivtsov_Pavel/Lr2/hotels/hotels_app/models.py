@@ -32,19 +32,19 @@ class RoomType(models.Model):
 
 
 class Facilities(models.Model):
-    pets_allowed = models.BooleanField()
-    parking = models.BooleanField()
-    restaurant = models.BooleanField()
-    free_wifi = models.BooleanField()
-    spa = models.BooleanField()
-    fitness_centre = models.BooleanField()
-    facilities_for_disabled = models.BooleanField()
+    pets_allowed = models.BooleanField(verbose_name="Разрешены домашние животные")
+    parking = models.BooleanField(verbose_name="Есть парковка при отеле")
+    restaurant = models.BooleanField(verbose_name="Есть ресторан при отеле")
+    free_wifi = models.BooleanField(verbose_name="В номере есть бесплатный WiFi")
+    spa = models.BooleanField(verbose_name="Есть спа-центр при отеле")
+    fitness_centre = models.BooleanField(verbose_name="Есть фитнесс-центр при отеле")
+    facilities_for_disabled = models.BooleanField(verbose_name="Номер подходит для людей с ограниченными возможностями")
 
     def get_fields(self):
         fields = []
         for field in Facilities._meta.fields:
             if field.name != "id":
-                fields.append((field.name, getattr(self, field.name)))
+                fields.append((field.verbose_name, getattr(self, field.name)))
 
         return fields
 
