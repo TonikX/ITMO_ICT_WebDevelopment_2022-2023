@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <table>
+        <tr><td>
+        {% block mainmenu %}
+                <div>
+                        {% if request.user.is_authenticated %}
+                        {{user.username}} | <a href=#>Выйти</a>
+                        {% else %}
+                        <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a>
+                        {% endif %}
+                </div>
+        {% endblock mainmenu %}
+
+        {% block content %}
+        {% endblock %}
+        </td></tr>
+    </table>
+</body>
+</html>
