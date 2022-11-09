@@ -34,7 +34,8 @@ class LoginUser(LoginView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('hotels')
+        next_page = self.request.GET.get("next", default="/")
+        return next_page
 
 
 def logout_user(request):
