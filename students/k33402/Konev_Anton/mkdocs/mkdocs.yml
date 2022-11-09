@@ -1,7 +1,7 @@
 site_name: Konev Anton, K33402
 
 theme:
-  name: material
+  name: mkdocs
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -13,3 +13,4 @@ markdown_extensions:
 nav:
  - Знакомство: index.md
  - Лабораторная работа №1: LW_1.md
+ - Лабораторная работа №2: LW_2.md
