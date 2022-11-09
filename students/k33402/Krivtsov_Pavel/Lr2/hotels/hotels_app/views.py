@@ -1,14 +1,14 @@
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 
-from .models import Hotel, Room
-from .forms import RegisterUserForm
+from .models import Hotel, Room, Reservation
+from .forms import RegisterUserForm, ReserveForm
 
 
 class RegisterUser(CreateView):
@@ -79,13 +79,13 @@ class RoomInfo(DetailView):
         return context
 
 
-class ReserveRoom(DetailView):
-    model = Room
-    template_name = "reserve.html"
-    context_object_name = "room"
+def reserve_room(request, pk):
+    room = get_object_or_404(Room, id=pk)
+    form = ReserveForm(request.POST or None)
+    if form.is_valid():
+        form = form.save(commit=False)
+        form.user = request.user
+        form.room = room
+        form.save()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = context['room'].name
-
-        return context
+    return render(request, "reserve.html", {"title": "Резервирование" + " " + room.name, "form": form})

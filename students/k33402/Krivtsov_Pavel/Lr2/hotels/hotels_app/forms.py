@@ -14,3 +14,12 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2')
+
+
+class ReserveForm(forms.ModelForm):
+    date_start = forms.DateTimeField(label='Дата заезда', widget=forms.TextInput(attrs={'class': 'from-input'}))
+    date_end = forms.DateTimeField(label='Дата выезда', widget=forms.TextInput(attrs={'class': 'from-input'}))
+
+    class Meta:
+        model = User
+        fields = ('date_start', 'date_end')
