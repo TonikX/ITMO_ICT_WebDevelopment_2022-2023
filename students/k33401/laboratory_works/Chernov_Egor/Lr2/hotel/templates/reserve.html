@@ -19,16 +19,18 @@
 {% endblock %}
 
 {% block mbody %}
-    <div class="mx-auto w-50">
-        <h1 id="title">Hello, {{ user.username }}!</h1>
-        <h4>Which hotel do you want to visit?</h4>
-        <div class="list-group py-4">
-            {% for hotel in hotels %}
-            <a href="{% url 'hotel' hotel.pk %}" class="list-group-item list-group-item-action">
-                <p>{{ hotel.name_hotel }} - {{ hotel.rating_hotel }} stars</p>
-                <p>Address: {{ hotel.address_hotel }}</p>
-            </a>
+    <div class="mx-auto w-50 pb-4">
+        <h1>Reserve a room in our Hotel!</h1>
+        <h4>Write your data:</h4>
+        <form class="py-4" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group p-2 row">
+                    <div class="col-2">{{ field.label_tag }}</div>
+                    <div class="col-4">{{ field }}</div>
+                </div>
             {% endfor %}
-        </div>
+            <button type="submit" class="btn btn-primary">Reserve</button>
+        </form>
     </div>
 {% endblock %}

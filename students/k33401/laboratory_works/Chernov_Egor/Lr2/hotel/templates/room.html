@@ -14,12 +14,18 @@
 
 {% block mheader_right_items %}
     <li class="nav-item">
+        <a class="nav-link" href="{% url 'reserve' %}">Reserve</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account' user.pk %}">My acc</a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="{% url 'logout' %}">Log out</a>
     </li>
 {% endblock %}
 
 {% block mbody %}
-    <div class="mx-auto w-50">
+    <div class="mx-auto w-50 pb-4">
         <h1>{{ hotel.name_hotel }} - {{ room_type.get_type_rt_display }} - Room №{{ room.number_room }}</h1>
         <br>
         <p style="font-size: 1.5rem"><strong>Stars</strong>: {{ room_type.rating_rt }}</p>
@@ -29,8 +35,20 @@
             <p style="font-size: 1.5rem"><strong>Review</strong>: {{ room_type.des_rt }}</p>
         {% endif %}
         {% if comments|length > 0 %}
+            <p style="font-size: 1.5rem"><strong>Comments</strong>:</p>
             {% for comment in comments %}
-                <p>Address: {{ hotel.address_hotel }}</p>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <span class="col">{{ comment.username }}</span>
+                            <p class="col d-flex flex-row-reverse">{{ comment.check_in }} - {{ comment.check_out }}</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Rating: {{ comment.rating_c }}</h5>
+                        <p class="card-text">{{ comment.review_c }}</p>
+                    </div>
+                </div>
             {% endfor %}
         {% endif %}
         <a href="{% url 'comment' hotel.pk room_type.pk room.pk %}" class="button btn btn-primary">Add review</a>

@@ -111,6 +111,7 @@ class Registration(models.Model):
 class Comment(models.Model):
     id_guest = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
     id_room = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, verbose_name='ID Room')
+    username = models.CharField(max_length=30)
     rating_c = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
                                                 verbose_name='Rating')
     review_c = models.TextField(max_length=255, null=True, blank=True, verbose_name='Review')
