@@ -64,3 +64,27 @@ class HotelInfo(DetailView):
         context['rooms'] = Room.objects.filter(hotel=context['hotel'])
 
         return context
+
+
+class RoomInfo(DetailView):
+    model = Room
+    template_name = "room_info.html"
+    context_object_name = "room"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['room'].name
+
+        return context
+
+
+class ReserveRoom(DetailView):
+    model = Room
+    template_name = "reserve.html"
+    context_object_name = "room"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['room'].name
+
+        return context

@@ -11,22 +11,10 @@
 <ul>
     {% for room in rooms %}
     <li>
-        <h3>{{ room.name }}</h3>
+        <h3><a href="{% url 'room_info' pk=room.id %}">{{ room.name }}</a></h3>
         <p>Вместимость: {{ room.capacity }}</p>
         <p>Тип: {{ room.type }}</p>
         <p>Цена: {{ room.price }} руб/ночь</p>
-
-        <h4>Удобства:</h4>
-        <ul>
-            {% for facility, value in room.facilities.get_fields %}
-                {% if value %}
-                <li>{{ facility }}</li>
-                {% endif %}
-
-            {% empty %}
-            <li>No objects yet.</li>
-            {% endfor %}
-        </ul>
     </li>
 
     {% empty %}
