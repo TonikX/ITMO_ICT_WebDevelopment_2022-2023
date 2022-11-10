@@ -12,10 +12,3 @@ urlpatterns = [
     path('account/<int:id_user>/update/<int:pk>', UpdateReserveView.as_view(), name='update_reserve'),
     path('account/<int:id_user>/delete/<int:pk>', ReserveDeleteView.as_view(), name='delete_reserve'),
 ]
-
-# Вход/рег
-# account/login/
-# account/registration/
-
-# Личный акк
-# account/user/<int:id>

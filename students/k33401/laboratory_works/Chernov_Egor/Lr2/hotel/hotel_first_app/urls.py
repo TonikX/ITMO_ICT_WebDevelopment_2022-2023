@@ -10,18 +10,3 @@ urlpatterns = [
     path('hotels/<int:id_hotel>/<int:id_rt>/rooms/<int:id_room>/comment/', CommentView.as_view(), name='comment'),
     path('reserve/', ReserveView.as_view(), name='reserve'),
 ]
-
-# Просмотр отелей и номеров
-# hotels/
-# hotels/<int:pk>
-# hotels/<int:pk>/room_types/
-# hotels/<int:pk>/room_types/<int:pk>
-# hotels/<int:pk>/room_types/<int:pk>/rooms/
-# hotels/<int:pk>/room_types/<int:pk>/rooms/<int:pk>
-
-# Написание отзыва
-# hotels/<int:id>/rooms/<int:id>/review
-
-# username: test1
-# mail: test1@mail.ru
-# password: test12344321

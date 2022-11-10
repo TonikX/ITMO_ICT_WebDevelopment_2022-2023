@@ -18,8 +18,6 @@ class AccountForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    # username = forms.CharField(label='Username')
-
     class Meta:
         model = User
         fields = ('username',
@@ -27,5 +25,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(label='Login')
-    password = forms.CharField(label='Password')
+    class Meta:
+        model = User
+        fields = ('username', 'password')

@@ -9,26 +9,8 @@ class ReserveView(CreateView):
     form_class = ReserveForm
     template_name = 'reserve.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ReserveView, self).get_context_data(**kwargs)
-    #     context['hotel'] = Hotel.objects.get(pk=self.kwargs['id_hotel'])
-    #     context['room_type'] = RoomType.objects.get(pk=self.kwargs['id_rt'])
-    #     context['room'] = Room.objects.get(pk=self.kwargs['id_room'])
-    #     return context
-    #
-    # def get(self, request, *args, **kwargs):
-    #     form = ReserveForm()
-    #     context = {'form': form,
-    #                'hotel': Hotel.objects.get(pk=self.kwargs['id_hotel']),
-    #                'room_type': RoomType.objects.get(pk=self.kwargs['id_rt']),
-    #                'room': Room.objects.get(pk=self.kwargs['id_room'])}
-    #     return render(request, 'comment.html', context)
-    #
     def post(self, request, *args, **kwargs):
         form = ReserveForm(request.POST)
-        # context = {'hotel': Hotel.objects.get(pk=self.kwargs['id_hotel']),
-        #            'room_type': RoomType.objects.get(pk=self.kwargs['id_rt']),
-        #            'room': Room.objects.get(pk=self.kwargs['id_room'])}
         if form.is_valid():
             form.save()
             print(request)
@@ -57,13 +39,9 @@ class CommentView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
-        # context = {'hotel': Hotel.objects.get(pk=self.kwargs['id_hotel']),
-        #            'room_type': RoomType.objects.get(pk=self.kwargs['id_rt']),
-        #            'room': Room.objects.get(pk=self.kwargs['id_room'])}
         if form.is_valid():
             form.save()
             print(request)
-            # return render(request, 'room.html', context)
             return redirect('room', id_hotel=self.kwargs['id_hotel'], id_rt=self.kwargs['id_rt'], pk=self.kwargs['id_room'])
         return render(request, 'error.html')
 
