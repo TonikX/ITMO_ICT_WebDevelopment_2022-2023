@@ -1,8 +1,13 @@
 site_name: Kozlov Ivan - WEB - ICT
 nav:
- - 1 lab: lr_1.md
+    - Главная страница: index.md
+    - Лабораторные:
+        - Лабораторная №1: lr_1.md
+        - Лабораторная №2: lr_2.md
 
-theme: readthedocs
+theme:
+  name: null
+  custom_dir: "MkDocs-Theme-Cinder-Superhero/cinder-superhero"
 
 markdown:
   extra: true
