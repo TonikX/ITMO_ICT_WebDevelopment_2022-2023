@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>All bookings</title>
+</head>
+<body>
+<table class="table table-striped table-bordered table-hover">
+        <thead class="table-success">
+            <tr>
+                <th scope="col">Номер заказа</th>
+                <th scope="col">Отель</th>
+                <th scope="col">Номер комнаты</th>
+                <th scope="col">Дата заезда</th>
+                <th scope="col">Дата выезда</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col">Возможности</th>
+            </tr>
+        </thead>
+        {% for booking in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{{ booking.room.hotel.name }}</td>
+                <td>{{ booking.room.number }}</td>
+                <td>{{ booking.date_start }}</td>
+                <td>{{ booking.date_end}}</td>
+                <td>{{ booking.total_price }}</td>
+                <td class="d-flex justify-content-start gap-2">
+                    <a href="/bookings/update/{{  booking.id }}">
+                        <button type="button" class="btn btn-outline-primary">Редактировать</button>
+                    </a>
+                    <a href="/bookings/delete/{{ booking.id }}">
+                        <button type="button" class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</body>
+</html>
