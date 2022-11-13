@@ -16,8 +16,8 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install -r docs/requirements.txt
-      - run: cp README.md docs/index.md
+      - run: pip install -r students/k33401/Kobelev_Lev/docs/requirements.txt
+      - run: cp README.md students/k33401/Kobelev_Lev/docs/index.md
       - run: mkdocs build
 
   deploy:
@@ -36,6 +36,6 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install -r docs/requirements.txt
-      - run: cp README.md docs/index.md
+      - run: pip install -r students/k33401/Kobelev_Lev/docs/requirements.txt
+      - run: cp README.md students/k33401/Kobelev_Lev/docs/index.md
       - run: mkdocs gh-deploy --force
