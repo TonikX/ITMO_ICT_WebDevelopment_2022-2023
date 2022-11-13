@@ -12,7 +12,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <p>Are you sure you want to delete publisher "{{ object }}"?</p>
+        <p>All stored data about car {{ car.id }} with state number "{{ object }}" will be deleted!</p>
 
         <input type="submit" value="Delete anyway"> <br/> <br/>
     </form>
