@@ -7,6 +7,15 @@
     <title>Owner</title>
 </head>
 <body>
-    Name: {{owner.first_name}}, Lastname: {{owner.lastname}}, Birthday: {{owner.birthday}}<br>
+
+    <h1> Owner {{ owner.id }}</h1>
+    <ul>
+        <li>Name: {{ owner.first_name }}</li>
+        <li>Lastname: {{ owner.lastname }}</li>
+        <li>Birthday: {{ owner.birthday }}</li>
+        <li>Owner cars: {{ owner.cars }}</li>
+    </ul>
+    <a href="http://127.0.0.1:8000/admin/">Get back</a>
+
 </body>
 </html>
