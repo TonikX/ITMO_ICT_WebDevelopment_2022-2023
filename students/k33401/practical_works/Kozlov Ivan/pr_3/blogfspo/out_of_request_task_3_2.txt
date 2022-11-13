@@ -1,10 +1,10 @@
 Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):
->>> Transport.objects.filter(marka="Mark3")[0]
-<Transport: Transport object (3)>
+>>> Transport.objects.filter(marka="Mark3")
+<QuerySet [<Transport: Transport object (3)>]>
 
 Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):
->>> Transport_owner.objects.filter(first_name="Name5")[0]
-<Transport_owner: Transport_owner object (5)>
+>>> Transport_owner.objects.filter(first_name="Name5")
+<QuerySet [<Transport_owner: Transport_owner object (5)>]>
 
 Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса):
 >>> needed_id = Transport_owner.objects.all()[2].id_owner
