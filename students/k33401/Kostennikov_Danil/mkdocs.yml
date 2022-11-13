@@ -1,0 +1,7 @@
+site_name: Kostennikov documentation
+
+theme:
+    name: readthedocs
+nav:
+  #- Introduction: "index.md"
+  - Lab 1: "lr1.md"

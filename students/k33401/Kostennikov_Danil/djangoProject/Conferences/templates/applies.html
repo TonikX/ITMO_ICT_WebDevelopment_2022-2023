@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Get passport{% endblock %}
+
+{% block content %}
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h2 class="mt-2">Enter data below:</h2>
+          <hr class="mt-0 mb-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="d-flex p-2 flex-column ">
+                    <label>Enter email:</label>
+                    <input type="text" name="email">
+                    <label>Enter password:</label>
+                    <input type="text" name="password">
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success g-5">Apply</button>
+                  </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
