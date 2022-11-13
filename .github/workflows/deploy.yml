@@ -27,6 +27,9 @@ jobs:
     needs: build
     name: Deploy docs
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./students/k33401/Kobelev_Lev/docs
     steps:
       - uses: actions/checkout@v3
         with:
