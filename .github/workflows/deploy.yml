@@ -7,8 +7,9 @@ jobs:
   build:
     name: Build docs
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./students/k33401/Kobelev_Lev/docs
+    defaults:
+      run:
+        working-directory: ./students/k33401/Kobelev_Lev/docs
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -18,8 +19,7 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install -r ${{env.working-directory}}/requirements.txt
-      - run: cp README.md ${{env.working-directory}}/index.md
+      - run: pip install -r requirements.txt
       - run: mkdocs build
 
   deploy:
@@ -38,6 +38,5 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - run: pip install -r students/k33401/Kobelev_Lev/docs/requirements.txt
-      - run: cp README.md students/k33401/Kobelev_Lev/docs/index.md
+      - run: pip install -r requirements.txt
       - run: mkdocs gh-deploy --force
