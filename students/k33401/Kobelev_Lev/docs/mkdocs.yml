@@ -4,6 +4,7 @@ site_author: Lev Kobelev
 
 nav:
     - Lab 1: lab-1.md
+    - Lab 2: lab-2.md
 
 theme:
   name: material
