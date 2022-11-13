@@ -13,7 +13,7 @@
         <li><a href="/hotel/{{ object.id }}/{{ room.id }}">Room №{{ room.number }}</a></li>
         {% endfor %}
     </ul>
-    <h2>Reservees</h2>
+    <h2>Reservees (last 30 days)</h2>
     <ul>
         {% for reservee in reservees %}
         <li>{{reservee}}</li>

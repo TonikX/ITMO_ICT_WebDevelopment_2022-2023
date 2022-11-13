@@ -25,8 +25,8 @@
 
     <h2>Reviews</h2>
     {% for obj in reviews %}
-    <p> {{ obj.text }}, {{ obj.rating }} / 10 </p>
-    <p> by <b>{{ obj.booking.reservee }}</b> who rented a room from {{ obj.booking.date_start }} to {{obj.booking.date_end }}</p>
+    <p> {{ obj.text }}, <b>{{ obj.rating }}</b>/10 </p>
+    <p> by <b>{{ obj.booking.reservee }}</b>, rented from {{ obj.booking.date_start }} to {{obj.booking.date_end }}</p>
     <hr>
     {% endfor %}
 
