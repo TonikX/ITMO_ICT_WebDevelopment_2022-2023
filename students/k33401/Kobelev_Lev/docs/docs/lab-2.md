@@ -309,3 +309,7 @@ path('bookings/<int:pk>/update/', login_required(BookingUpdateView.as_view())),
 
 * Все представления являются _class based_, поэтому используется метод `as_view()`;
 * У представлений, которые доступны только авторизованным пользователям есть проверка на логин `login_required()`.
+
+## Примеры
+
+![Hotel](/images/hotel.png)
