@@ -276,7 +276,7 @@ class BookingForm(ModelForm):
 
 ## URLs
 
-### Проект
+### Project
 
 ``` python
 path("admin/", admin.site.urls),
@@ -289,7 +289,7 @@ path("", include("hotels_app.urls")),
 2. Аккаунты (`django-allauth`);
 3. Приложение (`hotels_app`).
 
-### Приложение
+### Apps
 
 **Пути до отеля и комнат:**
 
@@ -310,6 +310,6 @@ path('bookings/<int:pk>/update/', login_required(BookingUpdateView.as_view())),
 * Все представления являются _class based_, поэтому используется метод `as_view()`;
 * У представлений, которые доступны только авторизованным пользователям есть проверка на логин `login_required()`.
 
-## Примеры
+## Examples
 
-![Hotel](/images/hotel.png)
+![Hotel](images/hotel.png)
