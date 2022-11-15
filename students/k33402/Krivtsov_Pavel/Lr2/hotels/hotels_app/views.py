@@ -4,12 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from datetime import datetime
 import pytz
+import typing as tp
 
 from .models import Hotel, Room, Reservation
 from .forms import RegisterUserForm, ReserveForm
@@ -88,35 +88,70 @@ class RoomInfo(DetailView):
         return context
 
 
-def reserve_room(request, pk):
-    def is_dates_valid(date_start, date_end) -> bool:
-        return date_start < date_end
+class ReservationView:
+    @staticmethod
+    def _is_dates_valid(date_start, date_end) -> bool:
+        return (date_start < date_end) and (date_start > datetime.now(tz=pytz.UTC))
 
-    def is_dates_free(date_start, date_end, room_id) -> bool:
-        reservations = Reservation.objects.filter(room=room_id)
+    @staticmethod
+    def _is_dates_free(date_start, date_end, room_id, user_id) -> bool:
+        reservations = Reservation.objects.filter(room=room_id).exclude(user=user_id)
         for old_reservation in reservations:
-            if old_reservation.date_start < date_end or old_reservation.date_end > date_start:
+            print(
+                f'old_reservation.date_start: {old_reservation.date_start}\ndate_end: {date_end}\nold_reservation.date_end: {old_reservation.date_end}\ndate_start: {date_start}')
+            if (old_reservation.date_start < date_start < old_reservation.date_end) or \
+                    (old_reservation.date_start < date_end < old_reservation.date_end):
                 return False
 
         return True
 
-    room = get_object_or_404(Room, id=pk)
-    form = ReserveForm(request.POST or None)
-    if form.is_valid():
+    @staticmethod
+    def _check_dates(request, room_id, user_id) -> tp.Tuple[bool, str]:
         date_start = datetime.strptime(request.POST['date_start'], '%Y-%m-%d').replace(tzinfo=pytz.UTC)
         date_end = datetime.strptime(request.POST['date_end'], '%Y-%m-%d').replace(tzinfo=pytz.UTC)
 
-        if not is_dates_valid(date_start, date_end):
-            messages.error(request, 'Дата выезда должна быть после даты заезда. Попробуйте заново')
-            return redirect(f'reserve', pk=pk)
+        if not ReservationView._is_dates_valid(date_start, date_end):
+            return False, 'Дата заезда должна быть позже сегодняшней и раньше даты выезда. Попробуйте заново'
 
-        if not is_dates_free(date_start, date_end, pk):
-            messages.error(request, 'Выбранные даты заняты. Попробуйте другие')
-            return redirect(f'reserve', pk=pk)
+        if not ReservationView._is_dates_free(date_start, date_end, room_id, user_id):
+            return False, 'Выбранные даты заняты. Попробуйте другие'
 
-        form = form.save(commit=False)
-        form.user = request.user
-        form.room = room
-        form.save()
+        return True, ''
 
-    return render(request, "reserve.html", {"title": "Резервирование" + " " + room.name, "form": form})
+    @staticmethod
+    def reserve_room(request, pk):
+        room = get_object_or_404(Room, id=pk)
+        form = ReserveForm(request.POST or None)
+        if form.is_valid():
+            dates_check = ReservationView._check_dates(request, pk, request.user.id)
+
+            if not dates_check[0]:
+                messages.error(request, dates_check[1])
+                return redirect('reserve', pk=pk)
+
+            form = form.save(commit=False)
+            form.user = request.user
+            form.room = room
+            form.save()
+            return redirect('profile')
+
+        return render(request, "reserve.html", {"title": "Резервирование" + " " + room.name, "form": form})
+
+    @staticmethod
+    def update_reservation(request, pk):
+        reservation = get_object_or_404(Reservation, id=pk)
+        form = ReserveForm(request.POST or None, instance=reservation)
+
+        if not reservation.user == request.user:
+            return redirect(f'profile')
+
+        if form.is_valid():
+            dates_check = ReservationView._check_dates(request, reservation.room.id, request.user.id)
+            if not dates_check[0]:
+                messages.error(request, dates_check[1])
+                return redirect('update_reservation', pk=pk)
+
+            form.save()
+            return redirect('profile')
+
+        return render(request, "update_reservation.html", {"title": "Изменить бронирование", "form": form})

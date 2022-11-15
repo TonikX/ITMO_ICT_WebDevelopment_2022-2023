@@ -6,10 +6,11 @@
 <ul>
     {% for reservation in reservations %}
     <li>
-        <h3><a href="{% url 'booking_info' pk=reservation.id %}">{{ reservation.room.hotel }} - {{ reservation.room.name }}</a></h3>
+        <h3><a href="{% url 'room_info' pk=reservation.room.id %}">{{ reservation.room.hotel }} - {{ reservation.room.name }}</a></h3>
         <p>Даты: с {{ reservation.date_start }} по {{ reservation.date_end }}</p>
         <p>Тип: {{ reservation.room.type }}</p>
         <p>Цена: {{ reservation.room.price }} руб/ночь</p>
+        <button onclick="location.href='{% url 'update_reservation' pk=reservation.id %}'" type="button">Изменить даты бронирования</button>
     </li>
     {% empty %}
         <li>No objects yet.</li>
