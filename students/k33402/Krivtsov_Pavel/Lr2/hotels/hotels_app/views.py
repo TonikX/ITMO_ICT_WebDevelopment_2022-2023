@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
@@ -6,6 +7,8 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from datetime import datetime
+import pytz
 
 from .models import Hotel, Room, Reservation
 from .forms import RegisterUserForm, ReserveForm
@@ -80,9 +83,31 @@ class RoomInfo(DetailView):
 
 
 def reserve_room(request, pk):
+    def is_dates_valid(date_start, date_end) -> bool:
+        return date_start < date_end
+
+    def is_dates_free(date_start, date_end, room_id) -> bool:
+        reservations = Reservation.objects.filter(room=room_id)
+        for old_reservation in reservations:
+            if old_reservation.date_start < date_end or old_reservation.date_end > date_start:
+                return False
+
+        return True
+
     room = get_object_or_404(Room, id=pk)
     form = ReserveForm(request.POST or None)
     if form.is_valid():
+        date_start = datetime.strptime(request.POST['date_start'], '%Y-%m-%d').replace(tzinfo=pytz.UTC)
+        date_end = datetime.strptime(request.POST['date_end'], '%Y-%m-%d').replace(tzinfo=pytz.UTC)
+
+        if not is_dates_valid(date_start, date_end):
+            messages.error(request, 'Дата выезда должна быть после даты заезда. Попробуйте заново')
+            return redirect(f'reserve', pk=pk)
+
+        if not is_dates_free(date_start, date_end, pk):
+            messages.error(request, 'Выбранные даты заняты. Попробуйте другие')
+            return redirect(f'reserve', pk=pk)
+
         form = form.save(commit=False)
         form.user = request.user
         form.room = room

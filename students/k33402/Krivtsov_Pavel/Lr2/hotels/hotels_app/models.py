@@ -69,7 +69,7 @@ class Reservation(models.Model):
     created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.name + " " + self.room + " " + self.date_start + "-" + self.date_end
+        return self.user.username + " " + self.room.name
 
 
 def validate_range(value):

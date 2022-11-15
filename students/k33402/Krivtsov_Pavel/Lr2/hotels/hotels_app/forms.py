@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from .models import Reservation
 
 
 User = get_user_model()
@@ -17,9 +18,9 @@ class RegisterUserForm(UserCreationForm):
 
 
 class ReserveForm(forms.ModelForm):
-    date_start = forms.DateTimeField(label='Дата заезда', widget=forms.TextInput(attrs={'class': 'from-input'}))
-    date_end = forms.DateTimeField(label='Дата выезда', widget=forms.TextInput(attrs={'class': 'from-input'}))
+    date_start = forms.DateTimeField(label='Дата заезда', widget=forms.DateInput(attrs={'type': 'date'}))
+    date_end = forms.DateTimeField(label='Дата выезда', widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
-        model = User
+        model = Reservation
         fields = ('date_start', 'date_end')
