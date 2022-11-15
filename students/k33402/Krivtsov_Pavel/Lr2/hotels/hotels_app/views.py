@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
@@ -44,6 +45,11 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect('hotels')
+
+
+def profile(request):
+    reservations = Reservation.objects.filter(user=request.user)
+    return render(request, "profile.html", {"title": "Профиль", "reservations": reservations})
 
 
 class HotelList(ListView):

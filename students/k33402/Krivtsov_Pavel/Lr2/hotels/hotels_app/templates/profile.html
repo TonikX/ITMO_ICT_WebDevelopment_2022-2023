@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Бронирования пользователя {{ user.username }}</h2>
+
+<ul>
+    {% for reservation in reservations %}
+    <li>
+        <h3><a href="{% url 'booking_info' pk=reservation.id %}">{{ reservation.room.hotel }} - {{ reservation.room.name }}</a></h3>
+        <p>Даты: с {{ reservation.date_start }} по {{ reservation.date_end }}</p>
+        <p>Тип: {{ reservation.room.type }}</p>
+        <p>Цена: {{ reservation.room.price }} руб/ночь</p>
+    </li>
+    {% empty %}
+        <li>No objects yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
