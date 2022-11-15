@@ -11,6 +11,7 @@
         <p>Тип: {{ reservation.room.type }}</p>
         <p>Цена: {{ reservation.room.price }} руб/ночь</p>
         <button onclick="location.href='{% url 'update_reservation' pk=reservation.id %}'" type="button">Изменить даты бронирования</button>
+        <button onclick="location.href='{% url 'delete_reservation' pk=reservation.id %}'" type="button">Удалить бронирование</button>
     </li>
     {% empty %}
         <li>No objects yet.</li>

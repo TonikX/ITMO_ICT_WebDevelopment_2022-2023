@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form method="post">{% csrf_token %}
+    <p>Вы уверены, что хотите отменить бронирование "{{ reservation.room }}"? Это действие нельзя отменить</p>
+    <input type="submit" value="Confirm">
+</form>
+<br>
+<br>
+<a href="{% url 'profile' %}">Get back</a>
+
+{% endblock %}

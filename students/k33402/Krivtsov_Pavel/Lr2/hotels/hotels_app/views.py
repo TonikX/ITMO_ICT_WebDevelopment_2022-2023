@@ -6,7 +6,7 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from datetime import datetime
 import pytz
 import typing as tp
@@ -155,3 +155,16 @@ class ReservationView:
             return redirect('profile')
 
         return render(request, "update_reservation.html", {"title": "Изменить бронирование", "form": form})
+
+    @staticmethod
+    def delete_reservation(request, pk):
+        reservation = Reservation.objects.get(id=pk)
+
+        if request.user.id != reservation.user.id:
+            return redirect('profile')
+
+        if request.method == 'POST':
+            reservation.delete()
+            return redirect('profile')
+
+        return render(request, 'delete_reservation.html', {'title': 'Отмена бронирования', 'reservation': reservation})
