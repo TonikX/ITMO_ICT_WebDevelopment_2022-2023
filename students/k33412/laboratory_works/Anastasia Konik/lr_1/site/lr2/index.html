@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №2 - ITMO-ICT-WebDevelopment</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">ITMO-ICT-WebDevelopment</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Главная</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lr1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lr1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no2" class="nav-link">Лабораторная работа №2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#3" class="nav-link">Вариант 3 "Табло отображения информации об авиаперелетах."</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no2">Лабораторная работа №2</h1>
+<h2 id="3">Вариант 3 "Табло отображения информации об авиаперелетах."</h2>
+<p>Хранится информация о номере рейса, авиакомпании, отлете, прилете, типе
+(прилет, отлет), номере гейта.
+Необходимо реализовать следующий функционал:</p>
+<ul>
+<li>Регистрация новых пользователей.</li>
+<li>Просмотр и резервирование мест на рейсах. Пользователь должен иметь
+возможность редактирования и удаления своих резервирований.</li>
+<li>Администратор должен иметь возможность зарегистрировать на рейс
+пассажира и вписать в систему номер его билета средствами Django-admin.</li>
+<li>В клиентской части должна формироваться таблица, отображающая всех
+пассажиров рейса.</li>
+<li>
+<p>Написание отзывов к рейсам. При добавлении комментариев, должны
+сохраняться дата рейса, текст комментария, рейтинг (1-10), информация о
+комментаторе.</p>
+</li>
+<li>
+<p><code>models.py</code></p>
+</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+
+class User(AbstractUser):
+    username = models.CharField(&quot;Username&quot;, max_length=30, null=False, unique=True)
+    passport = models.CharField(&quot;Passport number&quot;, max_length=12, null=False)
+    first_name = models.CharField(&quot;Name&quot;, max_length=30, null=False)
+    lastname = models.CharField(&quot;Lastname&quot;, max_length=30, null=False)
+    date_of_birth = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+
+
+class Flight(models.Model):
+    flight_number = models.CharField(&quot;Flight number&quot;, max_length=20, unique=True)
+    airline = models.CharField(&quot;Airline name&quot;, max_length=30, null=False)
+    departure = models.DateTimeField(&quot;Departure date and time&quot;, null=False)
+    arrival = models.DateTimeField(&quot;Arrival date and time&quot;, null=False)
+
+    def __str__(self):
+        return f&quot;{self.airline}: {self.flight_number}&quot;
+
+
+class Ticket(models.Model):
+    TYPE_FLIGHT = [('TO', 'Arrival'),
+                   ('FROM', 'Departure')]
+    ticket_id = models.CharField(&quot;Ticket number&quot;, primary_key=True, max_length=20, unique=True)
+    seat = models.CharField(&quot;Place in plane&quot;, max_length=3, null=True)
+    gate = models.CharField(&quot;Gate number&quot;, max_length=3, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    type = models.CharField(&quot;Flight type&quot;, max_length=30, choices=TYPE_FLIGHT)
+
+    def __str__(self):
+        return f&quot;{self.flight} - {self.ticket_id}{self.seat == '' if '' else f'({self.seat})'}&quot;
+
+
+class Feedback(models.Model):
+    comment = models.TextField(&quot;Comment&quot;, null=False)
+    rate = models.PositiveIntegerField(
+        validators=[MaxValueValidator(limit_value=10),
+                    MinValueValidator(limit_value=1)]
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    date = models.DateField(&quot;Flight date&quot;)
+
+    def __str__(self):
+        return f&quot;{self.flight}({self.user}) - {self.rate} - \'{self.comment[:10]}\' &quot;
+ ```
+
+* `forms.py`
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+from .models import User
+
+
+class NewUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'lastname', 'first_name', 'date_of_birth', 'passport')
+
+
+class FeedbackForm(forms.Form):
+    comment = forms.CharField(label='Comment', max_length=100)
+    rating = forms.IntegerField(label='Rating', validators=[
+        MaxValueValidator(10),
+        MinValueValidator(1)
+    ])
+    date = forms.DateField(label='Flight date')
+
+
+class TicketUpdateForm(forms.Form):
+    seat = forms.CharField(label='Seat', max_length=3)
+
+
+class BookForm(forms.Form):
+    type = forms.ChoiceField(choices=(('TO', 'Arrival'),
+                                      ('FROM', 'Departure')))
+    seat = forms.CharField(label=&quot;Seat&quot;, max_length=3)
+</code></pre>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('auth', views.auth),
+    path('logout', views.logout_view),
+    path('register', views.registration),
+    path('flights', views.flights),
+    path('flight/&lt;int:flight_id&gt;/users', views.users_list),
+    path('flight/&lt;int:flight_id&gt;/feedbacks', views.feedbacks),
+    path('flight/&lt;int:flight_id&gt;/leave_feedback', views.create_feedback),
+    path('tickets', views.tickets),
+    path('ticket/&lt;int:ticket_id&gt;/delete', views.delete_ticket),
+    path('ticket/&lt;int:ticket_id&gt;/update', views.update_ticket),
+    path('flight/&lt;int:flight_id&gt;/book', views.book_flight)
+]
+</code></pre>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">import time
+from flights_app.forms import *
+from flights_app.models import User, Flight, Ticket, Feedback
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+
+
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, 'index.html')
+    else:
+        return render(request, 'auth.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
+def auth(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect('/')
+    else:
+        return render(request, 'auth.html', {'error': 'Try again'})
+
+
+def registration(request):
+    if request.method == &quot;POST&quot;:
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = NewUserForm()
+    return render(request, &quot;register.html&quot;, {&quot;register_form&quot;: form})
+
+
+def tickets(request):
+    user_tickets = Ticket.objects.filter(user=request.user)
+    return render(request, 'tickets.html', {'tickets': user_tickets})
+
+
+def flights(request):
+    return render(request, 'flights.html', {'flights': Flight.objects.all()})
+
+
+def users_list(request, flight_id):
+    user_ids = Ticket.objects.filter(flight_id=flight_id).values('user_id')
+    users = User.objects.filter(id__in=user_ids)
+    flight = Flight.objects.get(id=flight_id)
+    return render(request, &quot;users.html&quot;, {
+        &quot;users&quot;: users,
+        &quot;flight&quot;: flight,
+    })
+
+
+def feedbacks(request, flight_id):
+    flight = Flight.objects.get(id=flight_id)
+    feedbacks = Feedback.objects.filter(flight_id=flight_id)
+    return render(request, &quot;feedbacks.html&quot;, {
+        &quot;feedbacks&quot;: feedbacks,
+        &quot;flight&quot;: flight,
+    })
+
+
+def create_feedback(request, flight_id):
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            Feedback.objects.create(comment=form.cleaned_data.get('comment'),
+                                    rate=form.cleaned_data.get('rating'),
+                                    date=form.cleaned_data.get('date'),
+                                    user_id=request.user.id,
+                                    flight_id=flight_id)
+
+            return redirect('/flights')
+    else:
+        form = FeedbackForm()
+    return render(request, 'leave_feedback.html', {'form': form})
+
+
+def delete_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(ticket_id=ticket_id)
+    if ticket.user_id == request.user.id:
+        ticket.delete()
+    return redirect('/tickets')
+
+
+def update_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(ticket_id=ticket_id)
+    if ticket.user_id != request.user.id:
+        return redirect('/')
+    if request.method == 'POST':
+        form = TicketUpdateForm(request.POST)
+        if form.is_valid():
+            ticket.seat = form.cleaned_data.get('seat')
+            ticket.save()
+            return redirect('/tickets')
+    else:
+        form = TicketUpdateForm()
+    return render(request, 'update.html', {'form': form, 'ticket': ticket})
+
+
+def book_flight(request, flight_id):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            Ticket.objects.create(flight_id=flight_id,
+                                  type=form.cleaned_data.get('type'),
+                                  seat=form.cleaned_data.get('seat'),
+                                  user_id=request.user.id,
+                                  ticket_id=int(str(time.time_ns())[-7:]))
+            return redirect('/tickets')
+    else:
+        form = BookForm()
+    return render(request, 'book.html', {'form': form})
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
