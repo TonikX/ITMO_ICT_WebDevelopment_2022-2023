@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5fsow=z+ce#5!xrv1j7ie6flx$3krh08@=wi-ixbl0y+6o3!)x'
+SECRET_KEY = 'django-insecure-+0xop5)vvot(kmglx^2p+i$$83-y(&+xghf@wmd(&owsdk^prm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'hotel_django_project.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "Hotel",
+        "NAME": "hotel",
         "USER": "admin",
         "PASSWORD": "1234",
         "HOST": "localhost",
@@ -127,3 +127,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = 'login'
+
+LOGIN_REDIRECT_URL = '/main'

@@ -1,7 +1,8 @@
-from tabnanny import verbose
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 
 class Hotel(models.Model):
@@ -27,20 +28,11 @@ class Room(models.Model):
     def __str__(self):
         return f"Room {self.number_room} of hotel {self.hotel.name}"
 
-class Guest(models.Model):
-    first_name = models.CharField("Имя", max_length=30, null=False)
-    last_name = models.CharField("Фамилия", max_length=30, null=False)
-    passport = models.CharField("Номер паспорта", primary_key=True, max_length=30)
-
-    def __str__(self):
-        return f"Гость {self.last_name} {self.first_name}"
-
-
 class Reservation(models.Model):
     order_number = models.AutoField("Номер заказа", primary_key=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, default = "Ромашка")
-    guest = models.ForeignKey(Guest, on_delete=models.CASCADE,verbose_name = "Гость") 
+    guest = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "Гость") 
     arrival_date = models.DateField("Дата заезда")
     departure_date = models.DateField("Дата выезда")
     price = models.PositiveIntegerField("Стоимость проживания")
@@ -69,7 +61,7 @@ class Comment(models.Model):
     date_end = models.DateField("Дата выезда")
     text = models.TextField("Комментарий", null=False)
     rate = models.IntegerField("Оценка", default=10,validators=[MaxValueValidator(10), MinValueValidator(1)])
-    sing_author = models.CharField("Укажите ваш ник", max_length=30)
+    guest = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name = "Гость") 
 
     def save(self, *args, **kwargs):
         self.date_start  = self.reservation.arrival_date

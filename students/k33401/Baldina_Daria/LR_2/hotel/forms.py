@@ -1,12 +1,10 @@
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Reservation, Comment
+# from .models import Guest
+from django.contrib.auth.models import User
 
-class CreateReservation(forms.ModelForm):
-    class Meta:
-        model = Reservation
-        fields = ['room', 'guest', 'arrival_date', 'departure_date']
 
-class CreateComment(forms.ModelForm):
+class RegisterForm(UserCreationForm):
     class Meta:
-        model = Comment
-        fields = ['reservation', 'text', 'rate', 'sing_author']
+        model = User
+        fields = ["last_name", "first_name", "username", "password1"]
