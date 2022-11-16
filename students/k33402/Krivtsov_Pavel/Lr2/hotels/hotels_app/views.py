@@ -6,13 +6,13 @@ from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView
 from datetime import datetime
 import pytz
 import typing as tp
 
-from .models import Hotel, Room, Reservation
-from .forms import RegisterUserForm, ReserveForm
+from .models import Hotel, Room, Reservation, Comment
+from .forms import RegisterUserForm, ReserveForm, InputCommentForm
 
 
 class RegisterUser(CreateView):
@@ -76,16 +76,24 @@ class HotelInfo(DetailView):
         return context
 
 
-class RoomInfo(DetailView):
-    model = Room
-    template_name = "room_info.html"
-    context_object_name = "room"
+def room_info(request, pk):
+    room = get_object_or_404(Room, id=pk)
+    comments = Comment.objects.filter(room=room)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = context['room'].name
+    if request.method == "POST":
+        form = InputCommentForm(request.user, room, request.POST)
 
-        return context
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.room = room
+            form.save()
+
+            return redirect("room_info", pk=pk)
+    else:
+        form = InputCommentForm(request.user, room)
+
+    return render(request, "room_info.html", {"title": room.name, "room": room, "comments": comments, "form": form})
 
 
 class ReservationView:

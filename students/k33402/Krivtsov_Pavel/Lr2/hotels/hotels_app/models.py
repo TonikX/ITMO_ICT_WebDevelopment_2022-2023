@@ -79,7 +79,8 @@ def validate_range(value):
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    reservation = models.ForeignKey(Reservation, on_delete=models.SET_NULL, null=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    reservation = models.ForeignKey(Reservation, on_delete=models.SET_NULL, null=True, blank=True)
     body = models.TextField()
-    rating = models.IntegerField(validators=[validate_range])
+    rating = models.IntegerField(validators=[validate_range], null=True, blank=True)
     created = models.DateTimeField(auto_now=True)

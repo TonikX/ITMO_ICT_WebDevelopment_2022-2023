@@ -18,4 +18,25 @@
     {% endfor %}
 </ul>
 <button onclick="location.href='{% url 'reserve' pk=room.id %}'" type="button">Зарезервировать</button>
+
+<h3>Комментарии</h3>
+{% for comment in comments %}
+    <p>{{ comment.user.username }} {{ comment.created }}</p>
+    {% if comment.reservation %}
+    <p>Период проживания: с {{ comment.reservation.date_start }} по {{ comment.reservation.date_end }}</p>
+    <p>Оценка: {{ comment.rating }}</p>
+    {% endif %}
+    <p>{{ comment.body }}</p>
+    <hr/>
+{% empty %}
+    <li>Комментариев пока нет. Оставьте первый!</li>
+{% endfor %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="Опубликовать">
+</form>
+
 {% endblock %}
