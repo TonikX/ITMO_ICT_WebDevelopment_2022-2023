@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import logout
+from django.contrib.auth import logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, get_object_or_404, render
@@ -177,3 +177,17 @@ class ReservationView:
             return redirect('profile')
 
         return render(request, 'delete_reservation.html', {'title': 'Отмена бронирования', 'reservation': reservation})
+
+
+def guests_info(request):
+    reservations = Reservation.objects.filter(date_start__month__lte=datetime.now().month, date_end__month__gte=datetime.now().month)
+
+    hotels_guests: tp.Dict[Hotel, tp.Set[str]] = {}
+    for reservation in reservations:
+        if reservation.room.hotel in hotels_guests:
+            hotels_guests[reservation.room.hotel].add(reservation.user.username)
+        else:
+            hotels_guests[reservation.room.hotel] = {reservation.user.username}
+
+    return render(request, "guests.html", {"title": "Постояльцы", "hotels_guests": hotels_guests, "month": datetime.now().strftime("%B")})
+

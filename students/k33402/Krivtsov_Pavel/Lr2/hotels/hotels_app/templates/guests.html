@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3">
+    <h1 class="py-3">Список постояльцев за {{ month }}</h1>
+    <table class="table table-bordered border-secondary">
+      <tbody class="text-center">
+      {% for hotel, users in hotels_guests.items %}
+        <tr>
+            <td><h2>{{ hotel }}</h2></td>
+            <td>
+                <ul class="list-group list-group-flush">
+                    {% for username in users %}
+                        <li class="list-group-item">
+                                <h4>{{ username }}</h4>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}
