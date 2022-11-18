@@ -91,7 +91,10 @@ def room_info(request, pk):
 
             return redirect("room_info", pk=pk)
     else:
-        form = InputCommentForm(request.user, room)
+        if request.user.is_authenticated:
+            form = InputCommentForm(request.user, room)
+        else:
+            form = InputCommentForm(None, None)
 
     return render(request, "room_info.html", {"title": room.name, "room": room, "comments": comments, "form": form})
 
@@ -105,8 +108,6 @@ class ReservationView:
     def _is_dates_free(date_start, date_end, room_id, user_id) -> bool:
         reservations = Reservation.objects.filter(room=room_id).exclude(user=user_id)
         for old_reservation in reservations:
-            print(
-                f'old_reservation.date_start: {old_reservation.date_start}\ndate_end: {date_end}\nold_reservation.date_end: {old_reservation.date_end}\ndate_start: {date_start}')
             if (old_reservation.date_start < date_start < old_reservation.date_end) or \
                     (old_reservation.date_start < date_end < old_reservation.date_end):
                 return False
@@ -143,7 +144,7 @@ class ReservationView:
             form.save()
             return redirect('profile')
 
-        return render(request, "reserve.html", {"title": "Резервирование" + " " + room.name, "form": form})
+        return render(request, "reserve.html", {"title": room.name, "form": form})
 
     @staticmethod
     def update_reservation(request, pk):

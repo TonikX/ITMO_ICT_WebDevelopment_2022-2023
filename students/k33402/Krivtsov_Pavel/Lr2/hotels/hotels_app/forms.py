@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
-from .models import Reservation, Comment
+from .models import Reservation, Comment, Room
+import typing as tp
 
 
 User = get_user_model()
@@ -27,13 +28,14 @@ class ReserveForm(forms.ModelForm):
 
 
 class InputCommentForm(forms.ModelForm):
-    reservation = forms.ModelChoiceField(label='Период проживания', empty_label='Нет бронирований', queryset=None, required=False)
+    reservation = forms.ModelChoiceField(label='Период проживания', empty_label='Не выбрано', queryset=None, required=False)
     rating = forms.IntegerField(label='Оценка', min_value=0, max_value=10)
     body = forms.TextInput(attrs={'size': 10, 'title': None})
 
-    def __init__(self, user, room, *args, **kwargs):
+    def __init__(self, user: tp.Optional[User], room: tp.Optional[Room], *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['reservation'].queryset = Reservation.objects.filter(user=user).filter(room=room)
+        if user and room:
+            self.fields['reservation'].queryset = Reservation.objects.filter(user=user).filter(room=room)
 
     class Meta:
         model = Comment
