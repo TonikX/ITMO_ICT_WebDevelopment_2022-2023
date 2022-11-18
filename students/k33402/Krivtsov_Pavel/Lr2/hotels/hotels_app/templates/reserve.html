@@ -1,16 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-{% for message in messages %}
-    <div>
-           {{ message }}
-    </div>
-{% endfor %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="container py-3">
+    <h1>{{ title }}</h1>
 
-    <input type="submit" value="Зарезервировать">
-</form>
+    <div class="card py-3 my-3">
+      <div class="card-body text-center">
+        {% for message in messages %}
+            <div class="alert alert-danger pb-3" role="alert">
+              {{ message }}
+            </div>
+        {% endfor %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div>
+                <button class="btn btn-lg btn-dark" type="submit">Зарезервировать</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
 {% endblock %}

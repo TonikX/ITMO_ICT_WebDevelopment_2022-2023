@@ -1,20 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Бронирования пользователя {{ user.username }}</h2>
+<div class="container py-3">
+    <h2>Бронирования пользователя {{ user.username }}</h2>
 
-<ul>
+    <div class="row row-cols-1 row-cols-xxl-2 py-3 g-4">
     {% for reservation in reservations %}
-    <li>
-        <h3><a href="{% url 'room_info' pk=reservation.room.id %}">{{ reservation.room.hotel }} - {{ reservation.room.name }}</a></h3>
-        <p>Даты: с {{ reservation.date_start }} по {{ reservation.date_end }}</p>
-        <p>Тип: {{ reservation.room.type }}</p>
-        <p>Цена: {{ reservation.room.price }} руб/ночь</p>
-        <button onclick="location.href='{% url 'update_reservation' pk=reservation.id %}'" type="button">Изменить даты бронирования</button>
-        <button onclick="location.href='{% url 'delete_reservation' pk=reservation.id %}'" type="button">Удалить бронирование</button>
-    </li>
+        <div class="col">
+            <div class="card h-100">
+              <div class="card-header">
+                  <h5 class="card-title text-truncate"><a class="link-secondary" href="{% url 'room_info' pk=reservation.room.id %}">{{ reservation.room.hotel }} - {{ reservation.room.name }}</a></h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Даты: с {{ reservation.date_start }} по {{ reservation.date_end }}</li>
+                <li class="list-group-item">Тип: {{ reservation.room.type }}</li>
+                <li class="list-group-item">Цена: {{ reservation.room.price }} руб/ночь</li>
+              </ul>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-6">
+                          <a href="{% url 'update_reservation' pk=reservation.id %}" class="btn btn-secondary" role="button">Изменить даты бронирования</a>
+                      </div>
+                      <div class="col-6">
+                          <a href="{% url 'delete_reservation' pk=reservation.id %}" class="btn btn-danger" role="button">Удалить бронирование</a>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
     {% empty %}
-        <li>No objects yet.</li>
+        <p>No objects yet.</p>
     {% endfor %}
-</ul>
+    </div>
+</div>
 {% endblock %}

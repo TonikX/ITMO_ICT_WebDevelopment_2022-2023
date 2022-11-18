@@ -2,11 +2,18 @@
 
 {% block content %}
 {% for hotel in object_list %}
-<h2><a href="{% url 'hotel_info' pk=hotel.id %}">{{ hotel.name }}</a></h2>
-<p>{{ hotel.address }}</p>
-<hr/>
+<div class="container py-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ hotel.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ hotel.address }}</h6>
+        <p class="card-text text-truncate">{{ hotel.description }}</p>
+        <a href="{% url 'hotel_info' pk=hotel.id %}" class="card-link">Подробнее</a>
+      </div>
+    </div>
+</div>
 
 {% empty %}
-<li>No objects yet.</li>
+<h1>No objects yet.</h1>
 {% endfor %}
 {% endblock %}

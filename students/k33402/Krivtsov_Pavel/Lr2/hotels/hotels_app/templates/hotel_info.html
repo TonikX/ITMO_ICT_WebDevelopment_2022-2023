@@ -1,24 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ hotel.name }}</h1>
-<p>{{ hotel.description }}</p>
-<hr/>
-<p>{{ hotel.address }}</p>
-<p>Владелец: {{ hotel.owner.organization_name }} {{ hotel.owner.contact_phone }}</p>
-<hr/>
-<h2>Номера:</h2>
-<ul>
-    {% for room in rooms %}
-    <li>
-        <h3><a href="{% url 'room_info' pk=room.id %}">{{ room.name }}</a></h3>
-        <p>Вместимость: {{ room.capacity }}</p>
-        <p>Тип: {{ room.type }}</p>
-        <p>Цена: {{ room.price }} руб/ночь</p>
-    </li>
+<div class="container py-3">
+    <h1>{{ hotel.name }}</h1>
+    <p>{{ hotel.description }}</p>
+    <hr/>
+    <p>{{ hotel.address }}</p>
+    <p>Владелец: {{ hotel.owner.organization_name }} {{ hotel.owner.contact_phone }}</p>
+    <hr/>
+    <h2>Номера:</h2>
 
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 py-3">
+    {% for room in rooms %}
+        <div class="col">
+            <div class="card mb-3" style="width: 18rem;">
+              <div class="card-header">
+                <h5 class="card-title">{{ room.name }}</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Вместимость: {{ room.capacity }}</li>
+                <li class="list-group-item">Тип: {{ room.type }}</li>
+                <li class="list-group-item">Цена: {{ room.price }} руб/ночь</li>
+              </ul>
+              <div class="card-body">
+                <a href="{% url 'room_info' pk=room.id %}" class="card-link">Подробнее</a>
+              </div>
+            </div>
+        </div>
     {% empty %}
-    <li>No objects yet.</li>
+    <p>No objects yet.</p>
     {% endfor %}
-</ul>
+    </div>
+</div>
 {% endblock %}
