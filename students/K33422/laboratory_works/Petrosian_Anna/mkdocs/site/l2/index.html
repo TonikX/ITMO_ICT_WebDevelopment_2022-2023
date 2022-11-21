@@ -88,6 +88,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Приличная версия</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -97,8 +101,9 @@
 
 <h1 id="2">Лабораторная работа 2</h1>
 <ul>
-<li><a href="https://github.com/TonikX/ITMO_ICT_WebDevelopment_2022-2023/pull/64">github</a> - пулл-реквест
-Скринкаст по ссылке в пулл-реквесте</li>
+<li><a href="https://github.com/TonikX/ITMO_ICT_WebDevelopment_2022-2023/pull/64">github</a> - пулл-реквест</li>
+<li><a href="https://youtu.be/jxA2TuXeB7A">version_1</a> - скринкаст работы первой версии</li>
+<li><a href="https://youtu.be/4fus3y0qsAM">version_2</a> - скринкаст работы ПРИЛИЧНОЙ версии</li>
 </ul>
 <h2 id="_1">Практические задания</h2>
 <p>Работаем в виртуальном окружении, досутп у серверу http://127.0.0.1:8000/
@@ -701,7 +706,400 @@ Footer
     Already have an account? &lt;a href=&quot;{% url &#39;login&#39; %}&quot;&gt;Log In here.&lt;/a&gt;
 
 {% endblock %}
-</code></pre></div></div>
+</code></pre></div>
+<h2 id="_2">Приличная версия</h2>
+<p>Появилось разделение интерфейсов и включён бутстрап.</p>
+<p>Появился интерфейс для преподавателей, через который они, например, могут давать домашние задания и видеть оценки всех учеников. В то же время ученик у себя может видеть только свои оценки, а не оценки всех учеников.</p>
+<p>Для этого, в первую очередь, изменена модель: появилась роль учителя и класс User для проверки роли (булевый):</p>
+<div class="highlight"><pre><span></span><code>from django.db import models
+from django.contrib.auth.models import User, AbstractUser
+from django.dispatch import receiver
+
+
+class Homework(models.Model):
+    homework_id = models.IntegerField(blank=False, primary_key=True)
+    name = models.CharField(max_length=100, blank=False)
+    task = models.CharField(max_length=300)
+    subject = models.CharField(max_length=30, blank=False)
+    begin_date = models.DateField(blank=False)
+    deadline = models.DateField(blank=False)
+    penalty = models.CharField(max_length=100)
+    teacher = models.ForeignKey(&#39;Teacher&#39;, on_delete=models.CASCADE)
+    students = models.ManyToManyField(&#39;Student&#39;, through=&#39;Assignment&#39;)
+
+    def __str__(self):
+        return self.name
+
+
+class User(AbstractUser):
+    is_student = models.BooleanField(default=False)
+    is_teacher = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f&#39;{self.first_name} {self.last_name}&#39;
+
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    #REQUIRED_FIELDS = [&#39;self.user.first_name&#39;, &#39;self.user.last_name&#39;]
+    def __str__(self):
+        return f&quot;{self.user.first_name} {self.user.last_name}&quot;
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+    def __str__(self):
+        return f&quot;{self.user.first_name} {self.user.last_name}&quot;
+
+
+class Assignment(models.Model):
+    assignment_id = models.IntegerField(blank=False, primary_key=True)
+    student = models.ForeignKey(&#39;Student&#39;, on_delete=models.CASCADE)
+    homework = models.ForeignKey(&#39;Homework&#39;, on_delete=models.CASCADE)
+    grade = models.CharField(default=&#39;-&#39;, max_length=5, blank=True)
+    submission = models.CharField(max_length=300, blank=True)
+
+    def __str__(self):
+        return f&#39;{self.student.user.first_name} {self.student.user.last_name}:\
+        {self.homework.name}\
+        | {&quot;graded&quot; if self.grade != &quot;-&quot; else &quot;submitted&quot; if len(self.submission) else &quot;in process&quot;}&#39;
+
+
+@receiver(models.signals.post_save, sender=Homework)
+def execute_after_save(sender, instance, created, *args, **kwargs):
+    if created:
+        students = Student.objects.all()
+        for student in students:
+            duplicates = Assignment.objects.filter(student=student,     homework=instance).all()
+           if not len(duplicates):
+                assignment = Assignment(student=student, homework=instance)
+                assignment.save()
+</code></pre></div>
+<p>Для верификации роли добавлен файл decorators.py, который содержит функции student_required и teacher_required для проверки соответствующих ролей:</p>
+<div class="highlight"><pre><span></span><code>from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import user_passes_test
+
+
+def student_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME,    login_url=&#39;login&#39;):
+&#39;&#39;&#39;
+    Decorator for views that checks that the logged in user is a student,
+redirects to the log-in page if necessary.
+&#39;&#39;&#39;
+    actual_decorator = user_passes_test(
+        lambda u: u.is_active and u.is_student,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
+
+
+def teacher_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=&#39;login&#39;):
+&#39;&#39;&#39;
+    Decorator for views that checks that the logged in user is a teacher,
+redirects to the log-in page if necessary.
+&#39;&#39;&#39;
+    actual_decorator = user_passes_test(
+        lambda u: u.is_active and u.is_teacher,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
+</code></pre></div>
+<p>Далее эти функции будут использоваться в views.py, куда внесены изменения, для функции class_grades_list (чтобы ученику были доступны тотлько его оценки, а учителю - оценки всех). Также добавлен декоратор @login_required </p>
+<div class="highlight"><pre><span></span><code>from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.db import IntegrityError
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import CreateView, ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from homework_app.models import Student, Homework, Assignment,User,Teacher
+from homework_app.forms import AssignmentForm,StudentSignUpForm,TeacherSignUpForm,HomeworkForm
+from homework_app.decorators import student_required,teacher_required
+from django.http import HttpResponseRedirect
+class StudentSignUpView(CreateView):
+
+    model = User
+    form_class = StudentSignUpForm
+    template_name = &#39;register.html&#39;
+
+    def get_context_data(self, **kwargs):
+            kwargs[&#39;user_type&#39;] = &#39;student&#39;
+            return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+
+        user = form.save()
+        login(self.request, user)
+        return redirect(&#39;login&#39;)
+
+class TearchSignUpView(CreateView):
+    model = User
+    form_class = TeacherSignUpForm
+    template_name = &#39;register.html&#39;
+
+    def get_context_data(self, **kwargs):
+        kwargs[&#39;user_type&#39;] = &#39;teacher&#39;
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+
+        user = form.save()
+        login(self.request, user)
+        return redirect(&#39;login&#39;)
+@method_decorator(teacher_required, name=&#39;dispatch&#39;)
+
+class HomeworkCreate(CreateView):
+    model = Homework 
+    form_class: HomeworkForm
+    template_name = &#39;createhomework.html&#39;
+    fields = &quot;__all__&quot;
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[&#39;form&#39;] = HomeworkForm()
+        return context
+    def form_valid(self, form):
+
+        form.save()
+
+        return redirect(&#39;homework_list&#39;)
+
+
+
+
+def log_in(request):
+    # if request.user.is_authenticated:
+    #     return redirect(&#39;homework_list&#39;)
+    if request.method == &quot;POST&quot;:
+
+        username = request.POST[&#39;username&#39;]
+        password = request.POST[&#39;password&#39;]
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse(&#39;homework_list&#39;))
+        else:
+            error_text = &#39;invalid credentials&#39;
+
+ return render(request, &#39;login.html&#39;, locals())
+
+
+@login_required
+def log_out(request):
+    logout(request)
+    return redirect(reverse(&#39;login&#39;))
+
+
+@login_required
+@teacher_required
+def class_grades_list(request):
+    context = {}
+    students = Student.objects.all()
+    context[&quot;students&quot;] = students
+    context[&quot;homeworks&quot;] = Homework.objects.all()
+    context[&quot;grades&quot;] = {}
+    assignments = Assignment.objects.all()
+    for homework in context[&quot;homeworks&quot;]:
+        for assignment in assignments:
+            if assignment.homework == homework and assignment.student.pk != 3:
+                if not assignment.student.pk in context[&quot;grades&quot;]:
+                    context[&quot;grades&quot;][assignment.student.pk] = []
+                context[&quot;grades&quot;][assignment.student.pk].append(
+                    assignment.grade)
+
+    return render(request, &#39;class_grades.html&#39;, context)
+
+@method_decorator(login_required, name=&#39;dispatch&#39;)
+
+class HomeworkList(ListView):
+
+    model = Homework
+    template_name = &#39;homework_list.html&#39;
+
+@method_decorator(login_required, name=&#39;dispatch&#39;)
+class HomeworkDetail(DetailView):
+    model = Homework
+    template_name = &#39;homework_detail.html&#39;
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[&#39;form&#39;] = AssignmentForm()
+        return context
+
+@method_decorator(student_required, name=&#39;dispatch&#39;)
+
+class AssignmentView(ListView):
+    model = Assignment
+    template_name = &#39;studentgrade.html&#39;
+
+    def get_queryset(self):
+        studentt=Student.objects.get(user=self.request.user)
+        return Assignment.objects.filter(student=studentt)
+
+
+@login_required
+def hand_in(request, pk):
+    homework = Homework.objects.get(pk=pk)
+    studentt = Student.objects.get(user=request.user)
+    assignment = Assignment.objects.get(student=studentt,homework=homework)
+    form = AssignmentForm(request.POST,instance=assignment)
+    if form.is_valid():
+        form.save()
+
+        return redirect(reverse(&#39;homework_list&#39;))
+</code></pre></div>
+<p>templates (новые и интересные): 
+    base.html - Bootstrap:
+        &lt;!DOCTYPE html&gt;
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Homework</title></p>
+<div class="highlight"><pre><span></span><code>    &lt;!-- CSS only --&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi&quot; crossorigin=&quot;anonymous&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+{% comment %} &lt;nav&gt;
+    {% if user.is_authenticated %}
+        &lt;a href=&quot;{% url &#39;class_grades&#39; %}&quot;&gt;Class grades&lt;/a&gt;
+        {% if user.is_student %}
+            &lt;a href=&quot;{% url &#39;homework_list&#39; %}&quot;&gt;My homework&lt;/a&gt;
+        {% endif %}
+        &lt;a href=&quot;{% url &#39;logout&#39; %}&quot;&gt;Log out&lt;/a&gt;
+        &lt;span&gt; {{ user.username }} &lt;/span&gt;
+    {% endif %}
+
+&lt;/nav&gt; {% endcomment %}
+&lt;nav class=&quot;navbar navbar-expand-lg navbar-dark bg-primary&quot;&gt;
+    &lt;div class=&quot;container-fluid&quot;&gt;
+      {% if user.is_student%}
+        &lt;span class=&quot;navbar-brand&quot; &gt;Student&lt;/span&gt;
+      {% endif %}
+      {% if user.is_teacher%}
+      &lt;span class=&quot;navbar-brand&quot; &gt;Teacher&lt;/span&gt;
+      {% endif %}
+      &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#navbarColor01&quot; aria-controls=&quot;navbarColor01&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt;
+        &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarColor01&quot;&gt;
+        &lt;ul class=&quot;navbar-nav me-auto&quot;&gt;
+            {% if user.is_authenticated %}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link active&quot;href=&quot;{% url &#39;homework_list&#39; %}&quot;&gt;Home
+              &lt;span class=&quot;visually-hidden&quot;&gt;(current)&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/li&gt;
+          {% endif %}
+          {% if user.is_teacher %}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;class_grades&#39; %}&quot;&gt;Class Grades&lt;/a&gt;
+          &lt;/li&gt;
+
+
+          {% endif %}
+          {% if not user.is_authenticated %}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;login&#39; %}&quot;&gt;Log in&lt;/a&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;register&#39; %}&quot;&gt;Register&lt;/a&gt;
+          &lt;/li&gt;
+
+          {% endif %}
+
+          {% if user.is_student %}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;mygrade&#39; %}&quot;&gt;My grade&lt;/a&gt;
+          &lt;/li&gt;
+          {% endif %}
+
+
+
+         {% if user.is_teacher%}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;homework_create&#39; %}&quot;&gt;Add homework&lt;/a&gt;
+          &lt;/li&gt;
+
+          {% endif %}
+          {% if  user.is_authenticated %}
+          &lt;li class=&quot;nav-item&quot;&gt;
+            &lt;a class=&quot;nav-link&quot; href=&quot;{% url &#39;logout&#39; %}&quot;&gt;Log out&lt;/a&gt;
+          &lt;/li&gt;
+          {% endif %}
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+&lt;br/&gt;
+{% block body %}
+{% endblock %}
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+<p>createhomework.html- учитель может создавать домашку не только из админки</p>
+<div class="highlight"><pre><span></span><code>{% extends &#39;base.html&#39; %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+  &lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-md-8 col-sm-10 col-12&quot;&gt;
+      &lt;h2&gt;Create Homework&lt;/h2&gt;
+      &lt;form method=&quot;post&quot; novalidate&gt;
+        {% csrf_token %}
+        &lt;input type=&quot;hidden&quot; name=&quot;next&quot; value=&quot;{{ next }}&quot;&gt;
+        {{ form|crispy }}
+
+        &lt;p class=&quot;text-16&quot;&gt;{{ form.error_msg }} {{ form.non_field_errors }} {{ form.errors }}&lt;/p&gt;
+
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-success&quot;&gt;Create&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+{% endblock %}
+</code></pre></div>
+<p>studentgrade.html - доступен только учителю:
+    {% extends 'base.html' %}</p>
+<div class="highlight"><pre><span></span><code>{% block body %}
+
+&lt;table&gt;
+    &lt;tr&gt;
+            &lt;th&gt;Grade of Student &lt;/th&gt;
+    &lt;/tr&gt;
+
+    {% for ass in object_list %}
+        &lt;tr&gt;
+            &lt;td&gt;{{ ass.homework.name }}&lt;/td&gt;
+            &lt;td&gt; {{ass.grade}}
+
+        &lt;/tr&gt;
+    {% endfor %}
+&lt;/table&gt;
+
+{% endblock %}
+</code></pre></div>
+<p>Файл admin.py - добавлено отображение роли для учителя на панели:</p>
+<div class="highlight"><pre><span></span><code>from django.contrib import admin
+from .models import *
+
+admin.site.register(Student)
+admin.site.register(Homework)
+admin.site.register(Assignment)
+admin.site.register(Teacher)
+admin.site.register(User)
+</code></pre></div>
+<p>Также использован debug-toolbar для режима отладки (отслеживала запросы).</p></div>
             </div>
         </div>
 
