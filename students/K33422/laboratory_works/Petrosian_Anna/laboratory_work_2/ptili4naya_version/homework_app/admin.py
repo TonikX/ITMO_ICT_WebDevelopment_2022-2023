@@ -7,3 +7,4 @@ admin.site.register(Assignment)
 admin.site.register(Teacher)
 admin.site.register(User)
 # Register your models here.
+
