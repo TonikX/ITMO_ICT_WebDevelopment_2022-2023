@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car details</title>
+</head>
+<body>
+    <p><strong>Car number:</strong> {{ object.vehicle_number }}</p>
+    <p><strong>Brand:</strong> {{ object.vehicle_brand }}</p>
+    <p><strong>Model:</strong> {{ object.vehicle_model }}</p>
+    <p><strong>Color:</strong> {{ object.vehicle_color }}</p>
+    <a href="{% url 'cars' %}">All cars</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner detail</title>
+</head>
+
+<body>
+  <p><strong>Name:</strong> {{ object.name }}</p>
+  <p><strong>Surname:</strong> {{ object.surname }}</p>
+  <p><strong>Birthday date:</strong> {{ object.birthday }}</p>
+  <p><strong>Passport number:</strong> {{ object.passport_number }}</p>
+  <p><strong>Home address:</strong> {{ object.home_address }}</p>
+  <p><strong>Nationality:</strong> {{ object.nationality }}</p>
+  <a href="{% url 'owners' %}">All owners</a>
+</body>
+</html>
