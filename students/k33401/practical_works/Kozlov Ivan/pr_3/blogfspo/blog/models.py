@@ -25,7 +25,7 @@ class Ownership(models.Model):
 
 class Driver_doc(models.Model):
     id_doc = models.IntegerField(primary_key=True)
-    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE, related_name="docs")
     number_doc = models.CharField(max_length=10, null=False)
     type_doc = models.CharField(max_length=10, null=False)
     date_start_doc = models.DateField()

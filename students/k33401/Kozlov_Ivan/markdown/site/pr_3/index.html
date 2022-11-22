@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Практическая №3.1 - Kozlov Ivan - WEB - ICT</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Kozlov Ivan - WEB - ICT</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../lr_1/">Лабораторная №1</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../lr_2/">Лабораторная №2</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Практические <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Практическая №3.1</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="../lr_2/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="next" >
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#31">Описание 3.1 практической работы</a></li>
+        <li class="first-level "><a href="#311">Задание 3.1.1</a></li>
+        <li class="first-level "><a href="#312">Задание 3.1.2</a></li>
+        <li class="first-level "><a href="#313">Задание 3.1.3</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h2 id="31">Описание 3.1 практической работы</h2>
+<p>Django заапросы и их выполнение.</p>
+<hr>
+
+<h2 id="311">Задание 3.1.1</h2>
+<p><code>Описание:</code> напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей, 
+каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей. 
+Задание можете выполнить либо в интерактивном режиме интерпретатора, либо в отдельном python-файле. 
+Результатом должны стать запросы и отображение созданных объектов. </p>
+<ul>
+<li><code>model.py</code></li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+class Transport_owner(models.Model):
+    id_owner = models.IntegerField(primary_key=True)
+    last_name = models.CharField(max_length=30, null=False)
+    first_name = models.CharField(max_length=30, null=False)
+    date_birthday = models.DateField()
+
+
+class Transport(models.Model):
+    id_car = models.IntegerField(primary_key=True)
+    gov_number = models.CharField(max_length=15, null=False)
+    marka = models.CharField(max_length=20, null=False)
+    model_car = models.CharField(max_length=20, null=False)
+    color = models.CharField(max_length=30, null=True)
+
+
+class Ownership(models.Model):
+    id_owner_car = models.IntegerField(primary_key=True)
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
+    id_car = models.ForeignKey(Transport, on_delete=models.CASCADE)
+    date_start = models.DateField()
+    sate_end = models.DateField(null=True)
+
+
+class Driver_doc(models.Model):
+    id_doc = models.IntegerField(primary_key=True)
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
+    number_doc = models.CharField(max_length=10, null=False)
+    type_doc = models.CharField(max_length=10, null=False)
+    date_start_doc = models.DateField()
+</code></pre>
+<blockquote>
+<p>Создание автовладельцев</p>
+</blockquote>
+<pre><code class="language-python">Transport_owner(1, 'Fam1', 'Name1', '1902-01-1').save()
+Transport_owner(2, 'Fam2', 'Name2', '1902-01-2').save()
+Transport_owner(3, 'Fam3', 'Name3', '1902-01-3').save()
+Transport_owner(4, 'Fam4', 'Name4', '1902-01-4').save()
+Transport_owner(5, 'Fam5', 'Name5', '1902-01-5').save()
+Transport_owner(6, 'Fam6', 'Name6', '1902-01-6').save()
+</code></pre>
+<p><img alt="Screenshot" src="../img/pr_3/transport_owners.png" /></p>
+<blockquote>
+<p>Создание автомобилей</p>
+</blockquote>
+<pre><code class="language-python">Transport(0, 'AAA0', 'Mark0', 'Model0', 'color5').save()
+Transport(1, 'AAA1', 'Mark1', 'Model1', 'color5').save()
+Transport(2, 'AAA2', 'Mark2', 'Model2', 'color5').save()
+Transport(3, 'AAA3', 'Mark3', 'Model3', 'color5').save()
+Transport(4, 'AAA4', 'Mark4', 'Model4', 'color5').save()
+Transport(5, 'AAA5', 'Mark5', 'Model5', 'color5').save()
+Transport(6, 'AAA6', 'Mark6', 'Model6', 'color5').save()
+</code></pre>
+<blockquote>
+<p>Создание водительских прав</p>
+</blockquote>
+<pre><code class="language-python">Driver_doc('1', '1', 'num1', 'type1', '1933-05-1').save()
+Driver_doc('2', '2', 'num2', 'type2', '1933-05-2').save()
+Driver_doc('3', '3', 'num3', 'type3', '1933-05-3').save()
+Driver_doc('4', '4', 'num4', 'type4', '1933-05-4').save()
+Driver_doc('5', '5', 'num5', 'type5', '1933-05-5').save()
+Driver_doc('6', '6', 'num6', 'type6', '1933-05-6').save()
+</code></pre>
+<blockquote>
+<p>Присваивания автовладельцам автомобили</p>
+</blockquote>
+<pre><code class="language-python">Ownership('1', '1', '1', '1936-09-11', '1940-09-11').save()
+Ownership('2', '2', '2', '1936-09-12', '1940-09-12').save()
+Ownership('3', '3', '3', '1936-09-13', '1940-09-13').save()
+Ownership('4', '4', '4', '1936-09-14', '1940-09-14').save()
+Ownership('5', '5', '5', '1936-09-15', '1940-09-15').save()
+Ownership('6', '6', '6', '1936-09-16', '1940-09-16').save()
+</code></pre>
+<hr>
+
+<h2 id="312">Задание 3.1.2</h2>
+<p><code>Описание:</code>По созданным в пр.1 данным написать следующие запросы на фильтрацию:</p>
+<ul>
+<li>Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Transport.objects.filter(marka=&quot;Mark3&quot;)
+&lt;QuerySet [&lt;Transport: Transport object (3)&gt;]&gt;
+</code></pre>
+<ul>
+<li>Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Transport_owner.objects.filter(first_name=&quot;Name5&quot;)
+&lt;QuerySet [&lt;Transport_owner: Transport_owner object (5)&gt;]&gt;
+</code></pre>
+<ul>
+<li>Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса):</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; needed_id = Transport_owner.objects.all()[2].id_owner
+&gt;&gt;&gt; Driver_doc.objects.get(id_owner=needed_id)
+&lt;Driver_doc: Driver_doc object (3)&gt;
+</code></pre>
+<ul>
+<li>Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; for i in range(len(Transport.objects.filter(color=&quot;green&quot;))):
+...     print(Transport.objects.filter(color=&quot;green&quot;)[i])
+... 
+Transport object (3)
+Transport object (4)
+Transport object (6)
+</code></pre>
+<ul>
+<li>Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Ownership.objects.filter(date_start__gte=&quot;1936-01-01&quot;)
+&lt;QuerySet [&lt;Ownership: Ownership object (1)&gt;, &lt;Ownership: Ownership object (2)&gt;, &lt;Ownership: Ownership object (3)&gt;, 
+&lt;Ownership: Ownership object (4)&gt;, &lt;Ownership: Ownership object (5)&gt;, 
+&lt;Ownership: Ownership object (6)&gt;]&gt;
+</code></pre>
+<hr>
+
+<h2 id="313">Задание 3.1.3</h2>
+<p><code>Описание:</code> необходимо реализовать следующие запросы:</p>
+<ul>
+<li>Вывод даты выдачи самого старшего водительского удостоверения:</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Driver_doc.objects.aggregate(date_start_doc=Min(&quot;date_start_doc&quot;))
+{'date_start_doc': datetime.date(1933, 5, 1)}
+</code></pre>
+<ul>
+<li>Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе:</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Ownership.objects.aggregate(date_start=Max(&quot;date_start&quot;))
+{'date_start': datetime.date(1936, 9, 16)}
+</code></pre>
+<ul>
+<li>Выведите количество машин для каждого водителя:</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Ownership.objects.values(&quot;id_owner&quot;).annotate(Count(&quot;id_car&quot;))
+&lt;QuerySet 
+[{'id_owner': 1, 'id_car__count': 1}, {'id_owner': 2, 'id_car__count': 1}, 
+{'id_owner': 3, 'id_car__count': 1}, {'id_owner': 4, 'id_car__count': 1}, 
+{'id_owner': 5, 'id_car__count': 1}, {'id_owner': 6, 'id_car__count': 1}]
+&gt;
+</code></pre>
+<ul>
+<li>Подсчитайте количество машин каждой марки:</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Transport.objects.values(&quot;marka&quot;).annotate(Count(&quot;id_car&quot;))
+&lt;QuerySet 
+[{'marka': 'Mark3', 'id_car__count': 1}, {'marka': 'Mark4', 'id_car__count': 3}, 
+{'marka': 'Mark5', 'id_car__count': 1}, {'marka': 'Mark6', 'id_car__count': 1}]
+&gt;
+</code></pre>
+<ul>
+<li>Отсортируйте всех автовладельцев по дате выдачи удостоверения:</li>
+</ul>
+<pre><code class="language-python">&gt;&gt;&gt; Transport_owner.objects.order_by(&quot;docs__date_start_doc&quot;)
+&lt;QuerySet [&lt;Transport_owner: Transport_owner object (4)&gt;, 
+&lt;Transport_owner: Transport_owner object (1)&gt;, 
+&lt;Transport_owner: Transport_owner object (2)&gt;, 
+&lt;Transport_owner: Transport_owner object (3)&gt;, 
+&lt;Transport_owner: Transport_owner object (5)&gt;, 
+&lt;Transport_owner: Transport_owner object (6)&gt;]&gt;
+</code></pre>
+<hr></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO-ICT-Frontend-2022">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>

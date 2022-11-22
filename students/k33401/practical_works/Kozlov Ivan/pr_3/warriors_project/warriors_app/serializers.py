@@ -31,3 +31,18 @@ class SkillCreateSerializer(serializers.Serializer):
         skill = Skill(**validated_data)
         skill.save()
         return Skill(**validated_data)
+
+
+class ProffesionForWarriorsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profession
+        fields = "__all__"
+
+
+class WarriorsWithSkillsSerializer(serializers.ModelSerializer):
+    profession = ProffesionForWarriorsSerializer(read_only=True)
+    skill = SkillsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Warrior
+        fields = "__all__"

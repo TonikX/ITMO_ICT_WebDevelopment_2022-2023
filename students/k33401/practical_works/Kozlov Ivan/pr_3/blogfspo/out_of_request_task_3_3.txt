@@ -33,5 +33,9 @@
 <QuerySet [<Ownership: Ownership object (5)>]>
 <QuerySet [<Ownership: Ownership object (6)>]>
 
+Driver_doc.objects.all().order_by("date_start_doc")
+
+Transport_owner.objects.order_by("docs__date_start_doc")
+
 
 
