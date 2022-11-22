@@ -5,7 +5,7 @@ from account.models import User
 
 
 class Hotel(models.Model):
-    id_hotel = models.IntegerField(primary_key=True, verbose_name='ID Hotel')
+    id_hotel = models.AutoField(primary_key=True, verbose_name='ID Hotel')
     name_hotel = models.CharField(max_length=100, verbose_name='Name')
     city_hotel = models.CharField(max_length=30, verbose_name='City')
     address_hotel = models.CharField(max_length=255, verbose_name='Address')
@@ -28,7 +28,7 @@ class Hotel(models.Model):
 
 
 class Employee(models.Model):
-    id_employee = models.IntegerField(primary_key=True, verbose_name='ID Employee')
+    id_employee = models.AutoField(primary_key=True, verbose_name='ID Employee')
     id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='ID Hotel')
     first_name_employee = models.CharField(max_length=30, verbose_name='First name')
     last_name_employee = models.CharField(max_length=30, verbose_name='Last name')
@@ -47,7 +47,7 @@ class RoomType(models.Model):
         (STANDARD, 'Standard'),
         (LUX, 'Lux'),
     ]
-    id_rt = models.IntegerField(primary_key=True, verbose_name='ID Room type')
+    id_rt = models.AutoField(primary_key=True, verbose_name='ID Room type')
     id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='ID Hotel')
     type_rt = models.CharField(max_length=1, choices=TYPE_CHOICES, verbose_name='Type')
     rating_rt = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
@@ -70,7 +70,7 @@ class Room(models.Model):
         (TAKEN, 'Taken'),
         (BOOKED, 'Booked'),
     ]
-    id_room = models.IntegerField(primary_key=True, verbose_name='ID Room')
+    id_room = models.AutoField(primary_key=True, verbose_name='ID Room')
     id_hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='ID Hotel')
     id_rt = models.ForeignKey(RoomType, on_delete=models.SET_NULL, null=True, verbose_name='ID Room type')
     number_room = models.IntegerField(verbose_name='Number')
@@ -94,10 +94,10 @@ class Registration(models.Model):
         (PAID, 'Paid for'),
         (NO_PAID, 'Not paid for'),
     ]
-    id_reg = models.IntegerField(primary_key=True, verbose_name='ID Reg')
-    id_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, verbose_name='ID Employee')
-    id_guest = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='ID Guest')
-    id_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, verbose_name='ID Room')
+    id_reg = models.AutoField(primary_key=True, verbose_name='ID Reg')
+    id_employee = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='ID Employee')
+    id_guest = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='ID Guest')
+    id_room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='ID Room')
     status_reg = models.CharField(max_length=1, choices=STATUS_REG_CHOICES, verbose_name='Registration status')
     status_pay = models.CharField(max_length=2, choices=STATUS_PAY_CHOICES, verbose_name='Payment status')
     check_in = models.DateField(null=False, blank=False, verbose_name='Check in')

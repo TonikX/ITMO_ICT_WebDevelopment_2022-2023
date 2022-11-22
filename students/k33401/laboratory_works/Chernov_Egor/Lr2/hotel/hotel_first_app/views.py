@@ -11,9 +11,17 @@ class ReserveView(CreateView):
 
     def post(self, request, *args, **kwargs):
         form = ReserveForm(request.POST)
+        try:
+            id_hotel = Hotel.objects.get(name_hotel=form.data.get('name_hotel')).id_hotel
+            room = Room.objects.get(id_hotel=id_hotel, number_room=form.data.get('room_number'))
+        except:
+            return render(request, 'error.html')
+
         if form.is_valid():
+            response = form.save(commit=False)
+            response.id_guest = self.request.user
+            response.id_room = room
             form.save()
-            print(request)
             return redirect('hotels')
         return render(request, 'error.html')
 

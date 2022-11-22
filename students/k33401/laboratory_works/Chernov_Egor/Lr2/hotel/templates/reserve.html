@@ -26,8 +26,10 @@
             {% csrf_token %}
             {% for field in form %}
                 <div class="form-group p-2 row">
-                    <div class="col-2">{{ field.label_tag }}</div>
-                    <div class="col-4">{{ field }}</div>
+                    {% if field.html_name != 'id_employee' and field.html_name != 'id_room' and field.html_name != 'id_guest' %}
+                        <div class="col-2">{{ field.label_tag }}</div>
+                        <div class="col-4">{{ field }}</div>
+                    {% endif %}
                 </div>
             {% endfor %}
             <button type="submit" class="btn btn-primary">Reserve</button>

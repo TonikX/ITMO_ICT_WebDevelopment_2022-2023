@@ -7,7 +7,7 @@ from hotel_first_app.models import Registration
 class UpdateReserveForm(forms.ModelForm):
     class Meta:
         model = Registration
-        fields = ('id_reg', 'id_employee', 'id_guest', 'id_room', 'status_reg',
+        fields = ('id_employee', 'id_guest', 'id_room', 'status_reg',
                   'status_pay', 'check_in', 'check_out', 'booking')
 
 
