@@ -19,8 +19,8 @@ def index(request):
 #     return render(request, 'driver.html', {'driver': d})
 
 
-def get_driver(request):
-    driver_id = request.GET.get('id')
+def get_driver(request, id):
+    driver_id = id
     if driver_id:
         context = {"driver": 1, "dataset": Driver.objects.get(pk=driver_id)}
     else:
