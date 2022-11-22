@@ -169,16 +169,13 @@ Transport object (6)
 
 - Отсортируйте всех автовладельцев по дате выдачи удостоверения:
 ```python
->>> sort_by_date = Driver_doc.objects.all().order_by("date_start_doc")
->>> for i in sort_by_date:
-...     needed_id = i.id_owner.id_owner
-...     print( Ownership.objects.filter(id_owner__id_owner=needed_id) )
-<QuerySet [<Ownership: Ownership object (4)>]>
-<QuerySet [<Ownership: Ownership object (1)>]>
-<QuerySet [<Ownership: Ownership object (2)>]>
-<QuerySet [<Ownership: Ownership object (3)>]>
-<QuerySet [<Ownership: Ownership object (5)>]>
-<QuerySet [<Ownership: Ownership object (6)>]>
+>>> Transport_owner.objects.order_by("docs__date_start_doc")
+<QuerySet [<Transport_owner: Transport_owner object (4)>, 
+<Transport_owner: Transport_owner object (1)>, 
+<Transport_owner: Transport_owner object (2)>, 
+<Transport_owner: Transport_owner object (3)>, 
+<Transport_owner: Transport_owner object (5)>, 
+<Transport_owner: Transport_owner object (6)>]>
 ```
 <hr>
 
