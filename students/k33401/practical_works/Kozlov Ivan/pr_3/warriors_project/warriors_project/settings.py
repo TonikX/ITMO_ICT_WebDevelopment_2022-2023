@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'warriors_app',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
