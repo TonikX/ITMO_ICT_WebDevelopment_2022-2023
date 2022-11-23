@@ -20,12 +20,12 @@
 
 {% block mbody %}
     <div class="mx-auto w-50 pb-4">
+        <h1>Your information</h1>
         {% if user.is_superuser %}
             {% if taken_registrations|length > 0 or booked_registrations|length > 0 %}
                 <p>Taken registration:</p>
                 {% if taken_registrations|length > 0 %}
                     {% for registration in taken_registrations %}
-                        {% if registration.id_employee.id_employee == user.pk %}
                         <a href="{% url 'update_reserve' user.pk registration.pk %}" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="card text-center">
                                 <div class="card-header text-start">
@@ -41,7 +41,6 @@
                                 </div>
                             </div>
                         </a>
-                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <span>0</span>
@@ -49,7 +48,6 @@
                 <p>Booked registration:</p>
                 {% if booked_registrations|length > 0 %}
                     {% for registration in booked_registrations %}
-                        {% if registration.id_employee.id_employee == user.pk %}
                         <a href="{% url 'update_reserve' user.pk registration.pk %}" class="list-group-item list-group-item-action" aria-current="true">
                             <div class="card text-center">
                                 <div class="card-header text-start">
@@ -65,7 +63,6 @@
                                 </div>
                             </div>
                         </a>
-                        {% endif %}
                     {% endfor %}
                 {% else %}
                     <span>0</span>

@@ -7,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from datetime import date
 
 from .forms import *
-from hotel_first_app.models import Registration
+from hotel_first_app.models import Registration, Room
 
 
 class ReserveDeleteView(DeleteView):
@@ -23,7 +23,27 @@ class UpdateReserveView(UpdateView):
 
     def get_queryset(self):
         self.success_url = f"/account/{self.kwargs['id_user']}"
-        return Registration.objects.filter(pk=self.kwargs['pk'])
+        reg = Registration.objects.filter(pk=self.kwargs['pk'])
+        return reg
+
+    def get(self, request, *args, **kwargs):
+        return super(UpdateReserveView, self).get(request, *args, **kwargs)
+
+    # def post(self, request, *args, **kwargs):
+    #     form = UpdateReserveForm(request.POST)
+    #     # print(self.get_queryset().values()[0]['id_room_id'])
+    #     # try:
+    #     #     room = Room.objects.get(pk=self.get_queryset().values()[0]['id_room_id'])
+    #     # except:
+    #     #     return render(request, 'error.html')
+    #
+    #     if form.is_valid():
+    #         # response = form.save(commit=False)
+    #         # response.id_guest = self.request.user
+    #         # response.id_room = room
+    #         form.save()
+    #         return redirect('hotels')
+    #     return render(request, 'error.html')
 
 
 class AccountUserView(UpdateView):
