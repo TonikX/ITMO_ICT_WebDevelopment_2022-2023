@@ -10,7 +10,7 @@ while True:
         client_socket.recv(1024)
         response_type = "HTTP/1.0 200 OK\n"
         headers = "Content-Type: text/html\n\n"
-        with open("index.html", "r") as f:
+        with open("task3/index.html", "r") as f:
             body = f.read()
         res = response_type + headers + body
         client_socket.send(res.encode())

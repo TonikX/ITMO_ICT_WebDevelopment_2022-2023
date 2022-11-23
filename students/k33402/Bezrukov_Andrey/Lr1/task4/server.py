@@ -1,55 +1,58 @@
-import socket, threading
+import socket
+import threading
 
 
-def chat_client(name, client_sock, clients):
-	while True:
-		try:
-			message = client_sock.recv(16384)
-			if message.decode('utf-8') == "пока":
-				client_sock.close()
-				delete_client_sock(client_sock, clients)
-				for client in clients:
-					client[1].send(name + ' покинул(а) чат')
-			else:
-				for client in clients:
-					if (client[1]!=client_sock):
-						client[1].send(name + b' > ' + message)
-		except OSError:
-			pass
+# Starting Server
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 9555))
+server.listen()
 
+# Lists For Clients and Their Nicknames
+clients = []
+nicknames = []
 
-def delete_client_sock(client_sock, clients):
-	for client in clients:
-		if client[1] == client_sock:
-			clients.remove(client)
-			break
+# Sending Messages To All Connected Clients
+def broadcast(message):
+    for client in clients:
+        client.send(message)
 
+# Handling Messages From Clients
+def handle(client):
+    while True:
+        try:
+            # Broadcasting Messages
+            message = client.recv(1024)
+            broadcast(message)
+        except:
+            # Removing And Closing Clients
+            index = clients.index(client)
+            clients.remove(client)
+            client.close()
+            nickname = nicknames[index]
+            broadcast('{} left!'.format(nickname).encode('utf-8'))
+            nicknames.remove(nickname)
+            break
 
-if __name__ == '__main__':
-	host = 'localhost'
-	port = 10015
-	s = socket.socket()
-	s.bind((host, port))
+# Receiving / Listening Function
+def receive():
+    while True:
+        # Accept Connection
+        client, address = server.accept()
+        print("Connected with {}".format(str(address)))
 
-	clients = []
+        # Request And Store Nickname
+        client.send('NICK'.encode('utf-8'))
+        nickname = client.recv(1024).decode('utf-8')
+        nicknames.append(nickname)
+        clients.append(client)
 
-	while True:
-		try:
-			s.listen()
-			client_sock, client_addr = s.accept()
-			name = client_sock.recv(1024)
-			print("Подключенный клиент:", client_addr)
+        # Print And Broadcast Nickname
+        print("Nickname is {}".format(nickname))
+        broadcast("{} joined!".format(nickname).encode('utf-8'))
+        client.send('Connected to server!'.encode('utf-8'))
 
-			clients.append((name, client_sock))
+        # Start Handling Thread For Client
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
 
-			for client in clients:
-				if client[1]!=client_sock:
-					client[1].send(name + 'вошел(ла) в чат')
-
-			client_thread = threading.Thread(target = chat_client, args= (name, client_sock, clients))
-			client_thread.start()
-
-
-		except KeyboardInterrupt:
-			s.close()
-			break
+receive()
