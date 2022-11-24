@@ -9,4 +9,5 @@ urlpatterns = [
     path('hotels/<int:id_hotel>/<int:id_rt>/rooms/<int:pk>/', RoomView.as_view(), name='room'),
     path('hotels/<int:id_hotel>/<int:id_rt>/rooms/<int:id_room>/comment/', CommentView.as_view(), name='comment'),
     path('reserve/', ReserveView.as_view(), name='reserve'),
+    path('hotels/<int:id_hotel>/<int:id_rt>/rooms/<int:id_room>/reserve/', ReserveRoomView.as_view(), name='reserve-room'),
 ]

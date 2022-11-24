@@ -51,6 +51,7 @@
                 </div>
             {% endfor %}
         {% endif %}
+        <a href="{% url 'reserve-room' hotel.pk room_type.pk room.pk %}" class="button btn btn-primary">Reserve</a>
         <a href="{% url 'comment' hotel.pk room_type.pk room.pk %}" class="button btn btn-primary">Add review</a>
     </div>
 {% endblock %}
