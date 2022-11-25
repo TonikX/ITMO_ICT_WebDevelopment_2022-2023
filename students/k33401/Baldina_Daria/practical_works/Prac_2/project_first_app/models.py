@@ -21,14 +21,14 @@ class Car(models.Model):
 
 class Ownerdhip(models.Model):
     id_owner_car = models.IntegerField(primary_key = True)
-    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
-    id_car = models.ForeignKey(Car, on_delete = models.CASCADE)
+    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE, related_name='owner')
+    id_car = models.ForeignKey(Car, on_delete = models.CASCADE, related_name='car')
     start_date = models.DateField()
     end_date = models.DateField(null = True)
 
 class Driver_license(models.Model):
     id_license =  models.IntegerField(primary_key = True)
-    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE, related_name='car_owner')
     license_number = models.CharField(max_length = 10, null = False)
     type = models.CharField(max_length = 10, null = False)
     date_of_license= models.DateField()
