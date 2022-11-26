@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% load bootstrap4 %}
+{% load static%}
+{% block content %}
+    <div class="main-tweet">
+            <div class="row form-twit">
+                <div class="row form-twit" style="font-size:14pt"><b>Количество участников по каждой породе?</b></div>
+                <div class="row form-twit">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>Выберите выставку: </p>
+                    <select class="form-control" name="exhibition">
+                        {%for ex in exs%}
+                            <option value="{{ex.title}}">{{ex.title}}</option>
+                        {%endfor%}
+                    </select>
+                    <p>Выберите породу из списка: </p>
+                    <select class="form-control" name="breed">
+                        {%for dog in dogs%}
+                            <option value="{{dog.breed}}">{{dog.breed}}</option>
+                        {%endfor%}
+                    </select>
+                    <br>
+                <button type="submit" class="btn btn-success small" name="f1" value="f1">Узнать</button>
+            </form>
+                <div class="row form-twit">
+                    {%if count%}
+                    С указанными параметрами количество участников: {{count}}
+                {%for dog in dogs_name%}
+                    <div class="row form-twit">{{dog}}</div>
+                {%endfor%}
+                    {%endif%}
+                </div>
+            </div>
+    </div>
+{% endblock content %}

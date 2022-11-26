@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'MDB/css/mdb.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+{% include 'base/menu.html' %}
+<div class="container">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+{% csrf_token %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'MDB/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'MDB/js/popper.min.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'MDB/js/bootstrap.min.js' %}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'MDB/js/mdb.min.js' %}"></script>
+
+     <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock script %}
+
+
+
+</body>
+</html>

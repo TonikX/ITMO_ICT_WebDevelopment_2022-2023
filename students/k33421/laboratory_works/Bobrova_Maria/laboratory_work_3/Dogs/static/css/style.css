@@ -1,0 +1,72 @@
+body {
+    background: #e6ecf0;
+}
+
+.menu {
+    margin: 0 auto;
+    background: #2a2a2a;
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+}
+
+/* Tweet */
+.main-tweet {
+    margin: 0 auto;
+    max-width: 700px;
+    box-shadow: 0px 2px 20px 1px #cddae2
+}
+
+.tweet {
+    padding: 10px;
+    background: #fff;
+    border-left: 1px solid #e6ecf0;
+    border-right: 1px solid #e6ecf0;
+    border-bottom: 1px solid #e6ecf0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.tweet:hover {
+    background: #f5f8fa;
+    cursor: pointer;
+}
+
+.form-twit {
+    width: 100%;
+    height: auto;
+    padding: 15px;
+    margin: 15px auto;
+    background: #fff;
+    /* box-shadow: 1px 1px 16px 1px #cecece; */
+}
+
+.comment {
+    display: none;
+}
+
+.btn-tweet {
+    border-radius: 100px;
+    box-shadow: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    padding: 6px 16px;
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+    background: #46D89E;
+}
+
+.btn-follow {
+    padding: 6px 16px;
+    border-radius: 100px;
+    background: #00acd8;
+}
+/* Profile */
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50% 50%;
+}

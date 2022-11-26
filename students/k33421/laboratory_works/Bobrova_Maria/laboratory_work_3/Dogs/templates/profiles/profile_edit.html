@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissable" role="alert">
+                <button class="close" data-dismiss="alert">
+                    {{message}}
+                    <small><sup>x</sup></small>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+<div class="row form-twit">
+    <div class="col-md-6">
+        <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Изменить профиль">
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <a href="{% url 'view_profile' %}">
+            <button type="submit" class="btn btn-success btn-md" name="button">Отменить</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
