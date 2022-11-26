@@ -1,1 +1,3 @@
-site_name: Лабораторная работа 2
+site_name: WEB-программирование Лабораторные работы
+site_url:  https://www.mkdocs.org/
+theme: readthedocs
