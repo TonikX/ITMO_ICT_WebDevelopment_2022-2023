@@ -14,7 +14,7 @@ class CarOwner(AbstractUser):
 
 class DrivingLicense(models.Model):
     id_license = models.AutoField(primary_key=True)
-    id_owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    id_owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="owner_license")
     license_number = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
     date_of_issue = models.DateTimeField()
@@ -29,7 +29,7 @@ class Car(models.Model):
 
 class Ownership(models.Model):
     id_owner_car = models.AutoField(primary_key=True)
-    id_owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    id_owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="owner_ownership")
     id_car = models.ForeignKey(Car, on_delete=models.CASCADE)
     date_of_start = models.DateTimeField()
     date_of_end = models.DateTimeField(null=True, blank=True)
