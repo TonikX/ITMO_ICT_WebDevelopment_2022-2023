@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.views.generic.list import ListView
 from .forms import NewUserForm
+import itertools
 import random
 import string
 
@@ -41,6 +42,10 @@ def tickets(request):
     tickets = Ticket.objects.filter(passenger=request.user.id)
     return render(request, 'tickets.html', {'tickets':tickets})
 
+first_part = [i for i in range(99)]
+second_part = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+all_seats = [str(r[0]+1)+r[1] for r in itertools.product(first_part, second_part)]
+
 def order(request, flight_id):
     if request.method == "POST":
         fl = Flight.objects.get(flight_number=request.POST['flight'])
@@ -59,11 +64,11 @@ def order(request, flight_id):
 
     try:
         flight = Flight.objects.get(pk=flight_id)
+        available_seats = [s for s in all_seats if s not in Ticket.objects.filter(flight=flight).values('seat')]
     except Flight.DoesNotExist:
         raise Http404("Flight does not exist")
 
-    return render(request, 'order.html', {'flight': flight})
-
+    return render(request, 'order.html', {'flight': flight, 'seats': available_seats})
 
 def review(request, flight_number):
     if request.method == "POST":

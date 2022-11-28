@@ -17,7 +17,11 @@
         </label>
         <label for="seat">
             Номер места:
-            <input type="text" name="seat" id="seat">
+            <select name="seat" id="seat">
+            {% for seat in seats %}.
+                <option value="{{seat}}">{{seat}}</option>
+            {% endfor %}
+            </select>
         </label>
         <input type="submit" value="Submit">
     </form>
