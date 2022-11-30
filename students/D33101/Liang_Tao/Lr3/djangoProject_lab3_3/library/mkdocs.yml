@@ -1,0 +1,13 @@
+site_name: READ ME FIRST "LIBRARY"
+nav:
+ - Home: index.md
+ - Api:
+     - "/admin": api/admin.md
+     - "/library/users": api/users.md
+     - "/library/add/book": api/ADD_BOOK.md
+     - "/library/record": api/record.md
+     - "/library/add/user": api/add_user.md
+
+
+theme:
+ name: material

@@ -1,0 +1,70 @@
+#server.py
+
+import socket
+
+items = [
+  {'lesson': 'Bio', 'desc': 'The science of living nature, the laws of organic life.', 'grad' : [3,5,3,3,4,5]},
+  {'lesson': 'IT', 'desc': 'Information Technology', 'grad' : [4,5,3,5,5,5]}
+]
+
+def post_split(post_msg):
+  objs = post_msg.split('&')
+  return [objs[0][7:], objs[1][5:], [int(i) for i in objs[2][6:].split('%2C')]]
+
+def start():
+  server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  server.bind(('127.0.0.1', 45862))
+  server.listen(4)
+  
+  while True:
+    client, addr = server.accept()
+
+    with client:
+      req = client.recv(1024).decode()
+      req_method = req.split(' ')[0]
+      req_msg = req.split(' ')[1][1:-1]
+      head = 'HTTP/1.1 200 OK\r\nContent-Type: text.html; charset=UTF-8\r\n\r\n'
+      body = '<html><head><title>Document</title></head><body>'
+      body += """
+      <form method="get">
+        <input type="submit" formaction="add" value="Add" />
+        <input type="submit" formaction="show" value="Show" />
+      </form>
+      """
+      if req_method == 'GET':
+        if req_msg == 'show':
+          body += get_mark()
+        elif req_msg == 'add':
+          body += add_mark()
+      else:
+        post_data = post_split(req.split(' ')[-1].split('\r\n\r\n')[1])
+        items.append({'lesson': post_data[0], 'desc': post_data[1], 'grad' : post_data[2]})
+      
+      body += "</body></html>"
+      client.send(head.encode('utf-8') + body.encode('utf-8'))  
+      
+def get_mark():
+  content = '<ul>'
+  for item in items:
+    content += f'<h1>Name: {item["lesson"]}</h1>'
+    for mark in item['grad']:
+      content += f'<li>Mark: {mark}</li>'
+  content += '</ul>'
+  return content
+
+def add_mark():
+  form = """
+  <form action="/" method="post">
+    <p>Lesson name: </p>
+    <input type="text" name="lesson" value="math" placeholder="math"/>
+    <p>Description: </p>
+    <input type="text" name="desc" value="description" placeholder="description"/>
+    <p>Grades: </p>
+    <input type="text" name="marks" value="4,5" placeholder="4,5"/>
+    <br/>
+    <input type="submit" value="Send info"/>
+  </form>"""
+  return form
+ 
+  
+start()

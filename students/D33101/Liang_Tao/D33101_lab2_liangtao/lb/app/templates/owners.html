@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owners List</title>
+</head>
+
+<body>
+    <span><h1>Owners</h1><a href="/create/">Add+</a></span>
+    <ul>
+        {% for object in object_list %}
+        <li>User: <a href="?id={{ object.id }}">{{ object.last_name }} {{ object.first_name }}</a></li>
+        <p>Birthday: {{ object.birth_date }}</p>
+        <p><strong>Passport:</strong> {{ object.pass_number }}</p>
+        <p><strong>Home:</strong> {{ object.address }}</p>
+        <p><strong>Nationality:</strong> {{ object.nat }}</p>
+
+        <hr/>
+        {% empty %}
+        <li>No objects yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
