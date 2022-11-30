@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+
+    <style>
+        table {
+            border-spacing: 20px 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Color</th>
+        <th>Official number</th>
+        <th>Change</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for object in object_list %}
+        <tr>
+            <th>{{ object.id_number }}</th>
+            <th>{{ object.brand }}</th>
+            <th>{{ object.car_model }}</th>
+            <th>{{ object.color }}</th>
+            <th>{{ object.official_number }}</th>
+            <th><a href="../car/{{ object.id_number }}/update">Change</a></th>
+            <th><a href="../car/{{ object.id_number }}/delete">Delete</a></th>
+        </tr>
+    {% endfor %}
+    {% if not object_list %}
+        <tr>
+            <th>{{ object.brand }}</th>
+            <th>{{ object.car_model }}</th>
+            <th>{{ object.color }}</th>
+            <th>{{ object.official_number }}</th>
+            <th><a href="{% url 'car_update' object.id_number %}" >Change</a></th>
+            <th><a href="../car/{{ object.id_number }}/delete">Delete</a></th>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<a href="{% url 'created_car' %}">New</a>
+
+</body>
+</html>
