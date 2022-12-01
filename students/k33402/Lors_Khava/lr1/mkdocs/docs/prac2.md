@@ -25,15 +25,15 @@ class Car(models.Model):
 
 class Ownership(models.Model):
     owner_car_id = models.IntegerField(primary_key=True)
-    owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE)
-    car_id = models.ForeignKey(Car, on_delete=models.CASCADE)
+    owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name='owner')
+    car_id = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='car')
     start_date = models.DateField()
     end_date = models.DateField(null=True)
 
 
 class License(models.Model):
     license_id = models.IntegerField(primary_key=True)
-    owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    owner_id = models.ForeignKey(Owner, on_delete=models.CASCADE, related_name='car_owner')
     license_num = models.CharField(max_length=10, null=False)
     type = models.CharField(max_length=10, null=False)
     start_date_license = models.DateField()
@@ -116,20 +116,16 @@ car1=Car.objects.create(car_id=1, state_num="A111AA1", brand="Tayota", model="1"
 Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):
 
 ```
->>> for i in range(len(Car.objects.filter(color="black"))):
-...             print(Car.objects.filter(color="black")[i])
-... 
-Car object (1)
-Car object (5)
-Car object (6)
+>>> Owner.objects.filter(owner__car_id__color="black")
+<QuerySet [<Owner: Owner object (1)>, <Owner: Owner object (5)>, <Owner: Owner object (6)>]>  
 ```
 
 ### Запрос 5
 Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):
 
 ```
->>> Ownership.objects.filter(start_date__gte="2010-01-01")
-<QuerySet [<Ownership: Ownership object (1)>, <Ownership: Ownership object (2)>, <Ownership: Ownership object (3)>, <Ownership: Ownership object (4)>]>
+>>> Owner.objects.filter(car_owner__start_date_license__gte="2010-01-01")
+<QuerySet [<Owner: Owner object (1)>, <Owner: Owner object (2)>, <Owner: Owner object (3)>, <Owner: Owner object (4)>]>
 ```
 
 ## Задание 3.1.3
