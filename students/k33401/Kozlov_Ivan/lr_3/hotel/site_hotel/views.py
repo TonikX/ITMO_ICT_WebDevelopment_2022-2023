@@ -5,21 +5,26 @@ from rest_framework import serializers, generics, status
 from rest_framework.response import Response
 from .serializers import *
 from datetime import datetime
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 
 class AllClients(generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+    authentication_classes = (TokenAuthentication,)
 
 
 class AllBook(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    authentication_classes = (TokenAuthentication,)
 
 
 class AllWorkers(generics.ListAPIView):
     queryset = Workers.objects.all()
     serializer_class = WorkersSerializer
+    authentication_classes = (TokenAuthentication,)
 
 class AllBookWithInfoAboutRoomAndTypeRoom(generics.ListAPIView):
     queryset = Book.objects.all()
@@ -38,6 +43,7 @@ class GetCurrentWorker(APIView):
 
 class CreateBook(generics.CreateAPIView):
     serializer_class = BookSerializer
+    authentication_classes = (TokenAuthentication,)
     def get(self, request):
         today = datetime.date(datetime.now())
         book = Book.objects.filter(data_end_living__lte=today)

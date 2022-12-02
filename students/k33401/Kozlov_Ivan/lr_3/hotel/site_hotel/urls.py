@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include, re_path
 from .views import *
 
 app_name = "site_hotel"
@@ -12,5 +12,7 @@ urlpatterns = [
     path('get_worker/<int:pk>', GetCurrentWorker.as_view()),
     path('create_book/', CreateBook.as_view()),
     path('create_worker/', CreateWorker.as_view()),
+    path('auth/', include('djoser.urls')),
+
 
 ]
