@@ -87,109 +87,109 @@ ownership = Ownership.objects.create(ownership_owner=Owner.objects.get(username=
 ownership = Ownership.objects.create(ownership_owner=Owner.objects.get(username='peach'), ownership_car=Car.objects.get(id=16), date_start='2021-10-10')
 ```
 
-# 3.2
+## 3.2
 1. Получение всех машин марки `Mario Kart`:
-- Запрос:
+Запрос:
 ``` python
 Car.objects.filter(brand = "Mario Kart")
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [<Car: Mario Kart MK Deluxe 8>, <Car: Mario Kart MK 7>, <Car: Mario Kart MK 8>, <Car: Mario Kart MK 8>, <Car: Mario Kart MK DS>, <Car: Mario Kart MK 64>]>
 ```
 
 2. Получение всех водителей с именем `Mario`:
-- Запрос:
+Запрос:
 ``` python
 Owner.objects.filter(first_name = "Mario")
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [<Owner: Mario Mario>]>
 ```
 **NB:** тут стоило было бы применить `first_name__contains`, если бы имя было составным, но для фамилии существует отдельное поле.
 
 3. Получение удостоверения случайного водителя:
-- Запрос:
+Запрос:
 ``` python
 DriverLicense.objects.get(license_owner = Owner.objects.order_by("?").first().id)
 ```
-- Результат:
+Результат:
 ``` python
 <DriverLicense: DriverLicense object (1)>
 ```
 
 4. Получение всех владельцев машин с цветом `orange`:
-- Запрос:
+Запрос:
 ``` python
 Owner.objects.filter(cars__color__contains="orange")
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [<Owner: Princess Daisy>]>
 ```
 **NB:** у машины может быть составной цвет, например, “Yellow, Red”, поэтому идет проверка на наличие, а не на эквивалентность.
 
 5. Получить всех владельцев, чей год владения машиной начинается с 2022:
-- Запрос:
+Запрос:
 ``` python
 Owner.objects.filter(ownership__date_start__gte='2022-01-01')
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [<Owner: Princess Daisy>]>
 ```
 
 ## 3.3
 1. Вывод даты выдачи самого старшего водительского удостоверения
-- Запрос:
+Запрос:
 ``` python
 DriverLicense.objects.aggregate(start_date=Min('issue_date'))
 ```
-- Результат:
+Результат:
 ``` python
 {'start_date': datetime.date(2015, 10, 10)}
 ```
 **NB:** необходимо сделать `from django.db.models import Min`
 
 2. Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе
-- Запрос:
+Запрос:
 ``` python
 Ownership.objects.aggregate(start_date=Max('date_start'))
 ```
-- Результат:
+Результат:
 ``` python
 {'start_date': datetime.date(2022, 10, 20)}
 ```
 **NB:** необходимо сделать `from django.db.models import Max`
 
 3. Выведите количество машин для каждого водителя
-- Запрос:
+Запрос:
 ``` python
 Ownership.objects.values('ownership_owner__username').annotate(Count('ownership_car'))
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [{'ownership_owner__username': 'bo', 'ownership_car__count': 1}, {'ownership_owner__username': 'daisy', 'ownership_car__count': 1}, {'ownership_owner__username': 'koong', 'ownership_car__count': 1}, {'ownership_owner__username': 'peach', 'ownership_car__count': 1}, {'ownership_owner__username': 'supermario', 'ownership_car__count': 1}, {'ownership_owner__username': 'yoy', 'ownership_car__count': 1}]>
 ```
 **NB:** необходимо сделать `from django.db.models import Count`
 
 4. Подсчитайте количество машин каждой марки
-- Запрос:
+Запрос:
 ``` python
 Car.objects.values('brand').annotate(Count('id'))
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [{'brand': 'Mario Kart', 'id__count': 6}>
 ```
 
 5. Отсортируйте всех автовладельцев по дате выдачи удостоверения 
-- Запрос:
+Запрос:
 ``` python
 DriverLicense.objects.values('license_owner__username').order_by('issue_date')
 ```
-- Результат:
+Результат:
 ``` python
 <QuerySet [{'license_owner__username': 'peach'}, {'license_owner__username': 'daisy'}, {'license_owner__username': 'yoyo'}, {'license_owner__username': 'bo'}, {'license_owner__username': 'koong'}, {'license_owner__username': 'supermario'}]>
 ```
