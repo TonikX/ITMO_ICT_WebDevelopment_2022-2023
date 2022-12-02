@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'site_hotel',
+    'djoser',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
