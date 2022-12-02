@@ -193,4 +193,3 @@ DriverLicense.objects.values('license_owner__username').order_by('issue_date')
 ``` python
 <QuerySet [{'license_owner__username': 'peach'}, {'license_owner__username': 'daisy'}, {'license_owner__username': 'yoyo'}, {'license_owner__username': 'bo'}, {'license_owner__username': 'koong'}, {'license_owner__username': 'supermario'}]>
 ```
-
