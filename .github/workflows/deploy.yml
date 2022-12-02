@@ -1,11 +1,11 @@
 name: Build mkdocs and deploy to GitHub Pages
 
- on:
+on:
    push:
      paths:
        - '**.md'
 
- jobs:
+jobs:
 
    build:
      name: Build docs
