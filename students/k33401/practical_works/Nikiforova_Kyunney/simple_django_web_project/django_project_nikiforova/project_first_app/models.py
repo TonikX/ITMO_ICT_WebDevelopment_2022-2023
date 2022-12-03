@@ -19,13 +19,13 @@ class Car(models.Model):
     owner = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Ownership')
 
 class Ownership(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owner')
+    car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='car')
     start_date = models.DateField()
     end_date = models.DateField()
 
 class DriversLicense(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='license_owner')
     number = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
     date = models.DateField()
