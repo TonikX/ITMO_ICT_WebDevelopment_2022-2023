@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'warriors_app'
+    'warriors_app', 
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
