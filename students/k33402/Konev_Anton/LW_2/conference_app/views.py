@@ -27,7 +27,7 @@ class ConferenceView(TemplateView):
     template_name = "conference.html"
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(conference=Conference.objects.filter(id=kwargs["id"]),
+        return super().get_context_data(conference=Conference.objects.get(id=kwargs["id"]),
                                         regestrations=ConfRegistration.objects.filter(conference_id=kwargs["id"]),
                                         comments=ConfComment.objects.filter(conference_id=kwargs['id']),
                                         reg_form=RegForm(prefix="reg"),
