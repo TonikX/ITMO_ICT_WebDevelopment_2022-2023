@@ -31,7 +31,8 @@ class HallSerializer(serializers.ModelSerializer):
 class ReaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reader
-        fields = "__all__"
+        #fields = "__all__"
+        exclude=('password', )
 
     def create(self, validated_data):
         user = Reader(
@@ -40,7 +41,7 @@ class ReaderSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
-        return user
+        return user  
 
 
 class BookRetrieveSerializer(serializers.ModelSerializer):
@@ -58,4 +59,28 @@ class ReaderRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reader
+        fields = "__all__"    
+        
+        
+        
+class ReaderBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderBook
+        fields = "__all__"
+
+    '''def create(self, validated_data):
+        user = ReaderBook(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user'''
+    
+class ReaderBookRetrieveSerializer(serializers.ModelSerializer):
+    reader_hall = HallSerializer()
+    reader_book = BookSerializer(many=True)
+
+    class Meta:
+        model = ReaderBook
         fields = "__all__"
