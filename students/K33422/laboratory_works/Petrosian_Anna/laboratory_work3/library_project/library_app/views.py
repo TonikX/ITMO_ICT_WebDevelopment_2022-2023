@@ -63,8 +63,7 @@ class ReaderRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class ReaderRetrieveAPIView(RetrieveAPIView):
     serializer_class = ReaderRetrieveSerializer
-    queryset = Reader.objects.all()
-
+    queryset = Reader.objects.all() 
 
 class BookInhallrListAPIView(ListAPIView):
     serializer_class = BookInhallSerializer
@@ -91,3 +90,23 @@ class HallRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = HallSerializer
     queryset = Hall.objects.all()
 
+
+
+class ReaderBookListAPIView(ListAPIView):
+    serializer_class = ReaderBookSerializer
+    queryset = ReaderBook.objects.all()
+
+
+class ReaderBookCreateAPIView(CreateAPIView):
+    serializer_class = ReaderBookSerializer
+    queryset = ReaderBook.objects.all()
+
+
+class ReaderBookRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ReaderBookSerializer
+    queryset = ReaderBook.objects.all()
+
+
+class ReaderRetrieveAPIView(RetrieveAPIView):
+    serializer_class = ReaderRetrieveSerializer
+    queryset = Reader.objects.all()
