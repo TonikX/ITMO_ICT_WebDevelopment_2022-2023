@@ -44,7 +44,7 @@ class Participation(models.Model):
         ('s', 'silver'),
         ('b', 'bronze'),
     )
-    medal = models.CharField(max_length=1, choices=medal_types)
+    medal = models.CharField(max_length=1, choices=medal_types, null=True, blank=True)
     rings = models.ManyToManyField('Ring', null=True, blank=True)
     vaccinated = models.DateField()
     dismissed = models.BooleanField()

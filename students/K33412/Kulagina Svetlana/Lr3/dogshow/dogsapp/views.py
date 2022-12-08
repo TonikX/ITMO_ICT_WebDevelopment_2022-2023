@@ -10,7 +10,11 @@ class ExpertAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Expert.objects.all()
 
 
-class ParticipantAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ParticipationAPIList(generics.ListCreateAPIView):
+    serializer_class = ParticipationSerializer
+    queryset = Participation.objects.all()
+
+class ParticipantAPIList(generics.ListCreateAPIView):
     serializer_class = ParticipantSerializer
     queryset = Participant.objects.all()
 

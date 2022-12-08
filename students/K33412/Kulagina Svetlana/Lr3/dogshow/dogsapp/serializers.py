@@ -9,6 +9,12 @@ class ExpertSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ParticipationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Participation
+        fields = "__all__"
+
 class ParticipantSerializer(serializers.ModelSerializer):
 
     class Meta:
