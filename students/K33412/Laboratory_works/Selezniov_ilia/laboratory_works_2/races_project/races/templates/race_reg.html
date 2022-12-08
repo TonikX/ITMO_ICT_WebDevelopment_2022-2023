@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class = "row justify-content-md-center">
+	<div class = "col-lg-5 col-sm-8 ">
+		<h4>Your registration:</h4>
+		<form class = "card card-body" action="" method="POST">
+			{% csrf_token %}
+			{{form}}
+
+			<input type="submit" name="Submit">
+			
+		</form>
+	</div>
+</div>
+</div>
+<p></p>
+
+
+{% endblock %} 
