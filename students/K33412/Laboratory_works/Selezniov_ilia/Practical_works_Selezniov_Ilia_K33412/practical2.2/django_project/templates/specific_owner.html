@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        <a href="/owners">Владельцы</a>
+        <a href="/cars">Машины</a>
+    </h3>
+
+    <p>Имя: {{Owner.first_name}}</p>
+    <p>Фамилия: {{Owner.last_name}}</p>
+
+    <a href="{{Owner.id}}/update">Edit</a>
+    <a href="{{Owner.id}}/delete">Delete</a>
+</body>
+
+</html>
