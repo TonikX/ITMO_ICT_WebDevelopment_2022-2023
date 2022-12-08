@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+<div class = "row">
+	<div class = "col-3" style="margin:10px;">
+	<a href="{% url 'registration_cr' %}" style="color:white" type="button" class="btn btn-success">Register +</a>
+	<br>
+	{% if not cars.first.car_model %}
+	<a href="{% url 'car_cr' %}" style="color:white; margin-top: 7px;" type="button" class="btn btn-success">Car +</a>
+	{% endif %}
+</div>
+</div>
+<div class = "row justify-content-md-center">
+	<div class = "col-lg-5 col-sm-8 ">
+		<h4>Your registrations:</h4>
+		{% if regs.count == 0 %}
+		<p>You don't have any regestrations yet</p>
+		{% endif %}
+		{% for reg in regs %}
+		<div id= "regFromList" class = "card card-body">
+			<h6>"{{reg.race.name}}" - {{reg.race.race_type}}</h6><small class = "font-weight-light">({{reg.race.race_date}})</small>
+			<div id="reg" class="btn-group btn-group-toggle">
+			<a href="{% url 'registration_ch' reg.id %}" style="color: white" class="btn btn-warning">Edit</a>
+			<a href="{% url 'registration_dl' reg.id %}" style="color: white" class="btn btn-danger">Delete</a>
+		</div>
+	</div>
+	<p></p>
+	{% endfor %}
+</div>
+	<div class = "col-lg-3 col-sm-4 ">
+		<h4>Your car:</h4>
+		{% if not cars.first.car_model %}
+		<p>You don't have any cars yet</p>
+		{% endif %}
+		{% if cars.first.car_model %}
+		{% for car in cars %}
+		<div id= "carFromList" class = "card card-body">
+			<h6>"{{car.car_model}}" - {{car.number}}</h6>
+			<a id="ed_car" href="{% url 'car_ch' car.id %}" style="color: white;" class="btn btn-warning">Edit</a>
+	</div>
+
+	<p></p>
+	{% endfor %}
+	{% endif %}
+</div>
+</div>
+<p></p>
+
+
+{% endblock %}
