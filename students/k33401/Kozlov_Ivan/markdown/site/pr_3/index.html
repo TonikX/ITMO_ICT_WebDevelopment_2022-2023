@@ -78,6 +78,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../lr_3/">Лабораторная №3</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -107,7 +113,7 @@
                     </li>
 		    <!--
                     <li >
-                        <a rel="prev" href="../lr_2/">
+                        <a rel="prev" href="../lr_3/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -300,13 +306,16 @@ Transport object (6)
 <ul>
 <li>Отсортируйте всех автовладельцев по дате выдачи удостоверения:</li>
 </ul>
-<pre><code class="language-python">&gt;&gt;&gt; Transport_owner.objects.order_by(&quot;docs__date_start_doc&quot;)
-&lt;QuerySet [&lt;Transport_owner: Transport_owner object (4)&gt;, 
-&lt;Transport_owner: Transport_owner object (1)&gt;, 
-&lt;Transport_owner: Transport_owner object (2)&gt;, 
-&lt;Transport_owner: Transport_owner object (3)&gt;, 
-&lt;Transport_owner: Transport_owner object (5)&gt;, 
-&lt;Transport_owner: Transport_owner object (6)&gt;]&gt;
+<pre><code class="language-python">&gt;&gt;&gt; sort_by_date = Driver_doc.objects.all().order_by(&quot;date_start_doc&quot;)
+&gt;&gt;&gt; for i in sort_by_date:
+...     needed_id = i.id_owner.id_owner
+...     print( Ownership.objects.filter(id_owner__id_owner=needed_id) )
+&lt;QuerySet [&lt;Ownership: Ownership object (4)&gt;]&gt;
+&lt;QuerySet [&lt;Ownership: Ownership object (1)&gt;]&gt;
+&lt;QuerySet [&lt;Ownership: Ownership object (2)&gt;]&gt;
+&lt;QuerySet [&lt;Ownership: Ownership object (3)&gt;]&gt;
+&lt;QuerySet [&lt;Ownership: Ownership object (5)&gt;]&gt;
+&lt;QuerySet [&lt;Ownership: Ownership object (6)&gt;]&gt;
 </code></pre>
 <hr></div>
         

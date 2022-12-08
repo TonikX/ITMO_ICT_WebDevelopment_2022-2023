@@ -12,19 +12,19 @@ from rest_framework.authentication import TokenAuthentication
 class AllClients(generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
 
 
 class AllBook(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
 
 
 class AllWorkers(generics.ListAPIView):
     queryset = Workers.objects.all()
     serializer_class = WorkersSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
 
 class AllBookWithInfoAboutRoomAndTypeRoom(generics.ListAPIView):
     queryset = Book.objects.all()
@@ -43,7 +43,7 @@ class GetCurrentWorker(APIView):
 
 class CreateBook(generics.CreateAPIView):
     serializer_class = BookSerializer
-    authentication_classes = (TokenAuthentication,)
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         today = datetime.date(datetime.now())
         book = Book.objects.filter(data_end_living__lte=today)
@@ -53,8 +53,6 @@ class CreateBook(generics.CreateAPIView):
     def post(self, request):
         serializer = BookSerializer(data=request.data)
         needed_books = Book.objects.filter(data_end_living__lte=self.request.data["data_start_living"])
-        all_rooms = Room.objects.all()
-        current_room = request.data["room"]
         if len(needed_books) == 0:
             return Response("нет свободных мест на текущую дату", status=status.HTTP_400_BAD_REQUEST)
 
