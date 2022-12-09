@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
+class Organizer(AbstractUser):
+    tel = models.CharField(verbose_name='Телефон', max_length=15, null=True, blank=True)
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'tel']
+
+    def __str__(self):
+        return self.username
+
+
 class Participant(models.Model):
     name = models.CharField(max_length=100)
     breed_types = (
@@ -29,9 +38,9 @@ class Show(models.Model):
     )
     type = models.CharField(max_length=4, choices=show_types)
     participants = models.ManyToManyField('Participant',
-                                         # through='Participation',
-                                         related_name='show_participants'
-                                        )
+                                          # through='Participation',
+                                          related_name='show_participants'
+                                          )
 
     def str(self):
         return str(self.year)

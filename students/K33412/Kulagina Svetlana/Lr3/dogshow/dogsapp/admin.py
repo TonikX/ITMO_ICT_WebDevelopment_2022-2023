@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 
+admin.site.register(Organizer)
 admin.site.register(Show)
 admin.site.register(Ring)
 admin.site.register(Expert)

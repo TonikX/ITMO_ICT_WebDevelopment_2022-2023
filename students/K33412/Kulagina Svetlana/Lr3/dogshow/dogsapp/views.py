@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.views import APIView, Response
+from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from .models import *
 from django.db.models.aggregates import Count, Sum
@@ -13,6 +14,7 @@ class ExpertAPIView(generics.RetrieveUpdateDestroyAPIView):
 class ParticipationAPIList(generics.ListCreateAPIView):
     serializer_class = ParticipationSerializer
     queryset = Participation.objects.all()
+    # permission_classes = [IsAuthenticated]
 
 class ParticipantAPIList(generics.ListCreateAPIView):
     serializer_class = ParticipantSerializer
