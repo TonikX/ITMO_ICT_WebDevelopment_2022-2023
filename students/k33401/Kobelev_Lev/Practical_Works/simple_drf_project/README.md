@@ -6,6 +6,7 @@ Install node Django and Django Rest Framework
 ```
 $ pip install django
 $ pip install djangorestframework
+$ pip install drf_yasg
 ```
 ## Available scripts
 ### Start the server
