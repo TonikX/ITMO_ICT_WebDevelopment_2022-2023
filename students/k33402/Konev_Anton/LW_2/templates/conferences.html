@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Conferences</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="conferences">
+
+        <h1>Conferences</h1>
+
+        <table>
+            <tr>
+                <th>Conferences list</th>
+            </tr>
+            {% for i in conferences %}
+                <tr>
+                    <td><a href="/conferences/{{ i.id }}">{{ i }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}
