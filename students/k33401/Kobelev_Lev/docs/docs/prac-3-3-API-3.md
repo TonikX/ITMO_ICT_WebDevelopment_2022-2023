@@ -18,3 +18,15 @@
 **Code:** `200 OK`
 
 **Content:** `{[]}`
+``` python
+[
+    {
+        "title": "Game Designer",
+        "description": "doing some strange stuff"
+    },
+    {
+        "title": "Analyst»,
+        "description": "doing some maths stuff"
+    }
+]
+```

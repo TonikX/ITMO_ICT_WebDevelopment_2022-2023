@@ -18,3 +18,21 @@
 **Code:** `200 OK`
 
 **Content:** `{[]}`
+``` python
+{
+    "id": 1,
+    "job": {
+        "title": "Game Designer",
+        "description": "doing some strange stuff"
+    },
+    "skill": [
+        {
+            "id": 1,
+            "title": "Python"
+        }
+    ],
+    "race": "s",
+    "name": "Lev Kobelev",
+    "level": 20
+}
+```
