@@ -10,11 +10,11 @@ sock.connect(host)
 for _ in range(2):
     data = sock.recv(24000)
     text = data.decode()
-    logger.info(f"Server response: {text}")
+    logger.info("Server response: %s", text)
     side = input()
     sock.send(side.encode())
 
 data = sock.recv(24000)
 c_side = data.decode()
-print(c_side)
+logger.info('side is %s', c_side)
 sock.close()

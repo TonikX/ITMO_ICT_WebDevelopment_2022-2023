@@ -15,7 +15,7 @@ try:
     sock.bind(host)
     sock.listen(10)
     client_socket, address = sock.accept()
-    logger.debug(f"Connection from {address}")
+    logger.debug("Connection from %s", address)
 
     client_socket.send(b"Calculate C side of triangle using Pythagoras theorem. Enter a side:")
     data = client_socket.recv(24000)
