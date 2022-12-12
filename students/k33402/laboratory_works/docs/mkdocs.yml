@@ -1,0 +1,9 @@
+site_name: Project documentation
+site_author: Bakhireva Irina
+nav:
+  - Home: index.md
+  - Labs:
+    - Lab 1: lr1.md
+    - Lab 2: lr2.md
+theme:
+  name: mkdocs
