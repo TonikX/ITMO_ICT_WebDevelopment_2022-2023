@@ -27,6 +27,9 @@ def register(request):
         password = request.POST["password"]
         email = request.POST["email"]
         first_name = request.POST.get("first_name", 'NaN')
+        team_name = request.POST.get("team_name", 'NaN')
+        fathername = request.POST.get("fathername", 'NaN')
+        experience = request.POST.get("experience", 'NaN')
         last_name = request.POST.get("last_name", 'NaN')
 
         confirmation = request.POST["confirmation"]
@@ -36,7 +39,11 @@ def register(request):
             })
 
         try:
-            student = Racer.objects.create_user(username, email, password)
+            if experience=='':
+                experience=0
+            student = Racer.objects.create_user(username, email, password, fathername=fathername,
+                                                team_name=team_name,
+                                                experience=experience)
             student.first_name = first_name
             student.last_name = last_name
             student.save()
@@ -132,8 +139,16 @@ class RegRaceUpdate(UpdateView):
 def make_comment(request):
     data = {}
     form = MakeComment(request.POST or None)
+    user_racer = None
+    if request.user.is_authenticated:
+        user_racer = request.user
+        # request.POST['username'] = username
+    else:
+        return None
     if form.is_valid():
-        form.save()
+        bet = form.save(commit=False)  # the bet isn't saved just yet
+        bet.username = user_racer  # you add the user here
+        bet.save()
     data['form'] = form
     return render(request, 'comment_create.html', data)
 
