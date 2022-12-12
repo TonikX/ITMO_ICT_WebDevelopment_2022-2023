@@ -1,6 +1,14 @@
 from django.http import Http404
 from django.shortcuts import render
+from django.urls import reverse
+
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render, redirect
+from django.db import IntegrityError
+
 
 from .forms import MakeComment
 from .models import *
@@ -10,8 +18,66 @@ from .models import *
 def main_page(request):
     return render(request, 'main.html')
 
+
+
+
+def register(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        email = request.POST["email"]
+        first_name = request.POST.get("first_name", 'NaN')
+        last_name = request.POST.get("last_name", 'NaN')
+
+        confirmation = request.POST["confirmation"]
+        if password != confirmation:
+            return render(request, "register_django.html", {
+                "message": "passwords do not match"
+            })
+
+        try:
+            student = Racer.objects.create_user(username, email, password)
+            student.first_name = first_name
+            student.last_name = last_name
+            student.save()
+            # homeworks = Homework.objects.all()
+            # for homework in homeworks:
+            #     assignment = Assignment(student=student, homework=homework)
+            #     assignment.save()
+        except IntegrityError:
+            return render(request, "register_django.html", {
+                "message": "username already taken"
+            })
+        login(request, student)
+        return redirect(reverse("races"))
+    else:
+        return render(request, "register_django.html")
+
+
+
+def log_in(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('races'))
+        else:
+            error_text = 'invalid credentials'
+    return render(request, 'login_django.html', locals())
+
+# @login_required
+# def log_out(request):
+#     logout(request)
+#     return redirect(reverse('logout'))
+#
+
+
+
 class RegisterUser(CreateView):
-    model = UserRacer
+    model = Racer
     fields = ['username',
               'first_name', 'last_name', 'fathername',
               'team_name',
@@ -24,7 +90,7 @@ class RegisterUser(CreateView):
 
 class UserList(ListView):
     # list view
-    model = UserRacer
+    model = Racer
     template_name = 'user_list.html'
 
 class RaceList(ListView):
