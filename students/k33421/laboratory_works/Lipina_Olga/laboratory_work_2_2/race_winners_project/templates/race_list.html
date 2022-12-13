@@ -1,9 +1,6 @@
 {% extends "base_django.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<p>Чтобы получить подробную информацию о гонке, введите
-<u>http:.../race/<b>number</b></u>,
-    где number = номер гонки.</p>
 <ul>
     <!-- Iterate over object_list -->
     {% for object in object_list %}

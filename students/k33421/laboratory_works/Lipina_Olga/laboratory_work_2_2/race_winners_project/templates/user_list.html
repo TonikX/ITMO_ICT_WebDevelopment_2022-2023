@@ -8,10 +8,9 @@
     <!-- Display Objects -->
     <li>{{ object.username }}, {{ object.first_name }} {{ object.fathername }} {{ object.last_name }}</li>
     <span>Команда {{ object.team_name }}</span> <br>
-    <span>{{ object.user_descr }}</span><br>
-    <span>Машина {{ object.car_descr }}</span><br>
+<!--    <span>Машина {{ object.car_descr }}</span><br>-->
     <span>Опыт: {{ object.experience }}</span><br>
-    <span>Класс учатсника: {{ object.type_user }}</span><br>
+<!--    <span>Класс участника: {{ object.type_user }}</span><br>-->
     <hr/>
     <!-- If objet_list is empty  -->
     {% empty %}
@@ -19,6 +18,5 @@
     {% endfor %}
 
 </ul>
-<a href="/registration/">Зарегистрироваться</a> <br>
 <a href="/main/">Get back</a> <br>
 {% endblock content %}

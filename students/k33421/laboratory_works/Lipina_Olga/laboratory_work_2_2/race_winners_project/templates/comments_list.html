@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <h2>Комментарии к гонкам</h2>
 <div class="main">
     <ol>
@@ -22,3 +25,4 @@
 
 <a href="/comments/create/">Оставить комментарий </a> <br>
 <a href="/main/">Get back</a> <br>
+{% endblock content %}
