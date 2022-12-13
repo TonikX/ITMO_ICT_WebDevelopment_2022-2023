@@ -11,7 +11,7 @@ urlpatterns = [
     path('race/<int:id_race>', get_race),
     path('main/', main_page, name='main'),
 
-    path('reg_race/list/', RegRaceList.as_view()),
+    path('reg_race/list/', reg_race_list_vies),
     path('reg_race/', login_required(RegRaceCreate.as_view()), name='reg-race'),
     path('reg_race/<int:pk>/update/', RegRaceUpdate.as_view()),
     path('reg_race/<int:pk>/delete/', RegRaceDelete.as_view()),

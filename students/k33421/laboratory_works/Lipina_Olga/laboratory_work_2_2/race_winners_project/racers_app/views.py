@@ -118,7 +118,16 @@ def get_race(request, id_race: int):
 class RegRaceList(ListView):
     # list view
     model = RegistrationRace
+
     template_name = 'reg_race_list.html'
+
+def reg_race_list_vies(request):
+    context = {
+        'reg_races': RegistrationRace.objects.filter(num_user_reg=request.user)
+    }
+    print(request.user)
+    print('--', context)
+    return render(request, 'reg_race_list.html', context)
 
 
 class RegRaceCreate(CreateView):
@@ -137,7 +146,7 @@ class RegRaceDelete(DeleteView):
 
 class RegRaceUpdate(UpdateView):
     model = RegistrationRace
-    fields = ['num_race_reg', 'num_user_reg']
+    fields = ['num_race_reg']
     template_name = 'reg_race_update.html'
     success_url = '/reg_race/list/'
 

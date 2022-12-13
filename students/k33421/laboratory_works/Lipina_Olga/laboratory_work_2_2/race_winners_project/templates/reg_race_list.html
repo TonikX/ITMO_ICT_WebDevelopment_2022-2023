@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <p>Чтобы удалить регистрацию, введите в адресную строку
 <u>http:.../reg_race/<b>number</b>/delete/</u>,
     где number = номер регистрации.</p>
@@ -9,11 +12,13 @@
 
 <ul>
     <!-- Iterate over object_list -->
-    {% for object in object_list %}
+    {% for object in reg_races %}
     <!-- Display Objects -->
     <li>{{ object.num_reg }}</li>
     <span>{{ object.num_race_reg }}</span> <br>
-    <span>{{ object.num_user_reg }}</span>
+    <span>{{ object.num_user_reg }}</span><br>
+     <span><a href="/reg_race/{{ object.num_reg }}/update/">change race</a></span><br>
+    <span><a href="/reg_race/{{ object.num_reg }}/delete/">delete race</a></span>
     <hr/>
     <!-- If objet_list is empty  -->
     {% empty %}
@@ -22,3 +27,4 @@
 
 </ul>
 <a href="/main/">Get back</a> <br>
+{% endblock content %}
