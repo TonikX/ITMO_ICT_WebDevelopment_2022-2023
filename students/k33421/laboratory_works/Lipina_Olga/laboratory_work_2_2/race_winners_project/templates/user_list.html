@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <h2>Список рейсеров</h2>
 <ul>
     <!-- Iterate over object_list -->
@@ -18,3 +21,4 @@
 </ul>
 <a href="/registration/">Зарегистрироваться</a> <br>
 <a href="/main/">Get back</a> <br>
+{% endblock content %}

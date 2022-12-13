@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <!-- auto_detail.html -->
 
 <!DOCTYPE html>
@@ -17,7 +20,10 @@
   <p><strong>2 место:</strong> {{ race.second_place }}</p>
   <p><strong>3 место:</strong> {{ race.third_place }}</p>
   <p style="background-color:rgba(75,222,82,0.93);">Если вы видите места как None, значит гонка ещё не была проведена.</p>
+
+
   <a href="/race/list/">Get back</a>
 
 </body>
 </html>
+{% endblock content %}

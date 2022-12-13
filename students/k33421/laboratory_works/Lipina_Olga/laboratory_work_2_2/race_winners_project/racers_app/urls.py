@@ -12,7 +12,7 @@ urlpatterns = [
     path('main/', main_page, name='main'),
 
     path('reg_race/list/', RegRaceList.as_view()),
-    path('reg_race/', RegRaceCreate.as_view()),
+    path('reg_race/', RegRaceCreate.as_view(), name='reg-race'),
     path('reg_race/<int:pk>/update/', RegRaceUpdate.as_view()),
     path('reg_race/<int:pk>/delete/', RegRaceDelete.as_view()),
 

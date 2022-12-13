@@ -28,6 +28,7 @@ class Racer(AbstractUser):
         return f"{self.last_name} {self.first_name}"
 
 
+
 class Race(models.Model):
     num_race = models.AutoField("Номер гонки", primary_key=True)
     name_race = models.CharField("Название гонки", max_length=50)

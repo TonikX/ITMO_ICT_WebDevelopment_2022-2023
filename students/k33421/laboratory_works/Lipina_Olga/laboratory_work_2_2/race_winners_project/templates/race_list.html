@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <p>Чтобы получить подробную информацию о гонке, введите
 <u>http:.../race/<b>number</b></u>,
     где number = номер гонки.</p>
@@ -5,7 +8,8 @@
     <!-- Iterate over object_list -->
     {% for object in object_list %}
     <!-- Display Objects -->
-    <li>{{ object.num_race }}</li>
+        <li><a href="/race/{{ object.num_race }}">{{ object.num_race }}</a></li>
+
     <span>{{ object.name_race }}</span>
     <hr/>
     <!-- If objet_list is empty  -->
@@ -14,5 +18,13 @@
     {% endfor %}
 
 </ul>
+  {% if user.is_authenticated %}
 <a href="/reg_race/">Присоединиться к гонке</a><br>
+<a class="nav-item nav-link" href="{% url 'logout' %}">Выход</a>
+  {% else %}
+<span>Чтобы присоединиться к гонке, нужно авторизоваться в системе:</span>
+    <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
+    <a class="nav-item nav-link" href="{% url 'reg' %}">Регистрация</a>
+  {% endif %}
 <a href="/main/">Get back</a> <br>
+{% endblock content %}

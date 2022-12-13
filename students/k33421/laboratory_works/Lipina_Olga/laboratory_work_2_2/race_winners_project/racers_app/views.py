@@ -136,6 +136,7 @@ class RegRaceUpdate(UpdateView):
     template_name = 'reg_race_update.html'
     success_url = '/reg_race/list/'
 
+@login_required
 def make_comment(request):
     data = {}
     form = MakeComment(request.POST or None)
