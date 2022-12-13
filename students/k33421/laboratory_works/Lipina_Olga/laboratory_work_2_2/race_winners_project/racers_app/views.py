@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.shortcuts import render, redirect
 from django.db import IntegrityError
@@ -119,11 +120,15 @@ class RegRaceList(ListView):
     model = RegistrationRace
     template_name = 'reg_race_list.html'
 
+
 class RegRaceCreate(CreateView):
   model = RegistrationRace
   template_name = 'reg_race_form.html'
-  fields = ['num_race_reg', 'num_user_reg']
+  fields = ['num_race_reg']
   success_url = '/reg_race/list/'
+  def form_valid(self, form):
+    form.instance.num_user_reg = self.request.user
+    return super().form_valid(form)
 
 class RegRaceDelete(DeleteView):
     model = RegistrationRace

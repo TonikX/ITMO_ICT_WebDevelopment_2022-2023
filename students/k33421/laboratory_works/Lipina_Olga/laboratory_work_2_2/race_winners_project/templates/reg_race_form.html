@@ -1,3 +1,6 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
 <form method="POST" enctype="multipart/form-data">
 
     <!-- Security token -->
@@ -9,3 +12,4 @@
     <input type="submit" value="Submit">
 </form>
 <a href="/reg_race/list/">К списку регистраций</a><br>
+{% endblock content %}
