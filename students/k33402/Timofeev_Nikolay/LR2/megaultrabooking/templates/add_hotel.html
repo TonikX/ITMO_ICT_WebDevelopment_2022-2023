@@ -1,0 +1,9 @@
+<h1>Добавить отель</h1>
+
+<a href="/hotels">Обратно к списку отелей</a>
+
+<form action="{% url 'add_hotel' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить отель</button>
+</form>

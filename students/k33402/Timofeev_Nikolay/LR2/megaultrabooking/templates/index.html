@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <a href="{% url 'hotels_list' %}" class="btn btn-primary">Отели</a>
+    <a href="{% url 'personal' %}" class="btn btn-primary">Личный кабинет</a>
+</div>  
+{% endblock %}

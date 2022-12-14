@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+<a href="/hotels">Обратно к списку отелей</a>
+
+{% block auth %}{% endblock %}
+
+{% block content %}
+<form method="post">
+    <h2>Регистрация нового пользователя</h2>
+    {% csrf_token %}
+    <label for="username" style="display: block;">Username:</label>
+    {{ form.username }}
+    <label for="password" style="display: block;">Password:</label>
+    {{ form.password }}
+
+    <button type="submit" style="display: block;">Submit</button>
+</form>
+{% endblock %}

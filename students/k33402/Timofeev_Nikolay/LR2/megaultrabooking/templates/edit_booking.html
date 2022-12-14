@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Изменить бронирование{% endblock %}
+
+{% block content %}
+<h1>Редактирование бронирования: {{booking}}</h1>
+
+<form method="post" action="">
+  {% csrf_token %}
+
+  <div class="form-check">
+    <label for="cancel">Отменить бронирование?</label>
+    {{ form.cancel }}
+  </div>
+
+  <div class="form-group">
+    <label for="ts_start">Дата начала бронирования:</label>
+    {{ form.ts_start }}
+  </div>
+
+  <div class="form-group">
+    <label for="ts_end">Дата конца бронирования:</label>
+    {{ form.ts_end }}
+  </div>
+
+  <input type="submit" value="Сохранить" class="btn btn-primary">
+</form>
+
+{% endblock %}

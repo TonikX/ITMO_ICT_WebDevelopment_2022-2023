@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}ЛК{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Профиль пользователя:</h2>
+{% if user.is_authenticated %}
+    <p class="text-center">ID: {{user.id}} | На сайте с {{user.date_joined}} | {{user.type}}</p>
+    <h3 class="text-center">Бронирования:</h3>
+    <div class="card-deck">
+    {% for booking in bookings %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><a href='/hotels/{{booking.room.hotel.id}}/rooms/'>{{ booking.room.hotel.name }}</a> <a href='/hotels/{{booking.room.hotel.id}}/rooms/{{booking.room.id}}/reviews/'>({{ booking.room.room_type }})</a></h5>
+                <p class="card-text">Статус: {{ booking.get_state_display }} Сроки: {{ booking.ts_start }} - {{ booking.ts_end }}. Цена {{booking.price}} рублей</p>
+                {% if booking.canceled %}
+                    <a href="/bookings/{{booking.id}}/edit" class="btn btn-primary disabled">Изменить</a>
+                {% elif booking.is_past_due  %}
+                    <a href="/bookings/{{booking.id}}/review" class="btn btn-primary">Оценить</a>
+                {% else %}
+                    <a href="/bookings/{{booking.id}}/edit" class="btn btn-primary">Изменить</a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    Сначала авторизуйтесь!
+{% endif %}
+{% endblock %}

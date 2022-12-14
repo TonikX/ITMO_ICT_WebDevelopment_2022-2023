@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Отели{% endblock %}
+
+{% block content %}
+<h1>Все брони:</h1>
+{% if user.is_authenticated %}
+    {% for booking in bookings %}
+    <a>{{ booking.room.room_type }}:</a>
+    Жилец: {{ booking.user.username }}. Сроки: {{ booking.ts_start }} - {{ booking.ts_end }}
+    <hr>
+    {% endfor %}
+{% else %}
+    Сначала авторизуйтесь!
+{% endif %}
+{% endblock %}

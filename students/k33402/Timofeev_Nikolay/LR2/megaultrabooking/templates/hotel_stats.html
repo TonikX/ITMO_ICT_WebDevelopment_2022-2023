@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Hotel Stats{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Booking Statistics for {{ hotel.name }}</h1>
+
+    <h2 class="text-center">За последний месяц:</h2>
+
+    <ul class="text-center">
+        <li>Количество броней: {{ booking_statistics.booking_count }}</li>
+        <li>Прибыль: {{ booking_statistics.total_revenue }}</li>
+    </ul>
+
+    <h2 class="text-center">Постояльцы:</h2>
+    
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Комната</th>
+                <th>Посетитель</th>
+                <th>Итоговая цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visitor in visitors %}
+            <tr>
+                <td>{{ visitor.room }}</td>
+                <td>{{ visitor.user }}</td>
+                <td>{{ visitor.price }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>Никто ничего не бронировал!</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
