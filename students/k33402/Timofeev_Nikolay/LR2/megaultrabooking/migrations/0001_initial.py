@@ -30,9 +30,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 (
                     "is_superuser",
@@ -44,21 +42,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="first name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="first name"),
                 ),
                 (
                     "last_name",
-                    models.CharField(
-                        blank=True, max_length=150, verbose_name="last name"
-                    ),
+                    models.CharField(blank=True, max_length=150, verbose_name="last name"),
                 ),
                 (
                     "email",
-                    models.EmailField(
-                        blank=True, max_length=254, verbose_name="email address"
-                    ),
+                    models.EmailField(blank=True, max_length=254, verbose_name="email address"),
                 ),
                 (
                     "is_staff",
@@ -78,9 +70,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "date_joined",
-                    models.DateTimeField(
-                        default=django.utils.timezone.now, verbose_name="date joined"
-                    ),
+                    models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined"),
                 ),
                 ("username", models.CharField(max_length=255, unique=True)),
                 ("password", models.CharField(max_length=255)),
@@ -226,15 +216,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name="booking",
             name="room",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to="megaultrabooking.room"
-            ),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to="megaultrabooking.room"),
         ),
         migrations.AddField(
             model_name="booking",
             name="user",
-            field=models.ForeignKey(
-                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
-            ),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
     ]

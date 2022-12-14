@@ -8,14 +8,14 @@ from django.contrib.auth.models import AbstractUser
 
 
 class UserType(models.TextChoices):
-    LANDLORD = ('LL', 'Landlord')
-    RENTER = ('RR', 'Renter')
+    LANDLORD = ("LL", "Landlord")
+    RENTER = ("RR", "Renter")
 
 
 class RoomType(models.TextChoices):
-    SINGLE = ('S', "Single Person")
-    TWOBEDS = ('TB', "Two Bedrooms")
-    LUX = ('LUX', "President Residence")
+    SINGLE = ("S", "Single Person")
+    TWOBEDS = ("TB", "Two Bedrooms")
+    LUX = ("LUX", "President Residence")
 
 
 class User(AbstractUser):
@@ -42,31 +42,24 @@ class Hotel(models.Model):
         last_month_end = datetime.datetime.now()
 
         bookings = Booking.objects.filter(
-            room__hotel_id=self.id,
-            ts_start__gte=last_month_start,
-            ts_end__lt=last_month_end
+            room__hotel_id=self.id, ts_start__gte=last_month_start, ts_end__lt=last_month_end
         )
 
         revenue = 0
         for b in bookings:
             revenue += b.price
 
-        return {
-            'booking_count': bookings.count(),
-            'total_revenue': revenue
-        }
+        return {"booking_count": bookings.count(), "total_revenue": revenue}
 
     def get_last_month_visitors(self):
         last_month_start = datetime.datetime.now() - relativedelta(months=1)
         last_month_end = datetime.datetime.now()
 
         bookings = Booking.objects.filter(
-            room__hotel_id=self.id,
-            ts_start__gte=last_month_start,
-            ts_end__lt=last_month_end
+            room__hotel_id=self.id, ts_start__gte=last_month_start, ts_end__lt=last_month_end
         )
 
-        visitor_ids = bookings.values_list('user_id', flat=True)
+        visitor_ids = bookings.values_list("user_id", flat=True)
         visitors = User.objects.filter(id__in=visitor_ids)
 
         return bookings
@@ -98,9 +91,9 @@ class Room(models.Model):
 
 
 class BookingState(models.TextChoices):
-    PENDING = ('PD', 'Ожидает')
-    CANCELED = ('CL', 'Отменено')
-    FINISHED = ('FN', 'Прошедшее')
+    PENDING = ("PD", "Ожидает")
+    CANCELED = ("CL", "Отменено")
+    FINISHED = ("FN", "Прошедшее")
 
 
 class Booking(models.Model):
@@ -123,9 +116,10 @@ class Booking(models.Model):
         days = (self.ts_end - self.ts_start).days
         return int(self.room.price * days)
 
-
     def __str__(self) -> str:
-        return f"{self.room.hotel.name}: {self.room.room_type} ({self.user.username}, С {self.ts_start} ПО {self.ts_end})"
+        return (
+            f"{self.room.hotel.name}: {self.room.room_type} ({self.user.username}, С {self.ts_start} ПО {self.ts_end})"
+        )
 
 
 class Review(models.Model):

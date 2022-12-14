@@ -4,7 +4,7 @@ from megaultrabooking.models import UserType
 
 
 class Command(BaseCommand):
-    help = 'Creates groups for the different user types.'
+    help = "Creates groups for the different user types."
 
     def handle(self, *args, **options):
         for user_type in UserType:
