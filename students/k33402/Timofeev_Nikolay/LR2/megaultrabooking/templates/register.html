@@ -6,14 +6,19 @@
 {% block auth %}{% endblock %}
 
 {% block content %}
-<form method="post">
-    <h2>Регистрация нового пользователя</h2>
-    {% csrf_token %}
-    <label for="username" style="display: block;">Username:</label>
-    {{ form.username }}
-    <label for="password" style="display: block;">Password:</label>
-    {{ form.password }}
-
-    <button type="submit" style="display: block;">Submit</button>
-</form>
+<div class="container" style="text-align:center;">
+    <form method="post">
+      <h2>Регистрация нового пользователя</h2>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="username">Логин:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="password">Пароль:</label>
+        {{ form.password }}
+      </div>
+      <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </form>
+  </div>
 {% endblock %}

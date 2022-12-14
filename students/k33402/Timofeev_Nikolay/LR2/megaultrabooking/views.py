@@ -51,7 +51,9 @@ def add_hotel(request):
     if request.method == "POST":
         form = HotelForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_hotel = form.save(commit=False)
+            new_hotel.owner = request.user
+            new_hotel.save()
             return redirect("/hotels/")
     else:
         form = HotelForm()

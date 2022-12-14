@@ -13,7 +13,7 @@ class UserForm(ModelForm):
 class HotelForm(ModelForm):
     class Meta:
         model = Hotel
-        fields = ["name", "owner", "address", "description"]
+        fields = ["name", "address", "description"]
 
 
 class RoomForm(ModelForm):
