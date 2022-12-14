@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'scenarios_app',
     'django_extensions',
-    'django.contrib.admindocs',
     'rest_framework.authtoken',
     'djoser',
 ]
