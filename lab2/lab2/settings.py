@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.homeworks',
     'apps.subjects',
     'apps.submissions',
+    'apps.users',
     'apps.groups',
 ]
 

@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 from apps.homeworks.urls import urlpatterns as hw_urls
+from apps.users.urls import urlpatterns as users_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('homeworks/', include(hw_urls))
+    path('homeworks/', include(hw_urls)),
+    path('users/', include(users_urls)),
+
 ]
