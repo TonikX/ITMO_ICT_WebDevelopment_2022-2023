@@ -1,7 +1,7 @@
 from django.urls import path
 
-from apps.homeworks.views import HomeworksView
+from apps.homeworks.views import ListHomeworksView
 
 urlpatterns = [
-    path('', HomeworksView.as_view(), name='home')
+    path('', ListHomeworksView.as_view(), name='home')
 ]
