@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for homework in homeworks %}
+        {{ homework.date_start }}
+        {{ homework.date_end }}
+        {{ homework.name }}
+        {{ homework.task }}
+        {{ homework.punishment }}
+    {% endfor %}
+{% endblock %}
