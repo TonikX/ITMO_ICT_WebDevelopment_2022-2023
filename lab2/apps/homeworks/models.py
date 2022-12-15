@@ -6,6 +6,9 @@ from apps.subjects.models import Subject
 
 
 class Homework(models.Model):
+    name = models.CharField(
+        max_length=150
+    )
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE
@@ -18,8 +21,11 @@ class Homework(models.Model):
         blank=True
     )
     task = models.CharField(
-        max_length=300
+        max_length=500
     )
     punishment = models.CharField(
         max_length=300
     )
+
+    def __str__(self):
+        return self.name

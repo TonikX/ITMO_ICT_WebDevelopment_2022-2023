@@ -5,6 +5,9 @@ from apps.subjects.models import Subject
 
 
 class Group(models.Model):
+    name = models.CharField(
+        max_length=10
+    )
     subject = models.ForeignKey(
         Subject,
         on_delete=models.CASCADE
@@ -18,3 +21,6 @@ class Group(models.Model):
         User,
         related_name='groups'
     )
+
+    def __str__(self):
+        return self.name
