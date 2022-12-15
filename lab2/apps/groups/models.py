@@ -15,11 +15,11 @@ class Group(models.Model):
     teacher = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='groups'
+        related_name='groups_teaching'
     )
     students = models.ManyToManyField(
         User,
-        related_name='groups'
+        related_name='groups_studying'
     )
 
     def __str__(self):
