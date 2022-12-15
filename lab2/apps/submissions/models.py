@@ -13,6 +13,9 @@ class Submission(models.Model):
         User,
         on_delete=models.CASCADE,
     )
+    content = models.CharField(
+        max_length=1000
+    )
     mark = models.PositiveSmallIntegerField(
         null=True,
         blank=True
