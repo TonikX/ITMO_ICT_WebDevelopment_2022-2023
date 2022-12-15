@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div>
+    <h1>Домашние задания</h1>
+    <table>
+        <tr>
+            <td>Название</td>
+            <td>Дата выдачи</td>
+            <td>Дедлайн</td>
+            <td>Задание</td>
+            <td>Наказание</td>
+            <td>Ссылка на сдачу</td>
+        </tr>
+
     {% for homework in homeworks %}
-        {{ homework.date_start }}
-        {{ homework.date_end }}
-        {{ homework.name }}
-        {{ homework.task }}
-        {{ homework.punishment }}
+        <tr>
+            <td>{{ homework.name }}</td>
+            <td>{{ homework.date_start }}</td>
+            <td>{{ homework.date_end }}</td>
+            <td>{{ homework.task }}</td>
+            <td>{{ homework.punishment }}</td>
+            <td><a href="{% url 'submit' homework.id %}">Сдать</a></td>
+        </tr>
     {% endfor %}
+    </table>
+    </div>
 {% endblock %}
+
+
