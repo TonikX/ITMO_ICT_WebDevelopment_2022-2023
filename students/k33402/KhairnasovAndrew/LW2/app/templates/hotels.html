@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Hotels Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="hotels">
+
+        <h1>HOTELS!</h1>
+
+        <table>
+            <tr>
+                <th>Hotel list</th>
+            </tr>
+            {% for i in hotels %}
+                <tr>
+                    <td><a href="/hotels/{{ i.id }}">{{ i }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}
