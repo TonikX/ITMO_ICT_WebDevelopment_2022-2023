@@ -13,12 +13,16 @@
         <strong>Начинается: </strong>{{ tour.start_date }} <br>
         <strong>Заканчивается: </strong>{{ tour.end_date }} <br>
         <strong>Страна: </strong>{{ tour.country }} <br>
-        <strong>Метод оплаты: </strong>{{ tour.paid_with }} <br><br>
         <a href="/profile">Вернуться в личный кабинет</a></br>
         <a href="/main">Главная страница</a></br>
-        <a > </a></br>
-        <a > </a></br>
 
+            {% for comment in tour.comments %}
+             <strong>Ник: </strong>{{comment.username}} <br>
+             <strong>Воспользовался услугой от: </strong>{{comment.start_date}} <br>
+             <strong>До: </strong>{{comment.end_date}} <br>
+             <strong>Оценка: </strong>{{comment.user_rating}} <br>
+             <strong>Комментарий: </strong>{{comment.comment}} <br><br>
+            {% endfor %}
     {% endfor %}
 </div>
 </body>

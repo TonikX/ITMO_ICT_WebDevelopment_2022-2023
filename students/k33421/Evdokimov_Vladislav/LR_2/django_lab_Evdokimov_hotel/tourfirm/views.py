@@ -57,7 +57,7 @@ class CreateReservation(CreateView):
     model = Reservation
     template_name = 'reservation.html'
     context_object_name = 'reservation'
-    success_url = '/profile'
+    success_url = '/profilereservations'
 
     def get_initial(self):
         initial = super(CreateReservation, self).get_initial()
@@ -72,14 +72,14 @@ class UpdateReserveView(UpdateView):
     fields = ['start_date', 'end_date']
     template_name = 'upreservation.html'
     context_object_name = 'reservation'
-    success_url = '/profile'
+    success_url = '/profilereservations'
 
 
 class DeleteReserveView(DeleteView):
     model = Reservation
     template_name = 'delreservation.html'
     context_object_name = 'reservation'
-    success_url = '/profile'
+    success_url = '/profilereservations'
 
 
 def reservedtourlist(request):
@@ -103,6 +103,10 @@ def commentlist(request):
 
 def tourlist(request):
     visual = {"tours": Tour.objects.all()}
+    for i in range(len(visual['tours'])):
+        tour = visual['tours'][i]
+        comments = Feedback.objects.filter(tour=tour)
+        visual['tours'][i].comments = comments
     return render(request, 'tours.html', visual)
 
 
@@ -111,12 +115,13 @@ class CreateComment(CreateView):
     model = Feedback
     template_name = 'comment.html'
     context_object_name = 'comment'
-    success_url = '/comments'
+    success_url = '/tours'
 
     def get_initial(self):
         initial = super(CreateComment, self).get_initial()
         initial = initial.copy()
         initial['username'] = self.request.user.pk
+        initial['tour'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
         return initial
 
 

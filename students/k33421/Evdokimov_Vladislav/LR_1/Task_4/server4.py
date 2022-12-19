@@ -3,7 +3,6 @@ import socket
 
 connections = []
 
-
 async def handle_client(client, address):
     request = None
     while request != 'покинуть':

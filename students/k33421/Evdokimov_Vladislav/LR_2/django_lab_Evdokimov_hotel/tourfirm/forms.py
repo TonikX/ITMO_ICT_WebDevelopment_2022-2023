@@ -23,6 +23,7 @@ class CreateCommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateCommentForm, self).__init__(*args, **kwargs)
         self.fields['username'].disabled = True
+        self.fields['tour'].disabled = True
 
 
 class CreateReservationForm(forms.ModelForm):
@@ -34,3 +35,4 @@ class CreateReservationForm(forms.ModelForm):
         super(CreateReservationForm, self).__init__(*args, **kwargs)
         self.fields['username'].disabled = True
         self.fields['tour'].disabled = True
+

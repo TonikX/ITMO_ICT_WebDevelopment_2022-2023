@@ -9,8 +9,7 @@
 
      {% for reservation in reservation_list %}
 
-     <strong>Тур: </strong>{{ reservation.naming }} <br>
-     <strong>Уникальный код: </strong>{{ reservation.tour }} <br>
+     <strong>Тур: </strong>{{ reservation.tour }} <br>
      <strong>Начало брони: </strong>{{ reservation.start_date }} <br>
      <strong>Конец брони: </strong>{{ reservation.end_date }} <br>
      <strong>Статус брони: </strong>{{ reservation.status|yesno:"Забронировано!,Ждите подтверждения"  }}<br/>
@@ -19,7 +18,7 @@
      <a href="/profilereservations/deletereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Удалить резерв</button></a>
      <a href="/profilereservations/updatereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Обновить дату резерва</button></a>
          <a href="/tours/"><button class="btn btn-secondary">Туры</button></a>
-         <a href="/createcomment/"><button class="btn btn-secondary">Оставить отзыв</button></a>
+         <a href="/createcomment/{{ reservation.id }}/"><button class="btn btn-secondary">Оставить отзыв</button></a>
 
      <br><br><br>
      {% empty %}

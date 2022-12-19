@@ -32,5 +32,3 @@ if __name__ == '__main__':
     clint = Client(53330)
     th_1, th_2 = Thread(target=clint.send), Thread(target=clint.get)
     th_1.start(), th_2.start()
-
-

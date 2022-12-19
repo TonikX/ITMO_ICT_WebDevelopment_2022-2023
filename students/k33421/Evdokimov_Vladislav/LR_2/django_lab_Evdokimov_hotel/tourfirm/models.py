@@ -13,14 +13,15 @@ class User(AbstractUser):
 
 
 class Tour(models.Model):
-    payment_by = [('Наличные', 'Наличные'), ('Онлайн оплата', 'Онлайн оплата')]
     naming = models.CharField(max_length=50, null=False)
     country = models.CharField(max_length=30, null=False)
     city = models.CharField(max_length=30, null=False)
     description = models.CharField(max_length=2000, null=False)
-    paid_with = models.CharField(max_length=13, choices=payment_by)
     start_date = models.DateField()
     end_date = models.DateField()
+
+    def __str__(self):
+        return self.naming
 
 
 class Feedback(models.Model):
@@ -39,9 +40,7 @@ class Feedback(models.Model):
 class Reservation(models.Model):
     User = get_user_model()
     username = models.ForeignKey('User', on_delete=models.CASCADE)
-    tour = models.ForeignKey('Tour', on_delete=models.CASCADE)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     status = models.BooleanField(null=True)
-
-
+    tour = models.ForeignKey('Tour', on_delete=models.CASCADE)
