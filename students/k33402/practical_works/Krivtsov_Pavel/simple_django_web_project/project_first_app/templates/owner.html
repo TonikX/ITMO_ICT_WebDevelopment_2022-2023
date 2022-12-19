@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owner</title>
+</head>
+<body>
+<h1>{{ owner.username }}</h1>
+
+<p>Имя: {{owner.first_name}}, Фамилия: {{owner.second_name}}</p>
+
+{% if owner.date_of_birth %}
+<p>Дата рождения: {{ owner.date_of_birth }}</p>
+{% endif %}
+
+{% if owner.passport_number %}
+<p>Номер паспорта: {{ owner.passport_number }}</p>
+{% endif %}
+
+{% if owner.nationality %}
+<p>Национальность: {{ owner.nationality }}</p>
+{% endif %}
+
+{% if owner.address %}
+<p>Адрес: {{ owner.address }}</p>
+{% endif %}
+</body>
+</html>

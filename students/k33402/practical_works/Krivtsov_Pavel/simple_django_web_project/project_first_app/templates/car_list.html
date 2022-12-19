@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of cars</title>
+</head>
+<body>
+<ul>
+    {% for object in object_list %}.
+
+    <h3>{{ object.make }} {{ object.model }}</h3>
+    <p>Регистрационный номер: {{ object.state_number }}</p>
+    <p>Цвет: {{ object.color }}</p>
+    <hr/>
+
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

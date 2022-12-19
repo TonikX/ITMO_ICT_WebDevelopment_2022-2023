@@ -1,0 +1,8 @@
+site_name: UpaffyWeb
+
+nav:
+    - Home: index.md
+    - Lab №1: labs/lr1.md
+
+theme:
+  name: lux
