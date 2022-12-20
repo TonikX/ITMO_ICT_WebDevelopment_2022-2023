@@ -10,7 +10,7 @@ urlpatterns = [
     path('users/list/', UserListAPIView.as_view()),
     path('user/<int:pk>/', UserRetrieveAPIView.as_view()),
     path('user/create/', UserCreateAPIView.as_view()),
-    path('user/delete/', UserDestroyAPIView.as_view()),
+    path('user/delete/<int:pk>/', UserDestroyAPIView.as_view()),
     path('user/edit/<int:pk>/', UserUpdateAPIView.as_view()),
     path('enroll/create/', EnrollCreateAPIView.as_view()),
     path('enroll/delete/<int:pk>/', DeleteEnrolledEventAPIView.as_view()),

@@ -15,6 +15,11 @@ class EventCreateAPIView(CreateAPIView):
     queryset = Event.objects.all()
 
 
+class UserDestroyAPIView(DestroyAPIView):
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
+
+
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
