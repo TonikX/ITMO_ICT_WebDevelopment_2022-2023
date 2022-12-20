@@ -5,4 +5,4 @@ from .models import CarOwner
 class CreateCarOwner(forms.ModelForm):
     class Meta:
         model = CarOwner
-        fields = ['lastname', 'first_name', 'birthday', 'passport', 'address', 'nationality']
+        fields = ['owner_id', 'last_name', 'first_name', 'birthday', 'passport', 'address', 'nationality']

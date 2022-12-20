@@ -41,14 +41,14 @@ def create_car_owner(request):
 
 class CarCreate(CreateView):
     model = Car
-    fields = ['state_number', 'make_car', 'model_car', 'colour']
+    fields = ['car_id', 'state_number', 'make_car', 'model_car', 'colour']
     template_name = 'create_car.html'
     success_url = '/cars/'
 
 
 class CarUpdate(UpdateView):
     model = Car
-    fields = ['state_number', 'make_car', 'model_car', 'colour']
+    fields = ['car_id', 'state_number', 'make_car', 'model_car', 'colour']
     template_name = 'update_car.html'
     success_url = '/cars/'
 
