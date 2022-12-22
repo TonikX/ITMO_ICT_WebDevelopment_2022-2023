@@ -214,7 +214,7 @@ https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=shari
 ## Практическая работа №4.2
 
 Цель работы: получить представление о работе Vue.js.
-[Текст "Практической работы №4.2]() - дорабатывается, будет выложен 18.12.2022.
+[Текст "Практической работы №4.2](https://docs.google.com/document/d/1kSXkW6Vcis8z-TunNALcapCVmMHps3jaDdIP4rZkV9E/edit?usp=sharing).
 
 ## Практическая работа №4.3
 
@@ -229,7 +229,7 @@ https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=shari
 
 Порядок выполнения работы:<br>
 1.	Выполнить практическую работу 4.1 Базовые конструкции языка JavaScript). (https://docs.google.com/document/d/1lurVq_ddbKQ-rORvxF3T9PlPPy-sOgHwFazCI0yEqYY/edit?usp=sharing)
-2.	Выполнить практическую работу 4.2. Работа с Vue.JS. (https://docs.google.com/document/d/1ZURAlewVuJFSX4YjjB-BvVsVwfF5IbXFH8zj2g8CgPY/edit?usp=sharing)
+2.	Выполнить практическую работу 4.2. Работа с Vue.JS. (https://docs.google.com/document/d/1kSXkW6Vcis8z-TunNALcapCVmMHps3jaDdIP4rZkV9E/edit?usp=sharing)
 3.	Настроить для серверной части, реализованной в лабораторной работе №3 CORS (Cross-origin resource sharing) в соответствии [с Практической работой 4.3](https://docs.google.com/document/d/1diaE5abmxSYEpLCwAp-or9c_h11-wR8ZSGQl3_b0nsc/edit?usp=sharing)
 4.	Утвердить с одним из преподавателей список интерфейсов для взаимодействия с серверной частью в соответствии с вашей предметной областью (**это очень важный пункт, тк бывает такое, что не все студенты понимают суть своих вариантов**).
 5.	Реализовать интерфейсы авторизации, регистрации и изменения учётных данных и настроить взаимодействие с серверной частью.
