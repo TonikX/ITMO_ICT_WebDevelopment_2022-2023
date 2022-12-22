@@ -1,6 +1,12 @@
+---
+description: Реализация серверной части на django rest. Документирование API.
+---
+
 # Лабораторная работа 3
 
-models.py
+Цель работы: овладеть практическими навыками реализации серверной части (backend) приложений средствами Django REST framework.
+
+* models.py
 
 ```
 from django.db import models
@@ -81,7 +87,7 @@ class AirlineAdministration(models.Model):
     clearance = models.BooleanField(default=True, verbose_name="Допуск")
 ```
 
-urls.py
+* urls.py
 
 ```
 from django.urls import path
@@ -134,7 +140,7 @@ urlpatterns = [
 ]
 ```
 
-view.py
+* view.py
 
 ```
 @@ -0,0 +1,279 @@
@@ -419,7 +425,7 @@ class PaymentOrderRUDAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PaymentOrderViewSerializer
 ```
 
-apps.py
+* apps.py
 
 ```
 from django.contrib import admin
