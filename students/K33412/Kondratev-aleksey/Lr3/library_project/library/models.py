@@ -68,9 +68,14 @@ class ReaderRoom(models.Model):
     date = models.DateField(verbose_name='Дата закрепления зала', null=True)
 
 
+class BookInst(models.Model):
+    inst = models.ForeignKey('Instance', verbose_name='Экземпляр', on_delete=CASCADE)
+    book = models.ForeignKey('Book', verbose_name='Книга', on_delete=CASCADE)
+
+
 class ReaderBook(models.Model):
     reader = models.ForeignKey('Reader', verbose_name='Читатель', on_delete=CASCADE)
-    book = models.ForeignKey('Instance', verbose_name='Книга', on_delete=CASCADE)
+    book = models.ForeignKey('Instance', verbose_name='Экземпляр', on_delete=CASCADE)
     date = models.DateField(verbose_name='Дата выдачи экземпляра книги', null=True)
 
 

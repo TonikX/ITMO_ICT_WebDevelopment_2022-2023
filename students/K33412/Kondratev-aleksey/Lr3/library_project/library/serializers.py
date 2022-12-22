@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import serializers
 from .models import *
 
@@ -46,3 +47,21 @@ class ReaderRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReaderRoom
         fields = "__all__"
+
+
+class BookInstSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookInst
+        fields = "__all__"
+
+
+class ReaderInstsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reader
+        fields = ["instances"]
+
+
+class RecentlyBookDateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderBook
+        fields = ["reader"]

@@ -14,7 +14,10 @@ urlpatterns = [
     path('rooms/list/', RoomListAPIView.as_view()),
     path('rooms/create/', RoomCreateAPIView.as_view()),
     path('rooms/<int:pk>/', OneRoom.as_view()),
-    path('book/inst/', BookInstance.as_view()),
+    path('book/readers/', BookReaders.as_view()),
     path('book/room/', RoomBook.as_view()),
-    path('book/readers/', RoomReader.as_view()),
+    path('room/readers/', RoomReader.as_view()),
+    path('book/inst/', BookInst.as_view()),
+    path('readers/inst/<int:pk>', ReadersInst.as_view()),
+    path('book/recently/', RecentlyBookDate.as_view()),
 ]
