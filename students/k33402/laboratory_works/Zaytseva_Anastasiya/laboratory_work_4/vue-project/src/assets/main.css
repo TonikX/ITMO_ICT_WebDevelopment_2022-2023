@@ -1,0 +1,35 @@
+:root {
+  --bg-color: #FFF;
+  --text-color: #111;
+  --text-color-muted: #333;
+}
+
+.logo {
+  object-fit: contain;
+}
+
+body, .dropdown-menu.show, .btn-outline-dark, .dropdown-item {
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+svg > * {
+  stroke: var(--text-color);
+}
+
+a, .link-dark, .link-dark:focus, .link-dark:hover {
+  color: var(--text-color) !important;
+}
+
+.breadcrumb-item.active {
+  color: var(--text-color-muted);
+}
+
+.btn-outline-dark {
+  border-color: var(--text-color);
+}
+
+.card {
+  background: transparent;
+  color: var(--text-color);
+}

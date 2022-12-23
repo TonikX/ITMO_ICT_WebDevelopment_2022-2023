@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы - Авиатабло</title>
+</head>
+<body>
+    <h1>Отзывы о рейсе {{flight.flight_number}}</h1>
+    <table border="2" cellspacing="0" bordercolor="black">
+        <thead>
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <th>id</th>
+                {% endif %}
+                <th>Оценка</th>
+                <th>Текст отзыва</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}.
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <td>{{review.id}}</td>
+                {% endif %}
+                <td>{{review.rating}}</td>
+                <td>{{review.text}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/table">Назад</a>
+</body>
+</html>

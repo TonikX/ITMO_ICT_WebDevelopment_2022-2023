@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отменить резервирование {{ object.ticket_number }} - Авиатабло</title>
+</head>
+<body>
+    <h1>Отменить резервирование {{ object.ticket_number }}</h1>
+    <form method="post">{% csrf_token %}
+        <p>Вы точно хотите отменить резервирование {{ object.ticket_number }}?</p>
+        <input type="submit" value="Confirm">
+      </form>
+    <a href="/">Назад</a>
+</body>
+</html>
