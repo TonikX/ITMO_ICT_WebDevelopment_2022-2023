@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+        <form method="POST" class="d-flex flex-column col-lg-6">
+            <h6 class="text-muted">Описание работы:</h6>
+            <span>{{ homework_answer.homework.task_description }}</span>
+            <h6 class="text-muted mt-1">Ответ:</h6>
+            <span>{{ homework_answer.answer }}</span>
+            <h6 class="text-muted mt-1">От:</h6>
+            <span>{{ homework_answer.student }}</span>
+            <h6 class="text-muted mt-1">Группа:</h6>
+            <span>{{ homework_answer.student.student_group }}</span>
+            <h6 class="text-muted mt-1">Прислан:</h6>
+            <span>{{ homework_answer.date }}</span>
+            <h6 class="text-muted mt-1">Работа выдана:</h6>
+            <span>{{ homework_answer.homework.start_date }}</span>
+            <h6 class="text-muted mt-1">Требовалось выполнить до:</h6>
+            <span>{{ homework_answer.homework.end_date }}</span>
+            {% csrf_token %}
+            {{ form }}
+        <button class="btn btn-sm btn-outline-secondary mt-2">Отправить</button>
+        </form>
+    </div>
+{% endblock %}

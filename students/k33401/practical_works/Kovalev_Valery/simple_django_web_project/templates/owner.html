@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Имя: {{ owner_info.owner.first_name}} <br>
+Фамилия: {{ owner_info.owner.last_name }} <br>
+Владел машинами: <br>
+<ol>
+   {% for own in owner_info.owns %}
+       <b>С</b> {{ own.start_own_date }} <b>По</b> {{ own.end_own_date }}
+       <li><ul>
+           <li>Производитель: {{ own.car.brand }}</li>
+           <li>Марка: {{ own.car.model }}</li>
+           <li>Цвет: {{ own.car.color }}</li>
+       </ul></li>
+       <br>
+{% endfor %}
+</ol>
+
+</body>
+</html>
