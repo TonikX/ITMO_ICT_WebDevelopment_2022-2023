@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Car #{{ object.id_car }}</title>
+</head>
+<body>
+<h1>Delete Car #{{ object.id_car }}</h1>
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete car #{{ object.id_car }}?</p>
+    <input type="submit" value="Confirm">
+  </form>
+<a href="/">Назад</a>
+</body>
+</html>

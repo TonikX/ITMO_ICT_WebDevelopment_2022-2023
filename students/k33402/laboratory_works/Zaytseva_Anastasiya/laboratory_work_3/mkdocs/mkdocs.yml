@@ -1,0 +1,18 @@
+site_name: Zaytseva Anastasiya, K33402
+
+theme:
+  name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Заглавная: index.md
+ - Лабораторная работа №2: lab2.md
+ - Лабораторная работа №3:
+     - "Описание": lab3/index.md
+     - "api/v1/book[GET]": lab3/api.md

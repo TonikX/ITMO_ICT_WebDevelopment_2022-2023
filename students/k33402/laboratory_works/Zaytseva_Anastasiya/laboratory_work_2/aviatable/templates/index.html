@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиатабло</title>
+</head>
+<body>
+    <h1>Авиатабло</h1>
+    <p>Пользователь: <strong>{{ user.get_username }}</strong>, <a href="/logout">выйти</a></p>
+    <br>
+    Меню:
+    <ul>
+        {% if user.get_username != 'admin' %}
+        <li><a href="/ticket">Мои билеты</a></li>
+        {% endif %}
+        <li><a href="/table">Табло рейсов</a></li>
+    </ul>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Табло рейсов - Авиатабло</title>
+</head>
+<body>
+    <h1>Табло рейсов</h1>
+    <table border="2" cellspacing="0" bordercolor="black">
+        <thead>
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <th>id</th>
+                {% endif %}
+                <th>Номер рейса</th>
+                <th>Авиакомпания</th>
+                <th>Отель</th>
+                <th>Время вылета</th>
+                <th>Время прилета</th>
+                <th>Тип рейса</th>
+                <th>Гейт</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}.
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <td>{{object.id}}</td>
+                {% endif %}
+                <td>{{object.flight_number}}</td>
+                <td>{{object.airline}}</td>
+                <td>{{object.hotel}}</td>
+                <td>{{object.departure_time}}</td>
+                <td>{{object.arrival_time}}</td>
+                <td>{{object.type}}</td>
+                <td>{{object.gate_number}}</td>
+                <td>
+                    <ul>
+                        {% if user.get_username != 'admin' %}
+                        <li><a href="/flight/{{object.id}}/order">Зарезервировать</a></li>
+                        {% else %}
+                        <li><a href="/flight/{{object.flight_number}}/passenger">Пассажиры</a></li>
+                        {% endif %}
+                        <li><a href="/flight/{{object.flight_number}}/review">Отзывы</a></li>
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">Назад</a>
+</body>
+</html>
