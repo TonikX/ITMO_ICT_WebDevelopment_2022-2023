@@ -10,14 +10,14 @@ class Driver(AbstractUser):
 
 
 class DriverLicense(models.Model):
-    id_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    id_driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="driver_license")
     license_number = models.CharField(max_length=10)
     type = models.CharField(max_length=10)
     issue_date = models.DateField()
 
 
 class Car(models.Model):
-    owners = models.ManyToManyField(Driver, through='Ownership')
+    # owners = models.ManyToManyField(Driver, through='Ownership')
     license_plate = models.CharField(max_length=15)
     car_brand = models.CharField(max_length=20)
     model = models.CharField(max_length=20)
@@ -28,7 +28,7 @@ class Car(models.Model):
 
 
 class Ownership(models.Model):
-    id_driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
-    id_car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    id_driver = models.ForeignKey(Driver, on_delete=models.CASCADE, related_name="driver_ownership")
+    id_car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="car_ownership")
     start_date = models.DateField(null=False, blank=False)
     end_date = models.DateField(null=True, blank=True)

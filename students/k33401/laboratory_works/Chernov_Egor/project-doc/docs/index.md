@@ -19,3 +19,9 @@ Contacts: [vk.com](vk.com/4ernovec), [telgram](t.me/chernovec)
 
 * `Lab 3` - Work with Django REST Framework. Server side, API.
 * `Lab 4` - Work with Vue.JS. Client side.
+
+#### Practical works:
+
+* `PW 3.1` - Django Web framework
+* `PW 3.2` - Django rest framework
+* `PW 3.3` - Documentation

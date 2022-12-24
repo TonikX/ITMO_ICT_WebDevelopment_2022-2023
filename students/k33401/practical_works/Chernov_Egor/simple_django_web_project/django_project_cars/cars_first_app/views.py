@@ -20,10 +20,9 @@ def index(request):
 
 
 def get_driver(request, id):
-    driver_id = id
-    if driver_id:
-        context = {"driver": 1, "dataset": Driver.objects.get(pk=driver_id)}
-    else:
+    try:
+        context = {"driver": 1, "dataset": Driver.objects.get(pk=id)}
+    except:
         context = {"driver": 0, "dataset": Driver.objects.all()}
     return render(request, "driver.html", context)
 
