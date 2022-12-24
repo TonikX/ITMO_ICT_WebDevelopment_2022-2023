@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>Book a room</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-secondary">Book this room</button>
+
+</form>
+
+    <a href="/rooms/">Back</a>
+
+{% endblock %}

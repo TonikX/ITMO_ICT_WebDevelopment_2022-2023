@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <title>Edit profile</title>
+</head>
+
+<body>
+    <h1>Edit {{ user.username }}'s profile</h1>
+    <form method="post" action="{% url 'edit_profile' %}">
+        {% csrf_token %}
+
+        {% for field in form.visible_fields %}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
+
+              {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+              {% endfor %}
+            </p>
+          {% endfor %}
+
+        Please enter your current username and email to confirm changes <br>
+        <button class="btn btn-secondary">Update</button>
+
+    <a href="/profile/">Cancel</a>
+    </form>
+</body>
+
+{% endblock %}

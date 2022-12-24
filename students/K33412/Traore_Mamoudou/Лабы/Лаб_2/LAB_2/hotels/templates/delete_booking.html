@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete booking</title>
+</head>
+<body>
+
+      {% if booking.checked_in is False %}
+
+  <form method="post">{% csrf_token %}
+      <p><strong>Are you sure you want to cancel the booking of Room {{ booking.room.number }}, {{ booking.room.hotel.name }}?</strong></p>
+        <button class="btn btn-secondary">Yes</button>
+          <a href="/profile/">No, take me back</a>
+
+
+      {% else %}
+
+      Sorry, you can't delete a booking after checking in
+      {% endif %}
+
+
+  </form>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul>
+    <h1>Room {{room.number}} of {{room.hotel}}</h1>
+
+    Room number: {{ room.number }} <br/>
+    Room type: {{ room.get_room_type_display }} <br/>
+    Price per night: {{ room.price }} <br/>
+    Number of persons: {{ room.num_persons }} <br/>
+
+<a href="/rooms/{{ room.id }}/book"><button class="btn btn-secondary">Book this room</button></a>
+<a href="/rooms/{{ room.id }}/add_review"><button class="btn btn-secondary">Leave a review</button></a>
+
+</ul>
+
+    <a href="/rooms/">Back to all rooms</a>
+{% endblock %}
