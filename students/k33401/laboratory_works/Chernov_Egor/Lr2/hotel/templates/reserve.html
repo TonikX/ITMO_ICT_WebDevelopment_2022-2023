@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block mheader_left_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'hotels' %}">Hotels</a>
+    </li>
+{% endblock %}
+
+{% block mheader_right_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'reserve' %}">Reserve</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account' user.pk %}">My acc</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+    </li>
+{% endblock %}
+
+{% block mbody %}
+    <div class="mx-auto w-50 pb-4">
+        <h1>Reserve a room in our Hotel!</h1>
+        <h4>Write your data:</h4>
+        <form class="py-4" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group p-2 row">
+                    {% if field.html_name != 'id_employee' and field.html_name != 'id_room' and field.html_name != 'id_guest' %}
+                        <div class="col-2">{{ field.label_tag }}</div>
+                        <div class="col-4">{{ field }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Reserve</button>
+        </form>
+    </div>
+{% endblock %}
