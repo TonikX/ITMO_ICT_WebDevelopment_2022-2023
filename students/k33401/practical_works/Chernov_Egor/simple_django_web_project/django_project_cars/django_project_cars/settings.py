@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cars_first_app',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
