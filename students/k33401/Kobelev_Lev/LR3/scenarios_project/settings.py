@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework.authtoken',
     'djoser',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
