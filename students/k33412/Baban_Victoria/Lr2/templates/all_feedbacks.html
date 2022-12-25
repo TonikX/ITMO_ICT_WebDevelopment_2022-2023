@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>All feedbacks</title>
+</head>
+<body>
+<table class="table table-hover table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th scope="col">Отель</th>
+                <th scope="col">Номер комнаты</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Дата заезда</th>
+                <th scope="col">Дата выезда</th>
+                <th scope="col">Комментарий</th>
+            </tr>
+        </thead>
+        {% for feedback in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ feedback.booking.room.hotel.name }}</td>
+                <td>{{ feedback.booking.room.number }}</td>
+                <td>{{ feedback.author }}</td>
+                <td>{{ feedback.date_start }}</td>
+                <td>{{ feedback.date_end }}</td>
+                <td>{{ feedback.text }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</body>
+</html>
