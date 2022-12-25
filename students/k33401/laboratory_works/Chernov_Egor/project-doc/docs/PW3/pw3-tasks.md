@@ -114,3 +114,129 @@ Get drivers who sorted by issue date of license:
 ```python
 Driver.objects.order_by('driver_license__issue_date')
 ```
+
+## PW 3.2
+### 1 task
+
+* `views.py`
+
+Add two classes for GET and POST request for driver:
+```python
+class DriverAPIView(APIView):
+    def get(self, request):
+        drivers = Driver.objects.all()
+        serializer = DriverSerializer(drivers, many=True)
+        return Response({"Drivers": serializer.data})
+
+
+class CreateDriverAPIView(APIView):
+    def post(self, request):
+        driver = request.data.get("driver")
+        serializer = CreateDriverSerializer(data=driver)
+
+        if serializer.is_valid(raise_exception=True):
+            driver_saved = serializer.save()
+
+        return Response({"Success": "Driver '{}' created succesfully.".format(driver_saved.username)})
+```
+
+* `serializes.py`
+
+For these classes serializers:
+```python
+class DriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = "__all__"
+
+
+class CreateDriverSerializer(serializers.ModelSerializer):
+    def create(self, validated_data):
+        return Driver.objects.create(**validated_data)
+
+    class Meta:
+        model = Driver
+        fields = "__all__"
+```
+
+### 2 task
+
+Get drivers with license:
+
+* `views.py`
+
+```python
+class DriverAndLicenseAPIView(generics.ListAPIView):
+    serializer_class = DriverAndLicenseSerializer
+    queryset = Driver.objects.all()
+```
+
+* `serializes.py`
+
+```python
+class DriverLicenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DriverLicense
+        fields = ("pk", "license_number", "type", "issue_date")
+
+
+class DriverAndLicenseSerializer(serializers.ModelSerializer):
+    driver_license = DriverLicenseSerializer(many=True)
+
+    class Meta:
+        model = Driver
+        fields = ("pk", "username", "first_name", "last_name", "email", "birthday",
+                  "passport", "address", "nationality", "driver_license")
+```
+
+Get driver with license and ownerships:
+
+* `views.py`
+
+```python
+class RetrieveDriverAPIView(generics.RetrieveAPIView):
+    serializer_class = RetrieveDriverSerializer
+    queryset = Driver.objects.all()
+```
+
+* `serializers.py`
+
+```python
+class DriverOwnershipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ownership
+        fields = "__all__"
+
+
+class RetrieveDriverSerializer(serializers.ModelSerializer):
+    driver_ownership = DriverOwnershipSerializer(many=True, read_only=True)
+    driver_license = DriverLicenseSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Driver
+        fields = ("pk", "username", "first_name", "last_name", "email", "birthday",
+                  "passport", "address", "nationality", "driver_license", "driver_ownership")
+```
+
+PUT and DELETE requests for driver:
+
+* `views.py`
+
+```python
+class RetrieveDriverUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = RetrieveDriverUpdateDestroySerializer
+    queryset = Driver.objects.all()
+```
+
+* `serializer.py`
+
+```python
+class RetrieveDriverUpdateDestroySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = "__all__"
+```
+
+## PW 3.3
+### 1 task
+
