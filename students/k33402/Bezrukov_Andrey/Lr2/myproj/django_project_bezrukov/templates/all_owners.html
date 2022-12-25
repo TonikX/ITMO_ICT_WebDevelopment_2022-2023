@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All_car_owners_info</title>
+</head>
+<body>
+    <div class="main">
+
+        {% for car_owner in owners %}
+
+        <ul>
+            <li>Username: {{car_owner.username}};</li><br>
+            <li>Name: {{car_owner.first_name}};</li>
+            <li>Surname: {{car_owner.last_name}};</li>
+            <li>Date of birth: {{car_owner.date_of_birtg}}.</li>
+            <li>Passport ID: {{car_owner.passport}}.</li>
+            <li>Home address: {{car_owner.home_address}}.</li>
+            <li>Nationality: {{car_owner.nationality}}.</li>
+        </ul>
+        <hr/>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>
