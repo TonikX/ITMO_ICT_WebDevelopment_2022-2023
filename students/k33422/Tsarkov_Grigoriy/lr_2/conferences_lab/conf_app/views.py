@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import PostComment
 from .models import Conference, Comment
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, "index.html")

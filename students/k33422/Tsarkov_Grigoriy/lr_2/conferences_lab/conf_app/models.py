@@ -16,17 +16,22 @@ class Conference(models.Model):
     description = models.CharField("conference description", max_length=200)
     location_description = models.CharField("location description", max_length=200)
     terms = models.CharField("participation terms", max_length=1000)
-    speaker = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="speaker", null=True)
+    speaker = models.ManyToManyField(User, related_name="speaker")
     recommend = models.CharField("recommend", choices=[
         ("yes", "yes"),
         ("no", "no"),
     ], max_length=3)
+
+
     class Meta:
         verbose_name = "conference"
         verbose_name_plural = "conferences"
 
     def __str__(self):
         return f"{self.topic}: {self.name}"
+
+    def written_by(self):
+        return ", ".join([str(p) for p in self.speaker.all()])
 
 
 class Comment(models.Model):

@@ -10,15 +10,12 @@ user = input("Enter username: ")
 
 def receiving_message():
     while True:
-        try:
             message = sock.recv(1024)
             message = message.decode("utf-8")
             if message == "What's your username?":
                 sock.sendto(user.encode("utf-8"), addressPort)
             else:
                 print(message)
-        finally:
-            sock.close()
 
 
 def sending_message():
