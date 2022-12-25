@@ -11,6 +11,13 @@ nav:
         - API/warriors[GET]: prac-3-3-API-1.md
         - API/warrior[GET]: prac-3-3-API-2.md
         - API/jobs[GET]: prac-3-3-API-3.md
+    - Lab 3:
+        - Task: lab-3-task.md
+        - Models: lab-3-models.md
+        - Views: lab-3-views.md
+        - Serializers: lab-3-serializers.md
+        - URLs: lab-3-url.md
+        - API: lab-3-api.md
 
 theme:
   name: material
