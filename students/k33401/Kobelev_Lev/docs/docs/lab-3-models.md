@@ -1,11 +1,7 @@
 # Models
-
 ## Schema:
-
 ![Schema](images/lab-3-db.jpeg)
-
 ## Django ORM:
-
 - Game System (игровая система, например, GURPS или D&D):
 ``` python
 class GameSystem(models.Model):

@@ -15,12 +15,12 @@ class ScenarioAPIView(RetrieveAPIView):
 - Создать:
 ``` python
 class ScenarioCreateAPIView(CreateAPIView):
-    serializer_class = ScenarioCreateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 ```
 - Обновить:
 ``` python
 class ScenarioUpdateAPIView(UpdateAPIView):
-    serializer_class = ScenarioUpdateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['pk']
@@ -29,7 +29,7 @@ class ScenarioUpdateAPIView(UpdateAPIView):
 - Удалить:
 ``` python
 class ScenarioDestroyAPIView(DestroyAPIView):
-    serializer_class = ScenarioUpdateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['pk']
@@ -72,15 +72,17 @@ class GameSystemCreateAPIView(CreateAPIView):
 - Создать:
 ``` python
 class ReviewCreateAPIView(CreateAPIView):
-    serializer_class = ReviewCreateSerializer
+    serializer_class = ReviewCreateUpdateSerializer
 
     def get_serializer_context(self):
-        return {'scenario_id': self.kwargs['scenario']}
+        context = super().get_serializer_context()
+        context['scenario_id'] = self.kwargs['scenario']
+        return context
 ```
 - Обновить:
 ``` python
 class ReviewUpdateAPIView(UpdateAPIView):
-    serializer_class = ReviewUpdateSerializer
+    serializer_class = ReviewCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['scenario']

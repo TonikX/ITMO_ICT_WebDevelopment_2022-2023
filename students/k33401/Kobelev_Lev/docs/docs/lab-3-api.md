@@ -1,5 +1,4 @@
 # API
-
 ## Schema
 ![Schema](images/lab-3.png)
 ## Endpoints:
