@@ -1,6 +1,4 @@
-from requests import Response
 from rest_framework.generics import *
-from rest_framework.views import APIView
 from .serializers import *
 
 
@@ -15,11 +13,11 @@ class ScenarioAPIView(RetrieveAPIView):
 
 
 class ScenarioCreateAPIView(CreateAPIView):
-    serializer_class = ScenarioCreateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 
 
 class ScenarioUpdateAPIView(UpdateAPIView):
-    serializer_class = ScenarioUpdateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['pk']
@@ -27,7 +25,7 @@ class ScenarioUpdateAPIView(UpdateAPIView):
 
 
 class ScenarioDestroyAPIView(DestroyAPIView):
-    serializer_class = ScenarioUpdateSerializer
+    serializer_class = ScenarioCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['pk']
@@ -35,14 +33,16 @@ class ScenarioDestroyAPIView(DestroyAPIView):
 
 
 class ReviewCreateAPIView(CreateAPIView):
-    serializer_class = ReviewCreateSerializer
+    serializer_class = ReviewCreateUpdateSerializer
 
     def get_serializer_context(self):
-        return {'scenario_id': self.kwargs['scenario']}
+        context = super().get_serializer_context()
+        context['scenario_id'] = self.kwargs['scenario']
+        return context
 
 
 class ReviewUpdateAPIView(UpdateAPIView):
-    serializer_class = ReviewUpdateSerializer
+    serializer_class = ReviewCreateUpdateSerializer
 
     def get_object(self):
         scenario_id = self.kwargs['scenario']
