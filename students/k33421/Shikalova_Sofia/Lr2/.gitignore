@@ -1,0 +1,4 @@
+*.pyc
+/shelf/
+/workspace.xml
+/tutorial-env
