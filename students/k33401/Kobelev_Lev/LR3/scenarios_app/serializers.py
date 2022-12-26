@@ -10,7 +10,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class GameSystemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tag
+        model = GameSystem
         fields = '__all__'
 
 
