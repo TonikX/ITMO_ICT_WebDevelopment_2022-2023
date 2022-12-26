@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>My Docs</title>
+        <title>Документация</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
@@ -23,10 +23,29 @@
     <body class="homepage">
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">My Docs</a>
+                <a class="navbar-brand" href=".">Документация</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="lab1/" class="nav-link">Лаба №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="." class="nav-link">Лаба №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="easteregg.html" class="nav-link">Лаба №3 (Пасхалочка)</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="easteregg.html" class="nav-link">Лаба №4 (Пасхалочка)</a>
+                            </li>
+                        </ul>
 
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
@@ -34,6 +53,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="lab1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="easteregg.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -58,11 +87,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Ссылка на видеоотчёт</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">Файлы проекта:</a>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Файлы проекта:</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -85,8 +110,7 @@
 3) Написание отзывов к турам. При добавлении комментариев, должны сохраняться даты тура, текст комментария, рейтинг (1-10), информация о комментаторе.
 4) Администратор должен иметь возможность подтвердить резервирование тура средствами Django-admin. 
 5) В клиентской части должна формироваться таблица, отображающая все проданные туры по странам.</p>
-<h2 id="_2">Ссылка на видеоотчёт</h2>
-<h2 id="_3">Файлы проекта:</h2>
+<h2 id="_2">Файлы проекта:</h2>
 <pre><code>models.py
 </code></pre>
 <pre><code>from django.db import models
@@ -398,6 +422,6 @@ urlpatterns = [
 </html>
 
 <!--
-MkDocs version : 1.4.1
-Build Date UTC : 2022-10-24 17:42:48.837836+00:00
+MkDocs version : 1.4.2
+Build Date UTC : 2022-12-26 12:46:58.241772+00:00
 -->

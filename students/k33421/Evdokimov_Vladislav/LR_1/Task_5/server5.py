@@ -20,7 +20,7 @@ class MyHTTPServer:
         data = data.decode('utf-8')
         target, method = self.parse_request(data)
         headers, body = self.parse_headers(data)
-        resp = self.handle_request(target, method, body)
+        resp = self.handle_request(method, body)
         if resp:
             self.send_response(clientsocket, resp)
 
@@ -38,28 +38,27 @@ class MyHTTPServer:
         body = lines[-1]
         return headers, body
 
-    def handle_request(self, target, method, body):
-        if target == "/":
-            if method == "GET":
-                resp = "HTTP/1.1 200 OK\n\n"
-                with open('index.html') as f:
-                    resp += f.read()
-                return resp
+    def handle_request(self, method, body):
+        if method == "GET":
+            resp = "HTTP/1.1 200 OK\n\n"
+            with open('index.html') as f:
+                resp += f.read()
+            return resp
 
-            if method == "POST":
-                newbody = body.split('&')
-                for content in newbody:
-                    if content.split('=')[0] == 'subject':
-                        subjects.append(content.split('=')[1])
-                    if content.split('=')[0] == 'mark':
-                        marks.append(content.split('=')[1])
+        if method == "POST":
+            newbody = body.split('&')
+            for content in newbody:
+                if content.split('=')[0] == 'subject':
+                    subjects.append(content.split('=')[1])
+                if content.split('=')[0] == 'mark':
+                    marks.append(content.split('=')[1])
 
-                resp = "HTTP/1.1 200 OK\n\n"
-                resp += "<html><head><title>Journal</title></head><body>"
-                for s, m in zip(subjects, marks):
-                    resp += f"<p>{s}: {m}</p>"
-                resp += "</body></html>"
-                return resp
+            resp = "HTTP/1.1 200 OK\n\n"
+            resp += "<html><head><title>Journal</title></head><body>"
+            for s, m in zip(subjects, marks):
+                resp += f"<p>{s}: {m}</p>"
+            resp += "</body></html>"
+            return resp
 
     def send_response(self, clientsocket, resp):
         clientsocket.send(resp.encode('utf-8'))

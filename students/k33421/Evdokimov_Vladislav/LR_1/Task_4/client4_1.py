@@ -22,7 +22,6 @@ class Client:
             message = input()
             if message == 'покинуть':
                 self._socket.send(bytes(f'{message}', 'utf-8'))
-                print('Connection closed')
                 self._socket.close()
                 break
             self._socket.send(bytes(f'{message}', 'utf-8'))
