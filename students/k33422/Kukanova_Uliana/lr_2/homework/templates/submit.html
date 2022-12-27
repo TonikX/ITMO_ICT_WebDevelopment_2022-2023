@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit</title>
+</head>
+<body>
+<p><a class="btn btn-primary" href="/all_hw" role="button">All homework</a></p>
+<p><a class="btn btn-primary" href="/our_grades" role="button">Grades</a></p>
+<p><a class="btn btn-primary" href="/logout" role="button">Log out</a></p>
+<h2>Add submission:</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

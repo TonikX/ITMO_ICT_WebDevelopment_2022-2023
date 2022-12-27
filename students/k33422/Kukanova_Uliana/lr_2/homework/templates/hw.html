@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homework</title>
+</head>
+<body>
+<p><a class="btn btn-primary" href="/all_hw" role="button">All homework</a></p>
+<p><a class="btn btn-primary" href="/our_grades" role="button">Grades</a></p>
+<p><a class="btn btn-primary" href="/logout" role="button">Log out</a></p>
+<br>
+<h2>{{ object.name }}</h2>
+<p><strong>Subject:</strong> {{ object.subject }} </p>
+<p><strong>Teacher:</strong> {{ object.teacher }} </p>
+<p><strong>Post date:</strong> {{ object.post_date }} </p>
+<p><strong>Deadline:</strong> {{ object.deadline }} </p>
+<p><strong>Task:</strong> {{ object.task }} </p>
+<a class="btn btn-success" href="/hw/{{object.id}}/submit" role="button">Submit</a>
+</body>
+</html>
