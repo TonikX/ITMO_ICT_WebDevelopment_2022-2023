@@ -1,0 +1,54 @@
+<div class="col">
+  <div class="card shadow-sm">
+    <div class="card-body">
+        <h5>{{ homework_answer.homework.subject }}</h5>
+        <small class="text-muted">Описание:</small>
+        <p class="card-text">{{ homework_answer.homework.task_description }}</p>
+        <small class="text-muted">Ответ:</small>
+        <p class="m-0">{{ homework_answer.answer }}</p>
+        <small class="text-muted">Сдано:</small>
+        <p class="m-0">{{ homework_answer.date | date:"d M, Y"  }}</p>
+        <small class="text-muted">Выдано:</small>
+        <p class="m-0">{{ homework_answer.homework.start_date | date:"d M, Y"  }}</p>
+        <small class="text-muted">Выполнить до:</small>
+        <p class="m-0">{{ homework_answer.homework.end_date | date:"d M, Y"  }}</p>
+
+      {% if request.user.is_teacher %}
+          <small class="text-muted">От:</small>
+          <p class="m-0">{{ homework_answer.student }}</p>
+          <small class="text-muted">Группа:</small>
+          <p class="m-0">{{ homework_answer.student.student_group }}</p>
+
+          {% if homework_answer.teacheransweronhomework %}
+              <small class="text-muted">Оценка:</small>
+              <p class="m-0">{{ homework_answer.teacheransweronhomework.points }}</p>
+              <small class="text-muted">Сообщение:</small>
+              <p class="m-0">{{ homework_answer.teacheransweronhomework.message }}</p>
+              <div class="d-flex justify-content-end align-items-center">
+            <a href="{% url 'rate_homework' homework_answer.id %}" class="btn btn-sm btn-outline-secondary mt-2">Изменить</a>
+          </div>
+          {% else %}
+              <div class="d-flex justify-content-end align-items-center">
+            <a href="{% url 'rate_homework' homework_answer.id %}" class="btn btn-sm btn-outline-secondary mt-2">Оценить</a>
+          </div>
+          {% endif %}
+      {% endif %}
+      {% if request.user.is_student %}
+          <small class="text-muted">Выдал:</small>
+        <p class="m-0">{{ homework_answer.homework.teacher }}</p>
+          {% if homework_answer.teacheransweronhomework %}
+              <small class="text-muted">Оценка:</small>
+              <p class="m-0">{{ homework_answer.teacheransweronhomework.points }}</p>
+              <small class="text-muted">Сообщение:</small>
+              <p class="m-0">{{ homework_answer.teacheransweronhomework.message }}</p>
+              <small class="text-muted">Проверил:</small>
+              <p class="m-0">{{ homework_answer.teacheransweronhomework.teacher }}</p>
+          {% else %}
+              <div class="d-flex justify-content-end align-items-center">
+                <div class="btn btn-sm btn-outline-secondary mt-2">На проверке</div>
+              </div>
+          {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
