@@ -18,21 +18,21 @@ class LoginForm(forms.ModelForm):
 class CreateCommentForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ('username', 'start_date', 'tour', 'end_date', 'user_rating', 'comment', 'date_of_publication')
+        fields = ('username', 'start_date', 'tour_id', 'end_date', 'user_rating', 'comment', 'date_of_publication')
 
     def __init__(self, *args, **kwargs):
         super(CreateCommentForm, self).__init__(*args, **kwargs)
         self.fields['username'].disabled = True
-        self.fields['tour'].disabled = True
+        self.fields['tour_id'].disabled = True
 
 
 class CreateReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ('username', 'tour', 'start_date', 'end_date')
+        fields = ('username', 'tour_id', 'start_date', 'end_date')
 
     def __init__(self, *args, **kwargs):
         super(CreateReservationForm, self).__init__(*args, **kwargs)
         self.fields['username'].disabled = True
-        self.fields['tour'].disabled = True
+        self.fields['tour_id'].disabled = True
 

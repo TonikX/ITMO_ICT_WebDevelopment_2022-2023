@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'main.html' %}
 <head>
 
     <title>Комментарий</title>
@@ -13,7 +14,9 @@
                 {% csrf_token %}
                 {{ form.as_p }}
 
-                <button class="btn btn-secondary">Опубликовать</button>
+                <div class="d-flex justify-content-center">
+        <input type="submit" value="Опубликовать" class="btn btn-primary p-2 ">
+    </div>
 
             </form>
         </div>

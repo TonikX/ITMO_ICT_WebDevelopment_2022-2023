@@ -39,7 +39,7 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('/main')
+                return redirect('/')
         else:
             return HttpResponse('Неправильный логин или пароль!')
     else:
@@ -49,7 +49,11 @@ def user_login(request):
 
 def log_out(request):
     logout(request)
-    return redirect('/main')
+    return redirect('/')
+
+def show_tours_not_auth(request):
+    visual = {"tours": Tour.objects.all()}
+    return render(request, 'tours_for_notauth.html', visual)
 
 
 class CreateReservation(CreateView):
@@ -63,7 +67,7 @@ class CreateReservation(CreateView):
         initial = super(CreateReservation, self).get_initial()
         initial = initial.copy()
         initial['username'] = self.request.user.pk
-        initial['tour'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
+        initial['tour_id'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
         return initial
 
 
@@ -73,6 +77,11 @@ class UpdateReserveView(UpdateView):
     template_name = 'upreservation.html'
     context_object_name = 'reservation'
     success_url = '/profilereservations'
+
+    def get_initial(self):
+        initial = super(UpdateReserveView, self).get_initial()
+        initial = initial.copy()
+        return initial
 
 
 class DeleteReserveView(DeleteView):
@@ -104,8 +113,8 @@ def commentlist(request):
 def tourlist(request):
     visual = {"tours": Tour.objects.all()}
     for i in range(len(visual['tours'])):
-        tour = visual['tours'][i]
-        comments = Feedback.objects.filter(tour=tour)
+        tour_id = visual['tours'][i]
+        comments = Feedback.objects.filter(tour_id=tour_id)
         visual['tours'][i].comments = comments
     return render(request, 'tours.html', visual)
 
@@ -121,8 +130,5 @@ class CreateComment(CreateView):
         initial = super(CreateComment, self).get_initial()
         initial = initial.copy()
         initial['username'] = self.request.user.pk
-        initial['tour'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
+        initial['tour_id'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
         return initial
-
-
-

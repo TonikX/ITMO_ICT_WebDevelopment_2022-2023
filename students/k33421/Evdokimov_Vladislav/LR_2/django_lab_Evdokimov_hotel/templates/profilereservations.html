@@ -1,33 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'main.html' %}
 <head>
 
     <title>Брони</title>
 </head>
 <body>
-     <h1>Кабинет {{user.username}}'a</h1>
+     <h1 class="text-center">Мои брони</h1>
 
-     {% for reservation in reservation_list %}
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
 
-     <strong>Тур: </strong>{{ reservation.tour }} <br>
-     <strong>Начало брони: </strong>{{ reservation.start_date }} <br>
-     <strong>Конец брони: </strong>{{ reservation.end_date }} <br>
-     <strong>Статус брони: </strong>{{ reservation.status|yesno:"Забронировано!,Ждите подтверждения"  }}<br/>
+            <th scope="col">Тур</th>
+            <th scope="col">Начало тура</th>
+            <th scope="col">Конец тура</th>
+            <th scope="col">Статус брони</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+            {% for reservation in reservation_list %}
+                <tr>
+                    <td>{{ reservation.tour_id }} </td>
+                    <td>{{ reservation.start_date }} </td>
+                    <td>{{ reservation.end_date }} </td>
+                    <td>{{ reservation.status|yesno:"Забронировано!,Ждите подтверждения" }} </td>
+                    <td class="d-flex justify-content-start gap-2">
+                    <td class="d-flex justify-content-start gap-2">
+                    <a href="/profilereservations/deletereservation/{{ reservation.id }}">
+                        <button type="button" class="btn btn-warning">Удалить резерв</button>
+                    </a>
+                    <a href="/profilereservations/updatereservation/{{ reservation.id }}">
+                        <button type="button" class="btn btn-warning">Изменить дату резерва</button>
+                    </a>
+                    <a href="/createcomment/{{reservation.tour_id.id}}/">
+                        <button type="button" class="btn btn-warning">Оставить отзыв</button>
+                    </a>
+                </tr>
+            {% endfor %}
 
 
-     <a href="/profilereservations/deletereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Удалить резерв</button></a>
-     <a href="/profilereservations/updatereservation/{{ reservation.id }}/"><button class="btn btn-secondary">Обновить дату резерва</button></a>
-         <a href="/tours/"><button class="btn btn-secondary">Туры</button></a>
-         <a href="/createcomment/{{ reservation.id }}/"><button class="btn btn-secondary">Оставить отзыв</button></a>
 
-     <br><br><br>
-     {% empty %}
-     <li>Нет брони</li>
-     {% endfor %}
+             </tbody>
+    </table>
 
 
-     <a href="/tours">Создать бронь</a><br>
-     <a href="/profile">Назад в личный кабинет</a><br>
-     <a href="/main">Главная страница</a>
+
+
+
 </body>
 </html>

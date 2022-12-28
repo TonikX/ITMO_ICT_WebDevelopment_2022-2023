@@ -1,3 +1,5 @@
+{% include 'main.html' %}
+
 {% block body %}
 
     <h2>Войти в аккаунт</h2>
@@ -13,15 +15,13 @@
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
-            <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+            <input autofocus class="form-control" type="text" name="username" placeholder="Имя пользователя">
         </div>
         <div class="form-group">
-            <input class="form-control" type="password" name="password" placeholder="Password">
+            <input class="form-control" type="password" name="password" placeholder="Пароль">
         </div>
-        <input class="btn btn-primary" type="submit" value="Login">
+        <input class="btn btn-primary" type="submit" value="Войти">
     </form>
 
-    Всё еще нет аккаунта? <a href="{% url 'register' %}">Зарегестрируйтесь здесь</a><br>
-    <a href="/main">Вернуться на главную страницу</a><br>
-
+    Всё еще нет аккаунта? <a href="{% url 'register' %}">Зарегестрироваться</a><br>
 {% endblock %}

@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'main.html' %}
 <head>
 
     <title>Туры</title>
 </head>
 <body>
 <div class="main">
-    {% for tour in tours %}
-        ID: {{ tour.id }} <br><a href="/tours/{{ tour.id }}/reservation">Зарезервировать!</a></br>
-        <strong>Название: </strong>{{ tour.naming }} <br>
-        <strong>Описание: </strong>{{ tour.description }} <br>
-        <strong>Начинается: </strong>{{ tour.start_date }} <br>
-        <strong>Заканчивается: </strong>{{ tour.end_date }} <br>
-        <strong>Страна: </strong>{{ tour.country }} <br>
-        <a href="/profile">Вернуться в личный кабинет</a></br>
-        <a href="/main">Главная страница</a></br>
+         <h1 class="text-center">Доступные туры</h1>
 
-            {% for comment in tour.comments %}
-             <strong>Ник: </strong>{{comment.username}} <br>
-             <strong>Воспользовался услугой от: </strong>{{comment.start_date}} <br>
-             <strong>До: </strong>{{comment.end_date}} <br>
-             <strong>Оценка: </strong>{{comment.user_rating}} <br>
-             <strong>Комментарий: </strong>{{comment.comment}} <br><br>
-            {% endfor %}
-    {% endfor %}
+
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+
+            <th scope="col">Название тура</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Город</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Начало</th>
+            <th scope="col">Конец</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+
+        {% for tour in tours %}
+            <tr>
+                <td>{{ tour.naming }} </td>
+                <td>{{ tour.country }} </td>
+                <td>{{ tour.city }} </td>
+                <td>{{ tour.description }} </td>
+                <td>{{ tour.start_date }} </td>
+                <td>{{ tour.end_date }} </td>
+                <td class="d-flex justify-content-start gap-2">
+                <a href="/tours/{{ tour.id }}/reservation">
+                    <button type="button" class="btn btn-warning">Забронировать!</button>
+                </a>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

@@ -8,11 +8,12 @@ class User(AbstractUser):
     password = models.CharField(max_length=30, null=False)
     passport_data = models.CharField(max_length=30, null=False)
     email = models.EmailField("email address", unique=True)
-    tour = models.ManyToManyField("self", through="Reservation")
+    id = models.ManyToManyField("self", through="Reservation")
     phone_number = models.IntegerField(null=True)
 
 
 class Tour(models.Model):
+    id = models.IntegerField(null=False, primary_key=True)
     naming = models.CharField(max_length=50, null=False)
     country = models.CharField(max_length=30, null=False)
     city = models.CharField(max_length=30, null=False)
@@ -30,7 +31,7 @@ class Feedback(models.Model):
               (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10')]
     username = models.ForeignKey('User', on_delete=models.CASCADE)
     comment = models.CharField(max_length=5000)
-    tour = models.ForeignKey("Tour", on_delete=models.CASCADE)
+    tour_id = models.ForeignKey("Tour", on_delete=models.CASCADE)
     user_rating = models.IntegerField(choices=rating)
     date_of_publication = models.DateField()
     start_date = models.DateField()
@@ -43,4 +44,4 @@ class Reservation(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     status = models.BooleanField(null=True)
-    tour = models.ForeignKey('Tour', on_delete=models.CASCADE)
+    tour_id = models.ForeignKey('Tour', on_delete=models.CASCADE)

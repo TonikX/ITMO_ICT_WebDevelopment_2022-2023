@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+{% include 'main.html' %}
 <head>
 
 </head>
 <body>
 {% block content %}
+     <h1 class="text-center">Зарезервированные туры</h1>
 
-    <table id="myTable" width="25%">
+    <table class="table table-hover table-bordered">
         <thead>
         <tr>
-            <th><h1>Уже купили!</h1></th>
+
+            <th scope="col">Название тура</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Начало</th>
+            <th scope="col">Конец</th>
         </tr>
         </thead>
 
@@ -18,9 +25,13 @@
         {% for reservation in reservations %}
 
             <tr>
-                <td>Название тура: {{ reservation.tour.naming }} </td>
-                <td>Страна: {{ reservation.tour.country }} </td>
-                <td>Пользователь: {{ reservation.username.username }} </td>
+                <td>{{ reservation.tour_id }} </td>
+                <td>{{ reservation.tour_id.country }} </td>
+                <td>{{ reservation.username.username }} </td>
+                <td>{{ reservation.tour_id.start_date }} </td>
+                <td>{{ reservation.tour_id.end_date }} </td>
+
+
             </tr>
 
         {% endfor %}
