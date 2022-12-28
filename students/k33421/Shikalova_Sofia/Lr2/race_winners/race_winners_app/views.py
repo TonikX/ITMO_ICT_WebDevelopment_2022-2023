@@ -49,15 +49,6 @@ def register(request):
         return render(request, "reg_django.html")
 
 
-def reg_list_view(request):
-    context = {
-        'reg_races': Registration.objects.filter(num_user_reg=request.user)
-    }
-    print(request.user)
-    print(context)
-    return render(request, 'reg_list.html', context)
-
-
 def log_in(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -70,19 +61,6 @@ def log_in(request):
         else:
             error_text = 'invalid credentials'
     return render(request, 'login.html', locals())
-
-
-class RegisterUser(CreateView):
-    model = UserRacer
-    fields = ['username',
-              'first_name', 'last_name', 'fathername',
-              'team_name',
-              'user_descr',
-              'car_descr',
-              'experience',
-              'type_user']
-    success_url = '/user_list/'
-    template_name = "user_reg.html"
 
 
 class RegList(ListView):
