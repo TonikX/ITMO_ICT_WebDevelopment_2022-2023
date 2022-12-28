@@ -108,7 +108,8 @@ class Reader(AbstractUser):
                                                 verbose_name='Книги на руках',
                                                 through='BooksOnHands',
                                                 related_name='instance_reader')
-
+    reader_hall = models.ForeignKey('Hall', on_delete=models.CASCADE, verbose_name='Зал',
+                                    blank=True, null=True)
     def __str__(self):
         if self.is_superuser:
             return f'superuser {self.username}'

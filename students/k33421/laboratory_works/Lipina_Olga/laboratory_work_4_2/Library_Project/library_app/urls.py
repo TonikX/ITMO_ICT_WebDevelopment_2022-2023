@@ -2,6 +2,8 @@ from django.urls import path
 from .views import *
 urlpatterns = [
     path('readers/list/', ReaderListAPIView.as_view()),
+    path('readers/<int:pk>/', ReaderRetrieveAPIView.as_view()),  # reader info by id
+
     path('books/list/', BookListAPIView.as_view()),
     path('instances/list/',  InstanceListAPIView.as_view()),
     path('halls/list/', HallListAPIView.as_view()),

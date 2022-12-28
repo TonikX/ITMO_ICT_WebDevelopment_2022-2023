@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 
 from .serializers import *
 
@@ -98,3 +98,9 @@ class CreateInstancePlace(CreateAPIView):
 class CreateHallReader(CreateAPIView):
     serializer_class = ReaderHallSerializer
     queryset = ReaderHall.objects.all()
+
+
+
+class ReaderRetrieveAPIView(RetrieveAPIView):
+    serializer_class = ReaderRetrieveSerializer
+    queryset = Reader.objects.all()
