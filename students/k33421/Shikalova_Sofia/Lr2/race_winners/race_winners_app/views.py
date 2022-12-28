@@ -86,11 +86,6 @@ def get_race(request, id_race: int):
     return render(request, 'race.html', {'race': race})
 
 
-class RegRaceList(ListView):
-    model = Registration
-    template_name = 'reg_list.html'
-
-
 class RegRaceCreate(CreateView):
   model = Registration
   template_name = 'reg_form.html'
