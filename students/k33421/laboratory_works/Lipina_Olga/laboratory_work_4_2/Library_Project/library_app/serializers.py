@@ -57,3 +57,10 @@ class ReaderRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reader
         fields = "__all__"
+
+class InstanceRetrieveSerializer(serializers.ModelSerializer):
+    book = BookSerializer()
+    instance_hall = HallSerializer()
+    class Meta:
+        model = InstanceBook
+        fields = "__all__"

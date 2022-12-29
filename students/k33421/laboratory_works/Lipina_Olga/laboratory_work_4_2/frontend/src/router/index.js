@@ -5,6 +5,9 @@ import SignIn from '@/views/reader/SignIn'
 import SignUp from '@/views/reader/SignUp'
 import Home from '@/views/Home'
 import ReaderProfile from '@/views/reader/ReaderProfile'
+import ReaderProfileEdit from '@/views/reader/ReaderProfileEdit'
+import Instance from '@/views/library/Instance'
+
 
 Vue.use(VueRouter)
 
@@ -28,6 +31,16 @@ const routes = [
     path: '/library/profile',
     name: 'reader_profile',
     component: ReaderProfile
+  },
+  {
+    path: '/library/profile/edit',
+    name: 'reader_profile_edit',
+    component: ReaderProfileEdit
+  },
+  {
+    path: '/library/instances/:id',
+    name: 'instance',
+    component: Instance
   },
   {
     path: '/about',

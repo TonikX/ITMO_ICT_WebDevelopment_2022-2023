@@ -40,7 +40,8 @@ class InstanceBook(models.Model):
     )
     condition = models.CharField(max_length=1, choices=conditions, verbose_name='Состояние экземпляра')
     book = models.ForeignKey('Book', verbose_name='Книга', on_delete=CASCADE)
-
+    instance_hall = models.ForeignKey('Hall', on_delete=models.CASCADE, verbose_name='Зал',
+                                    blank=True, null=True)
     def __str__(self):
         return f"{self.book} {self.id}"
 

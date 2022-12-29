@@ -86,7 +86,7 @@ export default {
     },
 
     goBook (bookID) {
-      this.$router.push({ name: 'book', params: { id: bookID } })
+      this.$router.push({ name: 'instance', params: { id: bookID } })
     },
 
     goCatalogue () {

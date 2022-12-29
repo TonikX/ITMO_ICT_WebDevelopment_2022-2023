@@ -104,3 +104,7 @@ class CreateHallReader(CreateAPIView):
 class ReaderRetrieveAPIView(RetrieveAPIView):
     serializer_class = ReaderRetrieveSerializer
     queryset = Reader.objects.all()
+
+class InstanceRetrieveAPIView(RetrieveAPIView):
+    serializer_class = InstanceRetrieveSerializer
+    queryset = InstanceBook.objects.all()

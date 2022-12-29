@@ -5,7 +5,10 @@ urlpatterns = [
     path('readers/<int:pk>/', ReaderRetrieveAPIView.as_view()),  # reader info by id
 
     path('books/list/', BookListAPIView.as_view()),
+
     path('instances/list/',  InstanceListAPIView.as_view()),
+    path('instances/<int:pk>/',  InstanceRetrieveAPIView.as_view()),
+
     path('halls/list/', HallListAPIView.as_view()),
 
     path('readers/create/',  CreateReader.as_view()),
