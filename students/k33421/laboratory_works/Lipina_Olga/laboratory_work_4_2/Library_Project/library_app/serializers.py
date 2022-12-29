@@ -17,7 +17,7 @@ class BookSerializer(serializers.ModelSerializer):
      fields = "__all__"
 
 class InstanceSerializer(serializers.ModelSerializer):
-   book = BookSerializer(read_only=True)
+   book = BookSerializer()
    class Meta:
      model = InstanceBook
      fields = "__all__"
@@ -31,11 +31,22 @@ class HallSerializer(serializers.ModelSerializer):
        model = Hall
        fields = "__all__"
 
+# class BookOnHandsSer(serializers.ModelSerializer):
+#     class Meta:
+#         model = BooksOnHands
+#         fields = "__all__"
+
 class BooksOnHandsSerializer(serializers.ModelSerializer):
+   reader = ReaderSerializer()
+   instance = InstanceSerializer()
    class Meta:
       model = BooksOnHands
       fields = "__all__"
 
+class BookOnHandsCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BooksOnHands
+        fields = "__all__"
 
 
 class InstancePlaceSerializer(serializers.ModelSerializer):
@@ -60,6 +71,7 @@ class ReaderRetrieveSerializer(serializers.ModelSerializer):
 
 class InstanceRetrieveSerializer(serializers.ModelSerializer):
     book = BookSerializer()
+    who_reads = ReaderSerializer(many=True)
     instance_hall = HallSerializer()
     class Meta:
         model = InstanceBook

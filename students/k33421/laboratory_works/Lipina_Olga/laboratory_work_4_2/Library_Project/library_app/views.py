@@ -2,6 +2,19 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDe
 
 from .serializers import *
 
+from rest_framework.permissions import IsAdminUser
+
+class IsSuperUser(IsAdminUser):
+    def has_permission(self, request, view):
+        try:
+            print('HEREREE')
+            # session_data = str(request.session.__get_item__('_auth_user_id'))
+            print(request.__dict__)
+            user_id = request.session[request.session.session_key]
+        except KeyError:
+            user = None
+        print(request.user)
+        return bool(request.user and request.user.is_superuser)
 
 # Просмотр списков
 
@@ -11,10 +24,12 @@ class ReaderListAPIView(ListAPIView):
 
 
 class BookListAPIView(ListAPIView):
-    # permission_classes = [IsAuthenticated]
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 
+class BookOnHandsListAPIView(ListAPIView):
+    serializer_class = BooksOnHandsSerializer
+    queryset = BooksOnHands.objects.all()
 
 class InstanceListAPIView(ListAPIView):
     serializer_class = InstanceSerializer
@@ -78,7 +93,7 @@ class ChangeReader(RetrieveUpdateDestroyAPIView):
 
 # Закрепление кого-то за чем-то
 class CreateBookOnHand(CreateAPIView):
-    serializer_class = BooksOnHandsSerializer
+    serializer_class = BookOnHandsCreateSerializer
     queryset = BooksOnHands.objects.all()
 
     # def perform_create(self, serializer):

@@ -7,7 +7,9 @@ import Home from '@/views/Home'
 import ReaderProfile from '@/views/reader/ReaderProfile'
 import ReaderProfileEdit from '@/views/reader/ReaderProfileEdit'
 import Instance from '@/views/library/Instance'
-
+import Catalogue from '@/views/library/Catalogue'
+import InstanceReturn from '@/views/library/InstanceReturn'
+import InstanceTake from '@/views/library/InstanceTake'
 
 Vue.use(VueRouter)
 
@@ -38,9 +40,24 @@ const routes = [
     component: ReaderProfileEdit
   },
   {
+    path: '/library/instances/',
+    name: 'catalogue',
+    component: Catalogue
+  },
+  {
     path: '/library/instances/:id',
     name: 'instance',
     component: Instance
+  },
+  {
+    path: '/library/return/:id',
+    name: 'return',
+    component: InstanceReturn
+  },
+  {
+    path: '/library/take_out/',
+    name: 'take_out',
+    component: InstanceTake
   },
   {
     path: '/about',

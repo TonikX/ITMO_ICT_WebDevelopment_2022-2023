@@ -7,6 +7,7 @@
     >
       <v-card-title>
         <h2>{{ this.instance.book.book_name }}</h2>
+<!--        <h3>{{ this.instance.id }}</h3>-->
       </v-card-title>
 
       <v-card-text>
@@ -16,7 +17,7 @@
           Год издания: {{ this.instance.year_published }} <br>
           Издательство: {{ this.instance.publisher }} <br>
           Библиотечный номер: {{ this.instance.cypher }} <br>
-          Зал: {{ this.instance.instance_hall.name }}
+          Зал: {{ this.instance.instance_hall.name }} <br>
 <!--          <ul>-->
 <!--            <li v-for="hall in this.book.book_hall" v-bind:key="hall" v-bind:hall="hall">-->
 <!--              {{ hall.title }}-->
@@ -32,8 +33,17 @@
         </div>
       </v-card-text>
     </v-card>
+    <v-btn v-if="!this.bookOnHold && !this.booksOnHoldOthers" color="primary" light @click="takeOutBook(instance.id)">Хочу прочитать</v-btn>
 
-    <v-btn v-if="!this.bookOnHold" color="primary" light @click="takeOutBook">Хочу прочитать</v-btn>
+    <v-card
+      elevation="2"
+      outlined
+      class="my-2"
+      v-else-if="this.booksOnHoldOthers">
+      <v-card-text>
+        <div class="text--primary">К сожалению, эту книгу уже читаeт {{ this.WhoReads }}. Подождите немного.</div>
+      </v-card-text>
+    </v-card>
 
     <v-card
       elevation="2"
@@ -64,6 +74,8 @@ export default {
       instance: Object,
       reader: Object,
       bookOnHold: false,
+      booksOnHoldOthers: false,
+      whoReads: '',
       bookReaderID: ''
     }
   },
@@ -102,22 +114,43 @@ export default {
           break
         }
       }
+      this.book_url = 'http://127.0.0.1:8000/lib/instances/' + this.instance.id
+      const response2 = await this.axios.get(this.book_url)
+      console.log('Читаeт ' + response2.data.who_reads[0].name + ' человек')
+      if (response2.data.who_reads.length > 0 &&
+        response2.data.who_reads[0].id !== this.reader.id) {
+        this.booksOnHoldOthers = true
+        this.WhoReads = response2.data.who_reads[0].name
+      }
     },
 
-    takeOutBook () {
-      this.$router.push({ name: 'take_out', params: { id: this.book.id } })
+    takeOutBook (InstanceId) {
+      this.$router.push({ name: 'take_out', params: { id: InstanceId } })
     },
 
-    async returnBook () {
-      const response = await this.axios.get('http://127.0.0.1:8000/lib/reader_books/')
+    // async returnBook () {
+    //   const response = await this.axios.get('http://127.0.0.1:8000/lib/reader_books/list/')
+    //   // eslint-disable-next-line no-unused-vars
+    //   for (const [key, value] of Object.entries(response.data)) {
+    //     if (value.reader.id === this.reader.id && value.instance.id === this.instance.id) {
+    //       this.bookReaderID = value.id
+    //       break
+    //     }
+    //   }
+    //   alert(this.bookReaderID)
+    //   await this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
+    // },
+    returnBook () {
+      const response = this.axios.get('http://127.0.0.1:8000/lib/reader_books/list/')
       // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(response.data)) {
-        if (value.reader.id === this.reader.id && value.book.id === this.book.id) {
+        if (value.reader.id === this.reader.id && value.instance.id === this.instance.id) {
           this.bookReaderID = value.id
           break
         }
       }
-      await this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
+      alert(this.bookReaderID)
+      this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
     },
 
     goCatalogue () {

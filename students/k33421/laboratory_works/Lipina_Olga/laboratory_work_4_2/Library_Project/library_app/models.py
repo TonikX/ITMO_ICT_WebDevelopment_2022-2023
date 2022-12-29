@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.deletion import CASCADE
@@ -42,6 +44,8 @@ class InstanceBook(models.Model):
     book = models.ForeignKey('Book', verbose_name='Книга', on_delete=CASCADE)
     instance_hall = models.ForeignKey('Hall', on_delete=models.CASCADE, verbose_name='Зал',
                                     blank=True, null=True)
+    who_reads = models.ManyToManyField('Reader', through='BooksOnHands', verbose_name='Читатель')
+
     def __str__(self):
         return f"{self.book} {self.id}"
 
@@ -72,7 +76,7 @@ class BooksOnHands(models.Model):
     """Читатель-экземляр. Книги на руках"""
     reader = models.ForeignKey('Reader', verbose_name='Читатель', on_delete=CASCADE)
     instance = models.ForeignKey('InstanceBook', verbose_name='Экземпляр книги', on_delete=CASCADE)
-    date_register = models.DateField(verbose_name='Дата выдачи', null=True, blank=True)
+    date_register = models.DateField(default=datetime.now().date, verbose_name='Дата выдачи', null=True, blank=True)
     def __str__(self):
         return f"{self.reader.name.split()[0]}, {self.instance.book.book_name}"
 
