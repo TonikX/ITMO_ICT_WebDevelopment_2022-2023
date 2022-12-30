@@ -1,0 +1,5 @@
+someSubj1: 9 10 20 30 
+someSubj2: 5 20 
+someSubj3: 12 
+someSubj4: 8 
+someSubj6: 6 
