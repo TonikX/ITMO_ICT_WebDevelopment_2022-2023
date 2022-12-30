@@ -79,6 +79,7 @@ class NonStrictManagerAuthentication(UserProfileAuthentication):
 
 
 class EditorAuthentication(UserProfileAuthentication):
+	strict = False
 	user_profile_model = Editor
 
 
