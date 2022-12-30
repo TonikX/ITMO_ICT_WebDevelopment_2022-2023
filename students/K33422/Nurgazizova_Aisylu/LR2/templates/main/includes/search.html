@@ -1,0 +1,21 @@
+{% extends 'main/home.html' %}
+{% block content %}
+    {% if conferences %}
+        {% for conference in conferences %}
+            <div class="card text-center"
+                 style="margin: 20px auto 20px auto; width: 30rem">
+                <div class="card-body">
+                    <h5 class="card-title">{{ conference.title }}</h5>
+                    <p class="card-text">
+                        {{ conference.con_description }}
+                    </p>
+                    <a href="conf/{{ conference.id }}" class="btn btn-primary">Join</a>
+                    <div style="margin-top: 10px;" class="card-footer text-muted">{{ conference.start_date }}</div>
+                    <a href="comment/{{ conference.id }}" class="btn btn-primary">Add comment</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>There is nothing, sorry...</h1>
+    {% endif %}
+{% endblock content %}
