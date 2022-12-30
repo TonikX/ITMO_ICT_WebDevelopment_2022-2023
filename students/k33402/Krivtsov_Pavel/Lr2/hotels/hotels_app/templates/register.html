@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    <div class="container py-4 text-center d-flex align-items-center">
+        <div class="px-3 py-3 w-100 m-auto" style="max-width: 350px">
+            <h1>{{ title }}</h1>
+
+            <form method="post">
+                {% csrf_token %}
+
+                {% for f in form %}
+                <div class="form-floating mb-2">
+                    <input type="{{ f.widget_type }}" name="{{ f.name }}" class="form-control" autofocus autocapitalize="none" maxlength="150" required id="{{ f.id_for_label }}" placeholder="{{ f.label }}">
+                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                </div>
+                <p class="text-danger">{{ f.errors }}</p>
+                {% endfor %}
+
+                <div>
+                    <button class="w-100 btn btn-lg btn-dark" type="submit">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</form>
+{% endblock %}

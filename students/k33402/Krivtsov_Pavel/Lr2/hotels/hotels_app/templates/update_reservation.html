@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3">
+    <h1>{{ title }}</h1>
+
+    <div class="card py-3 my-3">
+      <div class="card-body text-center">
+        {% for message in messages %}
+            <div class="alert alert-danger pb-3" role="alert">
+              {{ message }}
+            </div>
+        {% endfor %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div>
+                <button class="btn btn-lg btn-dark" type="submit">Обновить</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
