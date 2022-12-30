@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+
+{% include 'main/header.html' %}
+{% block content %}
+    <table class="table table-dark" style="width: 70%; margin:auto">
+        <thead>
+        <tr>
+            {% for item in table %}
+                <th>
+                    {{ item.conference__title }}
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for item in table %}
+            <td>
+                {{ item.user__username }}
+            </td>
+            {% endfor %}
+        </tr>
+        </tbody>
+
+    </table>
+{% endblock content %}
+</body>
+</html>

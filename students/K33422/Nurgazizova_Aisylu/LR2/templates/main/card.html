@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+
+{% include 'main/header.html' %}
+
+{% block content %}
+    {% for conference in conferences %}
+        <div class="card text-center"
+             style="margin: 20px auto 20px auto; width: 30rem">
+            <div class="card-body">
+                <h5 class="card-title">{{ conference.title }}</h5>
+                <p class="card-text">
+                    {{ conference.con_description }}
+                </p>
+                <a href="conf/{{ conference.id }}" class="btn btn-primary">Join</a>
+                <div style="margin-top: 10px;" class="card-footer text-muted">{{ conference.start_date }}</div>
+                <a href="comment/{{ conference.id }}" class="btn btn-primary">Add comment</a>
+            </div>
+        </div>
+    {% include 'main/includes/pagination.html' %}
+    {% endfor %}
+
+{% endblock content %}
+
+</body>
+</html>

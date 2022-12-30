@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Joining</title>
+</head>
+<body>
+{% include 'main/header.html' %}
+
+{% block content %}
+
+    <div class="card" style="margin: 20px auto 20px auto;width: 18rem;">
+      {% for message in messages %}
+        <h5 style="color: red">{{ message }}</h5>
+    {% endfor %}
+        <img
+                src="https://mdbootstrap.com/img/new/standard/city/062.jpg"
+                class="card-img-top"
+                alt="..."
+        />
+        <div class="card-body">
+            <h5 class="card-title">{{ conference.title }}</h5>
+            <p class="card-text">
+                {{ conference.con_description }}
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-rounded">Join</button>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

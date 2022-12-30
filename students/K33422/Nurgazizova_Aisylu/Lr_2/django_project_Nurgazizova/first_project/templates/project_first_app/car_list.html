@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+
+    <li><b>Gos_number</b>: {{ object.gos_number }}</li>
+    <li><b>Mark</b>: {{ object.mark }}</li>
+    <a href="/car/{{object.pk}}">Подробности</a>
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
