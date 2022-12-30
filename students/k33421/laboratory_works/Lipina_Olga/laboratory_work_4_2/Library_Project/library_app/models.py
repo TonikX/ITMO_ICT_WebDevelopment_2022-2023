@@ -93,8 +93,7 @@ class Reader(AbstractUser):
     password = models.CharField(max_length=30)
 
     REQUIRED_FIELDS = ['library_pass', 'name', 'birth_date',
-                      'address',
-                      'phone_number', 'degree']#, 'education_level']
+                      'address', 'education_level', 'phone_number', 'degree']#, 'education_level']
               #         'degree']
     library_pass = models.CharField(max_length=20, verbose_name='Читательский билет')
     name = models.CharField(max_length=70, verbose_name="ФИО")

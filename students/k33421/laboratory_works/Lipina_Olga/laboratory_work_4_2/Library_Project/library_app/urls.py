@@ -12,7 +12,7 @@ urlpatterns = [
     path('halls/list/', HallListAPIView.as_view()),
 
     path('reader_books/list/', BookOnHandsListAPIView.as_view()),
-    path('reader_books/<int:pk>/', BookOnHandsListAPIView.as_view()),
+    path('reader_books/<int:pk>/', BookOnHandsRetrieveAPIView.as_view()),
 
     # path('readers/create/',  CreateReader.as_view()),
     # path('books/create/',  CreateBook.as_view()),
@@ -21,6 +21,7 @@ urlpatterns = [
     # path('instance_place/create/', CreateInstancePlace.as_view()),
     # path('reader_place/create/', CreateHallReader.as_view()),
     path('reader_books/create/',  CreateBookOnHand.as_view()),
+    path('return/<int:pk>/', BookOnHandsRetrieveUpdateDestroyAPIView.as_view()),
     #
     # path('booking/<int:pk>/update/', ChangeBookOnHands.as_view()),
     # path('reader_place/<int:pk>/update/', ChangeReaderHall.as_view()),

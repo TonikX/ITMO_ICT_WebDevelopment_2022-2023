@@ -51,7 +51,7 @@
 
           <v-text-field
             label="Телефон"
-            v-model="signUpForm.phone"
+            v-model="signUpForm.phone_number"
             name="phone"/>
 
           <v-btn type="submit" color="primary" dark>Зарегистрироваться</v-btn>
@@ -77,7 +77,7 @@ export default {
       address: '',
       phone_number: ''
     },
-    educationOptions: ['elementary', 'secondary', 'college']
+    educationOptions: ['e', 's', 'c']
   }),
 
   methods: {

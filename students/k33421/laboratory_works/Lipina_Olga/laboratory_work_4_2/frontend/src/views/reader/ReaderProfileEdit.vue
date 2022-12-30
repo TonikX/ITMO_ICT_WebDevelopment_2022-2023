@@ -76,7 +76,7 @@ export default {
       address: '',
       phone_number: ''
     },
-    educationOptions: ['elementary', 'secondary', 'college']
+    educationOptions: ['e', 's', 'c']
   }),
 
   created () {

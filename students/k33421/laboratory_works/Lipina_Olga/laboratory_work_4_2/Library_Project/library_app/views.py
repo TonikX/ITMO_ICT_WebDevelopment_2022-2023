@@ -123,3 +123,11 @@ class ReaderRetrieveAPIView(RetrieveAPIView):
 class InstanceRetrieveAPIView(RetrieveAPIView):
     serializer_class = InstanceRetrieveSerializer
     queryset = InstanceBook.objects.all()
+
+class BookOnHandsRetrieveAPIView(RetrieveAPIView):
+    serializer_class = BooksOnHandsSerializer
+    queryset = BooksOnHands.objects.all()
+
+class BookOnHandsRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = BooksOnHandsSerializer
+    queryset = BooksOnHands.objects.all()

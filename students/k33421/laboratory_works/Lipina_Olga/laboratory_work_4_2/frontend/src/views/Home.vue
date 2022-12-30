@@ -10,8 +10,14 @@
       </v-card-title>
       <v-card-text>
         <h3><a @click="goCatalogue">Каталог</a><br>
-          <a v-if="this.authorized" @click="goProfile">Личный кабинет</a>
-          <a v-else @click="goSignIn">Войти</a>
+          <template  v-if="this.authorized">
+            <a @click="goProfile">Личный кабинет</a><br>
+            <a @click="goLogOut">Выйти</a><br>
+          </template>
+          <template v-else>
+            <a @click="goSignIn">Войти</a><br>
+            <router-link to="/library/signup">Зарегистрироваться</router-link>
+          </template>
         </h3>
       </v-card-text>
     </v-card>
@@ -29,8 +35,12 @@ export default {
   }),
 
   created () {
+    // const response = this.axios.get('http://127.0.0.1:8000/lib/readers/list/')
+    console.log('hehe' + ' ' + localStorage.getItem('auth_token'))
     if (localStorage.getItem('auth_token')) {
-      this.authorized = true
+      if (localStorage.getItem('auth_token') !== '-1') {
+        this.authorized = true
+      }
     }
   },
 
@@ -41,6 +51,10 @@ export default {
 
     goProfile () {
       this.$router.push({ name: 'reader_profile' })
+    },
+
+    goLogOut () {
+      this.$router.push({ name: 'logout' })
     },
 
     goSignIn () {

@@ -10,6 +10,7 @@ import Instance from '@/views/library/Instance'
 import Catalogue from '@/views/library/Catalogue'
 import InstanceReturn from '@/views/library/InstanceReturn'
 import InstanceTake from '@/views/library/InstanceTake'
+import LogOut from '@/views/reader/LogOut'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/library/signup',
     name: 'signup',
     component: SignUp
+  },
+  {
+    path: '/library/logout',
+    name: 'logout',
+    component: LogOut
   },
   {
     path: '/library/signin',

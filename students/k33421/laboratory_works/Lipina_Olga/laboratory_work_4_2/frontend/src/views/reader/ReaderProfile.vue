@@ -82,7 +82,7 @@ export default {
       this.cur_read_url = 'http://127.0.0.1:8000/lib/readers/' + this.reader.id
       const response = await this.axios.get(this.cur_read_url)
       this.reader = response.data
-      console.log(response)
+      console.log('hehe ' + this.reader.phone_number)
     },
 
     goBook (bookID) {

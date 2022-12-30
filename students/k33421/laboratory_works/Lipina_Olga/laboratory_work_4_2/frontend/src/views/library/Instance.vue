@@ -52,7 +52,7 @@
       v-else>
       <v-card-text>
         <div class="text--primary">Вы сейчас читаете эту книгу</div>
-        <a @click="returnBook">Вернуть книгу в библиотеку</a>
+        <a @click="returnBook(instance.id)">Вернуть книгу в библиотеку</a>
       </v-card-text>
     </v-card>
 
@@ -140,8 +140,10 @@ export default {
     //   alert(this.bookReaderID)
     //   await this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
     // },
-    returnBook () {
-      const response = this.axios.get('http://127.0.0.1:8000/lib/reader_books/list/')
+    async returnBook (InstanceId) {
+      // alert(InstanceId)
+      const response = await this.axios.get('http://127.0.0.1:8000/lib/reader_books/list/')
+      console.log('returning ' + response.data)
       // eslint-disable-next-line no-unused-vars
       for (const [key, value] of Object.entries(response.data)) {
         if (value.reader.id === this.reader.id && value.instance.id === this.instance.id) {
@@ -149,8 +151,8 @@ export default {
           break
         }
       }
-      alert(this.bookReaderID)
-      this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
+      // alert(this.bookReaderID)
+      await this.$router.push({ name: 'return', params: { id: this.bookReaderID } })
     },
 
     goCatalogue () {

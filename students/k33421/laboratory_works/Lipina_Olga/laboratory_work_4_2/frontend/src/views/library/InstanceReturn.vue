@@ -6,16 +6,16 @@
       class="my-2"
     >
       <v-card-title>
-        <h2>{{ this.book.id }}</h2>
+        <h2>{{ this.book.book.book_name }}</h2>
       </v-card-title>
 
       <v-card-text>
         <div class="text--primary">
-          Авторы: <b>{{ this.book.authors }}</b> <br>
-          Жанр: {{ this.book.genre }} <br>
-          Год издания: {{ this.book.publication_year }} <br>
+          Авторы: <b>{{ this.book.book.author }}</b> <br>
+          Жанр: {{ this.book.book.section }} <br>
+          Год издания: {{ this.book.year_published }} <br>
           Издательство: {{ this.book.publisher }} <br>
-          Библиотечный номер: {{ this.book.book_cypher }} <br>
+          Библиотечный номер: {{ this.book.cypher }} <br>
         </div>
       </v-card-text>
     </v-card>
@@ -23,8 +23,9 @@
     <v-card>
       <v-card-text style="margin-top:2cm">
         <div class="text--primary">
-          Дата выдачи: {{ this.issue_date }} <br>
-          Срок возврата: {{ this.due_date }}
+          Дата выдачи: {{ this.date_register }} <br>
+          Выдана на <b>14</b> дней.
+<!--          Срок возврата: {{ this.date_register }}-->
         </div>
       </v-card-text>
     </v-card>
@@ -60,14 +61,15 @@ export default {
     async loadReaderBookData () {
       this.book_url = 'http://127.0.0.1:8000/lib/reader_books/' + this.$route.params.id
       const response = await this.axios.get(this.book_url)
-      this.book = response.data.book
+      console.log('hehe', response.data)
+      this.book = response.data.instance
       this.reader = response.data.reader
-      this.issue_date = response.data.issue_date
-      this.due_date = response.data.due_date
+      this.date_register = response.data.date_register
+      // this.due_date = response.data.due_date
     },
 
     async returnBook () {
-      this.return_url = 'http://127.0.0.1:8000/library/return/' + this.$route.params.id
+      this.return_url = 'http://127.0.0.1:8000/lib/return/' + this.$route.params.id
       await this.axios.delete(this.return_url)
       alert('Вы вернули книгу в библиотеку')
       await this.$router.push({ name: 'catalogue' })
