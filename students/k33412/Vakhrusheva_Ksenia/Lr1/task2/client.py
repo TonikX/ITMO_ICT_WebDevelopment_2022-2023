@@ -10,15 +10,14 @@ def main():
 	while True:
 		data = sock.recv(settings.buffer_size).decode(settings.encoding).strip()
 
-		match data:
-			case settings.command_input:
-				number = input()
-				sock.sendall(number.encode(settings.encoding))
-			case settings.command_done:
-				break
-			case _:
-				print(data)
-				sock.sendall(settings.command_next.encode(settings.encoding))
+		if data == settings.command_input:
+			number = input()
+			sock.sendall(number.encode(settings.encoding))
+		elif data == settings.command_done:
+			break
+		else:
+			print(data)
+			sock.sendall(settings.command_next.encode(settings.encoding))
 
 
 if __name__ == "__main__":

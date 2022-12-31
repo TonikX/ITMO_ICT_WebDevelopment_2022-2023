@@ -56,21 +56,20 @@ class Server:
 		self.users.append(user)
 		while self.running:
 			try:
-				match user.state:
-					case UserState.NONE:
-						user.state = UserState.CONNECTED
-					case UserState.CONNECTED:
-						self.send_message(user, "What is your name?")
-						name = conn.recv(settings.buffer_size).decode(settings.encoding)
-						if not name:
-							raise ValueError()
+				if user.state == UserState.NONE:
+					user.state = UserState.CONNECTED
+				elif user.state == UserState.CONNECTED:
+					self.send_message(user, "What is your name?")
+					name = conn.recv(settings.buffer_size).decode(settings.encoding)
+					if not name:
+						raise ValueError()
 
-						user.name = name
-						user.state = UserState.READY
-						self.broadcast(user.name, "connected")
-					case UserState.READY:
-						message = conn.recv(settings.buffer_size).decode(settings.encoding)
-						self.broadcast(user.name, message, [user])
+					user.name = name
+					user.state = UserState.READY
+					self.broadcast(user.name, "connected")
+				elif user.state == UserState.READY:
+					message = conn.recv(settings.buffer_size).decode(settings.encoding)
+					self.broadcast(user.name, message, [user])
 			except:
 				conn.close()
 				self.users.remove(user)
