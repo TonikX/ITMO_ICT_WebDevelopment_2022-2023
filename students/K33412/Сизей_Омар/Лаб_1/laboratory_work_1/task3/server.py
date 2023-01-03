@@ -1,10 +1,7 @@
 import socket
 
-
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = '127.0.0.1'
-port = 7779
-server.bind((host, port))
+server.bind(("localhost", 62102))
 server.listen(1)
 
 while True:

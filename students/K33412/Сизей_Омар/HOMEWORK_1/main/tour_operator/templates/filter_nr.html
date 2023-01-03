@@ -1,0 +1,16 @@
+<body bgcolor="#f5f5dc">
+    <!-- Iterate over object_list -->
+    <!-- Display Objects -->
+    <ul>
+    {% for tour in tours %}
+    <strong>{{tour.name}} </strong><br>
+   Description: {{tour.description}}<br>
+    <a href="/tour/{{ tour.id }}">More details</a> <br>
+    
+   
+    <hr/>
+   {%endfor%}
+    <a href="/tour">Get back</a> <br>
+   </ul>
+   </body>
+   

@@ -1,0 +1,24 @@
+<body bgcolor="#f5f5dc">
+    <h1>{{tour.name}} </h1>
+    <strong>Description:</strong> {{tour.description}} <br>
+    <strong>Agency:</strong> {{tour.agency_id}} <br>
+    <strong>Beginning Date:</strong> {{tour.beginning_date}} <br>
+    <strong>Ending Date:</strong> {{tour.ending_date}} <br>
+    <strong>Country:</strong> {{tour.country}} <br>
+    <strong>Price:</strong> {{tour.price}}
+    <br>
+    <a href="/tour/{{ tour.id }}/new_comment">Leave a comment</a> <br>
+    <br>
+    <hr/>
+    <h2>Comments: </h2>
+    {% for comment in comments %}
+    <!-- Display Objects -->
+    <strong>Tourist:</strong> {{ comment.tourist_id }} <br>
+    <strong>Tour:</strong> {{ comment.tour_id }} <br>
+    <strong>Comment:</strong> {{ comment.text }}<br>
+    <strong>Rate:</strong> {{ comment.rate }} <br>
+    <hr/>
+    {% endfor %}
+</hr>
+<a href="/tour/registered">Get back</a>
+</body>    

@@ -1,5 +1,6 @@
 import socket
 
+
 class MyHTTPServer:
 
     def __init__(self, host, port):
@@ -63,9 +64,10 @@ class MyHTTPServer:
     def send_response(self, clientsocket, resp):
         clientsocket.send(resp.encode('utf-8'))
 
+
 if __name__ == '__main__':
     host = 'localhost'
-    port = 8081
+    port = 6081
     serv = MyHTTPServer(host, port)
     subjects = []
     marks = []

@@ -2,7 +2,7 @@ import socket
 
 conn = socket.socket()
 
-conn.connect(("127.0.0.1", 7779))
+conn.connect(("localhost", 62102))
 result = conn.recv(10000)
 print(result.decode())
 conn.close()

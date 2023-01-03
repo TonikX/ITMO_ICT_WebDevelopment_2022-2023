@@ -1,17 +1,15 @@
 import socket
 
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print("Socket created")
+sock.bind(("127.0.0.1", 9091))
+sock.listen(5)
+print("waiting for conn")
 
-def server():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(('localhost', 1234))
-    sock.listen(10)
-
-    while True:
-        clientsocket, address = sock.accept()
-        print(f"Connected: {address} has been established")
-        clientsocket.send(str.encode(f"Hello, client!", "utf-8"))
-        clientsocket.close()
+while True:
+    clientside, address = sock.accept()
+    print(f"Connected: {address} has been established")
+    clientside.send(str.encode(f"Hello, client!", "utf-8"))
+    clientside.close()
 
 
-if __name__ == "__main__":
-    server()

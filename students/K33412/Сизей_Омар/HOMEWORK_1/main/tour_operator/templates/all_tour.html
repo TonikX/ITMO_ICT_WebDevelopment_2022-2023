@@ -1,0 +1,22 @@
+<body bgcolor="#f5f5dc">
+    <a href="/tour"><button>Show all</button></a>
+    {% for country in view.all_countries %}
+    <a href="/filter/{{country.id}}"><button>{{ country.name }}</button></a>
+    {% endfor %}
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <strong>{{ object.name }}</strong><br>
+    Description: {{ object.description }}<br>
+    <a href="/tour/{{ object.id }}">More details</a> <br>
+    
+  
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    No objects yet.
+    {% endfor %}
+    <a href="/home">Get back</a> <br>
+</ul>
+</body>

@@ -1,12 +1,11 @@
 import socket
 import threading
 
-
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server = '127.0.0.1', 8080
+server = '127.0.0.1', 62017
 conn.connect(server)
 
-username = input('Выберите псевдоним: ')
+username = input('Choose nickname: ')
 
 
 def recv_msg():

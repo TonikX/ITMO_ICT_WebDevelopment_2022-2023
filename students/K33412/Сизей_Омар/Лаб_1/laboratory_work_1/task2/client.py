@@ -1,21 +1,16 @@
 import socket
 
-host = "localhost"
-port = 14900
-
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect((host, port))
-
-   #Version with trapezoid
+sock.connect(("localhost", 14900))
 
 for i in range(3):
-    data = sock.recv(16384)
+    data = sock.recv(1024)
     text = data.decode()
     print(text)
     proportions = input()
     sock.send(proportions.encode())
 
-data = sock.recv(16384)
-trapezoid_area = data.decode()
-print(trapezoid_area)
+data = sock.recv(1024)
+parallelogram_area = data.decode()
+print(parallelogram_area)
 sock.close()
