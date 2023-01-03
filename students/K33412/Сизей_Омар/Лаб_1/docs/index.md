@@ -289,7 +289,7 @@ class MyHTTPServer:
 
 if __name__ == '__main__':
     host = 'localhost'
-    port = 8081
+    port = 6081
     serv = MyHTTPServer(host, port)
     subjects = []
     marks = []
