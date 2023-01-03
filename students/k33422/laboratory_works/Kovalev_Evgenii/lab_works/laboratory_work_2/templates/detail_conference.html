@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load ratings %}
+
+{% block title %}
+Конференция {{ conf.name }}
+{% endblock %}
+
+{% block content %}
+{% include '_conference.html' %}
+{% endblock %}
+
+{% block comments %}
+{% include 'comments.html' %}
+{% endblock %}
+
+{% block rating %}
+{% ratings conf %}
+{% endblock %}
