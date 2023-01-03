@@ -342,3 +342,38 @@ urlpatterns = [
     path('readers/inst/<int:pk>', ReadersInst.as_view()),
 ]
 ```
+
+
+Эндпоинт - по привязки книги к пользователю
+
+```python
+**URL** : `/library/book/readers`
+
+**Method** : `POST`
+
+**Auth required** : YES
+
+**Permissions required** : None
+
+**Body** : {
+    reader: 2 
+    book: 2
+    date: '2022-01-01'
+}
+
+**Headers** : {
+    'Content-Type': 'application/json'
+}
+
+**Data constraints** : `{
+    
+}`
+
+**Code** : `200 OK`
+
+**Content** : `{[]}`
+
+'''json
+
+'''
+```
