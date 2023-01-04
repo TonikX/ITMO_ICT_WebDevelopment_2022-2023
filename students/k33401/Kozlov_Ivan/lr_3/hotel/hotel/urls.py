@@ -27,4 +27,5 @@ urlpatterns = [
     path('api/', include('site_hotel.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 
+
 ]

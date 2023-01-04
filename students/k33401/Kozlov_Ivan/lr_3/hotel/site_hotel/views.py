@@ -7,6 +7,7 @@ from .serializers import *
 from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class AllClients(generics.ListAPIView):
@@ -33,6 +34,7 @@ class AllBookWithInfoAboutRoomAndTypeRoom(generics.ListAPIView):
 class CreateClient(generics.CreateAPIView, generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientCreateSerializer
+    permission_classes = [IsAuthenticated]
 
 class GetCurrentWorker(APIView):
     def get(self, request, pk):
@@ -64,3 +66,11 @@ class CreateBook(generics.CreateAPIView):
 class CreateWorker(generics.CreateAPIView, generics.ListAPIView):
     queryset = Workers.objects.all()
     serializer_class = WorkerCreateSerializer
+
+
+class AllRooms(generics.ListAPIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['type__count_places_in_room']
+

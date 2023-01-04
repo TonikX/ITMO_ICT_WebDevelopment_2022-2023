@@ -13,5 +13,6 @@ urlpatterns = [
     path('create_book/', CreateBook.as_view()),
     path('create_worker/', CreateWorker.as_view()),
     path('auth/', include('djoser.urls')),
+    path('all_rooms/', AllRooms.as_view()),
 ]
 

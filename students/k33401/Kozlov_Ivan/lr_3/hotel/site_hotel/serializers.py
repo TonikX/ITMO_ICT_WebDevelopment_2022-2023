@@ -50,3 +50,4 @@ class WorkerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workers
         fields = "__all__"
+
