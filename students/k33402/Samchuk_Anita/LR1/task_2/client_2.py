@@ -7,7 +7,7 @@ print('Что вам надо посчитать?\n1)Гипотенуза\n2)К�
 answer = input()
 print('Введите известные стороны')
 a, b = map(int, input().split())
-sock.send('{},{},{}'.format(answer, a, b).encode('utf-8'))
+sock.send(f'{answer},{a},{b}'.encode('utf-8'))
 
 data = sock.recv(1024)
 sock.close
