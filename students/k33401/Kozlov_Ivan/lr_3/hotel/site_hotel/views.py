@@ -63,9 +63,10 @@ class CreateBook(generics.CreateAPIView):
         return Response("Бронирование создано", status=status.HTTP_201_CREATED)
 
 
-class CreateWorker(generics.CreateAPIView, generics.ListAPIView):
+class CreateWorker(generics.ListCreateAPIView):
     queryset = Workers.objects.all()
     serializer_class = WorkerCreateSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class AllRooms(generics.ListAPIView):
@@ -74,3 +75,7 @@ class AllRooms(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['type__count_places_in_room']
 
+class UpdateWorker(generics.UpdateAPIView):
+    queryset = Workers.objects.all()
+    serializer_class = WorkerCreateSerializer
+    permission_classes = [IsAuthenticated]

@@ -14,5 +14,6 @@ urlpatterns = [
     path('create_worker/', CreateWorker.as_view()),
     path('auth/', include('djoser.urls')),
     path('all_rooms/', AllRooms.as_view()),
+    path('update_worker/<int:pk>', UpdateWorker.as_view()),
 ]
 
