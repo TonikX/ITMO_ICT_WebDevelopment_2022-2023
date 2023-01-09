@@ -60,7 +60,7 @@ class DismissedCountSerializer(serializers.ModelSerializer):
         fields = ["dismissed_count"]
 
     def get_dismissed_count(self, obj):
-        return Participation.objects.filter(dismissed=True).count()
+        return Participation.objects.filter(dismissed=False).count()
 
 
 class BreedExpertsSerializer(serializers.ModelSerializer):
