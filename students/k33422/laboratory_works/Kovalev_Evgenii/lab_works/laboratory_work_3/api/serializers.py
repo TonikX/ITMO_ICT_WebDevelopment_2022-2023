@@ -72,3 +72,21 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['title', 'year', 'cypher']
+
+    # Можно переопределить метод create способом ниже, если еще понадобиться создать экземпляр книги
+    # def create(self, data):
+    #     book = Book.objects.create(**data)
+    #     book_copy = BookCopy.objects.create(book=book)
+    #     request_data = self.context['request'].data
+    #     book_copy.reading_room.set(request_data['reading_room'])
+    #     return book
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ['id', 'password', 'date_joined',
+                   'surname', 'lastname', 'role',
+                   'is_staff', 'is_active', 'last_login',
+                   'is_superuser', 'groups', 'user_permissions',
+                   'reader_room', 'education', 'first_name', 'last_name']
