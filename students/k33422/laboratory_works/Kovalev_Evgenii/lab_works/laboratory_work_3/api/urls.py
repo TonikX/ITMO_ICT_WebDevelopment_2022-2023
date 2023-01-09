@@ -29,15 +29,15 @@ urlpatterns = [
     # URL: http://127.0.0.1:8000/api/v1/reader-register/
     # METHOD: POST
     # BODY EXAMPLE:
-        # {
-        #     "username": "reader2",
-        #     "password": "reader",
-        #     "phone": "892342511",
-        #     "library_card_number": "2345",
-        #     "education": 1,
-        #     "reader_room": 1,
-        #     "is_have_degree": True,
-        # }
+    #     {
+    #         "username": "reader2",
+    #         "password": "reader",
+    #         "phone": "892342511",
+    #         "library_card_number": "2345",
+    #         "education": 1,
+    #         "reader_room": 1,
+    #         "is_have_degree": True,
+    #     }
     path(f'{API_PREFIX}/reader-register/', CreateReaderView.as_view()),
     path(f'{API_PREFIX}/author-register/', CreateAuthorView.as_view()),
 
@@ -85,5 +85,31 @@ urlpatterns = [
     path(f'{API_PREFIX}/book-register/', BookRegisterView.as_view()),
 
     # Отчет (http://127.0.0.1:8000/api/v1/report/?month=1/)
-    path(f'{API_PREFIX}/report/', ReportView.as_view())
+    path(f'{API_PREFIX}/report/', ReportView.as_view()),
+
+    # Редактирование данных пользователя (PUT method)
+    # {
+    #     "username": "admins",
+    #     "password": "admin",
+    #     "phone": "8996"
+    # }
+    path(f'{API_PREFIX}/user-edit/<str:username>/', EditUserView.as_view()),
+
+    # Взять экземпляр книги (POST method)
+    # {
+    #     "book": "b1"
+    # }
+    path(f'{API_PREFIX}/get-book/<str:username>/', GetBookView.as_view()),
+
+    # Вернуть экземпляр книги (POST method)
+    # {
+    #     "book": "b1"
+    # }
+    path(f'{API_PREFIX}/return-book/<str:username>/', ReturnBookView.as_view()),
+
+    # Все экземпляры книг (GET method)
+    path(f'{API_PREFIX}/books-copies/', BooksCopiesView.as_view()),
+
+    # Получить информацию по пользователю
+    path(f'{API_PREFIX}/get-user-info/<str:username>/', GetUserInfoView.as_view())
 ]
