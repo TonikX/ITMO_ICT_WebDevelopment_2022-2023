@@ -136,14 +136,17 @@ class BookCopy(models.Model):
 ```
 * `views.py`
 ```python
+import json
 from collections import defaultdict
 from datetime import datetime
 
+from django.forms.models import model_to_dict
 from dateutil.relativedelta import relativedelta
 from django.db.models import F, Count, Sum, Q
 from django.db.models.functions import Extract, Now
 from rest_framework import generics, serializers, permissions, mixins
 from rest_framework.generics import get_object_or_404, RetrieveUpdateAPIView, GenericAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -158,10 +161,12 @@ class CreateUserView:
 
 class CreateReaderView(CreateUserView, generics.CreateAPIView):
     serializer_class = ReaderSerializer
+    permission_classes = [AllowAny]
 
 
 class CreateAuthorView(CreateUserView, generics.CreateAPIView):
     serializer_class = AuthorSerializer
+    permission_classes = [AllowAny]
 
 
 class ReaderBooksView(generics.ListAPIView):
@@ -281,6 +286,8 @@ class ReportView(APIView):
             Q(register_date__month=month) &
             Q(register_date__year=datetime.today().year)
         )
+        # for r in readers_for_month:
+        #     print(r)
 
         reading_rooms_books_info = defaultdict(int)
         reading_rooms_readers_info = defaultdict(int)
@@ -336,6 +343,9 @@ class ReportView(APIView):
 
             all_reading_rooms_info[str(lib)] = rooms_list
 
+        # for lib, rooms in all_reading_rooms_info.items():
+        #     print(lib, rooms)
+
         if month:
             response[f'readers_for_{month}_month_info'] = {
                 reading_room: count for reading_room, count in
@@ -343,6 +353,74 @@ class ReportView(APIView):
             }
 
         return Response(response)
+
+
+class EditUserView(generics.UpdateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    lookup_url_kwarg = 'username'
+    lookup_field = 'username'
+
+
+class BooksCopiesView(generics.ListAPIView):
+    queryset = BookCopy.objects.all()
+    serializer_class = BookCopySerializer
+
+
+class GetBookView(APIView):
+    def post(self, request, **kwargs):
+        username = kwargs['username']
+        user = get_object_or_404(User, username=username)
+        data = request.data
+        book_title = data['book']
+
+        if BookCopy.objects.filter(reader__username=username, book__title=book_title).exists():
+            return Response({'detail': f'Пользователь {username} уже взял книгу {book_title}'})
+
+        book_copy = BookCopy.objects.filter(Q(book__title=book_title) & Q(reader__isnull=True))
+
+        if not book_copy:
+            return Response({'detail': f'Нет свободных экземпляров книги {book_title} или такой книги не существует'})
+
+        book_copy = book_copy.first()
+        book_copy.reader = user
+        book_copy.save()
+        return Response({'detail': f'Пользователь {username} взял книгу {book_title}'})
+
+
+class ReturnBookView(APIView):
+    def post(self, request, **kwargs):
+        username = kwargs['username']
+        user = get_object_or_404(User, username=username)
+        data = request.data
+        book_title = data['book']
+
+        if not BookCopy.objects.filter(reader__username=username, book__title=book_title).exists():
+            return Response(
+                {'detail': f'Пользователь {username} не может вернуть книгу {book_title}, т.к. ранее не брал ее'})
+
+        book_copy = BookCopy.objects.get(Q(book__title=book_title) & Q(reader=user))
+
+        if not book_copy:
+            return Response(
+                {'detail': f'Книги {book_title} не существует, либо эта книга не взята пользователем {username}'})
+
+        book_copy.reader = None
+        book_copy.save()
+        return Response({'detail': f'Пользователь {username} вернул книгу {book_title}'})
+
+
+class GetUserInfoView(APIView):
+    def get(self, request, **kwargs):
+        user = get_object_or_404(User, username=kwargs['username'])
+        user_obj = model_to_dict(user)
+        restricted = ['id', 'password', 'date_joined', '_state',
+                      'surname', 'lastname', 'role',
+                      'is_staff', 'is_active', 'last_login',
+                      'is_superuser', 'groups', 'user_permissions',
+                      'reader_room', 'education', 'first_name', 'last_name']
+        return Response({'detail': user_obj})
+    # [f'{key}: {user.__dict__[key]}' for key in user.__dict__ if key not in restricted]
 ```
 * `serializers.py`
 ```python
@@ -420,6 +498,24 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['title', 'year', 'cypher']
+
+    # Можно переопределить метод create способом ниже, если еще понадобиться создать экземпляр книги
+    # def create(self, data):
+    #     book = Book.objects.create(**data)
+    #     book_copy = BookCopy.objects.create(book=book)
+    #     request_data = self.context['request'].data
+    #     book_copy.reading_room.set(request_data['reading_room'])
+    #     return book
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ['id', 'password', 'date_joined',
+                   'surname', 'lastname', 'role',
+                   'is_staff', 'is_active', 'last_login',
+                   'is_superuser', 'groups', 'user_permissions',
+                   'reader_room', 'education', 'first_name', 'last_name']
 ```
 * `urls.py`
 ```python
@@ -431,8 +527,38 @@ from api.views import *
 API_PREFIX = 'api/v1'
 
 urlpatterns = [
+    # маршруты для работы аутентификации на базе обычных токенов
+    # для авторизации в Postman нужно добавить заголовок Authorization со значением "Token <token>"
+    # токен генерируется на странице http://127.0.0.1:8000/auth/token/login
+    # также для генерации токена на адрес выше можно отправить post-запрос:
+    # {
+    #     "username": "admin",
+    #     "password": "admin","
+    # }
+
     path(f'{API_PREFIX}/auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+
+    # ------------------------ ENDPOINTS ------------------------
+
+    # АВТОРИЗАЦИЯ ОСУЩЕСТВЛЯЕТСЯ ДОБАВЛЕНИЕМ ЗАГОЛОВКА Authorization
+    # ПРИМЕР: Authorization: Token 86dac6a02a74f0b61d61a8a4d939230994061c49
+
+    # Регистрация читателя в общем смысле (можно зарегаться как в системе, так и в библиотеке)
+    # Регистрация в библиотеке интерпретируется как присвоение читателю library_card_number
+    # С пустым library_card_number читатель считается незарегистрированным в библиотеке
+    # URL: http://127.0.0.1:8000/api/v1/reader-register/
+    # METHOD: POST
+    # BODY EXAMPLE:
+    #     {
+    #         "username": "reader2",
+    #         "password": "reader",
+    #         "phone": "892342511",
+    #         "library_card_number": "2345",
+    #         "education": 1,
+    #         "reader_room": 1,
+    #         "is_have_degree": True,
+    #     }
     path(f'{API_PREFIX}/reader-register/', CreateReaderView.as_view()),
     path(f'{API_PREFIX}/author-register/', CreateAuthorView.as_view()),
 
@@ -451,6 +577,16 @@ urlpatterns = [
     # Читатели в процентном распределении по критерию образования
     path(f'{API_PREFIX}/readers-education-stats/', ReadersEducationStatsView.as_view()),
 
+    # Запись читателя в библиотеку (или изменение номера билета и читательского зала)
+    # Записать читателя может только пользователь с ролью "Работник библиотеки"
+    # Пример:
+    # URL: http://127.0.0.1:8000/api/v1/lib-reader-register/admin/
+    # METHOD: PATCH/PUT
+    # BODY EXAMPLE:
+    # {
+    #     "library_card_number": "1235666",
+    #     "reader_room": 1
+    # }
     path(f'{API_PREFIX}/lib-reader-register/<str:username>/', RegisterReaderView.as_view()),
 
     # Удалить пользователей, зарегистрированных в библиотеке более года назад
@@ -459,9 +595,43 @@ urlpatterns = [
     # Удаление книги по шифру (POST-запрос)
     path(f'{API_PREFIX}/drop-book-copy-by-cypher/<str:cypher>/', DeleteBookCopyView.as_view()),
 
+    # Принять книгу в фонд библиотеки (POST-запрос)
+    # BODY EXAMPLE:
+    # {
+    #     "title": "Приключения Тома Сойера",
+    #     "year": 2001,
+    #     "cypher": "ISBNXXX",
+    #     "reading_room": [1] (это поле можно убрать)
+    # }
     path(f'{API_PREFIX}/book-register/', BookRegisterView.as_view()),
 
     # Отчет (http://127.0.0.1:8000/api/v1/report/?month=1/)
-    path(f'{API_PREFIX}/report/', ReportView.as_view())
+    path(f'{API_PREFIX}/report/', ReportView.as_view()),
+
+    # Редактирование данных пользователя (PUT method)
+    # {
+    #     "username": "admins",
+    #     "password": "admin",
+    #     "phone": "8996"
+    # }
+    path(f'{API_PREFIX}/user-edit/<str:username>/', EditUserView.as_view()),
+
+    # Взять экземпляр книги (POST method)
+    # {
+    #     "book": "b1"
+    # }
+    path(f'{API_PREFIX}/get-book/<str:username>/', GetBookView.as_view()),
+
+    # Вернуть экземпляр книги (POST method)
+    # {
+    #     "book": "b1"
+    # }
+    path(f'{API_PREFIX}/return-book/<str:username>/', ReturnBookView.as_view()),
+
+    # Все экземпляры книг (GET method)
+    path(f'{API_PREFIX}/books-copies/', BooksCopiesView.as_view()),
+
+    # Получить информацию по пользователю
+    path(f'{API_PREFIX}/get-user-info/<str:username>/', GetUserInfoView.as_view())
 ]
 ```
