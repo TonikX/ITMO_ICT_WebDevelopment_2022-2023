@@ -51,3 +51,8 @@ class WorkerCreateSerializer(serializers.ModelSerializer):
         model = Workers
         fields = "__all__"
 
+
+class BookSerializerForUpdateStatusMove(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ["status_move"]

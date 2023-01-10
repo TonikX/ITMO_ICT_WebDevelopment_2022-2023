@@ -8,9 +8,10 @@ from datetime import datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 
-class AllClients(generics.ListAPIView):
+class AllClients(generics.ListCreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [IsAuthenticated]
@@ -19,6 +20,8 @@ class AllClients(generics.ListAPIView):
 class AllBook(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['room', 'passport_client']
     permission_classes = [IsAuthenticated]
 
 
@@ -75,7 +78,20 @@ class AllRooms(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['type__count_places_in_room']
 
-class UpdateWorker(generics.UpdateAPIView):
+
+class UpdateWorker(generics.UpdateAPIView, generics.DestroyAPIView):
     queryset = Workers.objects.all()
     serializer_class = WorkerCreateSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class DeleteCurrentBook(generics.DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerWithInfoAboutRoomAndTypeRoom
+    permission_classes = [IsAuthenticated]
+
+
+class UpdateCurrentBook(generics.UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerForUpdateStatusMove
     permission_classes = [IsAuthenticated]

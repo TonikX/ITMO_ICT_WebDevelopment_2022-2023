@@ -49,6 +49,11 @@ class Book(models.Model):
         ("Н", "Не оплачено"),
     )
 
+    move_out = (
+        ("не выселен", "не выселен"),
+        ("выселен", "выселен"),
+    )
+
     number_contract = models.CharField("номер договора", max_length=400, primary_key=True)
     room = models.ForeignKey("Room", on_delete=models.CASCADE, verbose_name="номер комнаты")
     identifier_worker = models.ForeignKey("Workers", on_delete=models.CASCADE, verbose_name="табельный номер сотрудника")
@@ -57,4 +62,5 @@ class Book(models.Model):
     data_end_living = models.DateField("дата выезда", null=False)
     status_book = models.CharField("статус бронирования", choices=status_type, null=False, max_length=20)
     status_payment = models.CharField("статус оплаты", choices=status_payment, null=False, max_length=20)
+    status_move = models.CharField("Выселение", choices=move_out, null=False, max_length=20)
 

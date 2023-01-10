@@ -15,5 +15,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('all_rooms/', AllRooms.as_view()),
     path('update_worker/<int:pk>', UpdateWorker.as_view()),
+    path('delete_book/<int:pk>', DeleteCurrentBook.as_view()),
+    path('update_book/<int:pk>', UpdateCurrentBook.as_view()),
 ]
 
