@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        {% for data in dataset %}
+            {{ data.pk }} {{ data.username }}
+        {{ data.first_name }} {{ data.last_name }} {{ data.birthday }}
+            <a href="/owner/{{ data.pk }}">Подробнее</a>
+            <br/>
+        <hr/>
+
+        {% endfor %}
+
+    </div>
+    <div>
+        <form method="POST" enctype="multipart/form-data">
+
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
