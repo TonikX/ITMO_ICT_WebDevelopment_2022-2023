@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}All comments{% endblock %}
+
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Отель</th>
+                <th scope="col">Номер комнаты</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Дата заселения</th>
+                <th scope="col">Дата выселения</th>
+                <th scope="col">Отзыв</th>
+            </tr>
+        </thead>
+        {% for comment in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ comment.reservation.room.hotel.name }}</td>
+                <td>{{ comment.reservation.room.number_room }}</td>
+                <td>{{ comment.guest }}</td>
+                <td>{{ comment.date_start }}</td>
+                <td>{{ comment.date_end }}</td>
+                <td>{{ comment.text }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

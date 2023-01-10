@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All cars</title>
+</head>
+<body>
+        <div class="main">
+            {% for car in object_list %}
+                <li>Id_car: {{ car.id_car }}</li>
+                <li>State_number: {{ car.state_number }}</li>
+                <li>Mark: {{ car.mark_car}}</li>
+                <li>Model: {{ car.model_car }}</li>
+                <li>Color: {{ car.color }}</li>
+                <hr/>
+            {% endfor %}
+        </div>
+        <a href="/create_car/">Get back to car creation</a> <br>
+        <a href="/admin/">Get back to admin</a>
+</body>
+</html>

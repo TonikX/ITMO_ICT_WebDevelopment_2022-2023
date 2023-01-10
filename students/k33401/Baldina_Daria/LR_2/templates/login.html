@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock %}
+
+{% block content %}  
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Войти</h1>
+          <hr class="mt-0 mb-4">
+            <form action="" method="POST" class="d-flex flex-column col-lg-3">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <label for="username">Имя пользователя</label>
+                <input type="text" name="username">
+        
+                <label for="password">Пароль</label>
+                <input type="password" name="password">
+        
+        
+                <button type="submit" class="btn btn-sm btn-outline-success mt-2">Войти</button>
+            </form> 
+        </div>
+      </div>
+    </div>
+{% endblock %}
