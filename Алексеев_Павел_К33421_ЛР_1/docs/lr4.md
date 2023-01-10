@@ -606,4 +606,26 @@ export default {
 
 ```
 
+- `Страница входа`
+![Вход](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/first.png)
+
+- `Регистрация`
+![Рега](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/reg.png)
+
+- `Комнаты`
+![Комнаты](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/room.png)
+
+- `Свободные комнаты`
+![Свободные комнаты](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/free rooms.png)
+
+- `Домашняя страница`
+![Домашняя страница](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/home.png)
+
+- `Гости`
+![Гости](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/guests.png)
+
+- `Редактирование комнаты`
+![Редактирование комнаты](/Users/pavelalekseev/Desktop/ITMO_ICT_WebDevelopment_2022-2023/Алексеев_Павел_К33421_ЛР_1/site/assets/images/edit room.png)
+
+
 
