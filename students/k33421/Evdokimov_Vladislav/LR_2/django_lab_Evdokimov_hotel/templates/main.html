@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Турфирма "Полёткин"</title>
+  </head>
+  <body>
+
+        <div class="container">
+            <nav class="navbar navbar-expand-sm navbar-light bg-gradient">
+            <a href="/"
+               class="navbar-brand mb-0 h1">
+                <svg xmlns="http://www.w3.org/2000/svg" width=40 height="40" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                    <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Zm.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1c-.213 0-.458.158-.678.599Z"/>
+                </svg>
+                Турфирма "Полёткин"
+            </a>
+            <div class="collapse.navbar-collapse"
+                 id="navbarNav">
+
+                <ul class="navbar-nav">
+
+                    {% if user.is_authenticated %}
+                        <li class="nav-item active">
+                                <a href="/tours/" class="nav-link">
+                                    Доступные туры
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/profile/" class="nav-link">
+                                    Личный кабинет
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/reservedtour/" class="nav-link">
+                                    Зарезервированные туры
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/comments/" class="nav-link">
+                                    Отзывы
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/logout/" class="nav-link">
+                                    Выйти
+                            </a>
+                        </li>
+                        <span class="navbar-text">
+                            Добро пожаловать, {{user.username}}
+                        </span>
+                    {% else %}
+                        <li class="nav-item active">
+                                <a href="/register/" class="nav-link">
+                                    Регистрация
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/login/" class="nav-link">
+                                    Вход
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/tours_for_notauth/" class="nav-link">
+                                     Доступные туры
+                            </a>
+                        </li>
+                            </a>
+                        </li>
+                        <li class="nav-item active">
+                                <a href="/comments/" class="nav-link">
+                                    Отзывы
+                            </a>
+                        </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
