@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="main mx-3 my-1">
+    <h1>Room {{ room.number }}</h1>
+    <h2>Details</h2>
+    <uL>
+        <li>Beds: {{ room.beds }}</li>
+        <li>Type: {{ room.type }}</li>
+        <li>Cost: ${{ room.cost }}</li>
+        <li>Amenities: {{ room.amenities }}</li>
+    </uL>
+    <h2>Booking</h2>
+    {% if user.is_active and booking_form %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ booking_form.as_p }}
+        <button type="submit" name="booking_post">Post</button>
+    </form>
+    {% endif %}
+
+    <h2>Reviews</h2>
+    {% for obj in reviews %}
+    <p> {{ obj.text }}, <b>{{ obj.rating }}</b>/10 </p>
+    <p> by <b>{{ obj.booking.reservee }}</b>, rented from {{ obj.booking.date_start }} to {{obj.booking.date_end }}</p>
+    <hr>
+    {% endfor %}
+
+    {% if user.is_active and review_form %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ review_form.as_p }}
+        <button type="submit" name="review_post">Post</button>
+    </form>
+    {% endif %}
+</div>
+</body>
+</html>

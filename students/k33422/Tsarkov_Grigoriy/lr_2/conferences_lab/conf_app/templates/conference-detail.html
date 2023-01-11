@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{ conference }}</title>
+    <style>
+   .layer {
+    border: 2px solid black;
+    padding: 20px;
+   }
+    </style>
+</head>
+<body class="layer">
+<a href="/">main</a>
+<br/>
+<a href="/conferences/{{ conferences }}">conferences</a>
+<br/>
+{% if user.is_active %}
+<a href="{% url 'account_logout' %}">sign out</a>
+{% else %}
+<a href="{% url 'account_login' %}">sign in</a>
+{% endif %}
+<h2>conference info</h2>
+<h3>{{ conference }}</h3>
+<p>
+    <b>topic:</b>
+    <br/>
+    {{ conference.topic }}
+</p>
+
+<p>
+    <b>speaker:</b>
+    <br/>
+    {{ conference.written_by }}
+</p>
+
+<p>
+    <b>location:</b>
+    <br/>
+    {{ conference.location }}
+</p>
+
+<p>
+    <b>start date:</b>
+    <br/>
+    {{ conference.start_date }}
+</p>
+
+<p>
+    <b>end date:</b>
+    <br/>
+    {{ conference.end_date }}
+</p>
+
+<p>
+    <b>conference description:</b>
+    <br/>
+    {{ conference.description }}
+</p>
+
+<p>
+    <b>location description:</b>
+    <br/>
+    {{ conference.location_description }}
+</p>
+
+<p>
+    <b>terms of participation:</b>
+    <br/>
+    {{ conference.terms }}
+</p>
+
+<h1>comments</h1>
+
+{% for comment in comments %}
+<p>{{ comment.text }}</p>
+<p><small><b>comment author: {{ comment.author }}</b></small></p>
+<p><small><b>rating: {{ comment.rating }}</b></small></p>
+<p><small><b>conference dates: {{ conference.start_date }}-{{ conference.end_date }}</b></small></p>
+{% endfor %} {% if user.is_authenticated %}
+<div>
+    <h1>add comment:</h1>
+    <form action="/conferences/{{conference.id}}/" method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <input type="submit" value="add comment"/>
+    </form>
+</div>
+{% else %} sign in to add comment
+<a href="{% url 'account_login' %}">sign in</a>
+{% endif %}
+</body>
+</html>
