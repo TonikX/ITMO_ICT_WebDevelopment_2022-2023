@@ -1,0 +1,27 @@
+Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):
+>>> Transport.objects.filter(marka="Mark3")
+<QuerySet [<Transport: Transport object (3)>]>
+
+Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):
+>>> Transport_owner.objects.filter(first_name="Name5")
+<QuerySet [<Transport_owner: Transport_owner object (5)>]>
+
+Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса):
+>>> needed_id = Transport_owner.objects.all()[2].id_owner
+>>> Driver_doc.objects.get(id_owner=needed_id)
+<Driver_doc: Driver_doc object (3)>
+
+Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):
+>>> for i in range(len(Transport.objects.filter(color="green"))):
+...     print(Transport.objects.filter(color="green")[i])
+... 
+Transport object (3)
+Transport object (4)
+Transport object (6)
+
+Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):
+>>> Ownership.objects.filter(date_start__gte="1936-01-01")
+<QuerySet [<Ownership: Ownership object (1)>, <Ownership: Ownership object (2)>, <Ownership: Ownership object (3)>, 
+<Ownership: Ownership object (4)>, <Ownership: Ownership object (5)>, 
+<Ownership: Ownership object (6)>]>
+

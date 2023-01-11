@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Лабораторная №3 - Kozlov Ivan - WEB - ICT</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Kozlov Ivan - WEB - ICT</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../lr_1/">Лабораторная №1</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../lr_2/">Лабораторная №2</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Лабораторная №3</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Практические <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../pr_3/">Практическая №3.1</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="../lr_2/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../pr_3/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#3">Описание 3 лабораторной работы</a></li>
+        <li class="first-level "><a href="#_1">Схема базы данных</a></li>
+        <li class="first-level "><a href="#models">Models</a></li>
+        <li class="first-level "><a href="#views">Views</a></li>
+        <li class="first-level "><a href="#urls">Urls</a></li>
+        <li class="first-level "><a href="#serializers">Serializers</a></li>
+            <li class="second-level"><a href="#api">API</a></li>
+                
+                <li class="third-level"><a href="#apiall_book">/api/all_book/</a></li>
+                <li class="third-level"><a href="#apiall_books_with_room">/api/all_books_with_room/</a></li>
+                <li class="third-level"><a href="#apiall_clients">/api/all_clients/</a></li>
+                <li class="third-level"><a href="#apiall_workers">/api/all_workers/</a></li>
+                <li class="third-level"><a href="#apiauthusers">/api/auth/users/</a></li>
+                <li class="third-level"><a href="#apiauthusersactivation">/api/auth/users/activation/</a></li>
+                <li class="third-level"><a href="#apiauthusersme">/api/auth/users/me/</a></li>
+                <li class="third-level"><a href="#apiauthusersresend_activation">/api/auth/users/resend_activation/</a></li>
+                <li class="third-level"><a href="#apiauthusersreset_password">/api/auth/users/reset_password/</a></li>
+                <li class="third-level"><a href="#apiauthusersreset_password_confirm">/api/auth/users/reset_password_confirm/</a></li>
+                <li class="third-level"><a href="#apiauthusersreset_username">/api/auth/users/reset_username/</a></li>
+                <li class="third-level"><a href="#apiauthusersreset_username_confirm">/api/auth/users/reset_username_confirm/</a></li>
+                <li class="third-level"><a href="#apiauthusersset_password">/api/auth/users/set_password/</a></li>
+                <li class="third-level"><a href="#apiauthusersset_username">/api/auth/users/set_username/</a></li>
+                <li class="third-level"><a href="#apiauthusersid">/api/auth/users/{id}/</a></li>
+                <li class="third-level"><a href="#apicreate_book">/api/create_book/</a></li>
+                <li class="third-level"><a href="#apicreate_client">/api/create_client/</a></li>
+                <li class="third-level"><a href="#apicreate_worker">/api/create_worker/</a></li>
+                <li class="third-level"><a href="#apiget_workerid">/api/get_worker/{id}</a></li>
+                <li class="third-level"><a href="#authtokenlogin">/auth/token/login/</a></li>
+                <li class="third-level"><a href="#authtokenlogout">/auth/token/logout/</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="3">Описание 3 лабораторной работы</h1>
+<p>Реализация серверной части приложения средствами django и djangorestframework в соответствии с заданием из <a href="https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=sharing">текста работы</a>.<br></p>
+<p>Порядок выполнения работы:<br>
+1.  Выполнить Практические работы <a href="https://docs.google.com/document/d/1jB8EYOWk-bbjB6sLr1s7dOmLYRC9Z5jIV6xIpnigdvY/edit?usp=sharing">3.1</a> и <a href="https://docs.google.com/document/d/1PkpwxCUYQ2_Pi8Fpcgno6te3oCQHZfkh03Zxt6DhHSw/edit">3.2</a><br><br>
+2.  Выбрать вариант или предложить свой, есть 3 способа:<br>
+2.1.    Предложить свой вариант.<br>
+2.3.    Выбрать вариант из вариантов по курсу «Основы баз данных» (https://drive.google.com/file/d/174gPjJ7AOHfzteYcobPY0x7sFBTkN1Xx/view?usp=sharing).<br>
+2.3.    Использовать вариант из курса Давида по фронтент-разработке.
+2.4.    Если хочется сделать что-то полнофункциональное для порфтолио и задеплоить, можно поговорить с Антоном Игореувичем и он предложит несколько важных для него тем (при этом варианте шаги по работе чаще нужно будет согласовывать с преподавателями).
+По любому из способов функционал нужно согласовать с преподавателем или ментором. В лабораторной работе №4 необходимо будет реализовать клиентскую часть(фронтенд) по этому же варианту.<br><br>
+3.  Реализовать модель базы данных средствами DjangoORM (согласовать с преподавателем на консультации).<br>
+При необходимости, студент может согласовать модель базы данных с преподавателем и только потом приступить к описанию модели средствами Django ORM<br>
+Полезные материалы:<br>
+    - <a href="https://www.youtube.com/watch?v=LZyk9p0tKXc">Создание модели данных в Django ORM</a> (Видео)<br><br>
+    - <a href="https://docs.google.com/document/d/1jB8EYOWk-bbjB6sLr1s7dOmLYRC9Z5jIV6xIpnigdvY/edit?usp=sharing">3.1</a>
+4.  Реализовать логику работу API средствами Django REST Framework (используя методы сериализации).<br>
+Полезные материалы:<br>
+    - Пункты 4, 5, 6 в <a href="https://docs.google.com/document/d/1PkpwxCUYQ2_Pi8Fpcgno6te3oCQHZfkh03Zxt6DhHSw/edit">Практической работе 3.1</a><br>
+    - <a href="https://youtu.be/AHnBL9x6-rs">DJANGO API VIEWS, GENERICS, FILTER</a> (Видео)<br>
+    - <a href="https://youtu.be/sxdPf3z6Uw8">JSON. Сериализация данных. Пишем свой сериализатор. Разбираем Django REST Framework Serializers</a> (Видео)<br>
+    - <a href="https://youtu.be/HhrPbmHbDPU">Работа с Django ORM</a> (Видео)<br><br>
+5.  Подключить регистрацию / авторизацию по токенам / вывод информации о текущем пользователе средствами Djoser.<br>
+Полезные материалы:<br>
+    - Djoser (<a href="https://youtu.be/NT-cI6rJl5Q">DRF + Djoser часть 1. Регистрация, авторизация по токенам, получение и изменение данных пользователя</a>) (Видео)<br><br>
+6.  Выполнить практическую работу 3.2 по оформлению документации (в процессе разработки)<br><br>
+7.  Реализовать документацию, описывающую работу всех используемых endpoint-ов из пункта 3 и 4 средствами Read the Docs или MkDocs.<br><br>
+Полезные материалы:
+    - Пункт 3 <a href="https://docs.google.com/document/d/1rIfREFvCB4pp8uF990Tz3PLXRJ5u_w-Y3vLxfXWKoxg/edit?usp=sharing">из практической работы №3.2</a></p>
+<p>Работа выполняется индивидуально.<br>
+Код практический и лабораторной части должен быть загружен в репозиторий курса, в соответствии с инструкциями тут.<br>
+Работу необходимо защитить на консультации или прислать видео с описанием проделанной работы.<br>)</p>
+<hr>
+
+<h1 id="_1">Схема базы данных</h1>
+<p><img alt="Screenshot" src="../img/lr_3/db2.png" /></p>
+<p><code>в pgAdmin - postgreSQL:</code></p>
+<p><img alt="Screenshot" src="../img/lr_3/db1.png" /></p>
+<hr>
+
+<h1 id="models">Models</h1>
+<ul>
+<li><code>model.py</code></li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+
+class TypeRoom(models.Model):
+    id_type = models.AutoField(&quot;id&quot;,primary_key=True)
+    facilities = models.TextField(&quot;удобства&quot;)
+    count_places_in_room = models.IntegerField(&quot;количество мест в номере&quot;,null=False)
+    name_type = models.CharField(&quot;название типа&quot;,max_length=400, null=False)
+
+
+class Room(models.Model):
+    id_room = models.AutoField(primary_key=True)
+    type = models.ForeignKey(&quot;TypeRoom&quot;,on_delete=models.CASCADE, verbose_name=&quot;тип комнаты&quot;)
+    room_number = models.IntegerField(&quot;номер комнаты&quot;, null=False)
+
+
+class PriceConstructor(models.Model):
+    id_price = models.AutoField(primary_key=True)
+    type = models.ForeignKey(&quot;TypeRoom&quot;,on_delete=models.CASCADE, verbose_name=&quot;тип комнаты&quot;)
+    data_start = models.DateField(&quot;Дата начала&quot;, null=False)
+    data_end = models.DateField(&quot;Дата конца&quot;, null=False)
+    price = models.FloatField(&quot;цена&quot;, null=False)
+
+
+class Workers(models.Model):
+    table_number = models.IntegerField(&quot;табельный номер&quot;, primary_key=True, null=False)
+    fio = models.CharField(&quot;ФИО&quot;, null=False, max_length=300)
+    phone_worker = models.CharField(&quot;телефон сотрудника&quot;, max_length=13, null=False, unique=True)
+
+
+class Client(models.Model):
+    passport = models.CharField(&quot;паспорт&quot;, max_length=20, primary_key=True)
+    phone_client = models.CharField(&quot;телефон клиента&quot;, max_length=13, null=False)
+    email_client = models.CharField(&quot;почта клиента&quot;, max_length=300, null=False)
+    name = models.CharField(&quot;имя&quot;, max_length=20, null=False)
+    last_name = models.CharField(&quot;фамилия&quot;, max_length=20, null=False)
+    father_name = models.CharField(&quot;отчество&quot;, max_length=20, null=True)
+    address = models.CharField(&quot;адрес проживания&quot;, max_length=300, null=True)
+
+
+class Book(models.Model):
+    status_type = (
+            (&quot;C&quot;, &quot;Свободно&quot;),
+            (&quot;З&quot;, &quot;Занято&quot;),
+        )
+
+    status_payment= (
+        (&quot;О&quot;, &quot;Оплачено&quot;),
+        (&quot;Н&quot;, &quot;Не оплачено&quot;),
+    )
+
+    number_contract = models.CharField(&quot;номер договора&quot;, max_length=400, primary_key=True)
+    room = models.ForeignKey(&quot;Room&quot;, on_delete=models.CASCADE, verbose_name=&quot;номер комнаты&quot;)
+    identifier_worker = models.ForeignKey(&quot;Workers&quot;, on_delete=models.CASCADE, verbose_name=&quot;табельный номер сотрудника&quot;)
+    passport_client = models.ForeignKey(&quot;Client&quot;, on_delete=models.CASCADE, verbose_name=&quot;пасспорт клиента&quot;)
+    data_start_living = models.DateField(&quot;дата заезда&quot;, null=False)
+    data_end_living = models.DateField(&quot;дата выезда&quot;, null=False)
+    status_book = models.CharField(&quot;статус бронирования&quot;, choices=status_type, null=False, max_length=20)
+    status_payment = models.CharField(&quot;статус оплаты&quot;, choices=status_payment, null=False, max_length=20)
+</code></pre>
+<hr>
+
+<h1 id="views">Views</h1>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">from django.shortcuts import render
+from rest_framework.views import APIView
+from .models import TypeRoom, Client, PriceConstructor, Room, Workers, Book
+from rest_framework import serializers, generics, status
+from rest_framework.response import Response
+from .serializers import *
+from datetime import datetime
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+
+class AllClients(generics.ListAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    authentication_classes = (TokenAuthentication,)
+
+
+class AllBook(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    authentication_classes = (TokenAuthentication,)
+
+
+class AllWorkers(generics.ListAPIView):
+    queryset = Workers.objects.all()
+    serializer_class = WorkersSerializer
+    authentication_classes = (TokenAuthentication,)
+
+class AllBookWithInfoAboutRoomAndTypeRoom(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializerWithInfoAboutRoomAndTypeRoom
+
+class CreateClient(generics.CreateAPIView, generics.ListAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientCreateSerializer
+
+class GetCurrentWorker(APIView):
+    def get(self, request, pk):
+        worker = Workers.objects.filter(pk=pk)
+        serializer = WorkersSerializer(worker, many=True)
+        return Response({&quot;Workers&quot;: serializer.data})
+
+
+class CreateBook(generics.CreateAPIView):
+    serializer_class = BookSerializer
+    authentication_classes = (TokenAuthentication,)
+    def get(self, request):
+        today = datetime.date(datetime.now())
+        book = Book.objects.filter(data_end_living__lte=today)
+        serializer = BookSerializerOnlyRoom(book, many=True)
+        return Response({&quot;Свободные номера на сегодня&quot;: serializer.data})
+
+    def post(self, request):
+        serializer = BookSerializer(data=request.data)
+        needed_books = Book.objects.filter(data_end_living__lte=self.request.data[&quot;data_start_living&quot;])
+        all_rooms = Room.objects.all()
+        current_room = request.data[&quot;room&quot;]
+        if len(needed_books) == 0:
+            return Response(&quot;нет свободных мест на текущую дату&quot;, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(&quot;Бронирование создано&quot;, status=status.HTTP_201_CREATED)
+
+
+class CreateWorker(generics.CreateAPIView, generics.ListAPIView):
+    queryset = Workers.objects.all()
+    serializer_class = WorkerCreateSerializer
+</code></pre>
+<hr>
+
+<h1 id="urls">Urls</h1>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">from django.urls import path, include, re_path
+from .views import *
+
+app_name = &quot;site_hotel&quot;
+
+urlpatterns = [
+    path('all_clients/', AllClients.as_view()),
+    path('all_book/', AllBook.as_view()),
+    path('all_workers/', AllWorkers.as_view()),
+    path('all_books_with_room/', AllBookWithInfoAboutRoomAndTypeRoom.as_view()),
+    path('create_client/', CreateClient.as_view()),
+    path('get_worker/&lt;int:pk&gt;', GetCurrentWorker.as_view()),
+    path('create_book/', CreateBook.as_view()),
+    path('create_worker/', CreateWorker.as_view()),
+    path('auth/', include('djoser.urls')),
+]
+</code></pre>
+<hr>
+
+<h1 id="serializers">Serializers</h1>
+<ul>
+<li><code>serializers.py</code></li>
+</ul>
+<pre><code class="language-python">from rest_framework import serializers
+
+from .models import TypeRoom, Client, PriceConstructor, Room, Workers, Book
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = &quot;__all__&quot;
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = &quot;__all__&quot;
+
+class BookSerializerOnlyRoom(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = [&quot;room&quot;]
+
+class WorkersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Workers
+        fields = &quot;__all__&quot;
+
+class TypeRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeRoom
+        fields = &quot;__all__&quot;
+
+class RoomSerializer(serializers.ModelSerializer):
+    type = TypeRoomSerializer()
+    class Meta:
+        model = Room
+        fields = &quot;__all__&quot;
+
+class BookSerializerWithInfoAboutRoomAndTypeRoom(serializers.ModelSerializer):
+    room = RoomSerializer()
+    class Meta:
+        model = Book
+        fields = &quot;__all__&quot;
+
+
+class ClientCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = &quot;__all__&quot;
+
+class WorkerCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Workers
+        fields = &quot;__all__&quot;
+</code></pre>
+<hr>
+
+<h2 id="api">API</h2>
+<h3 id="apiall_book"><code>/api/all_book/</code></h3>
+<h4 id="get">GET</h4>
+<h5 id="description">Description:</h5>
+<h5 id="parameters">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiall_books_with_room"><code>/api/all_books_with_room/</code></h3>
+<h4 id="get_1">GET</h4>
+<h5 id="description_1">Description:</h5>
+<h5 id="parameters_1">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_1">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiall_clients"><code>/api/all_clients/</code></h3>
+<h4 id="get_2">GET</h4>
+<h5 id="description_2">Description:</h5>
+<h5 id="parameters_2">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_2">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiall_workers"><code>/api/all_workers/</code></h3>
+<h4 id="get_3">GET</h4>
+<h5 id="description_3">Description:</h5>
+<h5 id="parameters_3">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_3">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusers"><code>/api/auth/users/</code></h3>
+<h4 id="get_4">GET</h4>
+<h5 id="description_4">Description:</h5>
+<h5 id="parameters_4">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_4">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="post">POST</h4>
+<h5 id="description_5">Description:</h5>
+<h5 id="parameters_5">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#UserCreate">UserCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_5">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#UserCreate">UserCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersactivation"><code>/api/auth/users/activation/</code></h3>
+<h4 id="post_1">POST</h4>
+<h5 id="description_6">Description:</h5>
+<h5 id="parameters_6">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#Activation">Activation</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_6">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#Activation">Activation</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersme"><code>/api/auth/users/me/</code></h3>
+<h4 id="get_5">GET</h4>
+<h5 id="description_7">Description:</h5>
+<h5 id="parameters_7">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_7">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="put">PUT</h4>
+<h5 id="description_8">Description:</h5>
+<h5 id="parameters_8">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_8">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="patch">PATCH</h4>
+<h5 id="description_9">Description:</h5>
+<h5 id="parameters_9">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_9">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="delete">DELETE</h4>
+<h5 id="description_10">Description:</h5>
+<h5 id="parameters_10">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_10">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersresend_activation"><code>/api/auth/users/resend_activation/</code></h3>
+<h4 id="post_2">POST</h4>
+<h5 id="description_11">Description:</h5>
+<h5 id="parameters_11">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_11">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersreset_password"><code>/api/auth/users/reset_password/</code></h3>
+<h4 id="post_3">POST</h4>
+<h5 id="description_12">Description:</h5>
+<h5 id="parameters_12">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_12">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersreset_password_confirm"><code>/api/auth/users/reset_password_confirm/</code></h3>
+<h4 id="post_4">POST</h4>
+<h5 id="description_13">Description:</h5>
+<h5 id="parameters_13">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#PasswordResetConfirm">PasswordResetConfirm</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_13">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#PasswordResetConfirm">PasswordResetConfirm</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersreset_username"><code>/api/auth/users/reset_username/</code></h3>
+<h4 id="post_5">POST</h4>
+<h5 id="description_14">Description:</h5>
+<h5 id="parameters_14">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_14">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#SendEmailReset">SendEmailReset</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersreset_username_confirm"><code>/api/auth/users/reset_username_confirm/</code></h3>
+<h4 id="post_6">POST</h4>
+<h5 id="description_15">Description:</h5>
+<h5 id="parameters_15">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#UsernameResetConfirm">UsernameResetConfirm</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_15">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#UsernameResetConfirm">UsernameResetConfirm</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersset_password"><code>/api/auth/users/set_password/</code></h3>
+<h4 id="post_7">POST</h4>
+<h5 id="description_16">Description:</h5>
+<h5 id="parameters_16">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#SetPassword">SetPassword</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_16">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#SetPassword">SetPassword</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersset_username"><code>/api/auth/users/set_username/</code></h3>
+<h4 id="post_8">POST</h4>
+<h5 id="description_17">Description:</h5>
+<h5 id="parameters_17">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#SetUsername">SetUsername</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_17">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#SetUsername">SetUsername</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiauthusersid"><code>/api/auth/users/{id}/</code></h3>
+<h4 id="get_6">GET</h4>
+<h5 id="description_18">Description:</h5>
+<h5 id="parameters_18">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>A unique integer value identifying this user.</td>
+<td>Yes</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_18">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="put_1">PUT</h4>
+<h5 id="description_19">Description:</h5>
+<h5 id="parameters_19">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>A unique integer value identifying this user.</td>
+<td>Yes</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_19">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="patch_1">PATCH</h4>
+<h5 id="description_20">Description:</h5>
+<h5 id="parameters_20">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>A unique integer value identifying this user.</td>
+<td>Yes</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_20">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td><a href="#User">User</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="delete_1">DELETE</h4>
+<h5 id="description_21">Description:</h5>
+<h5 id="parameters_21">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>A unique integer value identifying this user.</td>
+<td>Yes</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_21">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>204</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apicreate_book"><code>/api/create_book/</code></h3>
+<h4 id="get_7">GET</h4>
+<h5 id="description_22">Description:</h5>
+<h5 id="parameters_22">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_22">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="post_9">POST</h4>
+<h5 id="description_23">Description:</h5>
+<h5 id="parameters_23">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#Book">Book</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_23">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#Book">Book</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apicreate_client"><code>/api/create_client/</code></h3>
+<h4 id="get_8">GET</h4>
+<h5 id="description_24">Description:</h5>
+<h5 id="parameters_24">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_24">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="post_10">POST</h4>
+<h5 id="description_25">Description:</h5>
+<h5 id="parameters_25">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#ClientCreate">ClientCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_25">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#ClientCreate">ClientCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apicreate_worker"><code>/api/create_worker/</code></h3>
+<h4 id="get_9">GET</h4>
+<h5 id="description_26">Description:</h5>
+<h5 id="parameters_26">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>Number of results to return per page.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>query</td>
+<td>The initial index from which to return the results.</td>
+<td>No</td>
+<td>integer</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_26">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+<td>object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="post_11">POST</h4>
+<h5 id="description_27">Description:</h5>
+<h5 id="parameters_27">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#WorkerCreate">WorkerCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_27">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#WorkerCreate">WorkerCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiget_workerid"><code>/api/get_worker/{id}</code></h3>
+<h4 id="get_10">GET</h4>
+<h5 id="description_28">Description:</h5>
+<h5 id="parameters_28">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td></td>
+<td>Yes</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_28">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="authtokenlogin">/auth/token/login/</h3>
+<h4 id="post_12">POST</h4>
+<h5 id="description_29">Description:</h5>
+<p>Use this endpoint to obtain user authentication token.</p>
+<h5 id="parameters_29">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>data</td>
+<td>body</td>
+<td></td>
+<td>Yes</td>
+<td><a href="#TokenCreate">TokenCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_29">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+<td><a href="#TokenCreate">TokenCreate</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="authtokenlogout">/auth/token/logout/</h3>
+<h4 id="post_13">POST</h4>
+<h5 id="description_30">Description:</h5>
+<p>Use this endpoint to logout user (remove user authentication token).</p>
+<h5 id="parameters_30">Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Located in</th>
+<th>Description</th>
+<th>Required</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="responses_30">Responses</h5>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>201</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO-ICT-Frontend-2022">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>

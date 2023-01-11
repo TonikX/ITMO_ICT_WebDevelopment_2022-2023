@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 5</title>
+    <script>
+        function submitForm() {
+            let http = new XMLHttpRequest();
+            http.open("POST", "http://127.0.0.1:8000/send", true);
+            http.setRequestHeader("Content","text/html");
+            let params = "grade=" + document.getElementById("grade").value + "&subject=" + document.getElementById("subject").value;
+            http.send(params);
+        }
+    </script>
+</head>
+<body>
+<form method="post" action="#" onsubmit="submitForm();return false;">
+    <label for="subject">Предмет</label>
+    <input type="text" name="subject" id="subject"/>
+    <label for="grade">Оценка</label>
+    <input type="number" name="grade" id="grade"/>
+    <input type="submit">
+</form>
+<a href="/view">Посмотреть таблицу</a>
+</body>
+</html>
