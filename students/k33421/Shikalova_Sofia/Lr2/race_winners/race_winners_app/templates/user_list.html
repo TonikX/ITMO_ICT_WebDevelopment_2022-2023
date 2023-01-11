@@ -1,0 +1,26 @@
+<h1>Racers list</h1>
+<ul>
+    {% for object in object_list %}
+        {% if object.patronymic %}
+            <li>{{ object.username }}, {{ object.first_name }} {{ object.patronymic }} {{ object.last_name }}</li>
+        {% else %}
+            <li>{{ object.username }}, {{ object.first_name }} {{ object.last_name }}</li>
+        {% endif %}
+    <span>Team: {{ object.team }}</span> <br>
+        {% if object.member_descr %}
+            <span>{{ object.member_descr }}</span><br>
+        {% endif %}
+        {% if object.member_descr %}
+            <span>Car: {{ object.car_descr }}</span><br>
+        {% endif %}
+    <span>Experience: {{ object.experience_years }}</span><br>
+    <span>Class: {{ object.user_class }}</span><br>
+    <hr/>
+
+    {% empty %}
+    <span>No objects yet.</span>
+    {% endfor %}
+
+</ul>
+<a href="/registration/">Register</a> <br>
+<a href="/home/">Back</a> <br>
