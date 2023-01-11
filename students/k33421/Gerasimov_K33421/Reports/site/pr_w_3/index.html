@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Практическая работа 3.1 - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Web-программирование 2022-2023</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work2/" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Практическая работа 3.1</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_work2/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#31" class="nav-link">Практическая работа 3.1</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#311" class="nav-link">Задание 3.1.1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#312" class="nav-link">Задание 3.1.2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#313" class="nav-link">Задание 3.1.3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="31">Практическая работа 3.1</h1>
+<h2 id="311">Задание 3.1.1</h2>
+<p>Описание: напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей, каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей. Задание можете выполнить либо в интерактивном режиме интерпретатора, либо в отдельном python-файле. Результатом должны стать запросы и отображение созданных объектов.</p>
+<h3 id="modelspy">models.py</h3>
+<pre><code>from django.db import models
+from django.contrib.auth.models import AbstractUser
+# Create your models here.
+
+
+class Car_owner(models.Model):
+    id_owner = models.IntegerField(primary_key = True)
+    last_name = models.CharField(max_length = 30, null = False)
+    first_name = models.CharField(max_length = 30, null = False)
+    birth_day = models.DateField(null = True)
+    passport = models.IntegerField(null=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    nationality = models.CharField(max_length=20, null=True, blank=True)
+
+class Car(models.Model):
+    id_car = models.IntegerField(primary_key = True)
+    state_number = models.CharField(max_length = 15, null = False)
+    mark_car = models.CharField(max_length = 20, null = False)
+    model_car = models.CharField(max_length = 20, null = False)
+    color =  models.CharField(max_length = 30, null = True)
+
+class Ownerdhip(models.Model):
+    id_owner_car = models.IntegerField(primary_key = True)
+    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+    id_car = models.ForeignKey(Car, on_delete = models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField(null = True)
+
+class Driver_license(models.Model):
+    id_license =  models.IntegerField(primary_key = True)
+    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+    license_number = models.CharField(max_length = 10, null = False)
+    type = models.CharField(max_length = 10, null = False)
+    date_of_license= models.DateField()
+</code></pre>
+<h3 id="_1">Создание автовладельцев:</h3>
+<pre><code>Car_owner(1, 'Шпайзманн', 'Изяслав', '1990-01-1').save()
+Car_owner(2, 'Вахтенберг', 'Мстислав', '1991-01-1').save()
+Car_owner(3, 'Петрищев', 'Воислав', '1992-01-1').save()
+Car_owner(4, 'Дедищев', 'Огнеслав', '1993-01-1').save()
+Car_owner(5, 'Зрищев', 'Ярополк', '1994-01-1').save()
+Car_owner(6, 'Остановищев', 'Святозар', '1995-01-1').save()
+
+for i in Car_owner.objects.all():
+    ...:     print(i)
+    ...: 
+Car_owner object (1)
+Car_owner object (2)
+Car_owner object (3)
+Car_owner object (4)
+Car_owner object (5)
+Car_owner object (6)
+
+for i in Car_owner.objects.all():
+...:     print(i.id_owner)
+...: 
+1
+2
+3
+4
+5
+6
+</code></pre>
+<h3 id="_2">Создание автомобилей</h3>
+<pre><code>Car(1, 'A1A1', 'BMW', 'Model1', 'white').save()
+Car(2, 'A2A2', 'BMW', 'Model2', 'black').save()
+Car(3, 'A3A3', 'Toyota', 'Model3', 'blue').save()
+Car(4, 'A4A4', 'Toyota', 'Model4', 'white').save()
+Car(5, 'A5A5', 'Audi', 'Model5', 'red').save()
+Car(6, 'A6A6', 'Audi', 'Model6', 'balck').save()
+</code></pre>
+<h3 id="_3">Создание водительских прав</h3>
+<pre><code>Driver_license(1, 1, '1234567', 'B', '2010-01-01').save()
+Driver_license(2, 2, '4567890', 'B', '2011-01-01').save()
+Driver_license(3, 3, '6527810', 'B', '2012-01-01').save()
+Driver_license(4, 4, '65228340', 'B', '2013-01-01').save()
+Driver_license(5, 5, '15228143', 'B', '2014-01-01').save()
+Driver_license(6, 6, '13298123', 'B', '2015-01-01').save()
+</code></pre>
+<h3 id="_4">Владение автомобилей</h3>
+<pre><code>Ownerdhip(1, 1, 1, '2011-01-01', '2012-01-01').save()
+Ownerdhip(2, 2, 2, '2012-01-01', '2013-01-01').save()
+Ownerdhip(3, 3, 3, '2013-01-01', '2014-01-01').save()
+Ownerdhip(4, 4, 4, '2014-01-01', '2015-01-01').save()
+Ownerdhip(5, 5, 5, '2015-01-01', '2016-01-01').save()
+Ownerdhip(6, 6, 6, '2016-01-01', '2017-01-01').save()
+</code></pre>
+<h2 id="312">Задание 3.1.2</h2>
+<p>Описание: по созданным в пр.1 данным написать следующие запросы на фильтрацию:</p>
+<h3 id="1">Запрос 1</h3>
+<p>Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):</p>
+<pre><code>In [45]: Car.objects.filter(mark_car="Toyota")
+
+Out[45]: &lt;QuerySet [&lt;Car: Car object (3)&gt;, &lt;Car: Car object (4)&gt;]&gt;
+</code></pre>
+<h3 id="2">Запрос 2</h3>
+<p>Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):</p>
+<pre><code>In [46]: Car_owner.objects.filter(first_name="FN3")
+Out[46]: &lt;QuerySet [&lt;Car_owner: Car_owner object (3)&gt;]&gt;
+</code></pre>
+<h3 id="3">Запрос 3</h3>
+<p>Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса):</p>
+<pre><code>In [48]: take_id = Car_owner.objects.all()[1].id_owner
+In [49]: Driver_license.objects.get(id_owner=take_id)
+Out[49]: &lt;Driver_license: Driver_license object (2)&gt;
+</code></pre>
+<h3 id="4">Запрос 4</h3>
+<p>Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):</p>
+<pre><code>In [2]: Car_owner.objects.filter(ownership__id_car__color = 'red')
+Out[2]: &lt;QuerySet [&lt;Car_owner: Car_owner object (5)&gt;]&gt;
+</code></pre>
+<h3 id="5">Запрос 5</h3>
+<p>Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):</p>
+<pre><code>In [3]: Car_owner.objects.filter(ownership__start_date__gte&gt;"2010-01-01")
+Out[3]: &lt;QuerySet [&lt;Car_owner: Car_owner object (3)&gt;, &lt;Car_owner: Car_owner object (4)&gt;, &lt;Car_owner: Car_owner object (5)&gt;, &lt;Car_owner: Car_owner object (6)&gt;]&gt;
+</code></pre>
+<h2 id="313">Задание 3.1.3</h2>
+<p>Описание: необходимо реализовать следующие запросы:</p>
+<h3 id="1_1">Запрос 1</h3>
+<p>Вывод даты выдачи самого старшего водительского удостоверения:</p>
+<pre><code>In [59]: from django.db.models import Min, Max
+
+In [60]: Driver_license.objects.aggregate(date_of_license=Min("date_of_license"))
+Out[60]: {'date_of_license': datetime.date(2010, 1, 1)}
+</code></pre>
+<h3 id="2_1">Запрос 2</h3>
+<p>Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе:</p>
+<pre><code>In [62]: Ownerdhip.objects.aggregate(start_date=Max("start_date"))
+Out[62]: {'start_date': datetime.date(2016, 1, 1)}
+</code></pre>
+<h3 id="3_1">Запрос 3</h3>
+<p>Выведите количество машин для каждого водителя:</p>
+<pre><code>In [64]: from django.db.models import Count
+
+In [65]: Ownerdhip.objects.values("id_owner").annotate(Count("id_car"))
+Out[65]: &lt;QuerySet [{'id_owner': 1, 'id_car__count': 1}, {'id_owner': 2, 'id_car__count': 1}, {'id_owner': 3, 'id_car__count': 1}, {'id_owner': 4, 'id_car__count': 1}, {'id_owner': 5, 'id
+_car__count': 1}, {'id_owner': 6, 'id_car__count': 1}]&gt;
+</code></pre>
+<h3 id="4_1">Запрос 4</h3>
+<p>Подсчитайте количество машин каждой марки:</p>
+<pre><code>In [66]: Car.objects.values("mark_car").annotate(Count("id_car"))
+Out[66]: &lt;QuerySet [{'mark_car': 'Audi', 'id_car__count': 2}, {'mark_car': 'BMW', 'id_car__count': 2}, {'mark_car': 'Toyota', 'id_car__count': 2}]&gt;
+</code></pre>
+<h3 id="5_1">Запрос 5</h3>
+<p>Отсортируйте всех автовладельцев по дате выдачи удостоверения:</p>
+<pre><code>In [79]: Car_owner.objects.order_by("driver_license__date_of_license")
+Out[79]: &lt;QuerySet [&lt;Car_owner: Car_owner object (1)&gt;, &lt;Car_owner: Car_owner object (2)&gt;, &lt;Car_owner: Car_owner object (3)&gt;, &lt;Car_owner: Car_owner object (4)&gt;, &lt;Car_owner: Car_owner objec
+t (5)&gt;, &lt;Car_owner: Car_owner object (6)&gt;]&gt;
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
