@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h1>Book a flight:</h1>
+        {{ form.as_table }}
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>

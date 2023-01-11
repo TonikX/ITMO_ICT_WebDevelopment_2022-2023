@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №3 - ITMO-ICT-WebDevelopment</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">ITMO-ICT-WebDevelopment</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Главная</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lr1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lr2/" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../pr3/" class="nav-link">Практическая работа №3</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №3</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../pr3/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no3" class="nav-link">Лабораторная работа №3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Вариант к фронту:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no3">Лабораторная работа №3</h1>
+<h2 id="_1">Вариант к фронту:</h2>
+<p>Платформа с проходящими в Санкт-Петербурге мероприятиями, адаптированная под англоязычных пользователей.</p>
+<p>На сайте возможно зарегистрироваться, авторизоваться, посмотреть список мероприятий, а также отфильтровать их по типу и месту проведения.</p>
+<p>На странице мероприятия можно посмотреть полную информацию о мероприятии и записаться на него. Также можно оставить комментарий о мероприятии и просмотреть существующие комментарии.</p>
+<p>В личном кабинете можно посмотреть информацию о пользователе, изменить ее и увидеть записанные мероприятия.</p>
+<p>Таким образом в моделе есть следующие сущности: User, Event, Comment, UserEnrolledEvent (связь между юзером и мероприятием):</p>
+<p><code>models.py</code></p>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+# Create your models here.
+class Event(models.Model):
+    id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=30, null=False, unique=True)
+    address = models.CharField(max_length=100, null=False)
+    district = models.CharField(max_length=30, null=False)
+    type = models.CharField(max_length=30, null=False)
+    date = models.DateTimeField(null=False)
+    short_description = models.CharField(max_length=200, null=False)
+    full_description = models.CharField(max_length=1000, null=False)
+    website = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.title.__str__()
+
+
+class User(AbstractUser):
+    id = models.IntegerField(primary_key=True)
+    img_url = models.CharField(max_length=100, null=True, default='default_user.png')
+    email = models.CharField(max_length=30, null=False, unique=True)
+    user_info = models.CharField(max_length=200, null=True)
+
+    REQUIRED_FIELDS = [&quot;img_url&quot;, &quot;user_info&quot;, &quot;email&quot;, &quot;first_name&quot;, &quot;last_name&quot;]
+
+    def __str__(self):
+        return self.username.__str__()
+
+
+class UserEnrolledEvent(models.Model):
+    id = models.IntegerField(primary_key=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, to_field=&quot;title&quot;)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, to_field=&quot;username&quot;)
+
+    def __str__(self):
+        return self.id.__str__()
+
+
+class Comment(models.Model):
+    id = models.IntegerField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, to_field=&quot;username&quot;)
+    text = models.CharField(max_length=1000, null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, to_field=&quot;title&quot;)
+
+    def __str__(self):
+        return self.id.__str__()
+</code></pre>
+<p>В функциях get_queryset(self) обрабатываются параметры адресной строки.</p>
+<p><code>views.py</code></p>
+<pre><code class="language-python">from .serializers import *
+from rest_framework.generics import RetrieveUpdateAPIView, ListAPIView, CreateAPIView, RetrieveAPIView, \
+    DestroyAPIView
+from .models import *
+
+
+# Create your views here.
+class EventListAPIView(ListAPIView):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+
+
+class EventCreateAPIView(CreateAPIView):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+
+
+class UserDestroyAPIView(DestroyAPIView):
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
+
+
+class UserCreateAPIView(CreateAPIView):
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
+
+
+class UserListAPIView(ListAPIView):
+    serializer_class = UserListSerializer
+    queryset = User.objects.all()
+
+
+class EventRetrieveAPIView(RetrieveAPIView):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+
+
+class UserRetrieveAPIView(RetrieveAPIView):
+    serializer_class = UserRetrieveSerializer
+    queryset = User.objects.all()
+
+
+class UserUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = UserUpdateSerializer
+    queryset = User.objects.all()
+
+
+class EnrollCreateAPIView(CreateAPIView):
+    serializer_class = UsersEventSerializer
+    queryset = UserEnrolledEvent.objects.all()
+
+
+class UserEnrolledEventAPIView(ListAPIView):
+    serializer_class = UserEventsSerializer
+
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return Comment.objects.filter(user__id=user_id)
+
+
+class EventCommentsAPIView(ListAPIView):
+    serializer_class = EventCommentSerializer
+
+    def get_queryset(self):
+        event_id = self.kwargs['event_id']
+        return Comment.objects.filter(event__id=event_id)
+
+
+class EnrollListAPIView(ListAPIView):
+    serializer_class = UsersEventSerializer
+    queryset = UserEnrolledEvent.objects.all()
+
+
+class DeleteEnrolledEventAPIView(DestroyAPIView):
+    serializer_class = UsersEventSerializer
+    queryset = UserEnrolledEvent.objects.all()
+
+
+class CommentCreateAPIView(CreateAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+
+class CommentListAPIView(ListAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+
+class CommentRetrieveAPIView(RetrieveAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+
+
+class EventsFilterAPIView(ListAPIView):
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+        type = self.kwargs['type']
+        district = self.kwargs['district']
+        if type == &quot;all&quot; and district != &quot;all&quot;:
+            return Event.objects.filter(district=district)
+        elif district == &quot;all&quot; and type != &quot;all&quot;:
+            return Event.objects.filter(type=type)
+        elif district == &quot;all&quot; and type == &quot;all&quot;:
+            return Event.objects.all()
+        else:
+            return Event.objects.filter(type=type, district=district)
+</code></pre>
+<p><code>serializers.py</code></p>
+<pre><code class="language-python">from rest_framework import serializers
+from .models import *
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = &quot;__all__&quot;
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = &quot;__all__&quot;
+
+
+class UserRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [&quot;id&quot;, &quot;first_name&quot;, &quot;last_name&quot;, &quot;email&quot;, &quot;username&quot;, &quot;user_info&quot;, &quot;img_url&quot;]
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [&quot;password&quot;, &quot;first_name&quot;, &quot;last_name&quot;, &quot;email&quot;, &quot;img_url&quot;, &quot;username&quot;, &quot;user_info&quot;]
+
+
+class UserEventsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserEnrolledEvent
+        fields = [&quot;user&quot;, &quot;event&quot;]
+
+
+class UsersEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserEnrolledEvent
+        fields = &quot;__all__&quot;
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = &quot;__all__&quot;
+
+
+class EventCommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = [&quot;text&quot;, &quot;user&quot;, &quot;event&quot;]
+</code></pre>
+<p>В юрлах используется re_path для фильтрации, а также для обращения к мероприятиям каждого из пользоваталей и комментариям каждого из мероприятий (с использованием параметров адресной строки).</p>
+<p><code>urls.py</code></p>
+<pre><code class="language-python">from django.urls import path, re_path
+from .views import *
+
+app_name = &quot;lr3app&quot;
+
+urlpatterns = [
+    path('events/list/', EventListAPIView.as_view()),
+    path('event/&lt;int:pk&gt;/', EventRetrieveAPIView.as_view()),
+    path('event/create/', EventCreateAPIView.as_view()),
+    path('users/list/', UserListAPIView.as_view()),
+    path('user/&lt;int:pk&gt;/', UserRetrieveAPIView.as_view()),
+    path('user/create/', UserCreateAPIView.as_view()),
+    path('user/delete/&lt;int:pk&gt;/', UserDestroyAPIView.as_view()),
+    path('user/edit/&lt;int:pk&gt;/', UserUpdateAPIView.as_view()),
+    path('enroll/create/', EnrollCreateAPIView.as_view()),
+    path('enroll/delete/&lt;int:pk&gt;/', DeleteEnrolledEventAPIView.as_view()),
+    path('enroll/list/', EnrollListAPIView.as_view()),
+    path('comments/list/', CommentListAPIView.as_view()),
+    path('comment/create/', CommentCreateAPIView.as_view()),
+    path('comment/&lt;int:pk&gt;/', CommentRetrieveAPIView.as_view()),
+    re_path(r'event/comments/(?P&lt;event_id&gt;[0-9]+)/$', EventCommentsAPIView.as_view()),
+    re_path(r'user/events/(?P&lt;user_id&gt;[0-9]+)/$', UserEnrolledEventAPIView.as_view()),
+    re_path(r'events/filter/(?P&lt;type&gt;\w*)/(?P&lt;district&gt;\w*)/$', EventsFilterAPIView.as_view())
+]
+
+</code></pre>
+<ul>
+<li>Основные эндпоинты:</li>
+</ul>
+<p>Получение конкретного пользователя:
+<img alt="img_1.png" src="../img_1.png" /></p>
+<p>Список всех пользователей:
+<img alt="img.png" src="../img.png" /></p>
+<p>Получение конкретного мероприятия:
+<img alt="img_2.png" src="../img_2.png" /></p>
+<p>Список всех мероприятий:
+<img alt="img_3.png" src="../img_3.png" /></p>
+<p>Все записи пользователей:</p>
+<p><img alt="img_4.png" src="../img_4.png" /></p>
+<p>Запись конкретного пользователя:</p>
+<p><img alt="img_9.png" src="../img_9.png" /></p>
+<p>Комментарий к конкретному мероприятию:
+<img alt="img_6.png" src="../img_6.png" /></p>
+<p>Все комментарии:</p>
+<p><img alt="img_5.png" src="../img_5.png" /></p>
+<p>Фильтрация:
+<img alt="img_7.png" src="../img_7.png" /></p>
+<p>Регистрация и авторизация происходит средствами Djoser с помощью Postman. Также методом Patch в Postman можно изменять информацию о пользователе.</p>
+<p><code>пример</code></p>
+<p><img alt="img_10.png" src="../img_10.png" />
+<img alt="img_11.png" src="../img_11.png" /></p>
+<p>В проект подключен swagger.</p>
+<p><code>пример</code> </p>
+<p><img alt="img_8.png" src="../img_8.png" /></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

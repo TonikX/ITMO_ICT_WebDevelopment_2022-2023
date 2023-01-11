@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" href="data:;base64,=">
+</head>
+<body>
+    <h1>Log in</h1>
+    <form method="POST" action="http://127.0.0.1:8000/auth" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">
+            Username:
+            <input type="text" name="username" id="username">
+        </label>
+        <label for="password">
+            Password:
+            <input type="password" name="password" id="password">
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="http://127.0.0.1:8000/register">Register</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Flights</title>
+</head>
+<body>
+<h1>Flights</h1>
+<table style="width:80%">
+    <tr>
+        {% if user.get_username == 'admin' %}
+        <th>id</th>
+        {% endif %}
+        <th>Flight</th>
+        <th>Arrival</th>
+        <th>Departure</th>
+        <th></th>
+    </tr>
+    {% for flight in flights %}.
+    <tr>
+        {% if user.get_username == 'admin' %}
+        <td>{{flight.id}}</td>
+        {% endif %}
+        <td>{{flight}}</td>
+        <td>{{flight.arrival}}</td>
+        <td>{{flight.departure}}</td>
+        <td>
+            <ul>
+                {% if user.get_username != 'admin' %}
+                <li>
+                    <a href="http://127.0.0.1:8000/flight/{{flight.id}}/book">Book now</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a href="http://127.0.0.1:8000/flight/{{flight.id}}/users">People on board</a>
+                </li>
+                <li>
+                    <a href="http://127.0.0.1:8000/flight/{{flight.id}}/feedbacks">Feedbacks</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

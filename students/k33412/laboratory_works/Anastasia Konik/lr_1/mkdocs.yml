@@ -1,0 +1,12 @@
+site_name: ITMO-ICT-WebDevelopment
+
+theme:
+ name: mkdocs
+
+nav:
+- Главная: index.md
+- Лабораторная работа №1: lr1.md
+- Лабораторная работа №2: lr2.md
+- Практическая работа №3: pr3.md
+- Лабораторная работа №3: lr3.md
+- Лабораторная работа №4: lr4.md
