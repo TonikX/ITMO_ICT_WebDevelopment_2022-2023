@@ -1,0 +1,16 @@
+#site_name: My Doc
+site_name: Library API
+nav:
+ - Home: index.md
+ - Models: 
+     - Book: models/book.md
+     - Reader: models/reader.md
+     - Hall: models/hall.md
+     - BookInHall: models/book_in_hall.md
+     - Copy: models/copies.md
+ - Api:
+     - "Endpoints": api/endpoints.md
+     - "Authorization": api/authorization.md
+
+theme:
+ name: material
