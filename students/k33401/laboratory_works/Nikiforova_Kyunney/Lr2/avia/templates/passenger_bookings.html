@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои бронирования{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Мои бронирования</h1>
+        <table class="table table-hover table-bordered mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">Номер рейса</th>
+                    <th scope="col">Авиакомпания</th>
+                    <th scope="col">Время вылета</th>
+                    <th scope="col">Время прилета</th>
+                    <th scope="col">Номер места</th>
+                    <th scope="col">Действия</th>
+                </tr>
+            </thead>
+            {% for ticket in tickets %}
+            <tbody>
+                <tr>
+                    <td>{{ticket.flight_number}}</td>
+                    <td>{{ticket.flight_number.airline}}</td>
+                    <td>{{ticket.flight_number.departure_time}}</td>
+                    <td>{{ticket.flight_number.arrival_time}}</td>
+                    <td>{{ticket.seat}}</td>
+                    <td class="d-flex justify-content-start gap-2">
+                        <a href="/bookings/{{ object.id }}/update">
+                            <button type="button" class="btn btn-primary">Редактировать</button>
+                        </a>
+                        <a href="/bookings/{{ object.id }}/delete">
+                            <button type="button" class="btn btn-danger">Удалить</button>
+                        </a>
+                        <a href="/all_passengers/{{ object.flight_number }}">
+                            <button type="button" class="btn btn-outline-secondary">Пассажиры рейса</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Табло рейсов{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Табло рейсов</h1>
+        <table class="table table-hover table-bordered mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">Номер рейса</th>
+                    <th scope="col">Авиакомпания</th>
+                    <th scope="col">Время вылета</th>
+                    <th scope="col">Время прилета</th>
+                    <th scope="col">Тип рейса</th>
+                    <th scope="col">Номер гейта</th>
+                </tr>
+            </thead>
+            {% for object in object_list %}
+            <tbody>
+                <tr>
+                    <td>{{object.flight_number}}</td>
+                    <td>{{object.airline}}</td>
+                    <td>{{object.departure_time}}</td>
+                    <td>{{object.arrival_time}}</td>
+                    <td>{{object.type}}</td>
+                    <td>{{object.gate_number}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

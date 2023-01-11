@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete car</title>
+</head>
+<body>
+    <form method="POST">{% csrf_token %}
+        <p>Are you sure you want to delete car"{{ object }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+    <br>
+    <br>
+    <a href="/all_cars/">All cars info</a>
+</body>
+</html>
