@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Отзывы
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end ">
+    <button type="button" class="btn-dark p-2 flex-grow-1">Отзывы</button>
+    <a class="" href="{% url 'create_review' %}">
+        <button type="button" class="btn-warning p-2 ">Написать отзыв</button>
+    </a>
+</div>
+<div class="d-flex justify-content-center flex-grow-1">
+
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Номер рейса</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Оценка</th>
+                <th scope="col">Комментарий</th>
+                <th scope="col">Автор</th>
+            </tr>
+        </thead>
+        {% for object in object_list %}
+        <tbody>
+            <tr>
+                <th scope="row">{{ object.number_flight }}</th>
+                <th scope="row">{{ object.number_flight.date }}</th>
+                <td>{{ object.rate }}</td>
+                <td>{{ object.comment }}</td>
+                <td>{{ object.sing_author }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+
+
+
+    {% endblock %}

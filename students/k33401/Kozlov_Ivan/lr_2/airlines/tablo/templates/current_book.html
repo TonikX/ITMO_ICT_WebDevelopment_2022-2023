@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ваше Бронирование
+{% endblock %}
+
+{% csrf_token %}
+
+{% block content %}
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Номер рейса</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Номер билета</th>
+            <th scope="col">Пасспорт</th>
+            <th scope="col">Действия</th>
+
+        </tr>
+    </thead>
+    {% for object in object_list %}
+    <tbody>
+        <tr>
+            <th scope="row">{{ object.number_flight.number_flight }}</th>
+            <th scope="row">{{ object.number_flight.date }}</th>
+            <td>{{ object.place_in_plane }}</td>
+            <td>{{ object.passport_number }}</td>
+            <td class="d-flex justify-content-start gap-2">
+                <a href="/up_ticket/{{ object.place_in_plane }}">
+                    <button type="button" class="btn btn-warning">Редактировать</button>
+                </a>
+                <a href="/del_ticket/{{ object.place_in_plane }}">
+                    <button type="button" class="btn btn-danger">Удалить</button>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

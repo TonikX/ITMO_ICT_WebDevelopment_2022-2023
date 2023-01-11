@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Рейсы
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end ">
+    <button type="button" class="btn-dark p-2 flex-grow-1">Табло</button>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Номер рейса</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Действия</th>
+        </tr>
+    </thead>
+    {% for object in object_list %}
+    <tbody>
+        <tr>
+            <th scope="row">{{ object.number_flight }}</th>
+            <td>{{ object.date }}</td>
+            <td class="d-flex justify-content-start gap-2">
+                <a href="/all_passangers/{{ object.number_flight }}">
+                    <button type="button" class="btn btn-info">Посмотреть пассажиров</button>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

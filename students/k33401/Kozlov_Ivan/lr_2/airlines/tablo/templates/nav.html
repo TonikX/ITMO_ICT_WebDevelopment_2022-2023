@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-light sidebarNavigation color-me " data-sidebarClass="navbar-dark bg-dark"
+    style="background-color: #145ee7;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}" style="color: #ffffff;">IK</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarCollapse">
+            <ul class="nav navbar-nav nav-flex-icons ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}" style="color: #ffffff;"> Главаня страница
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'book' %}" style="color: #ffffff;">Бронирование</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'trip' %}"" style=" color: #ffffff;">Рейсы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'choose_passport_for_book' %}" style=" color: #ffffff;">Мои
+                        бронирования</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/review/" style="color: #ffffff;">Отзывы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'reg_users' %}" style="color: #ffffff;">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin:index' %}" style="color: #ffffff;">Войти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

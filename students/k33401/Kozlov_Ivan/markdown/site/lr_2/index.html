@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Лабораторная №2 - Kozlov Ivan - WEB - ICT</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Kozlov Ivan - WEB - ICT</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../lr_1/">Лабораторная №1</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Лабораторная №2</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="../lr_1/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="next" >
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#2">Описание 2 лабораторной работы</a></li>
+        <li class="first-level "><a href="#models">Models</a></li>
+        <li class="first-level "><a href="#views">Views</a></li>
+        <li class="first-level "><a href="#urls">URLs</a></li>
+        <li class="first-level "><a href="#_1">Регистрация новых пользователей</a></li>
+        <li class="first-level "><a href="#_2">Просмотр и резервирование мест на рейсах</a></li>
+        <li class="first-level "><a href="#django-admin">Администратор регестрирует через Django-admin</a></li>
+        <li class="first-level "><a href="#_3">Таблица, отображающая всех пассажиров рейса</a></li>
+        <li class="first-level "><a href="#_4">Отзывы к рейсам</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h2 id="2">Описание 2 лабораторной работы</h2>
+<p>Реализовать сайт используя фреймворк Django 3 и СУБД PostgreSQL, в
+соответствии с вариантом задания лабораторной работы.</p>
+<p><code>Вариант:</code> Табло отображения информации об авиаперелетах</p>
+<p>Необходимо реализовать следующий функционал:</p>
+<ul>
+<li>
+<p>Регистрация новых пользователей.</p>
+</li>
+<li>
+<p>Просмотр и резервирование мест на рейсах. Пользователь должен иметь
+возможность редактирования и удаления своих резервирований.</p>
+</li>
+<li>
+<p>Администратор должен иметь возможность зарегистрировать на рейс
+пассажира и вписать в систему номер его билета средствами Django-admin.</p>
+</li>
+<li>
+<p>В клиентской части должна формироваться таблица, отображающая всех
+пассажиров рейса.</p>
+</li>
+<li>
+<p>Написание отзывов к рейсам. При добавлении комментариев, должны
+сохраняться дата рейса, текст комментария, рейтинг (1-10), информация о
+комментаторе.</p>
+</li>
+</ul>
+<hr>
+
+<h2 id="models">Models</h2>
+<blockquote>
+<p><strong>Скриншот базы данных</strong></p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/lr_2/db_airlines.png" /></p>
+<ul>
+<li><code>model.py</code></li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+r = () # пустой картеж
+
+
+class Registration_user(models.Model):
+    first_name = models.CharField(&quot;Имя&quot;, max_length=30, null=False)
+    last_name = models.CharField(&quot;Фамилия&quot;, max_length=30, null=False)
+    passport_number = models.CharField(&quot;Номер паспорта&quot;, primary_key=True, max_length=30)
+
+    def __str__(self):
+        return self.passport_number
+
+
+class Flight(models.Model):
+    number_flight = models.CharField(&quot;Номер рейса&quot;, primary_key=True, max_length=30)
+    date = models.DateField(&quot;Дата вылета&quot;, null=False, unique=True)
+
+    def __str__(self) -&gt; str:
+        return self.number_flight
+
+
+class Ticket(models.Model):
+    LIST_OF_PLASEC_IN_PLANE = [r + (f&quot;{i}&quot;, f&quot;{i}&quot;) for i in range(1, 31)]
+    place_in_plane = models.CharField(
+        &quot;Место&quot;, primary_key=True, max_length=2, choices=LIST_OF_PLASEC_IN_PLANE, default=&quot;-1&quot;
+    )
+    passport_number = models.ForeignKey(Registration_user, on_delete=models.CASCADE)
+    number_flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
+
+
+class Review(models.Model):
+    id = models.AutoField(primary_key=True)
+    number_flight = models.ForeignKey(
+        Flight, on_delete=models.CASCADE, to_field=&quot;number_flight&quot;, related_name=&quot;number_flight_2&quot;
+    )
+    comment = models.TextField(&quot;Комментарий&quot;, null=False)
+    RATE_NUMBER = [
+        (&quot;1&quot;, &quot;1&quot;),
+        (&quot;2&quot;, &quot;2&quot;),
+        (&quot;3&quot;, &quot;3&quot;),
+        (&quot;4&quot;, &quot;4&quot;),
+        (&quot;5&quot;, &quot;5&quot;),
+        (&quot;6&quot;, &quot;6&quot;),
+        (&quot;7&quot;, &quot;7&quot;),
+        (&quot;8&quot;, &quot;8&quot;),
+        (&quot;9&quot;, &quot;9&quot;),
+        (&quot;10&quot;, &quot;10&quot;),
+    ]
+    rate = models.CharField(&quot;Оценка&quot;, max_length=2, choices=RATE_NUMBER)
+    sing_author = models.CharField(&quot;Укажите ваш ник&quot;, max_length=30)
+</code></pre>
+<hr>
+
+<h2 id="views">Views</h2>
+<p>Использую различные представления, как на основе классов, так и на основае функций</p>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">from django.shortcuts import redirect, render
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
+
+from .models import Flight, Registration_user, Review, Ticket
+
+
+def get_main_title(request):
+    return render(request, &quot;templates/index.html&quot;)
+
+
+class Reg_user(CreateView):
+    model = Registration_user
+    fields = [
+        &quot;first_name&quot;,
+        &quot;last_name&quot;,
+        &quot;passport_number&quot;,
+    ]
+    template_name = &quot;reg_users.html&quot;
+    success_url = &quot;/&quot;
+
+
+class Book(CreateView):
+    model = Ticket
+    fields = [
+        &quot;place_in_plane&quot;,
+        &quot;passport_number&quot;,
+        &quot;number_flight&quot;,
+    ]
+    template_name = &quot;book.html&quot;
+    success_url = &quot;/trip/&quot;
+
+
+class Trip(ListView):
+    model = Flight
+    template_name = &quot;trip.html&quot;
+
+
+def get_current_book(request, passport_user):
+    current_book = Ticket.objects.filter(passport_number=passport_user)
+    current_book = {&quot;object_list&quot;: current_book}
+    return render(request, &quot;templates/current_book.html&quot;, current_book)
+
+
+def my_book(request):
+    if &quot;id_passport&quot; in request.POST:
+        passport = int(request.POST[&quot;id_passport&quot;])
+        return redirect(f&quot;/current_book/{passport}/&quot;)
+    else:
+        return render(request, &quot;templates/choose_passport_for_book.html&quot;)
+
+
+class Update_ticket(UpdateView):
+    model = Ticket
+    fields = [
+        &quot;place_in_plane&quot;,
+        &quot;passport_number&quot;,
+        &quot;number_flight&quot;,
+    ]
+    template_name = &quot;up_ticket.html&quot;
+    success_url = &quot;/choose_passport_for_book/&quot;
+
+
+def all_passengers(request, flight_num):
+    needed_passports = Ticket.objects.filter(number_flight=flight_num).values_list(
+        &quot;passport_number&quot;
+    )
+    passengers = Registration_user.objects.filter(passport_number__in=needed_passports)
+
+    context = {
+        &quot;object_list&quot;: passengers,
+        &quot;object_list_flight&quot;: flight_num,
+    }
+    return render(request, &quot;all_passengers.html&quot;, context)
+
+
+class Delete_ticket(DeleteView):
+    model = Ticket
+    fields = [
+        &quot;place_in_plane&quot;,
+        &quot;passport_number&quot;,
+        &quot;number_flight&quot;,
+    ]
+    template_name = &quot;del_ticket.html&quot;
+    success_url = &quot;/choose_passport_for_book/&quot;
+
+
+class Create_review(CreateView):
+    model = Review
+    fields = [
+        &quot;number_flight&quot;,
+        &quot;comment&quot;,
+        &quot;rate&quot;,
+        &quot;sing_author&quot;,
+    ]
+    template_name = &quot;create_review.html&quot;
+    success_url = &quot;/review/&quot;
+
+
+class All_reviews(ListView):
+    model = Review
+    template_name = &quot;all_reviews.html&quot;
+
+</code></pre>
+<hr>
+
+<h2 id="urls">URLs</h2>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">from django.contrib import admin
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+    path(&quot;registration/&quot;, views.Reg_user.as_view(), name=&quot;reg_users&quot;),
+    path(&quot;&quot;, views.get_main_title, name=&quot;index&quot;),
+    path(&quot;admin/&quot;, admin.site.urls),
+    path(&quot;book/&quot;, views.Book.as_view(), name=&quot;book&quot;),
+    path(&quot;trip/&quot;, views.Trip.as_view(), name=&quot;trip&quot;),
+    path(&quot;current_book/&lt;int:passport_user&gt;/&quot;, views.get_current_book, name=&quot;current_book&quot;),
+    path(&quot;choose_passport_for_book/&quot;, views.my_book, name=&quot;choose_passport_for_book&quot;),
+    path(&quot;up_ticket/&lt;int:pk&gt;&quot;, views.Update_ticket.as_view(), name=&quot;update_ticket&quot;),
+    path(&quot;del_ticket/&lt;int:pk&gt;&quot;, views.Delete_ticket.as_view(), name=&quot;delete_ticket&quot;),
+    path(&quot;all_passangers/&lt;int:flight_num&gt;&quot;, views.all_passengers, name=&quot;all_passangers&quot;),
+    path(&quot;create_review/&quot;, views.Create_review.as_view(), name=&quot;create_review&quot;),
+    path(&quot;review/&quot;, views.All_reviews.as_view(), name=&quot;reviews&quot;),
+]
+
+</code></pre>
+<hr>
+
+<h2 id="_1">Регистрация новых пользователей</h2>
+<ul>
+<li><code>registration/</code> - URL</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/reg.png" /></p>
+<hr>
+
+<h2 id="_2">Просмотр и резервирование мест на рейсах</h2>
+<blockquote>
+<p>Вкладка <code>бронирование</code> в панели навигации</p>
+</blockquote>
+<ul>
+<li><code>choose_passport_for_book/</code> - URL</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/book.png" /></p>
+<blockquote>
+<p>Вкладка <code>мои бронирования</code> в панели навигации. Пользователь вводит свой паспорт, после чего попадает в список его текущих бронирований</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/lr_2/my_book.png" /></p>
+<blockquote>
+<p><strong>↓</strong></p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/lr_2/add_passport.png" /></p>
+<blockquote>
+<p><strong>↓</strong></p>
+</blockquote>
+<ul>
+<li><code>current_book/123/</code> - URL, где <code>123</code> параметр - паспорт пользователя</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/current_book.png" /></p>
+<blockquote>
+<p>При переходе в <code>редактировать</code> переходим сюда:</p>
+</blockquote>
+<ul>
+<li><code>up_ticket/17</code> - URL, где <code>17</code> параметр - номер билета </li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/edit_current_book.png" /></p>
+<blockquote>
+<p>При переходе в <code>удалить</code> переходим сюда:</p>
+</blockquote>
+<ul>
+<li><code>del_ticket/17</code> - URL, где <code>17</code> параметр - номер билета </li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/delete_current_book.png" /></p>
+<hr>
+
+<h2 id="django-admin">Администратор регестрирует через Django-admin</h2>
+<p><img alt="Screenshot" src="../img/lr_2/add_by_admin.png" /></p>
+<hr>
+
+<h2 id="_3">Таблица, отображающая всех пассажиров рейса</h2>
+<blockquote>
+<p>Вкладка <code>Рейсы</code> в панели навигации, где можно выбрать отображение всех пассажиров, опеределенного рейса</p>
+</blockquote>
+<ul>
+<li><code>trip/</code> - URL</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/flight_timetable.png" /></p>
+<blockquote>
+<p><strong>↓</strong></p>
+</blockquote>
+<ul>
+<li><code>all_passangers/333</code> - URL, где <code>333</code> параметр - номер рейса</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/all_passengers_current_flight.png" /></p>
+<hr>
+
+<h2 id="_4">Отзывы к рейсам</h2>
+<blockquote>
+<p>Вкладка <code>Отзывы</code> в панели навигации, где можно увидеть все отзывы пользователей</p>
+</blockquote>
+<ul>
+<li><code>review/</code> - URL</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/review.png" /></p>
+<blockquote>
+<p>Если нажать на кнопку <code>Написать отзыв</code>, то получим:</p>
+</blockquote>
+<ul>
+<li><code>create_review/</code> - URL</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/create_review.png" /></p>
+<hr></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO_ICT_WebDevelopment_2022-2023">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>
