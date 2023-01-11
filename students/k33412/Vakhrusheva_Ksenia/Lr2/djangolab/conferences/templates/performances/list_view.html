@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block main %}
+	<div class="list-group">
+		{% if performances %}
+			{% for performance in performances %}
+				<a href="{% url 'performance_edit' performance.id %}"
+				   class="list-group-item list-group-item-action">{{ performance.title }}
+					({{ performance.conference.name }})</a>
+			{% endfor %}
+		{% else %}
+			<div>Вы не создали ни одного выступления</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

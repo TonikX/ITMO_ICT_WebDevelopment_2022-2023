@@ -1,0 +1,20 @@
+{% extends  'base.html' %}
+
+
+{% block main %}
+	<div class="card">
+		<div class="card-body">
+			<h4 class="card-title">Регистрация</h4>
+
+			<form method="post">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ next }}">
+
+				{{ form.as_p }}
+
+				<button type="submit" class="btn btn-primary btn-block">Подтвердить</button>
+			</form>
+			<a href="{% url 'login' %}" class="card-link">Уже есть учетная запись?</a>
+		</div>
+	</div>
+{% endblock %}

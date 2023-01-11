@@ -1,0 +1,10 @@
+<div class="main">
+
+	{% for owner in owners %}.
+
+		<a href="{% url 'detail' owner.id %}">{{ owner.last_name }} {{ owner.first_name }}</a>
+		<hr/>
+
+	{% endfor %}
+
+</div>

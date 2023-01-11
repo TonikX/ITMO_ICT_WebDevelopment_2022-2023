@@ -1,0 +1,15 @@
+<body>
+{{ owner.first_name }} {{ owner.last_name }}, {{ owner.date_of_birth.date }}<br>
+<p>Address: {{ owner.address }}</p>
+<p>Nationality: {{ owner.nationality }}</p>
+<p>Passport: {{ owner.passport }}</p><br>
+{% if license %}
+	License: no. {{ license.license_number }} issued {{ license.issue_date.date }}<br>
+{% endif %}
+Vehicles:
+<ul>
+	{% for vehicle in vehicles %}
+		<li>{{ vehicle.vehicle_id.manufacturer }} {{ vehicle.vehicle_id.model }}</li>
+	{% endfor %}
+</ul>
+</body>
