@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% load bootstrap4 %}
+{% block content %}
+
+    <div class="main-tweet">
+            <div class="row form-twit">
+                {{message}}
+                {%if date_start%}
+                 c {{date_start}} по {{date_finish}}
+                {%endif%}
+                <ul class="nav nav-tabs form-twit mmenuu" role="tablist">
+                    <li role="presentation"  class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Назначить</a></li><br>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Снять</a></li>
+                </ul>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                 <div class="form-twit">{{form.as_p}}</div>
+                                    <button type="submit" class="btn btn-success small" value="f1" name="f1">Назначить {{button}}</button>
+                            </form>
+                        </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div role="tabpanel" class="tab-pane active" id="profile">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                 <div class="form-twit">{{form2.as_p}}</div>
+                                <button type="submit" class="btn btn-success small" value="f2" name="f2">Снять {{button}}</button>
+                            </form>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+<div>
+
+
+</div>
+{% endblock content %}
+

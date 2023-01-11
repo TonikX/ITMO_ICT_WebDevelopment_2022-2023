@@ -21,7 +21,7 @@ class Car(models.Model):
 
 class Ownerdhip(models.Model):
     id_owner_car = models.IntegerField(primary_key = True)
-    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+    id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE, related_name='ownership')
     id_car = models.ForeignKey(Car, on_delete = models.CASCADE)
     start_date = models.DateField()
     end_date = models.DateField(null = True)

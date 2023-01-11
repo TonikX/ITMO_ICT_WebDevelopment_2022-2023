@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% load bootstrap4 %}
+{% block content %}
+    <div class="main-tweet">
+            <div class="row form-twit">
+                <form action="{% url 'posts' %}" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-tweet">
+                        Отправить
+                    </button>
+                </form>
+            </div>
+        {% recursetree posts %}
+            <div class="row tweet">
+                <div class="col-12"><p>{{ node.text }}</p></div>
+                <div class="col-12"><b>
+                    <small>
+                        {{ node.date }} -
+                        <a href="{% url 'public_user_info' node.user.id %}">{{ node.user }}</a>
+                    </small>
+
+                </b></div>
+                <div class="col-12">{{ node.like }} -
+                    {% if user.is_authenticated %}
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"
+                           onclick="like({{ node.id }})">
+                        </i>
+                    {% else %}
+                        <a href="/accounts/login/" data-toggle="modal" data-target="#loginModal">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            зарегистрируйтесь, поставить оценку
+                        </a>
+                    {% endif %}
+                    {% if user.is_authenticated and node.user != user %}
+                        <button class="btn btn-follow" onclick="follow({{ node.user.id }})">
+                            Follow
+                        </button>
+                    {% endif %}
+                </div>
+                <hr>
+            </div>
+            <div class="row tweet">
+                <div class="col-12">
+                    Комментарии {{ node.get_descendant_count }}
+                    <i class="fa fa-arrow-down" aria-hidden="true"
+                       onclick="openForm({{ node.id }})"></i>
+
+                    <i class="fa fa-arrow-up"
+                       onclick="closeForm({{ node.id }})">
+                    </i>
+
+                    <div class="row">
+                        <div class="col-12 comment" id="{{ node.id }}">
+                            {# Комемнтарии комментариев #}
+                            <div class="col-12">
+                                {% if not node.is_leaf_node %}
+                                    <ul class="children">
+                                        {{ children }}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                            {% if user.is_active and node.level < 4 %}
+                                <form action="{% url 'posts' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="number" name="id" hidden value="{{ node.id }}">
+                                    {{ form.as_p }}
+                                    <button type="submit" class="btn btn-tweet">
+                                        Комментировать
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endrecursetree %}
+        {% bootstrap_pagination page_obj pages_to_show=4 %}
+    </div>
+{% endblock content %}

@@ -532,10 +532,15 @@ Thread — это отдельный поток выполнения. Это о�
 
 О домашнем задании должна храниться следующая информация: предмет, преподаватель, дата выдачи, период выполнения, текст задания, информация о штрафах.
 Необходимо реализовать следующий функционал:
+
 *	Регистрация новых пользователей.
+
 *	Просмотр домашних заданий по всем дисциплинам (сроки выполнения, описание задания).
+
 *	Сдача домашних заданий в текстовом виде. 
+
 *	Администратор (учитель) должен иметь возможность поставить оценку за задание средствами Django-admin. 
+
 *	В клиентской части должна формироваться таблица, отображающая оценки всех учеников класса.
 
 
@@ -1031,4 +1036,462 @@ Thread — это отдельный поток выполнения. Это о�
         path("delete_homework/<int:work_id>/", table.views.delete_homework, name="delete_homework"),
         path("rate_homework/<int:work_id>/", table.views.rate_homework, name="rate_homework")
     ]
-###Ссылка на видео
+
+##Практическая работа 3.1
+
+###Задание 3.1.1
+Описание: напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей, каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей. Задание можете выполнить либо в интерактивном режиме интерпретатора, либо в отдельном python-файле. Результатом должны стать запросы и отображение созданных объектов.
+####models.py
+    from django.db import models
+    from django.contrib.auth.models import AbstractUser
+    # Create your models here.
+    
+    
+    class Car_owner(models.Model):
+        id_owner = models.IntegerField(primary_key = True)
+        last_name = models.CharField(max_length = 30, null = False)
+        first_name = models.CharField(max_length = 30, null = False)
+        birth_day = models.DateField(null = True)
+        passport = models.IntegerField(null=True)
+        address = models.CharField(max_length=50, null=True, blank=True)
+        nationality = models.CharField(max_length=20, null=True, blank=True)
+    
+    class Car(models.Model):
+        id_car = models.IntegerField(primary_key = True)
+        state_number = models.CharField(max_length = 15, null = False)
+        mark_car = models.CharField(max_length = 20, null = False)
+        model_car = models.CharField(max_length = 20, null = False)
+        color =  models.CharField(max_length = 30, null = True)
+    
+    class Ownerdhip(models.Model):
+        id_owner_car = models.IntegerField(primary_key = True)
+        id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+        id_car = models.ForeignKey(Car, on_delete = models.CASCADE)
+        start_date = models.DateField()
+        end_date = models.DateField(null = True)
+    
+    class Driver_license(models.Model):
+        id_license =  models.IntegerField(primary_key = True)
+        id_owner = models.ForeignKey(Car_owner, on_delete = models.CASCADE)
+        license_number = models.CharField(max_length = 10, null = False)
+        type = models.CharField(max_length = 10, null = False)
+        date_of_license= models.DateField()
+
+####Создание автовладельцев:
+    Car_owner(1, 'LN1', 'FN1', '1990-01-1').save()
+    Car_owner(2, 'LN2', 'FN2', '1991-01-1').save()
+    Car_owner(3, 'LN3', 'FN3', '1992-01-1').save()
+    Car_owner(4, 'LN4', 'FN4', '1993-01-1').save()
+    Car_owner(5, 'LN5', 'FN5', '1994-01-1').save()
+    Car_owner(6, 'LN6', 'FN6', '1995-01-1').save()
+
+    for i in Car_owner.objects.all():
+        ...:     print(i)
+        ...: 
+    Car_owner object (1)
+    Car_owner object (2)
+    Car_owner object (3)
+    Car_owner object (4)
+    Car_owner object (5)
+    Car_owner object (6)
+
+    for i in Car_owner.objects.all():
+    ...:     print(i.id_owner)
+    ...: 
+    1
+    2
+    3
+    4
+    5
+    6
+
+####Создание автомобилей
+    Car(1, 'A1A1', 'BMW', 'Model1', 'white').save()
+    Car(2, 'A2A2', 'BMW', 'Model2', 'black').save()
+    Car(3, 'A3A3', 'Toyota', 'Model3', 'blue').save()
+    Car(4, 'A4A4', 'Toyota', 'Model4', 'white').save()
+    Car(5, 'A5A5', 'Audi', 'Model5', 'red').save()
+    Car(6, 'A6A6', 'Audi', 'Model6', 'balck').save()
+
+####Создание водительских прав
+    Driver_license(1, 1, '1234567', 'B', '2010-01-01').save()
+    Driver_license(2, 2, '4567890', 'B', '2011-01-01').save()
+    Driver_license(3, 3, '6527810', 'B', '2012-01-01').save()
+    Driver_license(4, 4, '65228340', 'B', '2013-01-01').save()
+    Driver_license(5, 5, '15228143', 'B', '2014-01-01').save()
+    Driver_license(6, 6, '13298123', 'B', '2015-01-01').save()
+
+####Владение автомобилей
+    Ownerdhip(1, 1, 1, '2011-01-01', '2012-01-01').save()
+    Ownerdhip(2, 2, 2, '2012-01-01', '2013-01-01').save()
+    Ownerdhip(3, 3, 3, '2013-01-01', '2014-01-01').save()
+    Ownerdhip(4, 4, 4, '2014-01-01', '2015-01-01').save()
+    Ownerdhip(5, 5, 5, '2015-01-01', '2016-01-01').save()
+    Ownerdhip(6, 6, 6, '2016-01-01', '2017-01-01').save()
+
+
+
+###Задание 3.1.2
+Описание: по созданным в пр.1 данным написать следующие запросы на фильтрацию:
+
+####Запрос 1
+Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):
+   
+    In [45]: Car.objects.filter(mark_car="Toyota")
+    
+    Out[45]: <QuerySet [<Car: Car object (3)>, <Car: Car object (4)>]>
+
+####Запрос 2
+Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):
+
+    In [46]: Car_owner.objects.filter(first_name="FN3")
+    Out[46]: <QuerySet [<Car_owner: Car_owner object (3)>]>
+
+####Запрос 3
+Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса):
+
+    In [48]: take_id = Car_owner.objects.all()[1].id_owner
+    In [49]: Driver_license.objects.get(id_owner=take_id)
+    Out[49]: <Driver_license: Driver_license object (2)>
+
+####Запрос 4
+Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):
+ 
+    In [2]: Car_owner.objects.filter(ownership__id_car__color = 'red')
+    Out[2]: <QuerySet [<Car_owner: Car_owner object (5)>]>
+
+
+####Запрос 5
+Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):
+
+    In [3]: Car_owner.objects.filter(ownership__start_date__gte="2013-01-01")
+    Out[3]: <QuerySet [<Car_owner: Car_owner object (3)>, <Car_owner: Car_owner object (4)>, <Car_owner: Car_owner object (5)>, <Car_owner: Car_owner object (6)>]>
+
+
+
+###Задание 3.1.3
+Описание: необходимо реализовать следующие запросы:
+
+####Запрос 1
+Вывод даты выдачи самого старшего водительского удостоверения:
+
+    In [59]: from django.db.models import Min, Max
+    
+    In [60]: Driver_license.objects.aggregate(date_of_license=Min("date_of_license"))
+    Out[60]: {'date_of_license': datetime.date(2010, 1, 1)}
+
+####Запрос 2
+Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе:
+ 
+    In [62]: Ownerdhip.objects.aggregate(start_date=Max("start_date"))
+    Out[62]: {'start_date': datetime.date(2016, 1, 1)}
+
+####Запрос 3
+Выведите количество машин для каждого водителя:
+
+    In [64]: from django.db.models import Count
+    
+    In [65]: Ownerdhip.objects.values("id_owner").annotate(Count("id_car"))
+    Out[65]: <QuerySet [{'id_owner': 1, 'id_car__count': 1}, {'id_owner': 2, 'id_car__count': 1}, {'id_owner': 3, 'id_car__count': 1}, {'id_owner': 4, 'id_car__count': 1}, {'id_owner': 5, 'id
+    _car__count': 1}, {'id_owner': 6, 'id_car__count': 1}]>
+
+####Запрос 4
+Подсчитайте количество машин каждой марки:
+
+    In [66]: Car.objects.values("mark_car").annotate(Count("id_car"))
+    Out[66]: <QuerySet [{'mark_car': 'Audi', 'id_car__count': 2}, {'mark_car': 'BMW', 'id_car__count': 2}, {'mark_car': 'Toyota', 'id_car__count': 2}]>
+
+####Запрос 5
+Отсортируйте всех автовладельцев по дате выдачи удостоверения:
+
+    In [79]: Car_owner.objects.order_by("driver_license__date_of_license")
+    Out[79]: <QuerySet [<Car_owner: Car_owner object (1)>, <Car_owner: Car_owner object (2)>, <Car_owner: Car_owner object (3)>, <Car_owner: Car_owner object (4)>, <Car_owner: Car_owner objec
+    t (5)>, <Car_owner: Car_owner object (6)>]>
+
+##Лабораторная работа №3
+###models.py
+    from django.db import models
+    from django.contrib.auth.models import AbstractUser
+    
+    class Organizer(AbstractUser):
+        tel = models.CharField(verbose_name='Телефон', max_length=15, null=True, blank=True)
+    
+        REQUIRED_FIELDS = ['first_name', 'last_name', 'tel']
+    
+        def __str__(self):
+            return self.username
+    
+    class Participant(models.Model):
+        name = models.CharField(max_length=100)
+        breed_types = (
+            ('h', 'haski'),
+            ('t', 'terrier'),
+            ('b', 'bulldog'),
+        )
+        breed = models.CharField(max_length=1, choices=breed_types)
+        age = models.IntegerField()
+        family = models.CharField(max_length=1000)
+        owner_data = models.CharField(max_length=1000)
+        club = models.ForeignKey('Club', on_delete=models.CASCADE,
+                                 null=True, blank=True
+                                 )
+    
+        def __str__(self):
+            return self.name
+    
+    
+    class Show(models.Model):
+        year = models.IntegerField(primary_key=True)
+        show_types = (
+            ('mono', 'mono-breed'),
+            ('poly', 'poly-breed')
+        )
+        type = models.CharField(max_length=4, choices=show_types)
+        participants = models.ManyToManyField('Participant',
+                                              # through='Participation',
+                                              related_name='show_participants'
+                                             )
+    
+        def __str__(self):
+            return str(self.year)
+    
+    
+    class Participation(models.Model):
+        participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
+        medal_types = (
+            ('g', 'gold'),
+            ('s', 'silver'),
+            ('b', 'bronze'),
+        )
+        medal = models.CharField(max_length=1, choices=medal_types, null=True)
+        rings = models.ManyToManyField('Ring', null=True, blank=True)
+        vaccinated = models.DateField()
+        dismissed = models.BooleanField()
+        final_grade = models.IntegerField(blank=True, null=True)
+    
+        def __str__(self):
+            return f'{self.participant}'
+    
+    
+    class Expert(models.Model):
+        name = models.CharField(max_length=50)
+        last_name = models.CharField(max_length=50)
+        club = models.CharField(max_length=100)
+    
+        def __str__(self):
+            return f'{self.name} {self.last_name}'
+    
+    
+    class Club(models.Model):
+        name = models.CharField(max_length=100)
+        members = models.ManyToManyField('Participant',
+                                         related_name='club_members'
+                                         )
+    
+        def __str__(self):
+            return self.name
+    
+    
+    class Ring(models.Model):
+        show = models.ForeignKey('Show', on_delete=models.CASCADE)
+        experts = models.ManyToManyField('Expert',
+                                         # through='Grade'
+                                         related_name='ring_experts',
+                                         null=True,
+                                         blank=True
+                                         )
+        breed_types = (
+            ('h', 'haski'),
+            ('t', 'terrier'),
+            ('b', 'bulldog'),
+        )
+        breed = models.CharField(max_length=1, choices=breed_types)
+    
+        def __str__(self):
+            return f'{self.show} {self.breed}'
+
+###serializers.py
+    from rest_framework import serializers
+    from .models import *
+    
+    '''Организатору выставки могут потребоваться следующие сведения;
+     На каком ринге выступает заданный хозяин со своей собакой? !
+     Какими породами представлен заданный клуб? !
+     Сколько собак были отстранены от участия в выставке? !
+     Какие эксперты обслуживают породу? !
+     Количество участников по каждой породе?'''
+    
+    
+    
+    class ExpertSerializer(serializers.ModelSerializer):
+    
+        class Meta:
+            model = Expert
+            fields = "__all__"
+    
+    class ParticipationSerializer(serializers.ModelSerializer):
+    
+        class Meta:
+            model = Participation
+            fields = "__all__"
+    
+    class ParticipantSerializer(serializers.ModelSerializer):
+    
+        class Meta:
+            model = Participant
+            fields = "__all__"
+    
+    
+    class RingParticipationSerializer(serializers.ModelSerializer):
+        '''На каком ринге выступает заданный хозяин со своей собакой?'''
+    
+        class Meta:
+            model = Participation
+            fields = ["rings"]
+    
+    
+    class ParticipantBreedsSerializer(serializers.ModelSerializer):
+        '''Количество участников по каждой породе?'''
+        class Meta:
+            model = Participant
+            fields = ["breed"]
+    
+    
+    class ClubBreedsSerializer(serializers.ModelSerializer):
+        '''Какими породами представлен заданный клуб?'''
+        members = ParticipantBreedsSerializer(many=True)
+    
+        class Meta:
+            model = Club
+            fields = ["name", "members"]
+    
+    
+    class RingSerializer(serializers.ModelSerializer):
+    
+        class Meta:
+            model = Ring
+            fields = "__all__"
+    
+    
+    class DismissedCountSerializer(serializers.ModelSerializer):
+        '''Сколько собак были отстранены от участия в выставке?'''
+        dismissed_count = serializers.SerializerMethodField()
+    
+        class Meta:
+            model = Participation
+            fields = ['dismissed_count']
+    
+        def get_dismissed_count(self, obj):
+            return Participation.objects.filter(dismissed=True).count()
+    
+    
+    class BreedExpertsSerializer(serializers.ModelSerializer):
+        '''Какие эксперты обслуживают породу?'''
+        experts = ExpertSerializer(many=True)
+    
+        class Meta:
+            model = Ring
+            fields = ["breed", "experts"]
+
+###view.py
+    from rest_framework import generics
+    from rest_framework.views import APIView, Response
+    from .serializers import *
+    from .models import *
+    from django.db.models.aggregates import Count, Sum
+    
+    
+    class ExpertAPIView(generics.RetrieveUpdateDestroyAPIView):
+        serializer_class = ExpertSerializer
+        queryset = Expert.objects.all()
+    
+    class ParticipationAPIList(generics.ListCreateAPIView):
+        serializer_class = ParticipationSerializer
+        queryset = Participation.objects.all()
+    
+    class ParticipantAPIList(generics.ListCreateAPIView):
+        serializer_class = ParticipantSerializer
+        queryset = Participant.objects.all()
+    
+    
+    class RingParticipationAPIView(generics.RetrieveAPIView):
+        serializer_class = RingParticipationSerializer
+        queryset = Participation.objects.all()
+    
+    
+    class ClubBreedsRetrieveAPIView(generics.RetrieveAPIView):
+        serializer_class = ClubBreedsSerializer
+        queryset = Club.objects.all()
+    
+    
+    class DismissedCountAPIView(generics.RetrieveAPIView):
+        serializer_class = DismissedCountSerializer
+        queryset = Participation.objects.all()
+    
+    # leave name
+    class BreedExpertsAPIView(generics.ListAPIView):
+        serializer_class = BreedExpertsSerializer
+        queryset = Ring.objects.all()
+    
+    
+    class BreedCountAPIView(APIView):
+    
+        def get(self, request):
+            # breed_count = Participant.objects.filter(breed=breed).count()
+            breed_count = Participant.objects \
+                .values('breed').annotate(count=Count('breed'))
+            content = {'breed_count': breed_count}
+            return Response(content)
+    
+    
+    class BreedCountAPIView(APIView):
+    
+        def get(self, request):
+            breed_count = Ring.objects \
+                .values('breed').annotate(count=Count('breed'))
+            content = {'breed_count': breed_count}
+            return Response(content)
+    
+    
+    class ReportAPIView(APIView):
+    
+        def get(self, request, year):
+            participants = Show.objects.get(year=year).participants
+            participant_count = participants.count()
+            breed_count = participants.values('breed').annotate(count=Count('breed'))
+            best_grades = Participation.objects.filter(rings__show__year=year)\
+                .values('participant')\
+                .annotate(ex_sum=Sum('final_grade'))\
+                .order_by()
+            medals = Participation.objects.values('rings__breed')\
+                .annotate(medals_count=Count('medal'))
+            content = {'participant_count': participant_count,
+                       'breeds': breed_count,
+                       'best_grades': best_grades,
+                       'medals': medals}
+            return Response(content)
+    
+    
+
+###urls.py
+    from django.urls import path
+    from .views import *
+    
+    
+    app_name = "dogsapp"
+    
+    
+    urlpatterns = [
+        path('experts/<int:pk>', ExpertAPIView.as_view()),
+        path('participation/', ParticipationAPIList.as_view()),
+        path('participants/', ParticipantAPIList.as_view()),
+    
+        path('participant_ring/<int:pk>', RingParticipationAPIView.as_view()),
+        path('club_breeds/<int:pk>', ClubBreedsRetrieveAPIView.as_view()),
+        path('dismissed_count/<int:pk>', DismissedCountAPIView.as_view()),
+        path('breed_experts/', BreedExpertsAPIView.as_view()),
+        path('breeds_count/', BreedCountAPIView.as_view()),
+        path('report/<int:year>', ReportAPIView.as_view()),
+    ]
+
+###Основной endpoint

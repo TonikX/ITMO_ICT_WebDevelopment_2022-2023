@@ -13,23 +13,27 @@ class MyHTTPServer:
         self.host = host
         self.port = port
         self.name = name
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.points = {"Maths": ["4"]}
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Создаем объект сокета
+        self.points = {"Maths": ["4"]} #первый список, отображающийся на сайте
 
     def serve_forever(self):
+        #Обработка запросов происходит синхронно,
+        #т.е. возможно обслуживать не более одного клиента в один момент времени.
         try:
-            self.server.bind((self.host, self.port))
-            self.server.listen()
-            while True:
-                client, address = self.server.accept()
+            self.server.bind((self.host, self.port)) # Указываем IP и порт сервера
+            self.server.listen() # Максимальное количество подключений
+            while True: #Сервер в бесконечном цикле осуществляет прием входящих соединений
+                client, address = self.server.accept() #Создает новый объект Socket для заново созданного подключения.
+                #Каждое соединение client является клиентским сокетом.
+                #Прием очередного соединения инициирует обработку HTTP-запроса serve_client(client).
                 self.serve_client(client)
                 print(f"Сервер запущен на порту > {self.host}:{self.port}")
-        except KeyboardInterrupt:
+        except KeyboardInterrupt: #Исключение, возникающее когда пользователь нажимает определённые клавиши прерывания процесса
             self.server.close()
 
     def serve_client(self, client):
         try:
-            data = client.recv(1024).decode()
+            data = client.recv(1024).decode() #чтение данных с определенным кол-м байт и декодирование данных
             req = self.parse_request(data)
             res = self.handle_request(req)
             self.send_response(client, res)
@@ -38,17 +42,17 @@ class MyHTTPServer:
             print(f'Клиент неожиданно отключился')
         client.close()
 
+    #Чтение и разбор (синтаксический анализе) HTTP-запроса
     def parse_request(self, data):
-        #из соединения необходимо прочитать строку, т.е. последовательность байт, заканчивающуюся комбинацией \r\n
+        #прочитали строку из соединения и разбили ее по пробелу на составляющие - метод, цель и версию
         req = data.rstrip('\r\n')
-        text = req[:data.index("\n")].split()
-        if len(text) != 3:
+        text = req[:data.index("\n")].split() #разделяем
+        if len(text) != 3: #ожидаем ровно три части
             raise Exception('Malformed request line')
-
+        #сохраняем их в некоторую структуру данных
         method, target, version = text
         if version != 'HTTP/1.1':
             raise Exception('Unexpected HTTP version')
-
         req = {'data': {}, 'method': method}
         if '?' in target:
             req['method'] = 'POST'
@@ -57,15 +61,17 @@ class MyHTTPServer:
                 index, info = value.split('=')
                 req['data'][index] = info
 
-        return req
+        return req #сохранили их в структуре Request
 
-
-    def handle_request(self, req): #в этом методе начинается обработка запросов
+    # Обработка запросов
+    #Сам метод занимается скорее диспетчеризацией запросов на основе метода и цели, чем непосредственно обработкой
+    def handle_request(self, req):
         if req['method'] == 'POST':
             return self.handle_post(req)
         else:
             return self.handle_get()
 
+    #метод создания предмета и оценки
     def handle_post(self, req):
         course = req["data"]["course"]
         points = req["data"]["points"]
@@ -76,6 +82,7 @@ class MyHTTPServer:
         self.points[course].append(points)
         return self.handle_get()
 
+    #возвращение списка оценок на предмет
     def handle_get(self):
         type = "text/html; charset=utf-8"
         first_settings = "<html><head><style></style></head><body>"
@@ -92,23 +99,26 @@ class MyHTTPServer:
                    ("Content-Length", len(body))]
         return Response(200, "OK", headers, body)
 
-
-    def send_response(self, client, res): #отправка ответа
+    #Отправка ответа
+    def send_response(self, client, res):
         file = client.makefile('wb')
+        #записываем в соединение status line вида HTTP/1.1 <status_code> <reason>
         status_line = f"HTTP/1.1 {res.status} {res.reason}\r\n"
         status_line = status_line.encode("utf-8")
         file.write(status_line)
+        #построчно записываем заголовки и не забываем пустую строку, обозначающую конец секции заголовков
         if res.headers:
             for (index, info) in res.headers:
                 header_line = f"{index}: {info}\r\n"
                 file.write(header_line.encode("utf-8"))
         file.write(b"\r\n")
+        #При наличии тела ответа, ожидаем, что оно уже представлено последовательностью байт и просто отправляем его в сокет
         if res.body:
             file.write(res.body)
         file.flush()
         file.close()
 
-
+    #В случае ошибки на любом из этапов, обработка заканчивается отправкой сообщения об ошибке
     def get_error(self, code, text):
         return Response(code, "OK", "Content-Type: text/html; charset=utf-8", text)
 

@@ -1,11 +1,11 @@
 from django import forms
 
-from backend.app.models import Exhibition, ExpertCompetition, Expert, Competition, CompParticipation, Dog, DogRegistration,DogOwner, Club, ClubParticipation, Dismissed
+from backend.app.models import Show, Ring, Expert, Participant, Participation, Club
 from django.contrib.auth.models import User
 from django.db.models import Q
 
 
-class ExhibitionForm(forms.ModelForm):
+class ShowForm(forms.ModelForm):
     """"Форма добавления выставки"""
 
     TYPES = (
@@ -16,58 +16,58 @@ class ExhibitionForm(forms.ModelForm):
     title = forms.CharField(label="Название", widget=forms.TextInput(attrs={"class": "form-control"}))
     city = forms.CharField(label="Город", widget=forms.TextInput(attrs={"class": "form-control"}))
     address = forms.CharField(label="Адрес", widget=forms.TextInput(attrs={"class": "form-control"}))
-    exhibition_type = forms.ChoiceField(choices=TYPES, label="Тип", widget=forms.Select(attrs={"class": "form-control"}))
+    show_type = forms.ChoiceField(choices=TYPES, label="Тип", widget=forms.Select(attrs={"class": "form-control"}))
     date_start = forms.CharField(label="Дата начала", widget=forms.widgets.DateInput(attrs={'type': 'date', "class": "form-control"}))
     date_finish = forms.CharField(label="Дата конца", widget=forms.widgets.DateInput(attrs={'type': 'date', "class": "form-control"}))
     image = forms.ImageField(label="Изображение")
 
 
     class Meta:
-        model = Exhibition
-        fields = ("title", "city", "address", "exhibition_type", "date_start", "date_finish","image")
+        model = Show
+        fields = ("title", "city", "address", "show_type", "date_start", "date_finish","image")
 
 
 class SetExpertForm(forms.ModelForm):
     """"Форма добавления эксперта на соревнование"""
 
     class Meta:
-        model = ExpertCompetition
+        model = Expert
         fields = "__all__"
 
     def __init__(self, id_user, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
-        self.fields['competition'].queryset = Competition.objects.filter(exhibition__in=Exhibition.objects.filter(
+        self.fields['ring'].queryset = Ring.objects.filter(exhibition__in=Show.objects.filter(
             user__in=User.objects.filter(id=id_user)
         ))
         #self.fields['expert'].queryset = Expert.objects.filter(~Q(id__in=ExpertCompetition.objects.all().values('expert')))
         self.fields['expert'].queryset = Expert.objects.filter(
-            ~Q(id__in=ExpertCompetition.objects.filter(competition__in=Competition.objects.filter(exhibition__in=Exhibition.objects.filter(
+            ~Q(id__in=Expert.objects.filter(competition__in=Ring.objects.filter(exhibition__in=Show.objects.filter(
             user__in=User.objects.filter(id=id_user)))).values('expert')))
 
         self.fields['expert'].widget.attrs.update({'class': 'form-control'})
-        self.fields['competition'].widget.attrs.update({'class': 'form-control'})
+        self.fields['ring'].widget.attrs.update({'class': 'form-control'})
 
 
 class DelExpertForm(forms.ModelForm):
     """"Форма снятия эксперта с соревнования"""
 
     class Meta:
-        model = ExpertCompetition
+        model = Expert
         fields = "__all__"
 
     def __init__(self, id_user, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
-        self.fields['competition'].queryset = Competition.objects.filter(exhibition__in=Exhibition.objects.filter(
-            user__in=User.objects.filter(id=id_user)), id__in=ExpertCompetition.objects.all().values('competition'))
+        self.fields['ring'].queryset = Ring.objects.filter(exhibition__in=Show.objects.filter(
+            user__in=User.objects.filter(id=id_user)), id__in=Expert.objects.all().values('ring'))
 
-        self.fields['expert'].queryset = Expert.objects.filter(id__in=ExpertCompetition.objects.filter(competition__in=Competition.objects.filter(exhibition__in=Exhibition.objects.filter(
+        self.fields['expert'].queryset = Expert.objects.filter(id__in=Expert.objects.filter(competition__in=Ring.objects.filter(exhibition__in=Show.objects.filter(
             user__in=User.objects.filter(id=id_user)))).values('expert'))
 
         self.fields['expert'].widget.attrs.update({'class': 'form-control'})
-        self.fields['competition'].widget.attrs.update({'class': 'form-control'})
+        self.fields['ring'].widget.attrs.update({'class': 'form-control'})
 
 
-class CompetitionForm(forms.ModelForm):
+class RingForm(forms.ModelForm):
     """"Форма добавления соревнования"""
     ring = forms.IntegerField(label="Номер ринга")
     ex1 = forms.CharField(label="Упражнение №1")
@@ -76,55 +76,55 @@ class CompetitionForm(forms.ModelForm):
     date = forms.DateField(label="Дата", widget=forms.widgets.DateInput(attrs={'type': 'date'}))
 
     class Meta:
-        model = Competition
+        model = Ring
         fields = "__all__"
 
     def __init__(self, id_user, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
-        self.fields['exhibition'].queryset = Exhibition.objects.filter(user__in=User.objects.filter(id=id_user))
+        self.fields['show'].queryset = Show.objects.filter(user__in=User.objects.filter(id=id_user))
         self.fields['ring'].widget.attrs.update({'class': 'form-control'})
         self.fields['ex1'].widget.attrs.update({'class': 'form-control'})
         self.fields['ex2'].widget.attrs.update({'class': 'form-control'})
         self.fields['ex3'].widget.attrs.update({'class': 'form-control'})
         self.fields['date'].widget.attrs.update({'class': 'form-control'})
-        self.fields['exhibition'].widget.attrs.update({'class': 'form-control'})
+        self.fields['show'].widget.attrs.update({'class': 'form-control'})
 
 
 class DogToCompForm(forms.ModelForm):
     """"Форма назначения собак на соревнования"""
 
     class Meta:
-        model = CompParticipation
-        fields = ("competition", "dog")
+        model = Participation
+        fields = ("ring", "participant")
 
     def __init__(self, id_user, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
-        self.fields['competition'].queryset = Competition.objects.filter(exhibition__in=Exhibition.objects.filter(user=User.objects.get(id=id_user)))
-        self.fields['dog'].queryset = Dog.objects.filter(
-            id__in=DogRegistration.objects.filter(exhibition__in=Exhibition.objects.filter(user=User.objects.get(id=id_user))).values_list("dog"))
+        self.fields['ring'].queryset = Ring.objects.filter(exhibition__in=Show.objects.filter(user=User.objects.get(id=id_user)))
+        #self.fields['dog'].queryset = Participant.objects.filter(
+        #    id__in=DogRegistration.objects.filter(exhibition__in=Exhibition.objects.filter(user=User.objects.get(id=id_user))).values_list("dog"))
 
-        self.fields['competition'].widget.attrs.update({'class': 'form-control'})
-        self.fields['dog'].widget.attrs.update({'class': 'form-control'})
+        self.fields['ring'].widget.attrs.update({'class': 'form-control'})
+        self.fields['participant'].widget.attrs.update({'class': 'form-control'})
 
 
 class DelDogFromCompForm(forms.ModelForm):
     """"Форма снятия собак с соревнования"""
 
     class Meta:
-        model = CompParticipation
+        model = Participation
         fields = "__all__"
 
     def __init__(self, id_user, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
-        self.fields["competition"].queryset = Competition.objects.filter(exhibition__in=Exhibition.objects.filter(user=User.objects.get(id=id_user)),
-                                                                       id__in = CompParticipation.objects.all().values('competition'))
-        self.fields['dog'].queryset = Dog.objects.filter(id__in=CompParticipation.objects.all().values('dog'))
+        self.fields["ring"].queryset = Ring.objects.filter(exhibition__in=Show.objects.filter(user=User.objects.get(id=id_user)),
+                                                                       id__in = Participation.objects.all().values('ring'))
+        self.fields['participant'].queryset = Participant.objects.filter(id__in=Participation.objects.all().values('participant'))
 
-        self.fields['competition'].widget.attrs.update({'class': 'form-control'})
-        self.fields['dog'].widget.attrs.update({'class': 'form-control'})
+        self.fields['ring'].widget.attrs.update({'class': 'form-control'})
+        self.fields['participant'].widget.attrs.update({'class': 'form-control'})
 
 
-class DogRegForm(forms.ModelForm):
+'''class DogRegForm(forms.ModelForm):
     """"Форма регистрации на выставку"""
 
     class Meta:
@@ -138,10 +138,10 @@ class DogRegForm(forms.ModelForm):
         self.fields['exhibition'].widget.attrs.update({'class': 'form-control'})
         self.fields['owner'].widget.attrs.update({'class': 'form-control'})
         self.fields['dog'].widget.attrs.update({'class': 'form-control'})
-        self.fields['is_paid'].widget.attrs.update({'class': 'form-control'})
+        self.fields['is_paid'].widget.attrs.update({'class': 'form-control'})'''
 
 
-class Query2Form(forms.ModelForm):
+'''class Query2Form(forms.ModelForm):
     """"Форма запроса 2"""
 
     class Meta:
@@ -151,10 +151,10 @@ class Query2Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['club'].widget.attrs.update({'class': 'form-control'})
+        self.fields['club'].widget.attrs.update({'class': 'form-control'})'''
 
 
-class Query3Form(forms.ModelForm):
+'''class Query3Form(forms.ModelForm):
     """"Форма запроса 3"""
 
     class Meta:
@@ -165,4 +165,4 @@ class Query3Form(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         forms.ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['exhibition'].widget.attrs.update({'class': 'form-control'})
+        self.fields['exhibition'].widget.attrs.update({'class': 'form-control'})'''

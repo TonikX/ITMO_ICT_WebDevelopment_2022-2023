@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load mptt_tags %}
+{% load bootstrap4 %}
+{% load static%}
+{% block content %}
+    <div class="main-tweet">
+            <div class="row form-twit">
+                <div class="row form-twit" style="font-size:14pt"><b>На каком ринге выступает заданный хозяин со своей собакой?</b></div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                     <div class="form-twit">
+                         <p><b>Введите имя хозяина:</b><br>
+                         <input class="form-control" type="text" name="owner">
+                         <p><b>Введите кличку собаки:</b><br>
+                         <input class="form-control" type="text" name="dog">
+                     </div>
+                <button type="submit" class="btn btn-success small" name="f1" value="f1">Узнать</button>
+            </form>
+                {%if message%}
+                <p style="color:red"> {{message}}</p>
+                {%endif%}
+                {{answer}} {{ring.ring}}
+            </div>
+    </div>
+{% endblock content %}
