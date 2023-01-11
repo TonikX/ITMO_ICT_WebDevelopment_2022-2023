@@ -1,0 +1,12 @@
+<div class="main">
+
+	{% for vehicle in object_list %}.
+
+		<a href="{% url 'vehicle_detail' vehicle.id %}">{{ vehicle.manufacturer }} {{ vehicle.model }}</a>
+		<hr/>
+	{% empty %}
+		<p>No objects yet.</p>
+	{% endfor %}
+
+
+</div>
