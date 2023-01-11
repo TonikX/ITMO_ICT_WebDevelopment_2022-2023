@@ -1,0 +1,8 @@
+import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(("127.0.0.1", 14900))
+sock.send(b"Hello, server \n")
+text=sock.recv(16384)
+udata=text.decode("utf-8")
+print(udata)

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All owners</title>
+</head>
+<body>
+
+<div class="main">
+
+    {% for data in all_owners %}.
+
+    {{ data.id_owner }}<br/>
+    {{ data.last_name}}<br/>
+    {{ data.first_name }}<br/>
+    {{ data.birth_day}}<br/>
+    <hr/>
+
+    {% endfor %}
+
+</div>
+<a href="/admin/">Get back</a>
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+site_name: Kulagina Svetlana, K33412
+
+theme:
+  name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  
+nav:
+ - Знакомство: index.md
+ - Лабораторная работа №1: lr1.md
+ - Лабораторная работа №2: lr2.md
+ - Практическая работа 3.1: pr3_1.md
+ - Лабораторная работа №3: lr3.md
+ - Лабораторная работа №4: lr4.md
+

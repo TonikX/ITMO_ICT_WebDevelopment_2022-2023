@@ -1,0 +1,20 @@
+<body bgcolor="#f5f5dc">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete reservation</title>
+</head>
+
+<body>
+  <form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete your reservation "{{ object }}"?</p>
+    <input type="submit" value="Confirm">
+  </form>
+  <br>
+ <a href="/home/registered">Get back</a>
+</body>
+</html>
+</body>
