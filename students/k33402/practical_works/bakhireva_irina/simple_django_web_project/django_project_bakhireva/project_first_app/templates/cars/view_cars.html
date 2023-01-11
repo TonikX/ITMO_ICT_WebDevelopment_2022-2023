@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="list-group">
+        {% for car in object_list %}
+        <a href="{% url 'view_car' car.id %}" class="list-group-item list-group-item-action">{{ car.color }} {{ car.manufacturer }} {{ car.model }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}

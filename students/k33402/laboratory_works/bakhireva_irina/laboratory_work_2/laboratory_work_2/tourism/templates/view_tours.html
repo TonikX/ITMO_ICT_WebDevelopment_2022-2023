@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="list-group">
+{% for tour in tours %}
+    <a href="{% url 'view_tour' tour.id %}" class="list-group-item list-group-item-action">{{ tour.name }}</a>
+{% endfor %}
+</div>
+{% endblock %}
