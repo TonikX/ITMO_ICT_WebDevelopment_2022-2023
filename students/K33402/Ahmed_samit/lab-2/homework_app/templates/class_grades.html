@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<table>
+    <tr>
+        <th>Student</th>
+
+        {% for homework in homeworks %}
+            <th>{{ homework.name }}</th>
+        {% endfor %}
+
+    </tr>
+
+    {% for student in students %}
+        <tr>
+            <td>{{ student.user.first_name }} {{ student.user.last_name }}</td>
+
+            {% for key, values in grades.items %}
+                {% if key == student.pk %}
+
+                    {% for value in values %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+

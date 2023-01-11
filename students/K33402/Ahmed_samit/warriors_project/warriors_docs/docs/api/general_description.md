@@ -1,0 +1,1 @@
+The warriors api presents information on the contents of the wariors database. It includes warriors, their professions and skills and allows to request more and less specific information.

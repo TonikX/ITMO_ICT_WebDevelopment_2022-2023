@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Given on</th>
+        <th>Deadline</th>
+        <th>Teacher</th>
+        <th>Penalty</th>
+    </tr>
+
+    {% for homework in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'homework_detail' homework.pk %}">
+                    {{ homework.name }}
+                </a>
+            </td>
+            <td>{{ homework.subject }}</td>
+            <td>{{ homework.begin_date }}</td>
+            <td>{{ homework.deadline }}</td>
+            <td>{{ homework.teacher }}</td>
+            <td>{{ homework.penalty }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
