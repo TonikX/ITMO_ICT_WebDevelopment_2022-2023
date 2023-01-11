@@ -1,0 +1,23 @@
+{% extends 'conferences/main.html' %} {% block content %}
+
+<div class="header-bar">
+  <h1>Мои регистрации</h1>
+</div>
+
+{% for register in registers %}
+
+{% if register.user.id == request.user.id %}
+
+<div class="register">
+  <h2 class="header">{{register.name}}</h2>
+  {% if register.results == True %}
+    <p>Подтвержден</p>
+  {% elif register.results == False%}
+    <p>Отказано</p>
+  {% else %}
+    <p>Не подтвержден</p>
+  {% endif %}
+  <a class='delete' href={% url 'register_delete' register.id %}>Удалить</a>
+</div>
+{% endif %}
+{% endfor %} {% endblock content %}
