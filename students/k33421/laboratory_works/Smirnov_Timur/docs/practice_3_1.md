@@ -28,7 +28,7 @@ class Transport(models.Model):
 
 class Ownership(models.Model):
     id_owner_car = models.IntegerField(primary_key=True)
-    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE, related_name="ownership")
     id_car = models.ForeignKey(Transport, on_delete=models.CASCADE)
     date_start = models.DateField()
     sate_end = models.DateField(null=True)
@@ -36,7 +36,7 @@ class Ownership(models.Model):
 
 class License(models.Model):
     id_doc = models.IntegerField(primary_key=True)
-    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE, related_name="docs")
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
     number_doc = models.CharField(max_length=10, null=False)
     type_doc = models.CharField(max_length=10, null=False)
     date_start_doc = models.DateField()
