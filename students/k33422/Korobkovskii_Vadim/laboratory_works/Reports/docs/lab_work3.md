@@ -2,7 +2,7 @@
 
 ## Задание
 `Необходимо:`
-:
+
 
   1. Реализовать модель базы данных средствами DjangoORM согласно выбранному варианту.
 
@@ -336,12 +336,12 @@ class DogListAPIView(generics.ListAPIView):
 
 
 class DogAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DogSerializer
+    serializer_class = DogRetrieveSerializer
     queryset = Dog.objects.all()
 
 
 class DogCreateAPIView(generics.CreateAPIView):
-    serializer_class = DogSerializer
+    serializer_class = DogRetrieveSerializer
     queryset = Dog.objects.all()
 
 
@@ -366,12 +366,12 @@ class DogParticipationListAPIView(generics.ListAPIView):
 
 
 class DogParticipationAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DogParticipationSerializer
+    serializer_class = DogParticipationRetrieveSerializer
     queryset = DogParticipation.objects.all()
 
 
 class DogParticipantCreateAPIView(generics.CreateAPIView):
-    serializer_class = DogParticipationSerializer
+    serializer_class = DogParticipationRetrieveSerializer
     queryset = DogParticipation.objects.all()
 
 
@@ -465,6 +465,11 @@ class GradingCreateAPIView(generics.CreateAPIView):
     queryset = Grading.objects.filter(~Q(dog_grade__dog_status="Не допущен/Not allowed"))
 
 
+#class DogRingAPIView(generics.RetrieveAPIView):
+#    serializer_class = DogRingSerializer
+#    queryset = ShowSchedule.objects.all()
+
+
 class DogRingAPIView(APIView):
     def get(self, request, id):
         rings = Grading.objects.filter(dog_grade__participant_dog__dog_owner__id=id).values(
@@ -472,6 +477,10 @@ class DogRingAPIView(APIView):
             "dog_grade__participant_dog__dog_name", "dog_grade__participant_dog__breed", "schedule_grade__ring_number")
         content = {"rings": rings}
         return Response(content)
+
+#class ClubBreedAPIView(generics.RetrieveAPIView):
+    #serializer_class = ClubBreedSerializer
+    #queryset = Club.objects.all()
 
 
 class ClubBreedAPIView(APIView):
@@ -481,11 +490,18 @@ class ClubBreedAPIView(APIView):
         return Response(content)
 
 
+
+#class DogNotAllowedOrSuspendedCountAPIView(generics.RetrieveAPIView):
+    #serializer_class = DogNotAllowedOrSuspendedCountSerializer
+    #queryset = Show.objects.all()
+    #def get(self, request, show, year):
+
+
 class DogNotAllowedOrSuspendedCountAPIView(APIView):
     def get(self, request, id):
         participants = DogParticipation.objects.filter(show_dog__id=id).filter(Q(dog_status="Не допущен/Not allowed") | Q(dog_status="Снят/Suspended"))
         counter = participants.count()
-        dogs = participants.values("show_dog__name", "show_dog__begin_date", "participant_dog__dog_name")
+        dogs = participants.values("show_dog__name", "show_dog__begin_date", "participant_dog__breed", "participant_dog__dog_name")
         content = {"counter": counter, "dogs": dogs}
         return Response(content)
 
@@ -493,6 +509,8 @@ class DogNotAllowedOrSuspendedCountAPIView(APIView):
 
 
 class BreedExpertsAPIView(APIView):
+    #serializer_class = BreedExpertsSerializer
+    #queryset = Grading.objects.all()
     def get(self, request):
         breeds = Grading.objects.values("dog_grade__participant_dog__breed", "expert_grade__participant_exp__expert_surname",
                                         "expert_grade__participant_exp__expert_name", "expert_grade__participant_exp__expert_patronymic").distinct().order_by("dog_grade__participant_dog__breed")
@@ -509,17 +527,22 @@ class BreedCountAPIView(APIView):
 
 class ReportAPIView(APIView):
     def get(self, request, id):
+        show = Show.objects.get(id=id)
+        show_title = show.name
+        year = show.begin_date.year
         participants = DogParticipation.objects.filter(show_dog__id=id)
         counter = participants.count()
         breed_counter = participants.values("participant_dog__breed").annotate(count=Count("participant_dog__breed"))
         best_grades = Grading.objects.filter(schedule_grade__show_schedule__id=id).values(
                                              "dog_grade__participant_dog__dog_name", "dog_grade__participant_dog__breed",
-                                             "dog_grade").annotate(grades_sum=Sum("sum")).order_by("dog_grade__participant_dog__breed", "grades_sum")
+                                             "dog_grade__id", "grade1", "grade2", "grade3", "sum").order_by("dog_grade__participant_dog__breed", "sum")
         medals = DogParticipation.objects.filter(show_dog__id=id).values(
                                              "participant_dog__dog_name", "participant_dog__breed",
                                              "show_medal").annotate(medals_count=Count("show_medal")).order_by(
-                                             "participant_dog__breed")
+                                             "participant_dog__breed", "dog_grade__sum")
         content = {
+            "show_title": show_title,
+            "year": year,
             "participants_number": counter,
             "breeds": breed_counter,
             "best_grades": best_grades,
@@ -556,20 +579,22 @@ class ClubSerializer(serializers.ModelSerializer):
 
 
 class DogSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Dog
-        fields = "__all__"
-
-
-class DogRetrieveSerializer(serializers.ModelSerializer):
     dog_owner = OwnerSerializer()
     dog_club = ClubSerializer()
 
     class Meta:
         model = Dog
+        fields = ["id", "dog_name", "breed", "full_age", "month_age", "document", "dad_name", "mom_name",
+                  "last_vaccination", "dog_info", "dog_owner", "dog_club"]
+
+
+class DogRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Dog
         fields = ["dog_name", "breed", "full_age", "month_age", "dog_class", "document", "dad_name", "mom_name",
                   "last_vaccination", "dog_info", "dog_owner", "dog_club"]
+
 
 class ShowSerializer(serializers.ModelSerializer):
     host = OrganizerSerializer
@@ -580,12 +605,21 @@ class ShowSerializer(serializers.ModelSerializer):
 
 
 class DogParticipationSerializer(serializers.ModelSerializer):
-    participant_dog = DogSerializer
-    show_dog = ShowSerializer
+    participant_dog = DogSerializer()
+    show_dog = ShowSerializer()
 
     class Meta:
         model = DogParticipation
-        fields = "__all__"
+        fields = ["id", "show_dog_number", "dog_status", "reg_dog_date", "bill", "checkup", "checkup_date",
+                  "participant_dog", "show_dog", "show_medal"]
+
+
+class DogParticipationRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DogParticipation
+        fields = ["id", "show_dog_number", "dog_status", "reg_dog_date", "bill", "checkup", "checkup_date",
+                  "participant_dog", "show_dog", "show_medal"]
 
 
 class ExpertSerializer(serializers.ModelSerializer):
