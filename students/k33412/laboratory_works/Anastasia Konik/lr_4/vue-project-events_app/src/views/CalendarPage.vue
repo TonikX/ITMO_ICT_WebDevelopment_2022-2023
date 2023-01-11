@@ -14,11 +14,10 @@ import FullCalendar from "@/components/FullCalendar.vue";
 import FooterBlock from "@/components/Footer.vue";
 import useUsersStore from "@/stores/users";
 import {mapActions, mapState} from "pinia";
-import Card from "@/components/Card.vue";
 
 export default {
   name: "CalendarPage",
-  components: {FooterBlock, FullCalendar, HeaderBlock, Card},
+  components: {FooterBlock, FullCalendar, HeaderBlock},
   computed: {
     ...mapState(useUsersStore, ['userEvents'])
   },

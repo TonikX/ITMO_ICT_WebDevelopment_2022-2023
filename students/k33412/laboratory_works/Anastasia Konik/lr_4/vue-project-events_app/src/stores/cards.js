@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {cardApi, userEventsApi} from '@/api'
+import {cardApi} from '@/api'
 
 const useCardsStore = defineStore('cards', {
         state: () => ({

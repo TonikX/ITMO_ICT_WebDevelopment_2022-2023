@@ -40,8 +40,6 @@
 import {mapActions, mapState} from "pinia";
 import Card from "@/components/Card.vue"
 import useCardsStore from "@/stores/cards.js";
-import useUsersStore from "@/stores/users";
-import {usersApi} from "@/api";
 
 export default {
   name: "MainBlock",

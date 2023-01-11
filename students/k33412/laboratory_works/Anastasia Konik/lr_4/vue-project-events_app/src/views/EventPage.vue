@@ -17,20 +17,23 @@ import {mapActions, mapState} from 'pinia'
 import HeaderBlock from '../components/Header.vue'
 import EventBlock from '../components/Event.vue'
 import FooterBlock from '../components/Footer.vue'
-import useCardsStore from "@/stores/cards";
 import {useRoute} from "vue-router";
+import useUsersStore from "@/stores/users";
+import useCardsStore from "@/stores/cards";
 
 export default {
   name: 'EventPage',
   components: {HeaderBlock, EventBlock, FooterBlock},
   computed: {
-    ...mapState(useCardsStore, ['cards']),
+    ...mapState(useUsersStore, ['user', 'token']),
+    ...mapState(useCardsStore, ["cards"]),
     EventId() {
       const route = useRoute();
       return parseInt(route.params.id)
     }
   },
   methods: {
+    ...mapActions(useUsersStore, ['addUserEvent']),
     ...mapActions(useCardsStore, ['loadOneCard']),
   },
   mounted() {

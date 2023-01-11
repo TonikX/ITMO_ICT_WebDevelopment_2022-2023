@@ -1,4 +1,4 @@
-<template xmlns="http://www.w3.org/1999/html">
+<template>
   <main class="container-xl p-5 mb-5">
     <h1 class="row mb-4 mt-4 justify-content-center">Sign in</h1>
     <form>

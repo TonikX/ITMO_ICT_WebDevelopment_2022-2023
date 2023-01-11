@@ -15,7 +15,7 @@ export default {
   name: "ProfilePage",
   components: {FooterBlock, UserBlock, HeaderBlock},
   computed: {
-    ...mapState(useUsersStore, ['user', 'token']),
+   ...mapState(useUsersStore, ['user', 'token', 'userEvents']),
   },
   methods: {
     ...mapActions(useUsersStore, ['logout', 'CurrentUser']),
