@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Bookings
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5">
+        <h1>Bookings</h1>
+        <div class="main mt-4">
+            {% for book in booking %}
+                <h5>booking number: {{ forloop.counter }}</h5>
+                <li>Check-in date: {{ book.check_in_date }}</li>
+                <li>Check-out date: {{ book.check_out_date }}</li>
+                <li>Room: {{ book.room }}</li>
+                <li>Client: {{ book.client }}</li>
+                <div class="container mt-2">
+                    <p><a class="btn btn-warning btn-sm" href="/book_update/{{ book.id }}" role="button">Update</a></p>
+                    <p><a class="btn btn-warning btn-sm" href="/book_delete/{{ book.id }}" role="button">Delete</a></p>
+                </div>
+                <hr/>
+            {% empty %}
+                No clients
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

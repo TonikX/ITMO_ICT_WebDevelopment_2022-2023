@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Clients
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5">
+        <h1>Clients</h1>
+        <div class="main mt-5">
+            {% for client in clients %}
+            <div class="alert alert-warning mt-2">
+                <h4 class="alert-heading">Client: {{ forloop.counter }}</h4>
+                <hr>
+                <p>Last Name: {{ client.last_name }}</p>
+                <p>First Name: {{ client.first_name }}</p>
+                <p>Birth date: {{ client.birthday }}</p>
+                <p>Passport: {{ client.passport }}</p>
+            </div>
+            {% empty %}
+                No clients
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

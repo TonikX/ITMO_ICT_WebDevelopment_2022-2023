@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Rooms
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5">
+        <h1>Rooms</h1>
+        <div class="main">
+            <div class="mt-4">
+                {% for room in rooms %}
+                    <li>Number: {{ room.number }}</li>
+                    <li>Type: {{ room.type }}</li>
+                    <li>Price: {{ room.price }}</li>
+                    <li>Hotel: {{ room.hotel }}</li>
+                    <hr/>
+                {% empty %}
+                    No rooms
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

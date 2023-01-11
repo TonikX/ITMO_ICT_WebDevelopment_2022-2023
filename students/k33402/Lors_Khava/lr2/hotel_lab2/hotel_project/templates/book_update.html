@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Update booking
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5">
+        <h1>Update</h1>
+        <div class="mt-4">
+            <form method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
