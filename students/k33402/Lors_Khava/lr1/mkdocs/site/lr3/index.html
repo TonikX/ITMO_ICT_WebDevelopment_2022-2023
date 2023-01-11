@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Лабораторная работа 3 - ITMO-ICT-WebDevelopment</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 3";
+        var mkdocs_page_input_path = "lr3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ITMO-ICT-WebDevelopment
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Начальная страница</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Лабораторная работа №1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Лабораторная работа №2</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../prac2/">Практическая работа 3.1</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Лабораторная работа 3</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Описание работы</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">Основные файлы с кодом</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ITMO-ICT-WebDevelopment</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Лабораторная работа 3</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="laboratory-work-3">Laboratory work 3<a class="headerlink" href="#laboratory-work-3" title="Permanent link">&para;</a></h1>
+<p>РЕАЛИЗАЦИЯ СЕРВЕРНОЙ ЧАСТИ ПРИЛОЖЕНИЯ СРЕДСТВАМИ DJANGO И DJANGORESTFRAMEWORK</p>
+<h2 id="_1">Описание работы<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Создать программную систему, предназначенную для администратора гостиницы.
+Такая система должна обеспечивать хранение сведений об имеющихся в гостинице
+номерах, о проживающих в гостинице клиентах и о служащих, убирающихся в номерах.
+Количество номеров в гостинице известно, и имеются номера трех типов: одноместный,
+двухместный и трехместный, отличающиеся стоимостью проживания в сутки. В каждом
+номере есть телефон.
+О каждом проживающем должна храниться следующая информация: номер
+паспорта, фамилия, имя, отчество, город, из которого он прибыл, дата поселения в
+гостинице, выделенный гостиничный номер.
+О служащих гостиницы должна быть известна информация следующего содержания:
+фамилия, имя, отчество, где (этаж) и когда (день недели) он убирает. Служащий
+гостиницы убирает все номера на одном этаже в определенные дни недели, при этом в
+разные дни он может убирать разные этажи.</p>
+<h2 id="_2">Основные файлы с кодом<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>models.py</code> - сущности базы данных</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    phone = models.CharField(max_length=15, blank=True, null=True)
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone']
+
+    def __str__(self):
+        return self.username
+
+class Room(models.Model):
+    ROOM_TYPE = (
+        ('single', 'single'),
+        ('double', 'double'),
+        ('triple', 'triple'))
+    type = models.CharField(max_length=10, choices=ROOM_TYPE, default='-', verbose_name='Type room', null=True)
+    number = models.IntegerField(unique=True)
+    phone = models.CharField(max_length=15, verbose_name='Phone number')
+    price = models.IntegerField()
+    STATUS_ROOM = (
+        ('+', 'Available'),
+        ('-', 'Occupied'))
+    status = models.CharField(max_length=1, choices=STATUS_ROOM, default='-', verbose_name='Status room', null=True)
+    guest_in = models.ManyToManyField('Guest', through='Booking', verbose_name='Guest')
+    cleaners = models.ManyToManyField('Cleaners', through='Cleaning')
+
+    def __str__(self):
+        return f'Room #{self.number}'
+
+class Booking(models.Model):
+    room = models.ForeignKey('Room', on_delete=models.CASCADE)
+    guest = models.ForeignKey('Guest', on_delete=models.CASCADE)
+    check_in = models.DateField(verbose_name='Check-in')
+    check_out = models.DateField(verbose_name='Check-out')
+
+    def __str__(self):
+        return f'{self.room} booked'    
+
+class Guest(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    passport = models.CharField(max_length=10, unique=True)
+    city = models.CharField(max_length=100)
+    room_book = models.ManyToManyField('Room', through='Booking', related_name='guests')
+
+    def __str__(self):
+        return f'Guest {self.first_name} {self.last_name}'
+
+class Cleaners(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    passport = models.CharField(max_length=10, unique=True)
+    cleaner_id = models.IntegerField(primary_key=True)
+    salary = models.IntegerField()
+
+    def __str__(self):
+        return f'Cleaner {self.first_name} {self.last_name}'
+
+class Cleaning(models.Model):
+    clean_room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='cleaning')
+    cleaner_id = models.ForeignKey(Cleaners, on_delete=models.CASCADE, related_name='cleaning')
+    date_time = models.DateTimeField(verbose_name='Cleaning day')
+
+    def __str__(self):
+        return f'Cleaning #{self.cleaner_id} in room {self.clean_room.number} at {self.date_time}'
+</code></pre>
+<ul>
+<li><code>views.py</code> - основной функционал сайта</li>
+</ul>
+<pre><code class="language-python">from .serializers import *
+from rest_framework.generics import *
+
+# просмотр информации о гостиничных номерах
+class RoomListAPIView(ListAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+# создание гостиничного номера
+class RoomCreateAPIView(CreateAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+# редактирование и удаление гостиничного номера
+class RoomRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+# просмотр информации определенного гостиничного номера
+class RoomRetrieveAPIView(RetrieveAPIView):
+    serializer_class = RoomRetrieveSerializer
+    queryset = Room.objects.all()
+
+
+# просмотр информации о постояльцах
+class GuestListAPIView(ListAPIView):
+    serializer_class = GuestSerializer
+    queryset = Guest.objects.all()
+
+# создание постояльца
+class GuestCreateAPIView(CreateAPIView):
+    serializer_class = GuestSerializer
+    queryset = Guest.objects.all()
+
+# редактирование и удаление информации о постояльце
+class GuestRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = GuestSerializer
+    queryset = Guest.objects.all()
+
+# просмотр информации определенного постояльца
+class GuestRetrieveAPIView(RetrieveAPIView):
+    serializer_class = GuestRetrieveSerializer
+    queryset = Guest.objects.all()
+
+
+# просмотр информации о сотрудниках, убирающих номера
+class CleanersListAPIView(ListAPIView):
+    serializer_class = CleanersSerializer
+    queryset = Cleaners.objects.all()
+
+# создание сотрудника
+class CleanersCreateAPIView(CreateAPIView):
+    serializer_class = CleanersSerializer
+    queryset = Cleaners.objects.all()
+
+# редактирование и удаление информации о сотруднике
+class CleanersRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = CleanersSerializer
+    queryset = Cleaners.objects.all()
+
+# просмотр информации определенного сотрудника
+class CleanersRetrieveAPIView(RetrieveAPIView):
+    serializer_class = CleanersSerializer
+    queryset = Cleaners.objects.all()
+
+
+# просмотр информации убранного номера
+class CleaningListAPIView(ListAPIView):
+    serializer_class = CleaningSerializer
+    queryset = Cleaning.objects.all()
+
+# закрепление информации об убранном номере
+class CleaningCreateAPIView(CreateAPIView):
+    serializer_class = CleaningSerializer
+    queryset = Cleaning.objects.all()
+
+
+# просмотр информации о забронированных номерах
+class BookingListAPIView(ListAPIView):
+    serializer_class = BookingSerializer
+    queryset = Booking.objects.all()
+
+# создание брони
+class BookingCreateAPIView(CreateAPIView):
+    serializer_class = BookingSerializer
+    queryset = Booking.objects.all()
+
+# просмотр информации о доступных номерах
+class AvailableRoomAPIView(ListAPIView):
+    serializer_class = AvailableRoomSerializer
+
+    def get_queryset(self):
+        return Room.objects.all().filter(status=&quot;+&quot;)
+</code></pre>
+<ul>
+<li><code>serializers.py</code> - преобразование данных в нативные типы данных Python</li>
+</ul>
+<pre><code class="language-python">from rest_framework import serializers
+from .models import *
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = &quot;__all__&quot;
+
+
+class GuestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guest
+        fields = &quot;__all__&quot;
+
+
+class CleanersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cleaners
+        fields = &quot;__all__&quot;
+
+
+class CleaningSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cleaning
+        fields = &quot;__all__&quot;
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = &quot;__all__&quot;
+
+
+class RoomRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Room
+        fields = &quot;__all__&quot;
+
+
+class GuestRetrieveSerializer(serializers.ModelSerializer):
+    #room_client = RoomSerializer(many=True)
+
+    class Meta:
+        model = Guest
+        fields = &quot;__all__&quot;
+
+
+class AvailableRoomSerializer(serializers.ModelSerializer):
+    type = serializers.CharField(source=&quot;get_type_display&quot;, read_only=True)
+
+    class Meta:
+        model = Room
+        fields = ['id', 'type', 'number', 'phone', 'price']
+</code></pre>
+<ul>
+<li><code>urls.py</code> - связь представлений и url адресов на сайте</li>
+</ul>
+<pre><code class="language-python">from django.urls import path
+from .views import *
+
+app_name = &quot;hotel_app&quot;
+
+urlpatterns = [
+    path('rooms/', RoomListAPIView.as_view()),
+    path('rooms/create/', RoomCreateAPIView.as_view()),
+    path('rooms/&lt;int:pk&gt;/', RoomRetrieveAPIView.as_view()),
+    path('rooms/update/&lt;int:pk&gt;/', RoomRetrieveUpdateDestroyAPIView.as_view()),
+    path('guests/', GuestListAPIView.as_view()),
+    path('guests/create/', GuestCreateAPIView.as_view()),
+    path('guests/&lt;int:pk&gt;/', GuestRetrieveAPIView.as_view()),
+    path('guests/update/&lt;int:pk&gt;/', GuestRetrieveUpdateDestroyAPIView.as_view()),
+    path('cleaners/', CleanersListAPIView.as_view()),
+    path('cleaners/create/', CleanersCreateAPIView.as_view()),
+    path('cleaners/&lt;int:pk&gt;/', CleanersRetrieveAPIView.as_view()),
+    path('cleaners/update/&lt;int:pk&gt;/', CleanersRetrieveUpdateDestroyAPIView.as_view()),
+    path('cleanings/', CleaningListAPIView.as_view()),
+    path('cleanings/create/', CleaningCreateAPIView.as_view()),
+    path('bookings/', BookingListAPIView.as_view()),
+    path('bookings/create/', BookingCreateAPIView.as_view()),
+    path('room/status/', AvailableRoomAPIView.as_view()),
+]
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../prac2/" class="btn btn-neutral float-left" title="Практическая работа 3.1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../prac2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
