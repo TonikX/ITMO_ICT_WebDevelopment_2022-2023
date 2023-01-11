@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'main.html' %}
+<head>
+
+    <title>Брони</title>
+</head>
+<body>
+     <h1 class="text-center">Мои брони</h1>
+
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+
+            <th scope="col">Тур</th>
+            <th scope="col">Начало тура</th>
+            <th scope="col">Конец тура</th>
+            <th scope="col">Статус брони</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+            {% for reservation in reservation_list %}
+                <tr>
+                    <td>{{ reservation.tour_id }} </td>
+                    <td>{{ reservation.start_date }} </td>
+                    <td>{{ reservation.end_date }} </td>
+                    <td>{{ reservation.status|yesno:"Забронировано!,Ждите подтверждения" }} </td>
+                    <td class="d-flex justify-content-start gap-2">
+                    <td class="d-flex justify-content-start gap-2">
+                    <a href="/profilereservations/deletereservation/{{ reservation.id }}">
+                        <button type="button" class="btn btn-warning">Удалить резерв</button>
+                    </a>
+                    <a href="/profilereservations/updatereservation/{{ reservation.id }}">
+                        <button type="button" class="btn btn-warning">Изменить дату резерва</button>
+                    </a>
+                    <a href="/createcomment/{{reservation.tour_id.id}}/">
+                        <button type="button" class="btn btn-warning">Оставить отзыв</button>
+                    </a>
+                </tr>
+            {% endfor %}
+
+
+
+             </tbody>
+    </table>
+
+
+
+
+
+</body>
+</html>
