@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class = "row justify-content-md-center">
+	<div class = "col-md-6">
+		<h4>Comments:</h4>
+		<hr>
+		{% for comment in comments %}
+		<div class = "card card-body">
+			<h6>{{comment.driver}}</h6>
+			{% if comment.com_type == "Other" %}
+			<button id="reg" type="button" class="btn clr">
+			{{comment.com_type}}</button>
+			{% endif %}
+			{% if comment.com_type == "Race" %}
+			<button id="reg" type="button" class="btn btn-primary">
+			{{comment.com_type}}</button>
+			{% endif %}
+			{% if comment.com_type == "Cooperation" %}
+			<button id="reg" type="button" class="btn btn-info">
+			{{comment.com_type}}</button>
+			{% endif %}
+			<hr>
+			<p>Text: {{comment.text}}</p>
+			<p>Grade: {{comment.grade}}</p>
+
+		</div>
+		<p></p>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

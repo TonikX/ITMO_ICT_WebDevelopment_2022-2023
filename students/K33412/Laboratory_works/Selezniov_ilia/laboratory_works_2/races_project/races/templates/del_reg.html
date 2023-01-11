@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class = "row justify-content-md-center">
+	<div class = "col-lg-5 col-md-12 col-sm-8">
+		<h4>Are you shure you want to delete registration from "{{ reg.race.name }}" race</h4>
+	</div>
+	<form action="{% url 'registration_dl' reg.id %}" class = "col-sm-1" method="POST">
+
+		{% csrf_token %}
+		<div class="btn-group btn-group-toggle">
+			<a href="{% url 'home' %}" style="color: white" class="btn btn-info">Cancel</a>
+			<input type="submit" style="color: white" class="btn btn-danger" name="Delete" value="Delete">
+		</div>
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+
+
+{% if messages %}
+{% for message in messages %}
+
+{% if message.tags == 'error' %}
+<div class="alert alert-danger" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+{% if message.tags == 'success' %}
+<div class="alert alert-success" role="alert">
+  {{ message }}
+</div>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if request.user.is_staff %}
+<div class = "row">
+	<div class = "col-3" style="margin:0.6%;">
+	<a href="{% url 'race_cr' %}" style="color:white" type="button" class="btn btn-success">Race +</a>
+</div>
+</div>
+{% endif %}
+
+<div class = "row justify-content-md-center">
+	<div class = "col-lg-5 col-md-12 col-sm-10">
+		<h4>Races:</h4>
+		<hr>
+		{% for race in races %}
+		<div id="race" class = "card card-body">
+			<h6>{{race.name}}</h6>
+			{% if not request.user.is_staff %}
+			<a href="{% url 'race' race.id %}" style="color:white" id="partic" type="button" class="btn btn-secondary">Participants</a>
+			<a href="{% url 'race_reg' race.id %}" id="reg" type="button" class="btn btn-outline-success">Register</a>
+			{% endif %}
+			{% if request.user.is_staff %}
+			<a id="results" href=" {% url 'results' race.id %}"  class="btn btn-outline-success">Results</a>
+			<div id="reg" class="btn-group btn-group-toggle">
+			<a href=" {% url 'race_ch' race.id %}"  style="color: white;" class="btn btn-warning">Edit</a>
+			<a href="{% url 'race_dl' race.id %}" style="color: white" class="btn btn-danger">Delete</a>
+			</div>
+			{% endif %}
+			<hr>
+			<p>Date: {{race.race_date}}</p>
+			<p>Length: {{race.length}}</p>
+			<p>Type: {{race.race_type}}</p>
+			<p>Max members: {{race.max_members}}</p>
+			{% if not request.user.is_staff %}
+			<a href="{% url 'comment' race.id %}" style="color:white" type="button" class="btn btn-info">Comment</a>
+			{% endif %}
+			{% if request.user.is_staff %}
+			<a href="{% url 'comments' race.id %}" style="color:white" type="button" class="btn btn-info">Comments</a>
+			{% endif %}
+		</div>
+		<p></p>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}

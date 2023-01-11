@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        <a href="/owners">Владельцы</a>
+        <a href="/cars">Машины</a>
+    </h3>
+
+    {% for car in object_list %}
+
+    <li><a href="cars/{{ car.id }}">{{ car.brand }} {{car.model}}</a></li>
+    <p>{{ car.plate_number }}</p>
+    <hr>
+    {% endfor %}
+
+
+    <a href="/create_car">Добавить атомобиль</a>
+</body>
+
+</html>
