@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №2 - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Web-программирование 2022-2023</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work3/" class="nav-link">Лабораторная работа №3</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_work1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../lab_work3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no2" class="nav-link">Лабораторная работа №2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Задание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Основные файлы:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no2">Лабораторная работа №2</h1>
+<h2 id="_1">Задание</h2>
+<p>Реализовать сайт, используя фреймворк Django 3 и СУБД PostgreSQL *, в
+соответствии с вариантом задания лабораторной работы.</p>
+<p>Интерфейс описывает названия конференций, список тематик, место проведения,
+период проведения, описание конференций, описание место проведения, условия участия.
+Необходимо реализовать следующий функционал:</p>
+<ul>
+<li>
+<p>Регистрация новых пользователей.</p>
+</li>
+<li>
+<p>Просмотр конференций и регистрацию авторов для выступлений</p>
+</li>
+<li>
+<p>Пользователь должен иметь возможность редактирования и удаления своих
+регистраций.</p>
+</li>
+<li>
+<p>Написание отзывов к конференциям. При добавлении комментариев,
+должны сохраняться даты конференции, текст комментария, рейтинг (1-10),
+информация о комментаторе.</p>
+</li>
+<li>
+<p>Администратор должен иметь возможность указания результатов
+выступления (рекомендован к публикации или нет) средствами Django-
+admin.</p>
+</li>
+<li>
+<p>В клиентской части должна формироваться таблица, отображающая всех
+участников по конференциям.</p>
+</li>
+</ul>
+<h2 id="_2">Основные файлы:</h2>
+<p><code>models.py</code></p>
+<pre><code class="language-python">from django.contrib.auth.models import AbstractUser, User
+from django.db import models
+from django.conf import settings 
+
+
+class Conference(models.Model):
+    name = models.CharField(&quot;conference&quot;, max_length=50)
+    topic = models.CharField(&quot;topic&quot;, blank=True, choices=[
+        (&quot;business&quot;, &quot;business&quot;),
+        (&quot;design&quot;, &quot;design&quot;),
+        (&quot;physics&quot;, &quot;physics&quot;),
+    ], max_length=10)
+    location = models.CharField(&quot;location&quot;, max_length=100)
+    start_date = models.DateField(&quot;start date&quot;)
+    end_date = models.DateField(&quot;end date&quot;)
+    description = models.CharField(&quot;conference description&quot;, max_length=200)
+    location_description = models.CharField(&quot;location description&quot;, max_length=200)
+    terms = models.CharField(&quot;participation terms&quot;, max_length=1000)
+    speaker = models.ManyToManyField(User, related_name=&quot;speaker&quot;)
+    recommend = models.CharField(&quot;recommend&quot;, choices=[
+        (&quot;yes&quot;, &quot;yes&quot;),
+        (&quot;no&quot;, &quot;no&quot;),
+    ], max_length=3)
+
+
+    class Meta:
+        verbose_name = &quot;conference&quot;
+        verbose_name_plural = &quot;conferences&quot;
+
+    def __str__(self):
+        return f&quot;{self.topic}: {self.name}&quot;
+
+    def written_by(self):
+        return &quot;, &quot;.join([str(p) for p in self.speaker.all()])
+
+
+class Comment(models.Model):
+    name = models.ForeignKey(Conference, on_delete=models.CASCADE, verbose_name=&quot;conference&quot;)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=&quot;comment author&quot;)
+    text = models.CharField(&quot;comment&quot;, max_length=100)
+    rating = models.CharField(&quot;rating&quot;, choices =[
+        (&quot;1&quot;,&quot;1&quot;),
+        (&quot;2&quot;,&quot;2&quot;),
+        (&quot;3&quot;,&quot;3&quot;),
+        (&quot;4&quot;,&quot;4&quot;),
+        (&quot;5&quot;,&quot;5&quot;),
+        (&quot;6&quot;,&quot;6&quot;),
+        (&quot;7&quot;,&quot;7&quot;),
+        (&quot;8&quot;,&quot;8&quot;),
+        (&quot;9&quot;,&quot;9&quot;),
+        (&quot;10&quot;,&quot;10&quot;),
+
+    ], max_length=2)
+
+
+    class Meta:
+        verbose_name = &quot;comment&quot;
+        verbose_name_plural = &quot;comments&quot;
+
+    def __str__(self):
+        return f&quot;{self.author}: {self.text}&quot;
+
+</code></pre>
+<p><code>views.py</code></p>
+<pre><code class="language-python">from django.shortcuts import render, redirect
+from django.views import generic
+from django.views.generic.edit import FormMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import PostComment
+from .models import Conference, Comment
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+def index(request):
+    return render(request, &quot;index.html&quot;)
+
+
+class ConferenceView(generic.ListView):
+    model = Conference
+    context_object_name = &quot;conferences&quot;
+    queryset = Conference.objects.all()
+    template_name = &quot;conferences.html&quot;
+
+
+class ConferenceDetailView(FormMixin, generic.DetailView):
+    model = Conference
+    template_name = &quot;conference-detail.html&quot;
+    form_class = PostComment
+
+    def get_context_data(self, **kwargs):
+        context = super(ConferenceDetailView, self).get_context_data(**kwargs)
+        context[&quot;form&quot;] = PostComment(
+            initial={&quot;name&quot;: self.object, &quot;author&quot;: self.request.user}
+        )
+        context[&quot;comments&quot;] = Comment.objects.filter(name=self.get_object()).all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(
+            reverse(&quot;conference-detail&quot;, args=(self.object.pk,))
+        )
+</code></pre>
+<p><code>forms.py</code></p>
+<pre><code class="language-python">from django.forms import ModelForm, Textarea, HiddenInput
+from .models import Comment
+
+
+class PostComment(ModelForm):
+    class Meta:
+        model = Comment
+        fields = [&quot;name&quot;, &quot;text&quot;, &quot;author&quot;, &quot;rating&quot;]
+
+        labels = {
+            &quot;text&quot;: &quot;Write your comment here&quot;,
+        }
+
+        widgets = {
+            &quot;conference&quot;: HiddenInput(),
+            &quot;text&quot;: Textarea(attrs={&quot;cols&quot;: 70, &quot;rows&quot;: 10}),
+            &quot;author&quot;: HiddenInput(),
+        }
+</code></pre>
+<p><code>urls.py</code></p>
+<pre><code class="language-python">from django.urls import path
+
+from .views import index, ConferenceView, ConferenceDetailView
+
+urlpatterns = [
+    path(&quot;&quot;, index, name=&quot;index&quot;),
+    path(&quot;conferences/&quot;, ConferenceView.as_view(), name=&quot;conferences&quot;),
+    path(
+        &quot;conferences/&lt;slug:pk&gt;/&quot;,
+        ConferenceDetailView.as_view(),
+        name=&quot;conference-detail&quot;,
+    ),
+]
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
