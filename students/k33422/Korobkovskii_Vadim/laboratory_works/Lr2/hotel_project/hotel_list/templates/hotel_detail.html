@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Подробный просмотр отеля{% endblock %}
+
+{% block content %}
+<ul>
+  <h1> Отель "{{ hotel.hotel_name }}"</h1>
+        <p> <strong>Название отеля/Hotel name:</strong> {{ hotel.hotel_name }}</p>
+        <p> <strong>Рейтинг/Rating:</strong> {{ hotel.rating }} звезд/stars </p>
+        <p> <strong>Фамилия владельца/Owner's surname:</strong> {{ hotel.owner_surname }}</p>
+        <p> <strong>Имя владельца/Owner's name:</strong></strong> {{ hotel.owner_name }}</p>
+        <p> <strong>Описание/Description:</strong> {{ hotel.description }}</p>
+</ul>
+{% endblock %}

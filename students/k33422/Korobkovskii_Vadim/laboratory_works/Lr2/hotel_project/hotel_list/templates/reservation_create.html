@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Новое бронирование{% endblock %}
+
+{% block content %}
+<div class="container">
+     <div class="row justify-content-center">
+         <div class="col-8">
+             <h1 class="mt-2">Бронирование/Booking</h1>
+             <hr class="mt-0 mb-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-grid gap-2 d-md-flex justify-content-left">
+                        <input class="btn btn-success btn-sm" type="submit" value="Отправить/Submit">
+                    </div>
+                    <br/>
+                    <a href="/reservations/">
+                        <button type="button" class="btn btn-info">Назад/Back</button>
+                    </a>
+                </form>
+         </div>
+     </div>
+</div>
+{% endblock %}
+<a href="/reservation/">Вернуться к списку резервирований</a>

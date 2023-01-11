@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Мои брони{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <h2 class="mt-2">Введите номер паспорта</h2>
+                <hr class="mt-0 mb-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-flex p-2 flex-column">
+                            <input type="text" name="passport_user">
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-left">
+                            <button type="submit" class="btn btn-success btn-sm">Продолжить/Submit</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

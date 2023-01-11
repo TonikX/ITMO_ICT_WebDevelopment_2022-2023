@@ -1,0 +1,38 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light sidebarNavigation color-me"
+     data-sidebarClass="navbar-dark bg-dark"
+     style="background-color: #D9B08C;">
+    <div class="container-fluid">
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'main_page' %}" style="color: #8B2323;">Главная/Main page</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'hotel_list' %}" style="color: #8B2323;">Cписок отелей/Hotel list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'room_list' %}" style="color: #8B2323;">Cписок номеров/Room list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'my_reservation' %}" style="color: #8B2323;">Список бронирований/Bookings list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'reservation' %}" style="color: #8B2323;">Бронирование/Bookings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'review' %}" style="color: #8B2323;">Отзывы/Reviews</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'review_create' %}" style="color: #8B2323;">Написать отзыв/Write a review</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'guests' %}" style="color: #8B2323;">Список гостей/Guests list</a>
+          </li>
+          <li class="nav-item">
+             <a class="nav-link active" aria-current="page" href="{% url 'logout' %}" style="color: #8B2323;">Выйти/Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

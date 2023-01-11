@@ -1,0 +1,24 @@
+<!-- owner_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Owners list </title>
+</head>
+<body>
+    <span><h1>Owners</h1><a href="/owner/create/">Add new owner</a></span>
+    <ul>
+        {% for owner in object_list %}
+        <li><strong>Surname:</strong> {{ owner.surname }}, actions: <a href="/owner/{{ owner.owner_id }}/update">Edit</a> |
+        <a href="/owner/{{ owner.owner_id }}/delete/">Delete</a> | <a href="/owner/{{ owner.owner_id }}/">Detail</a>
+        <p><strong>Name:</strong> {{ owner.name }}</p>
+        <p><strong>Birthday date:</strong> {{ owner.birthday_date }}</p>
+        </li>
+        {% empty %}
+        <li>No owners yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

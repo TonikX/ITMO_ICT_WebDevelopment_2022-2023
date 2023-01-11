@@ -1,0 +1,25 @@
+<!-- car_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Car list </title>
+</head>
+<body>
+    <span><h1>Cars</h1><a href="/car/create/">Add new car</a></span><br>
+    <ul>
+        {% for car in object_list %}
+        <li><strong>Number:</strong> {{ car.number }}, actions: <a href="/car/{{ car.car_id }}/update">Edit</a> |
+        <a href="/car/{{ car.car_id }}/delete/">Delete</a> | <a href="/car/{{ car.car_id }}/">Detail</a>
+            <p><strong>Brand:</strong> {{ car.brand }}</p>
+            <p><strong>Model:</strong> {{ car.model }}</p>
+            <p><strong>Color:</strong> {{ car.color }}</p>
+        </li>
+        {% empty %}
+        <li>No cars yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

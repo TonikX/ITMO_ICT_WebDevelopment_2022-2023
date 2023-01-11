@@ -1,0 +1,90 @@
+site_name: Korobkovskii Vadim, K33422
+
+theme:
+  name: material
+
+markdown_extensions:
+  - def_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+  - Знакомство: index.md
+  - Лабораторная работа №1: lab_work1.md
+  - Лабораторная работа №2: lab_work2.md
+  - Лабораторная работа №3:
+      - Лабораторная работа:
+          - Код для создания модели: lab_work3.md
+          - Описание таблиц и её полей:
+              - Таблица "Organizer": organizer.md
+              - Таблица "Owner": owner.md
+              - Таблица "Club": club.md
+              - Таблица "Dog": dog.md
+              - Таблица "Show": show.md
+              - Таблица "DogParticipation": dog_reg.md
+              - Таблица "Expert": expert.md
+              - Таблица "ExpertParticipation": exp_reg.md
+              - Таблица "Sponsor": sponsor.md
+              - Таблица "Sponsorship": sponsorship.md
+              - Таблица "ShowSchedule": show_schedule.md
+              - Таблица "Grading": grading.md
+          - Конечные точки (endpoints) и их описание:
+              - Для таблицы "Owner":
+                    - /owner/ [GET]: owner_list.md
+                    - /owner/create/ [POST]: owner_create.md
+                    - /owner/{id}/ [GET, PUT, PATCH, DELETE]: owner_change.md
+              - Для таблицы "Club":
+                    - /club/ [GET]: club_list.md
+                    - /club/create/ [POST]: club_create.md
+                    - /club/{id}/ [GET, PUT, PATCH, DELETE]: club_change.md
+              - Для таблицы "Dog":
+                    - /dog/ [GET]: dog_list.md
+                    - /dog/create/ [POST]: dog_create.md
+                    - /dog/{id}/ [GET, PUT, PATCH, DELETE]: dog_change.md
+              - Для таблицы "Show":
+                    - /show/ [GET]: show_list.md
+                    - /show/create/ [POST]: show_create.md
+                    - /show/{id}/ [GET, PUT, PATCH, DELETE]: show_change.md
+              - Для таблицы DogParticipation:
+                    - /dog_reg/ [GET]: dog_reg_list.md
+                    - /dog_reg/create/ [POST]: dog_reg_create.md
+                    - /dog_reg/{id}/ [GET, PUT, PATCH, DELETE]: dog_reg_change.md
+              - Для таблицы Expert:
+                    - /expert/ [GET]: expert_list.md
+                    - /expert/create/ [POST]: expert_create.md
+                    - /expert/{id}/ [GET, PUT, PATCH, DELETE]: expert_change.md
+              - Для таблицы ExpertParticipation:
+                    - /expert_reg/ [GET]: exp_reg_list.md
+                    - /expert_reg/create/ [POST]: exp_reg_create.md
+                    - /expert/{id}/ [GET, PUT, PATCH, DELETE]: exp_reg_change.md
+              - Для таблицы Sponsor:
+                    - /sponsor/ [GET]: sponsor_list.md
+                    - /sponsor/create/ [POST]: sponsor_create.md
+                    - /sponsor/{id}/ [GET, PUT, PATCH, DELETE]: sponsor_change.md
+              - Для таблицы Sponsorship:
+                    - /sponsorship/ [GET]: sponsorship_list.md
+                    - /sponsorship/create/ [POST]: sponsorship_create.md
+                    - /sponsorship/{id}/ [GET, PUT, PATCH, DELETE]: sponsorship_change.md
+              - Для таблицы ShowSchedule:
+                    - /schedule/ [GET]: schedule_list.md
+                    - /schedule/create/ [POST]: schedule_create.md
+                    - /schedule/{id}/ [GET, PUT, PATCH, DELETE]: schedule_change.md
+              - Для таблицы Grading:
+                    - /grading/ [GET]: grading_list.md
+                    - /grading/create/ [POST]: grading_create.md
+                    - /grading/{id}/ [GET, PUT, PATCH, DELETE]: grading_change.md
+              - Для запросов:
+                    - /dog_ring/{id} [GET]: dog_ring.md
+                    - /club_breeds/{id}/ [GET]: club_breeds.md
+                    - /miss_count/{id}/ [GET]: miss_count.md
+                    - /breed_experts/ [GET]: breed_experts.md
+                    - /breeds_count/ [GET]: breeds_count.md
+              - Для отчётов:
+                    - /report/{id} [GET]: report.md
+      - Практическая работа: prac_work3_1.md
+  - Лабораторная работа №4: lab_work4.md

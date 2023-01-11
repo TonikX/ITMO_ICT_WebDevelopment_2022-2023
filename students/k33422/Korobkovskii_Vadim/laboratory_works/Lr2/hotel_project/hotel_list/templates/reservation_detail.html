@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Подробный просмотр бронирования{% endblock %}
+
+{% block content %}
+<ul>
+  <h1> Бронь № {{ reservation.id }}</h1>
+    <p><strong>Гость/Guest:</strong> {{ reservation.guest }} </p>
+    <p><strong>Отель/Hotel:</strong> {{ reservation.room.hotel.hotel_name  }}</p>
+    <p><strong>Комната/Room:</strong> {{ reservation.room }}</p>
+    <p><strong>Тип/Type:</strong> {{ reservation.room.get_type_display }} ({{ reservation.room.type }})</p>
+    <p><strong>Количество кроватей/Number of beds:</strong> {{ reservation.room.persons}}</p>
+    <p><strong>Дата заезда/Check-in date:</strong> {{ reservation.check_in }}</p>
+    <p><strong>Дата выезда/Check-out date:</strong> {{ reservation.check_out }}</p>
+    <p><strong>Цена/Price:</strong> {{ reservation.price }}</p>
+    <div class="d-flex justify-content-start gap-2">
+          <a href="/reservations/{{ reservation.id }}/update">
+            <button type="button" class="btn btn-info">Редактировать/Change</button>
+          </a>
+          <a href="/reservations/{{ reservation.id }}/delete">
+            <button type="button" class="btn btn-danger">Удалить/Delete</button>
+          </a>
+    </div>
+</ul>
+{% endblock %}

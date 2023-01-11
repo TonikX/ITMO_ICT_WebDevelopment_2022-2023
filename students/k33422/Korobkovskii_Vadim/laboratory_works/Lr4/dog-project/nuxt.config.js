@@ -1,0 +1,5 @@
+{
+    buildModules: [
+        '@nuxtjs/vuetify',
+    ]
+}
