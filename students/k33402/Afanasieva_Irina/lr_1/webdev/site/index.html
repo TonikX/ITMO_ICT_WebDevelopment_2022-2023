@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="None">
+    
+    
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Web Development by Me</title>
+    <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="./css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <script src="./js/bootstrap-3.3.7.min.js"></script>
+    <script src="./js/highlight.pack.js"></script>
+    
+      <script src="./js/elasticlunr.min.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '.';
+      var is_top_frame = (window === window.parent);
+        
+        var pageToc = [
+          {title: "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 1", url: "#_top", children: [
+              {title: "\u0420\u0430\u0431\u043e\u0442\u0430 \u0441 \u0441\u043e\u043a\u0435\u0442\u0430\u043c\u0438", url: "#_1" },
+              {title: "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 1", url: "#1_1" },
+              {title: "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 2", url: "#2" },
+              {title: "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 3", url: "#3" },
+              {title: "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 4", url: "#4" },
+              {title: "\u0417\u0430\u0434\u0430\u043d\u0438\u0435 5", url: "#5" },
+          ]},
+        ];
+
+    </script>
+    <script src="./js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+<nav class="navbar wm-page-top-frame">
+  <div class="container-fluid wm-top-container">
+    
+    <div class="wm-top-tool pull-right wm-vcenter">
+      <form class="dropdown wm-vcentered" id="wm-search-form" action="./search.html">
+        
+        <button id="wm-search-show" class="btn btn-sm btn-default" type="submit"
+          ><i class="fa fa-search" aria-hidden="true"></i></button>
+
+        <div class="input-group input-group-sm wm-top-search">
+          <input type="text" name="q" class="form-control" id="mkdocs-search-query" placeholder="Search" autocomplete="off">
+          <span class="input-group-btn" role="search">
+            
+            <button class="btn btn-default dropdown-toggle collapse" data-toggle="dropdown" type="button"><span class="caret"></span></button>
+            <ul id="mkdocs-search-results" class="dropdown-menu dropdown-menu-right"></ul>
+            <button id="wm-search-go" class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </span>
+        </div>
+      </form>
+    </div>
+
+    
+    <div class="wm-top-tool wm-vcenter pull-right wm-small-left">
+      <button id="wm-toc-button" type="button" class="btn btn-sm btn-default wm-vcentered"><i class="fa fa-th-list" aria-hidden="true"></i></button>
+    </div>
+
+    
+    
+
+    
+    <a href="" class="wm-top-brand wm-top-link wm-vcenter">
+      
+      <div class="wm-top-title">
+        Web Development by Me<br>
+        
+      </div>
+    </a>
+  </div>
+</nav>
+
+  <div id="main-content" class="wm-page-top-frame">
+    
+<nav class="wm-toc-pane">
+  
+  <ul class="wm-toctree">
+        <li class="wm-toc-li wm-toc-lev1 "><a href="" class="wm-article-link wm-toc-text">Лабораторная работа 1</a>
+</li>
+  </ul>
+</nav>
+
+    <div class="wm-content-pane">
+      <iframe class="wm-article" name="article"></iframe>
+    </div>
+  </div>
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+
+    <h1 id="1">Лабораторная работа 1</h1>
+<h2 id="_1">Работа с сокетами</h2>
+<h2 id="1_1">Задание 1</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент отсылает серверу
+сообщение «Hello, server». Сообщение должно отразиться на стороне сервера.
+Сервер в ответ отсылает клиенту сообщение «Hello, client». Сообщение должно
+отобразиться у клиента.</p>
+<p>Обязательно использовать библиотеку <code>socket</code></p>
+<p>Реализовать с помощью протокола <code>UDP</code></p>
+<h4 id="_2">Клиентская часть</h4>
+<pre><code>import socket
+
+my_socket = socket.socket(socket.SOCK_DGRAM)
+my_socket.connect((&quot;127.0.0.10&quot;, 12400))
+msg = &quot;Hello, server!&quot;
+my_socket.send(msg.encode(&quot;utf-8&quot;))
+data = my_socket.recv(16384)
+print(data.decode(&quot;utf-8&quot;))
+my_socket.close() 
+</code></pre>
+<p>Создаем сокет <code>my_socket</code> и подключаемся к серверу:</p>
+<pre><code>my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.connect((&quot;127.0.0.1&quot;, 12400))
+</code></pre>
+<p>Отправляем на сервер сообщение "Hello, server!":</p>
+<pre><code>msg = &quot;Hello, server!&quot;
+my_socket.send(msg.encode(&quot;utf-8&quot;))
+</code></pre>
+<p>Получаем сообщение от сервера, печатаем его и закрываем соединение:</p>
+<pre><code>data = my_socket.recv(16384)
+print(data.decode(&quot;utf-8&quot;))
+my_socket.close() 
+</code></pre>
+<h4 id="_3">Серверная часть</h4>
+<pre><code>import socket
+
+my_socket = socket.socket(socket.SOCK_DGRAM)
+my_socket.bind((&quot;127.0.0.10&quot;, 12400))
+my_socket.listen(10)
+
+sock, address = my_socket.accept()
+data = sock.recv(16384)
+data = data.decode(&quot;utf-8&quot;)
+print(data)
+msg = &quot;Hello, client!&quot;
+sock.send(msg.encode(&quot;utf-8&quot;))
+my_socket.close()
+</code></pre>
+<p>Создаем сокет <code>my_socket</code> и с помощью метода <code>.listen()</code> запускаем режим прослушивания:</p>
+<pre><code>my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.bind((&quot;127.0.0.1&quot;, 12400))
+my_socket.listen(10)
+</code></pre>
+<p>Получаем сообщение от клиента и печатаем его:</p>
+<pre><code>sock, address = my_socket.accept()
+data = sock.recv(16384)
+data = data.decode(&quot;utf-8&quot;)
+print(data)
+</code></pre>
+<p>Отправляем клиенту сообщение "Hello, client!" и закрываем соединение:</p>
+<pre><code>msg = &quot;Hello, client!&quot;
+sock.send(msg.encode(&quot;utf-8&quot;))
+my_socket.close()
+</code></pre>
+<h2 id="2">Задание 2</h2>
+<p>Реализовать клиентскую и серверную часть приложения. Клиент запрашивает у
+сервера решение Теоремы Пифагора, параметры которой вводятся с
+клавиатуры. Сервер обрабатывает полученные данные и возвращает результат
+клиенту.</p>
+<p>Обязательно использовать библиотеку <code>socket</code></p>
+<p>Реализовать с помощью протокола <code>TCP</code></p>
+<h4 id="_4">Клиентская часть</h4>
+<pre><code># Variant a. - теорема пифагора
+import socket
+
+my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.connect((&quot;127.0.0.1&quot;, 12400))
+
+# Два прохода цикла, тк 2 вводных числа
+for _ in range(2):
+    print(my_socket.recv(16384).decode())  # Сообщение от сервера
+    inp = input(&quot;&gt;&gt; &quot;)  # Вводимые катеты
+    my_socket.send(inp.encode())  # Отправка на сервер
+
+print(my_socket.recv(16384).decode())
+my_socket.close()
+</code></pre>
+<p>Создаем сокет <code>my_socket</code> и подключаемся к серверу:</p>
+<pre><code>my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.connect((&quot;127.0.0.1&quot;, 12400))
+</code></pre>
+<p>В цикле делаем два прохода, получая сообщения от сервера и посылая вводные данные:</p>
+<pre><code>for _ in range(2):
+    print(my_socket.recv(16384).decode())  # Сообщение от сервера
+    inp = input(&quot;&gt;&gt; &quot;)  # Вводимые катеты
+    my_socket.send(inp.encode())  # Отправка на сервер
+</code></pre>
+<p>Получаем и печатаем результат, полученный с сервера. Закрываем соединение:</p>
+<pre><code>print(my_socket.recv(16384).decode())
+my_socket.close()
+</code></pre>
+<h4 id="_5">Серверная часть</h4>
+<pre><code>import socket
+import math
+
+my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.bind((&quot;127.0.0.1&quot;, 12400))
+
+my_socket.listen(10)
+
+sock, address = my_socket.accept()
+sock.send(&quot;Input a:&quot;.encode())
+a = int(sock.recv(16384).decode())  # Первый катет
+sock.send(&quot;Input b:&quot;.encode())
+b = int(sock.recv(16384).decode())  # Второй катет
+c = a * a + b * b
+result = math.sqrt(c)
+sock.send(f&quot;The result is:\n {result}&quot;.encode())
+my_socket.close()
+</code></pre>
+<p>Создаем сокет <code>my_socket</code> и с помощью метода <code>.listen()</code> запускаем режим прослушивания:</p>
+<pre><code>my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.bind((&quot;127.0.0.1&quot;, 12400))
+my_socket.listen(10)
+</code></pre>
+<p>Сервер отправляет клиенту сообщения для запроса вводных данных и принимает их:</p>
+<pre><code>sock, address = my_socket.accept()
+sock.send(&quot;Input a:&quot;.encode())
+a = int(sock.recv(16384).decode()) 
+sock.send(&quot;Input b:&quot;.encode())
+b = int(sock.recv(16384).decode()) 
+</code></pre>
+<p>Расчет длины гипотенузы из двух катетов по Теореме Пифагора:</p>
+<pre><code>c = a * a + b * b
+result = math.sqrt(c)
+</code></pre>
+<p>Сервер отправляет результат расчета клиенту и закрывает соединение:</p>
+<pre><code>sock.send(f&quot;The result is:\n {result}&quot;.encode())
+my_socket.close()
+</code></pre>
+<h2 id="3">Задание 3</h2>
+<p>Реализовать серверную часть приложения. Клиент подключается к серверу. В ответ
+клиент получает http-сообщение, содержащее html-страницу, которую сервер
+подгружает из файла index.html.</p>
+<p>Обязательно использовать библиотеку <code>socket</code></p>
+<pre><code>import socket
+
+my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.bind(('127.0.0.1', 14900))
+my_socket.listen(10)
+
+
+def main():
+    while True:
+        try:
+            client, _ = my_socket.accept()
+            client.recv(4096)
+            # Set appropriate headers
+            response_type = &quot;HTTP/1.0 200 OK\n&quot;
+            headers = &quot;Content-Type: text/html\n\n&quot;
+            # Read HTML from file
+            with open(&quot;index.html&quot;, &quot;r&quot;) as f:
+                body = f.read()
+            resp = response_type + headers + body
+            client.send(resp.encode())
+            client.close()
+        except KeyboardInterrupt:
+            my_socket.close()
+            break
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>Создаем сокет <code>my_socket</code> и с помощью метода <code>.listen()</code> запускаем режим прослушивания:</p>
+<pre><code>my_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+my_socket.bind(('127.0.0.1', 14900))
+my_socket.listen(10)
+</code></pre>
+<h2 id="4">Задание 4</h2>
+<p>Реализовать двухпользовательский или многопользовательский чат. Реализация
+многопользовательского часа позволяет получить максимальное количество
+баллов.</p>
+<p>Обязательно использовать библиотеку <code>socket</code></p>
+<p>Обязательно использовать библиотеку <code>threading</code></p>
+<p>Реализовать с помощью протокола <code>TCP</code></p>
+<h4 id="_6">Клиентская часть</h4>
+<pre><code>import socket
+import sys
+from threading import Thread
+
+
+class ChatClient:
+    def __init__(self, host, port, username):
+        self.host = host
+        self.port = port
+        self.username = username
+        self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    def _send(self):
+        # Threaded function for sending messages
+        while True:
+            try:
+                msg = input()
+                if msg:
+                    self.conn.send(f&quot;{self.username}: {msg}&quot;.encode())
+            except (KeyboardInterrupt, EOFError):
+                self.conn.close()
+                sys.exit(0)
+
+    def _recieve(self):
+        # Threaded function for recieving messages
+        while True:
+            try:
+                msg = self.conn.recv(16384).decode()
+                if msg:
+                    print(msg)
+            except KeyboardInterrupt:
+                self.conn.close()
+                sys.exit(0)
+            except ConnectionError:
+                # Unexpected connection error
+                print(&quot;Connection error&quot;)
+                self.conn.close()
+                sys.exit(1)
+
+    def run(self):
+        # Connect
+        self.conn.connect((self.host, self.port))
+        # Run threaded functions
+        Thread(target=self._send).start()
+        Thread(target=self._recieve).start()
+
+
+if __name__ == '__main__':
+    u = input(&quot;Your username: &quot;)
+    print(f&quot;Hello {u}&quot;)
+    print(&quot;Connecting to server...&quot;)
+    client = ChatClient('127.0.0.1', 14900, u)
+    client.run()
+</code></pre>
+<h4 id="_7">Серверная часть</h4>
+<pre><code>import socket
+import sys
+from threading import Thread
+
+
+class ChatServer:
+
+    def __init__(self, host: str, port: int):
+        self.clients = []
+        self.host = host
+        self.port = port
+        self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    def _shutdown(self):
+        for sock in self.clients:
+            sock.close()
+        self.conn.close()
+        sys.exit(0)
+
+    def _client_broadcast(self, message: bytes, sender: socket.socket) -&gt; None:
+        # Broadcast a message from a client to all the other clients
+        for sock in self.clients.copy():
+            if sock != sender:
+                try:
+                    sock.send(message)
+                except OSError:
+                    # Client disconnected
+                    print(&quot;Someone disconnected&quot;)
+                    self.clients.remove(sock)
+
+    def _client_listen(self, sock: socket.socket) -&gt; None:
+        # Listen for messages from client
+        sock.settimeout(30)
+        while True:
+            try:
+                message = sock.recv(16384)
+                print(message.decode())
+                self._client_broadcast(message, sock)
+            except OSError:
+                sock.close()
+                break
+
+    def _main(self) -&gt; None:
+        # Run server
+        self.conn.bind((self.host, self.port))
+        self.conn.listen(10)
+        while True:
+            try:
+                # Accept connection
+                sock, address = self.conn.accept()
+                print(f&quot;Connection at {address}&quot;)
+                # Create thread for client
+                self.clients.append(sock)
+                Thread(target=self._client_listen, args=(sock,)).start()
+            except KeyboardInterrupt:
+                self._shutdown()
+
+    def run(self) -&gt; None:
+        # Wrapper to start thread for _main()
+        Thread(target=self._main).start()
+
+
+if __name__ == '__main__':
+    print(&quot;Starting server...&quot;)
+    server = ChatServer('127.0.0.1', 14900)
+    server.run()
+    print(&quot;Server started&quot;)
+</code></pre>
+<h2 id="5">Задание 5</h2>
+<p>Необходимо написать простой web-сервер для обработки GET и POST http
+запросов средствами Python и библиотеки socket.</p>
+<p>Задание: сделать сервер, который может:</p>
+<p>● Принять и записать информацию о дисциплине и оценке по дисциплине.</p>
+<p>● Отдать информацию обо всех оценах по дсициплине в виде html-страницы.</p>
+<pre><code>import socket
+from email.parser import Parser
+from functools import lru_cache
+from urllib.parse import parse_qs, urlparse
+
+MAX_LINE = 64 * 1024
+MAX_HEADERS = 100
+
+class MyHTTPServer:
+    def __init__(self, host, port, server_name):
+        self._host = host
+        self._port = port
+        self._server_name = server_name
+        self._subjects = {}
+
+    def serve_forever(self):
+        serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        try:
+            serv_sock.bind((self._host, self._port))
+            serv_sock.listen()
+
+            while True:
+                conn, _ = serv_sock.accept()
+                try:
+                    self.serve_client(conn)
+                except Exception as e:
+                    print('Client serving failed', e)
+        finally:
+            serv_sock.close()
+
+    def serve_client(self, conn):
+        try:
+            req = self.parse_request(conn)
+            resp = self.handle_request(req)
+            self.send_response(conn, resp)
+        except ConnectionResetError:
+            conn = None
+        except Exception as e:
+            self.send_error(conn, e)
+
+        if conn:
+            req.rfile.close()
+            conn.close()
+
+    def parse_request(self, conn):
+        rfile = conn.makefile('rb')
+        method, target, ver = self.parse_request_line(rfile)
+        headers = self.parse_headers(rfile)
+        host = headers.get('Host')
+        if not host:
+            raise HTTPError(400, 'Bad request', 'Host header is missing')
+        if host not in (self._server_name, f'{self._server_name}:{self._port}'):
+            raise HTTPError(404, 'Not found')
+        return Request(method, target, ver, headers, rfile)
+
+    def parse_request_line(self, rfile):
+        raw = rfile.readline(MAX_LINE + 1)
+        if len(raw) &gt; MAX_LINE:
+            raise HTTPError(400, 'Bad request', 'Request line is too long')
+
+        req_line = str(raw, 'iso-8859-1')
+        words = req_line.split()
+        if len(words) != 3:
+            raise HTTPError(400, 'Bad request', 'Malformed request line')
+
+        method, target, ver = words
+        if ver != 'HTTP/1.1':
+            raise HTTPError(505, 'HTTP Version Not Supported')
+        return method, target, ver
+
+    def parse_headers(self, rfile):
+        headers = []
+        while True:
+            line = rfile.readline(MAX_LINE + 1)
+            if len(line) &gt; MAX_LINE:
+                raise HTTPError(494, 'Request header too large')
+
+            if line in (b'\r\n', b'\n', b''):
+                break
+
+            headers.append(line)
+            if len(headers) &gt; MAX_HEADERS:
+                raise HTTPError(494, 'Too many headers')
+
+        sheaders = b''.join(headers).decode('iso-8859-1')
+        return Parser().parsestr(sheaders)
+
+    def handle_request(self, req):
+        if req.path == '/subjects' and req.method == 'POST':
+            return self.handle_post_subjects(req)
+
+        if req.path == '/subjects' and req.method == 'GET':
+            return self.handle_get_subjects(req)
+
+        raise HTTPError(404, 'Not found')
+
+    def send_response(self, conn, resp):
+        wfile = conn.makefile('wb')
+        status_line = f'HTTP/1.1 {resp.status} {resp.reason}\r\n'
+        wfile.write(status_line.encode('iso-8859-1'))
+
+        if resp.headers:
+            for (key, value) in resp.headers:
+                header_line = f'{key}: {value}\r\n'
+                wfile.write(header_line.encode('iso-8859-1'))
+
+        wfile.write(b'\r\n')
+
+        if resp.body:
+            wfile.write(resp.body)
+
+        wfile.flush()
+        wfile.close()
+
+    def send_error(self, conn, err):
+        try:
+            status = err.status
+            reason = err.reason
+            body = (err.body or err.reason).encode('utf-8')
+        except:
+            status = 500
+            reason = b'Internal Server Error'
+            body = b'Internal Server Error'
+        resp = Response(status, reason, [('Content-Length', len(body))], body)
+        self.send_response(conn, resp)
+
+    def handle_post_subjects(self, req):
+        subject_id = len(self._subjects) + 1
+        self._subjects[subject_id] = {'subject': req.query['subject'][0], 'mark': req.query['mark'][0]}
+        return Response(204, 'Created')
+
+    def handle_get_subjects(self, req):
+        accept = req.headers.get('Accept')
+        if 'text/html' in accept:
+            contentType = 'text/html; charset=utf-8'
+            body = '&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;'
+            body += f'&lt;div&gt;Subjects&lt;/div&gt;'
+            body += '&lt;ul&gt;'
+            for u in self._subjects.values():
+                body += f'&lt;li&gt;#{u[&quot;subject&quot;]}, {u[&quot;mark&quot;]}&lt;/li&gt;'
+            body += '&lt;/ul&gt;'
+            body += '&lt;/body&gt;&lt;/html&gt;'
+        else:
+            return Response(406, 'Not Acceptable')
+
+        body = body.encode('utf-8')
+        headers = [('Content-Type', contentType), ('Content-Length', len(body))]
+        return Response(200, 'OK', headers, body)
+
+
+class Request:
+    def __init__(self, method, target, version, headers, rfile):
+        self.method = method
+        self.target = target
+        self.version = version
+        self.headers = headers
+        self.rfile = rfile
+
+    @property
+    def path(self):
+        return self.url.path
+
+    @property
+    @lru_cache(maxsize=None)
+    def query(self):
+        return parse_qs(self.url.query)
+
+    @property
+    @lru_cache(maxsize=None)
+    def url(self):
+        return urlparse(self.target)
+
+    def body(self):
+        size = self.headers.get('Content-Length')
+        if not size:
+            return None
+        return self.rfile.read(size)
+
+
+class Response:
+    def __init__(self, status, reason, headers=None, body=None):
+        self.status = status
+        self.reason = reason
+        self.headers = headers
+        self.body = body
+
+
+class HTTPError(Exception):
+    def __init__(self, status, reason, body=None):
+        super()
+        self.status = status
+        self.reason = reason
+        self.body = body
+
+
+if __name__ == '__main__':
+    host = &quot;127.0.0.1&quot;
+    port = 8008
+    subject = 'irina'
+
+    serv = MyHTTPServer(host, port, subject)
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass
+</code></pre>
+
+  <br>
+    
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
+<!--
+MkDocs version : 1.4.0
+Build Date UTC : 2022-10-18 16:10:59.876621+00:00
+-->
