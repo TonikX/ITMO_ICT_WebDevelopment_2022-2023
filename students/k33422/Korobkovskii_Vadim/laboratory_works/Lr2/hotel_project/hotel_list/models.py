@@ -8,7 +8,7 @@ from .models import *
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db.models.deletion import CASCADE
-from datetime import datetime
+import datetime
 
 
 class User(AbstractUser):
@@ -87,10 +87,10 @@ class Reservation(models.Model):
         difference = (self.check_out - self.check_in)
         return difference.days
 
-    def date_check(self):
-        if self.check_out < self.check_in:
+    def clean(self):
+        if self.check_out <= self.check_in:
             raise ValidationError("Дата выселения должна быть больше даты заселения/Check-out date must be greater than"
-                                  "check-in date")
+                                  " check-in date")
 
     def save(self, *args, **kwargs):
         self.price = self.room.price * self.accommodation_duration
@@ -108,7 +108,7 @@ class Review(models.Model):
         ("4", "Хорошо/Good"),
         ("5", "Отлично/Great")
     ]
-    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE, verbose_name="Бронирование/Reservation")
     check_in_date = models.DateField("Дата заселения/Check-in date")
     check_out_date = models.DateField("Дата выселения/Check-out date")
     review = models.TextField("Отзыв/Review", max_length=5000, null=False, blank=False)

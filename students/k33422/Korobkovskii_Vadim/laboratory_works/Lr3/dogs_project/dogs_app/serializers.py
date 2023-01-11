@@ -25,20 +25,22 @@ class ClubSerializer(serializers.ModelSerializer):
 
 
 class DogSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Dog
-        fields = "__all__"
-
-
-class DogRetrieveSerializer(serializers.ModelSerializer):
     dog_owner = OwnerSerializer()
     dog_club = ClubSerializer()
 
     class Meta:
         model = Dog
+        fields = ["id", "dog_name", "breed", "full_age", "month_age", "document", "dad_name", "mom_name",
+                  "last_vaccination", "dog_info", "dog_owner", "dog_club"]
+
+
+class DogRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Dog
         fields = ["dog_name", "breed", "full_age", "month_age", "dog_class", "document", "dad_name", "mom_name",
                   "last_vaccination", "dog_info", "dog_owner", "dog_club"]
+
 
 class ShowSerializer(serializers.ModelSerializer):
     host = OrganizerSerializer
@@ -49,12 +51,21 @@ class ShowSerializer(serializers.ModelSerializer):
 
 
 class DogParticipationSerializer(serializers.ModelSerializer):
-    participant_dog = DogSerializer
-    show_dog = ShowSerializer
+    participant_dog = DogSerializer()
+    show_dog = ShowSerializer()
 
     class Meta:
         model = DogParticipation
-        fields = "__all__"
+        fields = ["id", "show_dog_number", "dog_status", "reg_dog_date", "bill", "checkup", "checkup_date",
+                  "participant_dog", "show_dog", "show_medal"]
+
+
+class DogParticipationRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DogParticipation
+        fields = ["id", "show_dog_number", "dog_status", "reg_dog_date", "bill", "checkup", "checkup_date",
+                  "participant_dog", "show_dog", "show_medal"]
 
 
 class ExpertSerializer(serializers.ModelSerializer):

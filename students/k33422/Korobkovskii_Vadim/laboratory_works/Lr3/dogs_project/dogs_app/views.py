@@ -42,12 +42,12 @@ class DogListAPIView(generics.ListAPIView):
 
 
 class DogAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DogSerializer
+    serializer_class = DogRetrieveSerializer
     queryset = Dog.objects.all()
 
 
 class DogCreateAPIView(generics.CreateAPIView):
-    serializer_class = DogSerializer
+    serializer_class = DogRetrieveSerializer
     queryset = Dog.objects.all()
 
 
@@ -72,12 +72,12 @@ class DogParticipationListAPIView(generics.ListAPIView):
 
 
 class DogParticipationAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DogParticipationSerializer
+    serializer_class = DogParticipationRetrieveSerializer
     queryset = DogParticipation.objects.all()
 
 
 class DogParticipantCreateAPIView(generics.CreateAPIView):
-    serializer_class = DogParticipationSerializer
+    serializer_class = DogParticipationRetrieveSerializer
     queryset = DogParticipation.objects.all()
 
 

@@ -24,7 +24,8 @@ def register(request):
             form = UserForm(request.POST)
             if form.is_valid():
                 form.save()
-
+                username = form.cleaned_data.get("username")
+                messages.success(request, f"Создан аккаунт '{username}'/Account '{username}' has been created")
                 return redirect('login')
 
         data = {'form': form}
@@ -51,7 +52,7 @@ def login_(request):
 
 def logout_(request):
     logout(request)
-    return redirect('login')
+    return redirect('/start/')
 
 
 class IndexView(TemplateView):
@@ -69,19 +70,33 @@ class ListReservation(ListView):
     all_reservations = Reservation.objects
     paginate_by = 10
 
+    def get_queryset(self):
+        user = self.request.user
+        return Reservation.objects.filter(guest=user)
+
 
 class ReservationCreateView(CreateView):
     model = Reservation
     form_class = ReservationForm
     template_name = 'reservation_create.html'
+    success_url = "/reservations"
+
+    def get_initial(self):
+        initial = super(ReservationCreateView, self).get_initial()
+        initial = initial.copy()
+        initial["guest"] = self.request.user.pk
+        return initial
 
 
 def create_reservation(request):
     data = {}
-    form = ReservationForm(request.POST or None)
+    form = ReservationForm(data=request.POST or None)
     if form.is_valid():
+        form = form.save(commit=False)
+        form.guest = request.user
         form.save()
-    data['form'] = form
+        return redirect("/reservations")
+    data["form"] = form
     return render(request, "reservation_create.html", data)
 
 
@@ -92,7 +107,7 @@ class ReservationRetrieveView(DetailView):
 
 class ReservationUpdateView(UpdateView):
     model = Reservation
-    form_class = ReservationForm
+    form_class = ReservationUpdateForm
     template_name = 'reservation_update.html'
 
 
@@ -107,6 +122,9 @@ class HotelList(ListView):
     all_hotels = Hotel.objects
     paginate_by = 10
 
+    def get_queryset(self):
+        return Hotel.objects.order_by("id")
+
 
 class GuestsList(ListView):
     model = Reservation
@@ -114,12 +132,18 @@ class GuestsList(ListView):
     all_guests = Reservation.objects
     paginate_by = 10
 
+    def get_queryset(self):
+        return Reservation.objects.order_by("check_in")
+
 
 class ListRoom(ListView):
     model = Room
     template_name = "room_list.html"
     all_rooms = Room.objects
     paginate_by = 10
+
+    def get_queryset(self):
+        return Room.objects.order_by("hotel_id")
 
 
 class RoomRetrieveView(DetailView):
@@ -132,6 +156,12 @@ class ReviewCreateView(CreateView):
     form_class = ReviewForm
     template_name = "review_create.html"
 
+    def get_initial(self):
+        initial = super(ReviewCreateView, self).get_initial()
+        initial = initial.copy()
+        initial["reservation"] = get_object_or_404(Reservation, pk=self.kwargs["pk"])
+        return initial
+
 
 class ReviewList(ListView):
     model = Review
@@ -143,4 +173,28 @@ class ReviewList(ListView):
 class ReviewRetrieveView(DetailView):
     model = Review
     template_name = "review_detail.html"
+
+
+class ReviewUpdateView(UpdateView):
+    model = Review
+    form_class = ReviewUpdateForm
+    template_name = "review_update.html"
+    success_url = "/my_reviews/"
+
+
+class ReviewDeleteView(DeleteView):
+    model = Review
+    template_name = "review_delete.html"
+    success_url = "/my_reviews/"
+
+
+class MyReviewList(ListView):
+    model = Reservation
+    template_name = 'my_review.html'
+    all_reservations = Review.objects
+    paginate_by = 10
+
+    def get_queryset(self):
+        user = self.request.user
+        return Review.objects.filter(reservation__guest=user)
 
