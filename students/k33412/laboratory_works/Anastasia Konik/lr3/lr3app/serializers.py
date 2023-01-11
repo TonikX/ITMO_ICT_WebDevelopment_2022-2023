@@ -17,19 +17,13 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "email", "username", "user_info", "img_url"]
+        fields = ["first_name", "last_name", "email", "username", "user_info", "img_url"]
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["password", "first_name", "last_name", "email", "img_url", "username", "user_info"]
-
-
-class UserEventsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserEnrolledEvent
-        fields = ["user", "event"]
+        fields = ["img_url", "user_info"]
 
 
 class UsersEventSerializer(serializers.ModelSerializer):

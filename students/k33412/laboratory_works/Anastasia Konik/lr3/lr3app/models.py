@@ -13,14 +13,14 @@ class Event(models.Model):
     short_description = models.CharField(max_length=200, null=False)
     full_description = models.CharField(max_length=1000, null=False)
     website = models.CharField(max_length=100, null=False)
+    img_src = models.ImageField(max_length=1000, null=True, upload_to='images')
 
     def __str__(self):
         return self.title.__str__()
 
 
 class User(AbstractUser):
-    id = models.IntegerField(primary_key=True)
-    img_url = models.CharField(max_length=100, null=True, default='default_user.png')
+    img_url = models.ImageField(max_length=1000, null=True, upload_to='images', default='default_user.png')
     email = models.CharField(max_length=30, null=False, unique=True)
     user_info = models.CharField(max_length=200, null=True)
 
@@ -31,8 +31,7 @@ class User(AbstractUser):
 
 
 class UserEnrolledEvent(models.Model):
-    id = models.IntegerField(primary_key=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, to_field="title")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, to_field="username")
 
     def __str__(self):

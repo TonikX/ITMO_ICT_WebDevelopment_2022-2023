@@ -15,6 +15,11 @@ class EventCreateAPIView(CreateAPIView):
     queryset = Event.objects.all()
 
 
+class EventUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = EventSerializer
+    queryset = Event.objects.all()
+
+
 class UserDestroyAPIView(DestroyAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
@@ -51,11 +56,12 @@ class EnrollCreateAPIView(CreateAPIView):
 
 
 class UserEnrolledEventAPIView(ListAPIView):
-    serializer_class = UserEventsSerializer
+    serializer_class = EventSerializer
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
-        return Comment.objects.filter(user__id=user_id)
+        ids = list(UserEnrolledEvent.objects.filter(user__id=user_id).values_list('event', flat=True).distinct())
+        return Event.objects.filter(id__in=ids)
 
 
 class EventCommentsAPIView(ListAPIView):
