@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block mheader_left_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'hotels' %}">Hotels</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'hotel' hotel.pk %}">Room types</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'hotel-rooms' hotel.pk room_type.pk %}">Rooms</a>
+    </li>
+{% endblock %}
+
+{% block mheader_right_items %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'reserve' %}">Reserve</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'account' user.pk %}">My acc</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+    </li>
+{% endblock %}
+
+{% block mbody %}
+    <div class="mx-auto w-50">
+        <h1 id="title">{{ hotel.name_hotel }} - {{ room_type.get_type_rt_display }}</h1>
+        <h4>Now, choose room.</h4>
+        <div class="list-group py-4">
+            {% for room in rooms %}
+                <a href="{% url 'room' hotel.pk room_type.pk room.pk %}" class="list-group-item list-group-item-action">
+                    <p>Room number - {{ room.number_room }}</p>
+                    <p>Status: {{ room.get_status_room_display }}</p>
+                    <p>Price: {{ room_type.price_rt }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
