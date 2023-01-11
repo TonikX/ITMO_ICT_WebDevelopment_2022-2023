@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Табло</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Номер рейса</th>
+        <th>Авиакомпания</th>
+        <th>Город отлета</th>
+        <th>Время отлета</th>
+        <th>Город прилета</th>
+        <th>Время прилета</th>
+        <th>Отлет/прилет</th>
+        <th>Гейт</th>
+        <th></th>
+    </tr>
+    {% for flight in object_list %}
+        <tr>
+            <td>{{ flight.number }}</td>
+            <td>{{ flight.company.name }}</td>
+            <td>{{ flight.from_city }}</td>
+            <td>{{ flight.departure_time }}</td>
+            <td>{{ flight.to_city }}</td>
+            <td>{{ flight.arrival_time }}</td>
+            <td>{{ flight.get_type_display }}</td>
+            <td>{{ flight.gate }}</td>
+            <td><a href="/flight_detail/{{ flight.id }}">Подробнее</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<p><a href="/">Назад</a></p>
+</body>
+</html>

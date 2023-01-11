@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Conference Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="conference">
+
+        <h1 style="padding-bottom: 20px;">Conference {{ conference.name }}</h1>
+        <ul style="list-style-type: none; padding:0; font-weight: bold">
+            <li>Topics:
+                <span style="font-weight: normal">{{ conference.topics }}</span>
+            </li>
+            <li>Location:
+                <span style="font-weight: normal"> {{ conference.location }}</span>
+            </li>
+            <li>Dates:
+                <span style="font-weight: normal">{{ conference.start_at }} - {{ conference.end_at }}</span>
+            </li>
+            <li>Rules:
+                <span style="font-weight: normal">{{ conference.rules }}</span>
+                </li>
+        </ul>
+
+        <form method="post" style="margin-bottom: 50px">
+            {% csrf_token %}
+            <table>
+                {{ reg_form.as_table }}
+                <tr>
+                    <td><input class="btn btn-primary mt-4" type="submit" name="submit"
+                               value="Register for a conference"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="post" style="margin-bottom: 50px">
+            {% csrf_token %}
+            <table>
+                {{ comment_form.as_table }}
+                <tr>
+                    <td><input class="btn btn-primary mt-4" type="submit" name="submit" value="Comment conference"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div style="display: flex">
+            <div style="margin-right: 100px">
+                <h3>Speakers</h3>
+                {% for i in regestrations %}
+                    <p>{{ i }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                <h3>Comments</h3>
+                {% for i in comments %}
+                    <p>{{ i }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}

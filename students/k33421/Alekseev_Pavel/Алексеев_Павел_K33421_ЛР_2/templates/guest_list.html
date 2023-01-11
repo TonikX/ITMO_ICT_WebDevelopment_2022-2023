@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest list</title>
+</head>
+<body>
+<h1>Guests</h1>
+<div class="main">
+    {% for guest in guests %}
+        <li>Username: {{ guest.username }}</li>
+        <li>Last Name: {{ guest.last_name }}</li>
+        <li>First Name: {{ guest.first_name }}</li>
+        <li>Birth date: {{ guest.birth_date }}</li>
+        <li>Passport: {{ guest.passport }}</li>
+        <hr/>
+    {% empty %}
+        No guests
+    {% endfor %}
+</div>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>

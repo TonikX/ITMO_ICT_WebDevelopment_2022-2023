@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}All bookings{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Номер заказа</th>
+                <th scope="col">Отель</th>
+                <th scope="col">Номер комнаты</th>
+                <th scope="col">Дата заезда</th>
+                <th scope="col">Дата выезда</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col">Возможности</th>
+            </tr>
+        </thead>
+        {% for book in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ book.order_number }}</td>
+                <td>{{ book.room.hotel.name }}</td>
+                <td>{{ book.room.number_room }}</td>
+                <td>{{ book.arrival_date }}</td>
+                <td>{{ book.departure_date}}</td>
+                <td>{{ book.price }}</td>
+                <td class="d-flex justify-content-start gap-2">
+                    <a href="/update_book/{{  book.order_number }}">
+                        <button type="button" class="btn btn-outline-primary">Редактировать</button>
+                    </a>
+                    <a href="/del_book/{{ book.order_number }}">
+                        <button type="button" class="btn btn-outline-danger">Удалить</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

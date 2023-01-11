@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject select</title>
+    <style>
+        body {
+            padding-left: 50px;
+        }
+    </style>
+</head>
+<header>
+    <nav class="menu">
+        <br>
+        <a href="/profile/">Home</a> |
+        <a href="/profile/all_tasks/">Tasks</a> |
+        <a href="/profile/class_marks/subject_select">Class marks</a> |
+        <a href="/accounts/{{user.id}}/update/">Edit profile</a> |
+        <a href="/accounts/logout/">Log out</a><br>
+        <br>
+    </nav>
+</header>
+<body>
+    <p>Click on the subject below to view class marks for it:</p>
+
+    {% for subject in subjects %}
+        <a href="/profile/class_marks?subject={{subject}}">{{ subject }}</a><br>
+        <br>
+    {% endfor %}
+</body>
+</html>

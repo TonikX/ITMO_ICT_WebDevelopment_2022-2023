@@ -6,6 +6,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.idea
 
 # Icon must end with two \r
 Icon
@@ -318,5 +319,7 @@ fabric.properties
 # Azure Toolkit for IntelliJ plugin
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
+
+.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,python
