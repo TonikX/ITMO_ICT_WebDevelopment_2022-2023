@@ -1,0 +1,122 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="container w-75 my-5 mx-auto bg-light p-5">
+    <div class="row">
+        <h1 class="col col-8"> Profile</h1>
+        <h4 class="col col-4 text-secondary">{{ request.user.username }}<p>{{ request.user.email }}</p></h4>
+    </div>
+</div>
+
+
+<div class="container w-75 mx-auto mt-5">
+    <h1 class="text-center mt-5"> Booked Tours </h1>
+    <div class="row">
+        {% if tc %}
+        {% for t in tc %}
+        <div class="col col-12">
+            <div class="card m-4">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a class="text-decoration-none" href="{{ t.tour.get_absolute_url }}">
+                            {{ t.tour }}
+                        </a>
+                    </h4>
+                    <p class="card-text">{{ t.tour.country }}</p>
+                    <div class="card-text row justify-content-center">
+                        <div class="col col-4 border bg-light">
+                            <b>Price per person</b>
+                        </div>
+                        <div class="col col-6 border bg-light">
+                            {{ t.tour.price_per_person }}
+                        </div>
+                        <div class="col col-4 border bg-light">
+                            <b>Nights</b>
+                        </div>
+                        <div class="col col-6 border bg-light">
+                            {{ t.tour.nights_count }}
+                        </div>
+                        <div class="col col-4 border bg-light">
+                            <b>Number of tourists</b>
+                        </div>
+                        <div class="col col-6 border bg-light">
+                            {{ t.tourists }}
+                        </div>
+
+
+                        <div class=" mt-5 col col-4 border bg-light">
+                            <b>Date start</b>
+                        </div>
+                        <div class="col mt-5 col-6 border bg-light">
+                            {{ t.date_start }}
+                        </div>
+                        <div class="col col-4 border bg-light">
+                            <b>Contact info</b>
+                        </div>
+                        <div class="col col-6 border bg-light">
+                            {{ t.contact_info }}
+                        </div>
+                        {% if t.is_verified %}
+                        <div class=" mt-5 col col-5 border bg-light text-success p-3 text-center">
+                            <h4>Verified</h4>
+                        </div>
+                        {% else %}
+                        <div class=" mt-5 col col-5 border bg-light text-danger p-3 text-center">
+                            <h4>Unverified </h4>(wait for our manager to contact you)
+                        </div>
+                        {% endif %}
+
+                        {% if t.is_paid %}
+                        <div class=" mt-5 col col-5 border bg-light text-success p-3 text-center">
+                            <h4>Paid</h4>
+                        </div>
+                        {% else %}
+                        <div class=" mt-5 col col-5 border bg-light text-danger p-3 text-center">
+                            <h4>Waiting for payment</h4>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if t.date_start < today %}
+                    <div class="card-text mt-5">
+                        <h5 class="mb-3">Review</h5>
+                        {% if t.review_text %}
+                        <h4>{{t.rate }}
+                            <bi class="bi bi-star"></bi>
+                        </h4>
+                        <p>{{ t.review_text }}</p>
+                        {% else %}
+                        <p>
+                            You have not yet left a review.
+                            <a href="/travel/profile/{{t.id}}/review/update/"
+                               class="text-decoration-none">Click here</a>
+                            to share your experiences</p>
+                        {% endif %}
+                    </div>
+
+                    {% else %}
+                    {% if not t.is_verified %}
+                    <div class="px-3 mt-5 text-end">
+                        <a class="text-decoration-none" href="/travel/profile/{{t.id}}/update/">Edit</a>
+                        |
+                        <a class="text-decoration-none text-danger" href="/travel/profile/{{t.id}}/delete/">Delete</a>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center">
+            There is nothing to show yet :(
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

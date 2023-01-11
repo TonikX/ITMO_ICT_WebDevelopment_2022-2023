@@ -1,0 +1,27 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Countries
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> With us you can visit: </h1>
+<div class="w-75 mx-auto container">
+    <div class="row">
+        {% for c in countries %}
+        <div class="col col-12">
+            <div class="card m-4">
+                {% if c.image %}
+                <img src="{{ c.image.url}}" width="200px" class="card-img-top" alt="Image of {{ c }}">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ c }}</h4>
+                    <p class="card-text">{{ c.description }}</p>
+                    <a class="text-decoration-none" href="{{ c.get_absolute_url }}">See Tours</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

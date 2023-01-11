@@ -1,0 +1,64 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+{{ country.name }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container w-75 mb-5 mx-auto">
+    <div class="row">
+        <div class="col col-7 px-4">
+            <h1> {{ country.name }} </h1>
+            <p>{{ country.description }}</p>
+        </div>
+        <div class="col col-5">
+            {% if country.image %}
+            <img src="{{ country.image.url }}" class="img-fluid">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mx-auto mt-5">
+    <h1 class="text-center mt-5"> Tours </h1>
+    <div class="row">
+        {% if tours %}
+        {% for t in tours %}
+        <div class="col col-6">
+            <div class="card m-4">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">{{ t }}</h4>
+                    <p class="card-text">{{ t.description }}</p>
+                    <p class="card-text">
+                        <i class="bi bi-coin"></i> {{ t.price_per_person }}<br>
+                        <i class="bi bi-moon-stars-fill"></i> {{ t.nights_count }}
+                    </p>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for i in t.images %}
+                            <div class="col col-3 m-1">
+                                <img src="{{ i.image.url}}" class="img-fluid img-thumbnail">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="px-3 mt-5 text-end">
+                        <a class="text-decoration-none" href="{{ t.get_absolute_url }}">
+                            See more and reserve
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="text-center">
+            There is nothing to show yet :(
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

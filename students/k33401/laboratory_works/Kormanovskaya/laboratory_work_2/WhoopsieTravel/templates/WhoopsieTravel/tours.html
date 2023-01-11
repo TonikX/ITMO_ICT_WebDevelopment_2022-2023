@@ -1,0 +1,43 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Tours
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> With us you can visit: </h1>
+<div class="w-75 mx-auto container">
+    <div class="row">
+        {% for t in tours %}
+        <div class="col col-12">
+            <div class="card m-4">
+                <div class="card-body">
+                    <h4 class="card-title">{{ t }}</h4>
+                    <h5 class="card-subtitle text-secondary mb-4">{{ t.country }}</h5>
+                    <p class="card-text">{{ t.description }}</p>
+                    <p class="card-text">
+                        <i class="bi bi-coin"></i> {{ t.price_per_person }}<br>
+                        <i class="bi bi-moon-stars-fill"></i> {{ t.nights_count }}
+                    </p>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for i in t.images %}
+                            <div class="col col-3 m-2">
+                                <img src="{{ i.image.url}}" class="img-fluid img-thumbnail">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="px-3 mt-5 text-end">
+                        <a class="text-decoration-none" href="{{ t.get_absolute_url }}">
+                            See more and reserve
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
