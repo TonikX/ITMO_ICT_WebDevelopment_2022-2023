@@ -14,11 +14,16 @@
      <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
     {% if title %}
-        <title>Блог клуба {{ title }}</title>
+        <title style="color:black">Блог клуба {{ title }}</title>
     {% else %}
         <title>Табло уличных гонок</title>
     {% endif %}
 </head>
+<br>
+<br>
+<br>
+<br>
+<br>
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-blue fixed-top">
@@ -34,11 +39,11 @@
             <!-- Правая часть навигационной панели -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-                <a class="nav-item nav-link" href="{% url 'comment-create' %}">Оставить комментарий</a>
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Выход</a>
+                <a class="nav-item nav-link" style="color:black" href="{% url 'comment-create' %}">Оставить комментарий</a>
+                <a class="nav-item nav-link" style="color:black" href="{% url 'logout' %}">Выход</a>
               {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Вход</a>
-                <a class="nav-item nav-link" href="{% url 'reg' %}">Регистрация</a>
+                <a class="nav-item nav-link" style="color:black" href="{% url 'login' %}">Вход</a>
+                <a class="nav-item nav-link" style="color:black" href="{% url 'reg' %}">Регистрация</a>
               {% endif %}
             </div>
           </div>
@@ -66,6 +71,7 @@
                 <li class="list-group-item list-group-item-light"><a href="/race/list/">Все гонки</a></li>
                 <li class="list-group-item list-group-item-light"><a href="/reg_race/list/">Мои регистрации</a></li>
                 <li class="list-group-item list-group-item-light"><a href="/comments/list/">Комментарии</a></li>
+                <li class="list-group-item list-group-item-light"><a href="/main/">Главная</a></li>
               </ul>
             </p>
           </div>
@@ -75,7 +81,7 @@
     </main>
     <!-- Футер закреплен внизу, независимо от количества постов на странице -->
     <footer class="text-center bg-dark">
-      <p><a href="{% url 'main' %}">© Клуб Python Bytes 2022</a></p>
+      <p><a href="{% url 'main' %}">© Гонки 2022</a></p>
     </footer>
 
     <!-- Дополнительные скрипты JavaScript -->

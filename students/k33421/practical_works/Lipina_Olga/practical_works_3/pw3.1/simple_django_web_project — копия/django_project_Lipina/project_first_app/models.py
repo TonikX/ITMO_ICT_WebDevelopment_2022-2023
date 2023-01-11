@@ -34,8 +34,10 @@ class License(models.Model):
 
 
 class Owning(models.Model):
-    owner_auto = models.ForeignKey(Owner, on_delete=models.CASCADE, null=True, blank=True)
-    auto_id = models.ForeignKey(Auto, on_delete=models.CASCADE, null=True, blank=True)
+    owner_auto = models.ForeignKey(Owner, on_delete=models.CASCADE, null=True, blank=True, related_name='owner')
+    auto_id = models.ForeignKey(Auto, on_delete=models.CASCADE, null=True, blank=True, related_name='auto')
 
     date_start = models.DateField()
     date_end = models.DateField(null=True, blank=True)
+
+

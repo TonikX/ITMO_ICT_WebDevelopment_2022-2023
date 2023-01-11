@@ -78,7 +78,7 @@ class BooksOnHands(models.Model):
     instance = models.ForeignKey('InstanceBook', verbose_name='Экземпляр книги', on_delete=CASCADE)
     date_register = models.DateField(default=datetime.now().date, verbose_name='Дата выдачи', null=True, blank=True)
     def __str__(self):
-        return f"{self.reader.name.split()[0]}, {self.instance.book.book_name}"
+        return f"{self.reader.name}, {self.instance.book.book_name}"
 
 class ReaderHall(models.Model):
     reader = models.ForeignKey('Reader', verbose_name='Читатель', on_delete=CASCADE)

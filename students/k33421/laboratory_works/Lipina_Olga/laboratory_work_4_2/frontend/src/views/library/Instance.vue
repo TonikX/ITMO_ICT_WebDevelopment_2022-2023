@@ -41,7 +41,7 @@
       class="my-2"
       v-else-if="this.booksOnHoldOthers">
       <v-card-text>
-        <div class="text--primary">К сожалению, эту книгу уже читаeт {{ this.WhoReads }}. Подождите немного.</div>
+        <div class="text--primary">К сожалению, эту книгу уже читает {{ this.WhoReads }}. Подождите немного.</div>
       </v-card-text>
     </v-card>
 
