@@ -1,4 +1,3 @@
-from django.urls import path
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -19,9 +18,3 @@ class GetManagerApiView(generics.RetrieveAPIView):
 	serializer_class = PrivateManagerSerializer
 	authentication_classes = [ManagerAuthentication]
 	permission_classes = [IsAuthenticated]
-
-
-urlpatterns = [
-	path("managers/", ManagersApiView.as_view()),
-	path("manager/<int:pk>", GetManagerApiView.as_view()),
-]

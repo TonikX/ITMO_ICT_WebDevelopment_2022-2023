@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, exceptions
@@ -41,10 +40,3 @@ def get_editor_full(request: Request, pk: int):
 
 	serializer = PrivateEditorSerializer(editor)
 	return Response(serializer.data)
-
-
-urlpatterns = [
-	path("editors/", EditorsApiView.as_view()),
-	path("editor/<int:pk>", GetEditorApiView.as_view()),
-	path("editor/<int:pk>/full", get_editor_full),
-]

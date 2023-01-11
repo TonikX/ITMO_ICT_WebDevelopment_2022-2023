@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, exceptions, generics
@@ -68,9 +67,3 @@ class OrderSingleViewDeleteAPIView(APIView):
 		order = Order.objects.get(id=pk)
 		order.delete()
 		return Response(status=204)
-
-
-urlpatterns = [
-	path("orders/", OrdersApiView.as_view()),
-	path("order/<int:pk>", OrderSingleViewDeleteAPIView.as_view())
-]

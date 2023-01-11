@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import exceptions, generics
@@ -69,10 +68,3 @@ def get_book_full(request: Request, pk: int):
 
 	serializer = PrivateBookSerializer(book)
 	return Response(serializer.data)
-
-
-urlpatterns = [
-	path("books/", BooksApiView.as_view()),
-	path("book/<int:pk>", GetAndPatchBookApiView.as_view()),
-	path("book/<int:pk>/full", get_book_full)
-]

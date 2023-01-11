@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import exceptions, generics, authentication
@@ -83,10 +82,3 @@ def get_author_full(request: Request, pk: int):
 
 	serializer = PrivateAuthorSerializer(author)
 	return Response(serializer.data)
-
-
-urlpatterns = [
-	path("authors/", AuthorsApiView.as_view()),
-	path("author/<int:pk>", GetAndPatchAuthorApiView.as_view()),
-	path("author/<int:pk>/full", get_author_full),
-]

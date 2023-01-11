@@ -2,7 +2,6 @@ from random import shuffle, randint, choice
 
 import coolname
 import names
-from django.urls import path
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -86,8 +85,3 @@ def fill_data(request: Request):
 			)
 
 	return Response({"message": "ok"})
-
-
-urlpatterns = [
-	path("fill/", fill_data)
-]

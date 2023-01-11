@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import authentication
@@ -22,8 +21,3 @@ from typography.serializers import UserProfilesSerializer
 def get_profiles(request: Request):
 	serializer = UserProfilesSerializer(request.user)
 	return Response(serializer.data)
-
-
-urlpatterns = [
-	path("profiles/", get_profiles)
-]

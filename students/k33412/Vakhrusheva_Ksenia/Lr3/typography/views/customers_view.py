@@ -1,4 +1,3 @@
-from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, exceptions, permissions
@@ -81,10 +80,3 @@ def get_customer_full_me(request: Request):
 	customer = Customer.objects.get(user=request.user)
 	serializer = PrivateCustomerSerializer(customer)
 	return Response(serializer.data)
-
-
-urlpatterns = [
-	path("customers/", CustomersApiView.as_view()),
-	path("customer/<int:pk>", get_customer_full),
-	path("customer/me", get_customer_full_me),
-]
