@@ -36,7 +36,7 @@ class Ownership(models.Model):
 
 class License(models.Model):
     id_doc = models.IntegerField(primary_key=True)
-    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE)
+    id_owner = models.ForeignKey(Transport_owner, on_delete=models.CASCADE, related_name="docs")
     number_doc = models.CharField(max_length=10, null=False)
     type_doc = models.CharField(max_length=10, null=False)
     date_start_doc = models.DateField()
@@ -116,24 +116,22 @@ Ownership('6', '6', '6', '2000-08-6', '2010-08-6').save()
 - Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует)
 
 ```bash
->>> for i in range(len(Transport.objects.filter(color="blue"))):
-...     print(Transport.objects.filter(color="blue")[i])
-...
-Transport object (3)
-Transport object (4)
-Transport object (6)
+>>> Transport_owner.objects.filter(ownership__id_car__color='blue')
+<QuerySet [
+<Transport_owner: Transport_owner object (3)>,
+<Transport_owner: Transport_owner object (4)>,
+<Transport_owner: Transport_owner object (6)>]>
 ```
 
 - Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе)
 
 ```bash
->>> Ownership.objects.filter(date_start__gte="2000-01-01")
-<QuerySet [<Ownership: Ownership object (1)>,
-<Ownership: Ownership object (2)>,
-<Ownership: Ownership object (3)>,
-<Ownership: Ownership object (4)>,
-<Ownership: Ownership object (5)>,
-<Ownership: Ownership object (6)>]>
+>>> Transport_owner.objects.filter(ownership__date_start='2000-01-01')
+<QuerySet [<Transport_owner: Transport_owner object (1)>, <Transport_owner: Transport_owner object (2)>,
+<Transport_owner: Transport_owner object (3)>,
+<Transport_owner: Transport_owner object (4)>,
+<Transport_owner: Transport_owner object (5)>,
+<Transport_owner: Transport_owner object (6)>]>
 ```
 
 ## Задание 3
