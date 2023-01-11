@@ -1,8 +1,8 @@
 # Лабораторная работа №2
 
-## Задание
+## **Задание**
 
-### Список научных конференций
+### **Список научных конференций**
 
 Интерфейс описывает названия конференций, список тематик, место проведения,
 период проведения, описание конференций, описание место проведения, условия участия.
@@ -21,9 +21,10 @@
 * В клиентской части должна формироваться таблица, отображающая всех
   участников по конференциям.
 
+<br>
 <hr>
 
-# Models
+## Models
 
 `models.py`
 
@@ -66,9 +67,9 @@ class ConfComment(models.Model):
         return f"Comment {self.user} \"{self.conference}\" text={{ {self.text} }} rate={self.rate} conf_dates={{ {self.conference.start_at} - {self.conference.end_at} }}"
 ```
 
-<hr>
+<br>
 
-# URLs
+## URLs
 
 `urls.py`
 
@@ -90,9 +91,9 @@ urlpatterns = [
 ]
 ```
 
-<hr>
+<br>
 
-# Forms
+## Forms
 
 `forms.py`
 
@@ -117,9 +118,9 @@ class AddComment(forms.Form):
     comment = forms.CharField()
 ```
 
-<hr>
+<br>
 
-# Views
+## Views
 
 `views.py`
 
@@ -220,51 +221,51 @@ class RegistrationView(TemplateView):
         return redirect(f"/registration/{kwargs['id']}")
 
 ```
-
+<br>
 <hr>
 
-# Регистрация новых пользователей
+## Регистрация новых пользователей
 
 * Url - `register/`
 
-![img.png](assets/register.png)
+![img.png](assets/lw_2/register.png)
 
 
-<hr>
+<br>
 
-# Просмотр конференций
+## Просмотр конференций
 
 * Url - `conferences/`
 
-![img.png](assets/list.png)
+![img.png](assets/lw_2/list.png)
 
-<hr>
+<br>
 
-# Регистрация авторов для выступления и оставление комментария с таблицей участников и комментариев
+## Регистрация авторов для выступления и оставление комментария с таблицей участников и комментариев
 
 * Url - `conferences/3`, где 3 - id конференции
 
-![img.png](assets/confInfo.png)
+![img.png](assets/lw_2/confInfo.png)
 
-<hr>
+<br>
 
-# Лист конференций на которые зарегистрирован пользователь
+## Лист конференций на которые зарегистрирован пользователь
 
 * Url - `registrations/`
 
-![img.png](assets/regList.png)
+![img.png](assets/lw_2/regList.png)
 
-<hr>
+<br>
 
-# Изменение и удаление регистрации
+## Изменение и удаление регистрации
 
 * Url - `registration/12`, где 12 - id регистрации
 
 
-![img.png](assets/regDel.png)
+![img.png](assets/lw_2/regDel.png)
 
-<hr>
+<br>
 
-# Рекомендация к публикации в админке
+## Рекомендация к публикации в админке
 
-![img.png](assets/approve.png)
+![img.png](assets/lw_2/approve.png)
