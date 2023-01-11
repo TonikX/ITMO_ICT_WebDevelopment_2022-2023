@@ -23,13 +23,8 @@ class Сonference(models.Model):
     def get_absolute_comment_url(self):
         return reverse('create_comment', kwargs={'id': self.id})
 
-class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    email = models.CharField(unique=True,max_length=50)
-    password = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-
+class User(AbstractUser):
+    pass
 
 class Comment(models.Model):
     comment = models.TextField()

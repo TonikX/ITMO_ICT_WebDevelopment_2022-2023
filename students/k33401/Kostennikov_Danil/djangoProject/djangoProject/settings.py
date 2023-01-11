@@ -128,3 +128,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'Conferences.User'
+
+LOGIN_REDIRECT_URL = "get_all_conferences"
+LOGOUT_REDIRECT_URL = "get_all_conferences"
