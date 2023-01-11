@@ -1,0 +1,19 @@
+site_name: Hamadi Samit
+site_url: https://mylab2.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Лабораторная работа №1: lr1.md
+ - Лабораторная работа №2: index.md
+ - Практическая работа №3.1: pc.md
+ - Лабораторная работа №3: lr3.md
+ - Лабораторная работа №4: lr4.md
