@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form class="" method="post">
+
+    {% csrf_token %}
+
+    <h1 class="h3 mb-3 fw-normal">Войти</h1>
+
+    <div class="form-floating">
+      <input name="username" type="text" class="form-control">
+      <label >Имя пользователя</label>
+    </div>
+    <br>
+    <div class="form-floating">
+      <input name="password" type="password" class="form-control">
+      <label >Пароль</label>
+    </div>
+
+    <br>
+    <button class="btn btn-primary" type="submit">Войти</button>
+  </form>
+
+<br>
+<a href="{% url 'signup_route' %}"> Зарегистрироваться</a>
+
+{% endblock %}

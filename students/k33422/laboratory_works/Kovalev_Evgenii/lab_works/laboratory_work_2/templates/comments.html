@@ -1,0 +1,90 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 col-lg-12">
+        <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+
+            <div class="card-body p-4">
+
+                {% if comments %}
+                <h4> {{ comments|length }} комментариев </h4>
+                {% else %}
+                <h4> 0 комментариев </h4>
+                {% endif %}
+
+                {% if comments|length > 0 or request.user.is_authenticated %}
+                <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+
+                    {% if request.user.is_authenticated %}
+                    <form method="post" action="{% url 'add_comment_route' conf.pk %}">
+
+                        <div class="d-flex flex-start w-100">
+                            <div class="form-outline w-100">
+
+                            <textarea name="comment_text" class="form-control" id="textAreaExample" rows="4"
+                                      style="background: #fff;">
+                            </textarea>
+                                <label class="form-label" for="textAreaExample">Введите текст комментария</label>
+                            </div>
+                        </div>
+
+                        <div class="float-end mt-2 pt-1">
+
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+
+                        </div>
+
+                    </form>
+
+                    <br> <br>
+
+                    {% endif %}
+
+                    {% for comment in comments %}
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <p>{{ comment.text }}</p>
+
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <p class="small mb-0 ms-2">{{ comment.author.username }}</p>
+                                </div>
+
+                                {% if comment.author == request.user %}
+
+                                <form method="post" action="{% url 'remove_comment_route' conf.pk comment.pk %}">
+                                    {% csrf_token %}
+
+                                    <button style="margin-top: 8px; margin-right: 8px" type="submit"
+                                            class="btn-close position-absolute top-0 end-0" aria-label="Close"></button>
+                                </form>
+
+                                {% endif %}
+
+                                <div class="d-flex flex-row align-items-center">
+                                    <p class="small text-muted mb-0">
+                                        {{ comment.created|date:"Y-m-d H:i" }}
+                                    </p>
+                                </div>
+
+                                {% comment %}
+                                <div class="d-flex flex-row align-items-center">
+                                    <p class="small text-muted mb-0">Upvote?</p>
+                                    <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                    <p class="small text-muted mb-0">3</p>
+                                </div>
+                                {% endcomment %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

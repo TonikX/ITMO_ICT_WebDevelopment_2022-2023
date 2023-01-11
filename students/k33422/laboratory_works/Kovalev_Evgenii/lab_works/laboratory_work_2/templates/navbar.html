@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'conflist_route' %}">Конференции</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url 'user_confs_route' request.user.username %}">Мои конференции</a>
+                {% if request.user.is_staff %}
+                 <a class="nav-link" target="_blank" href="http://127.0.0.1:8000/admin">Перейти в админку</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="dropdown text-end">
+            <a href="#" class="nav-link link-secondary dropdown-toggle" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <strong> {{ request.user }} </strong>
+            </a>
+            <ul class="dropdown-menu text-small" style="">
+                <li><a class="dropdown-item" href="{% url 'logout_route' %}">Выйти</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>

@@ -1,0 +1,31 @@
+<div class="card mb-3">
+    <img src="https://www.incimages.com/uploaded_files/image/1920x1080/getty_499517325_111832.jpg" class="card-img-top">
+
+    <div class="card-body">
+        <a href="{% url 'detail_conf_route' conf_pk=conf.pk %}" class="card-text card-title">{{ conf.name }}</a>
+        <p class="card-text">some text...</p>
+
+        <form method="post" action="{% url 'join_or_leave_conf_route' conf.pk request.user.pk %}">
+            {% csrf_token %}
+            <button class="btn {% if request.user in conf.members.all %} btn-danger {% else %} btn-success {% endif %}"
+                    type="submit">
+                {% if request.user in conf.members.all %}
+                Покинуть
+                {% else %}
+                Присоединиться
+                {% endif %}
+            </button>
+
+            <br>
+            <a href="{% url 'conf_members_route' conf.pk %}"> Участники конференции </a>
+
+        </form>
+
+    </div>
+
+    <div class="card-footer text-muted">
+        <span style="" class="text-muted"> Дата начала: {{ conf.date }} </span>
+        <span style="float:right" class="text-muted"> Количество участников: {{ conf.members.all|length }} </span>
+    </div>
+
+</div>

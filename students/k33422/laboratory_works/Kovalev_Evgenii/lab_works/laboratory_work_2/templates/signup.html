@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block content %}
+
+<h1> Регистрация </h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div class="form-floating">
+        <input name="username" type="text" class="form-control">
+        <label>Имя пользователя</label>
+    </div>
+    <br>
+    <div class="form-floating">
+        <input name="surname" type="text" class="form-control">
+        <label>Фамилия</label>
+    </div>
+    <br>
+    <div class="form-floating">
+        <input name="lastname" type="text" class="form-control">
+        <label>Отчество</label>
+    </div>
+    <br>
+    <div class="form-floating">
+        <input name="password1" type="password" class="form-control">
+        <label>Пароль</label>
+    </div>
+    <br>
+    <div class="form-floating">
+        <input name="password2" type="password" class="form-control">
+        <label>Подтвердите пароль</label>
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn-primary">
+        Подтвердить
+    </button>
+
+</form>
+
+<br>
+<a href="{% url 'login_route' %}">Уже зарегистрированы?</a>
+
+{% endblock %}

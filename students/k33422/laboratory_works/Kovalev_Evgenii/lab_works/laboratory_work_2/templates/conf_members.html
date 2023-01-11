@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Участники конференции {{ conf.name }}
+{% endblock %}
+
+{% block content %}
+
+<h2>Участники конфереции {{ conf.name }}</h2>
+
+{% for member in members %}
+    <h4 class="list-group-item">{{ member.username }}</h4>
+{% endfor %}
+
+{% endblock %}

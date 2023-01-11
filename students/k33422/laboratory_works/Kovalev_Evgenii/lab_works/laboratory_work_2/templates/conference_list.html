@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Все конференции
+{% endblock %}
+
+{% block content %}
+    {% for conf in conferences %}
+        {% include '_conference.html' %}
+    {% endfor %}
+{% endblock %}
