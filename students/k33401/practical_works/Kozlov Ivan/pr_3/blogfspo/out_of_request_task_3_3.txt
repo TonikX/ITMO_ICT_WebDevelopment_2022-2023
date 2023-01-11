@@ -1,0 +1,41 @@
+Вывод даты выдачи самого старшего водительского удостоверения:
+>>> Driver_doc.objects.aggregate(date_start_doc=Min("date_start_doc"))
+{'date_start_doc': datetime.date(1933, 5, 1)}
+
+Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе:
+>>> Ownership.objects.aggregate(date_start=Max("date_start"))
+{'date_start': datetime.date(1936, 9, 16)}
+
+Выведите количество машин для каждого водителя:
+>>> Ownership.objects.values("id_owner").annotate(Count("id_car"))
+<QuerySet 
+[{'id_owner': 1, 'id_car__count': 1}, {'id_owner': 2, 'id_car__count': 1}, 
+{'id_owner': 3, 'id_car__count': 1}, {'id_owner': 4, 'id_car__count': 1}, 
+{'id_owner': 5, 'id_car__count': 1}, {'id_owner': 6, 'id_car__count': 1}]
+>
+
+Подсчитайте количество машин каждой марки:
+>>> Transport.objects.values("marka").annotate(Count("id_car"))
+<QuerySet 
+[{'marka': 'Mark3', 'id_car__count': 1}, {'marka': 'Mark4', 'id_car__count': 3}, 
+{'marka': 'Mark5', 'id_car__count': 1}, {'marka': 'Mark6', 'id_car__count': 1}]
+>
+
+Отсортируйте всех автовладельцев по дате выдачи удостоверения:
+>>> sort_by_date = Driver_doc.objects.all().order_by("date_start_doc")
+>>> for i in sort_by_date:
+...     needed_id = i.id_owner.id_owner
+...     print( Ownership.objects.filter(id_owner__id_owner=needed_id) )
+<QuerySet [<Ownership: Ownership object (4)>]>
+<QuerySet [<Ownership: Ownership object (1)>]>
+<QuerySet [<Ownership: Ownership object (2)>]>
+<QuerySet [<Ownership: Ownership object (3)>]>
+<QuerySet [<Ownership: Ownership object (5)>]>
+<QuerySet [<Ownership: Ownership object (6)>]>
+
+Driver_doc.objects.all().order_by("date_start_doc")
+
+Transport_owner.objects.order_by("docs__date_start_doc")
+
+
+
