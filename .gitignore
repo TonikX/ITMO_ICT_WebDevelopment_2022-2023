@@ -44,8 +44,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-.hypothesis/
-.pytest_cache/
 
 # Translations
 *.mo
@@ -72,11 +70,7 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
 
-# celery beat schedule file
-celerybeat-schedule
 
 # SageMath parsed files
 *.sage.py
@@ -102,4 +96,3 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-.DS_Store
