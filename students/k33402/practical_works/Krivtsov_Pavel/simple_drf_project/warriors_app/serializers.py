@@ -1,5 +1,19 @@
 from rest_framework import serializers
-from .models import Warrior, Profession
+from .models import Warrior, Profession, Skill
+
+
+class ProfessionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profession
+        fields = "__all__"
+
+
+class SkillSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Skill
+        fields = "__all__"
 
 
 class WarriorSerializer(serializers.ModelSerializer):
@@ -9,8 +23,14 @@ class WarriorSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ProfessionCreateSerializer(serializers.ModelSerializer):
+class WarriorProfessionSerializer(WarriorSerializer):
+    profession = ProfessionSerializer(read_only=True)
 
-    class Meta:
-        model = Profession
-        fields = "__all__"
+
+class WarriorSkillsSerializer(WarriorSerializer):
+    skill = SkillSerializer(many=True)
+
+
+class WarriorAllInfoSerializer(WarriorSerializer):
+    profession = ProfessionSerializer(read_only=True)
+    skill = SkillSerializer(many=True)
