@@ -2,7 +2,7 @@
 ---
 ## Модель
 
-![Model](/assets/HotelsModel.png)
+![Model](../../img/hotelsModel.png)
 
 _models.py_
 ```python
