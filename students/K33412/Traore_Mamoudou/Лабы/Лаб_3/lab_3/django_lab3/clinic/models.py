@@ -35,7 +35,7 @@ class Doctor(AbstractUser):
     username = models.CharField(max_length=20, unique=True)
     middle_name = models.CharField(max_length=30, blank=True, null=True)
     specialty = models.CharField(max_length=30, default='Терапевт')
-    education = models.CharField(max_length=40, default='Университет им. Мечникова')
+    education = models.CharField(max_length=40, default='Университет ITMO')
     sex = models.CharField(max_length=7, choices=SEXES, default='Мужчина')
     date_of_birth = models.DateField(default='2000-01-01')
     start_work_date = models.DateField(auto_now_add=True)

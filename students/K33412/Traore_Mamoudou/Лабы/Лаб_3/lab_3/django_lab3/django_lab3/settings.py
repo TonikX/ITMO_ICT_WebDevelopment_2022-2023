@@ -54,7 +54,19 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
 ]
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+    'http//:localhost:5174',
+)
+
+
 
 ROOT_URLCONF = "django_lab3.urls"
 
@@ -83,7 +95,7 @@ WSGI_APPLICATION = "django_lab3.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'clinic',
+        'NAME': 'clinic_db',
         'USER': 'postgres',
         'PASSWORD': 'mamoudou35',
         'HOST': 'localhost',
