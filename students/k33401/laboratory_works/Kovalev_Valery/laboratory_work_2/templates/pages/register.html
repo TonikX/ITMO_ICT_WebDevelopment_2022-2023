@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Регистрация</h1>
+    <form method="POST" class="d-flex flex-column col-lg-6">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-sm btn-outline-secondary mt-2" name="Create User">Зарегистрироваться</button>
+    </form>
+{% endblock %}
