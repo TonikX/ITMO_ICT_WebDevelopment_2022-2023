@@ -237,18 +237,27 @@ Owner:ID:11 (Reese Witherspoon) | Car:ID:11 (Maybach Exelero T915TM)
 ```
 
 - Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):
+Сначала добавим 'related_name' в модель Ownership для владельца:
 ```python
->>> for i in range(len(Car.objects.filter(color="red"))):
-...     target_id = Car.objects.filter(color="red")[i].id_car
-...     print(Ownership.objects.filter(id_car=target_id)[i].id_owner)
-...
-ID:10 (Sandra Bullok)
+class Ownership(models.Model):
+    id_ownership = models.IntegerField(primary_key = True)
+    id_owner = models.ForeignKey(Owner, on_delete = models.CASCADE, related_name="owner_ownership")
+    id_car = models.ForeignKey(Car, on_delete = models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField(null = True)
+
+    def __str__(self):
+        return f"Owner:{self.id_owner} | Car:{self.id_car}"
+```
+```python
+>>> Owner.objects.filter(owner_ownership__id_car__color="red")
+<QuerySet [<Owner: ID:10 (Sandra Bullok)>]>
 ```
 
 - Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):
 ```python
->>> Ownership.objects.filter(start_date__gte="2023-01-01")
-<QuerySet [<Ownership: Owner:ID:5 (Ekaterina Tretyakova) | Car:ID:5 (Rolls-Royce Phantom M333ME)>, <Ownership: Owner:ID:6 (Jennifer Aniston) | Car:ID:6 (Lamborghini Huracan T019CX)>, <Ownership: Owner:ID:7 (Brad Pitt) | Car:ID:7 (Tesla Model S O925HA)>, <Ownership: Owner:ID:8 (Leonardo DiCaprio) | Car:ID:8 (Cadillac LYRIQ P6883BT)>, <Ownership: Owner:ID:9 (Matt Damon) | Car:ID:9 (Audi Q6 M305CC)>, <Ownership: Owner:ID:10 (Sandra Bullok) | Car:ID:10 (Ferrari 488 X656AP)>, <Ownership: Owner:ID:11 (Reese Witherspoon) | Car:ID:11 (Maybach Exelero T915TM)>]>
+>>> Owner.objects.filter(owner_ownership__start_date__gte="2023-01-01")
+<QuerySet [<Owner: ID:5 (Ekaterina Tretyakova)>, <Owner: ID:6 (Jennifer Aniston)>, <Owner: ID:7 (Brad Pitt)>, <Owner: ID:8 (Leonardo DiCaprio)>, <Owner: ID:9 (Matt Damon)>, <Owner: ID:10 (Sandra Bullok)>, <Owner: ID:11 (Reese Witherspoon)>]>
 ```
 
 ## Задание 3.1.3
