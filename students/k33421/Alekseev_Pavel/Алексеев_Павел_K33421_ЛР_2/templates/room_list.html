@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room list</title>
+</head>
+<body>
+
+<h1>Rooms</h1>
+<div class="main">
+    {% for room in rooms %}
+        <li>Number: {{ room.number }}</li>
+        <li>Type: {{ room.type }}</li>
+        <li>Price: {{ room.price }}</li>
+        <li>Capacity: {{ room.capacity }}</li>
+        <li>Amenities: {{ room.amenities }}</li>
+        <li>Hotel: {{ room.hotel.name }}</li>
+        <hr/>
+    {% empty %}
+        No rooms
+    {% endfor %}
+</div>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>

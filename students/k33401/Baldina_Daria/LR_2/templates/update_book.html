@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Update reservation</title>
+  </head>
+  {% load crispy_forms_tags %}
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Редактирование бронирования</h1>
+          <hr class="mt-0 mb-4">
+            {% block content %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success g-5">Сохранить</button>
+                  </div>
+            </form>
+            {% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

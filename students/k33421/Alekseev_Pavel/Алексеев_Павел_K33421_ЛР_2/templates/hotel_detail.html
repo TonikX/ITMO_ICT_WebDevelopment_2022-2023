@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hotel</title>
+</head>
+<body>
+
+  <h1>Hotel {{ hotel.name }}</h1>
+    <p><strong>Name:</strong> {{ hotel.name }}</p>
+    <p><strong>Owner:</strong> {{ hotel.owner }}</p>
+    <p><strong>Address:</strong> {{ hotel.address }} </p>
+    <p><strong>Description:</strong> {{ hotel.description }}</p>
+    <h2><strong>Comments:</strong></h2>
+    {% for comment in comments %}
+    <p><strong>Guest:</strong> {{ comment.guest }} </p>
+    <p><strong>Rating:</strong> {{ comment.rating  }}</p>
+	<p><strong>Text:</strong> {{ comment.comment }}</p>
+    <br>
+    {% empty %}
+	    No comments
+	{% endfor %}
+    <br>
+    <a href="/hotel/review/{{ hotel.id }}" role="button">Comment</a>
+    <a href="/home/">Home</a>
+</body>
+</html>

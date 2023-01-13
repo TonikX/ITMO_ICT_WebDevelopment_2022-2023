@@ -1,0 +1,137 @@
+{
+  "users": [
+    {
+      "email": "example@mail.com",
+      "password": "$2a$10$yj.PvyH8IPqvUK2WiusfN.rPGoyQM/T43LD3aWhjP2JhG2gPdxFM.",
+      "login": "anpan",
+      "firstname": "Aleksey",
+      "lastname": "Kondratev",
+      "id": 1
+    },
+    {
+      "email": "example1@mail.com",
+      "password": "$2a$10$UMuDvfWz.BNs9uDSPaoa6OjCCFzsp7hqhI8jkCiJlHKyLS7JPkgBC",
+      "login": "anpanf",
+      "firstname": "Aleksey",
+      "lastname": "Kondratev",
+      "id": 2
+    },
+    {
+      "email": "anpan@mail.com",
+      "password": "$2a$10$gAkG634JAz.Q5YSLriAtKOtFkXfusVs1.KZwZVn40wb8dJUhpFuY.",
+      "login": "anpanman",
+      "firstname": "Aleksey",
+      "lastname": "Kondratev",
+      "id": 3
+    },
+    {
+      "email": "lizamir@mail.com",
+      "password": "$2a$10$S3Fs1r6ow0zDRrlcsi80Ju3OO8eaJ64/ECrbcSNCAVKYpIw/Eapbq",
+      "firstname": "liza",
+      "lastname": "mironova",
+      "login": "lizamir",
+      "id": 4
+    },
+    {
+      "email": "lizamir1@mail.com",
+      "password": "$2a$10$QJZKojNcwZgQyclbalb17.LhG.WmXzG0a8hmvZxzxlOEzA96dG80K",
+      "firstname": "liza",
+      "lastname": "mironova",
+      "login": "lizamir1",
+      "id": 5
+    },
+    {
+      "email": "kulagina@mail.com",
+      "password": "$2a$10$KGJBmUQpyxpQIEQL0gG3..zWOoOwXgWgZ7IDRiHriCBVSWXZxVhm2",
+      "firstname": "sveta",
+      "lastname": "kulagina",
+      "login": "svetik",
+      "id": 6
+    },
+    {
+      "email": "lizamirmirmir@mail.com",
+      "password": "$2a$10$NV1Cy71JfSqlxZcu2iMkBOXOzyEZmgR/Whi169HUvKZvh3AOC7u8m",
+      "firstname": "Лиза",
+      "lastname": "Миронова",
+      "login": "lizalizaliza",
+      "id": 7
+    },
+    {
+      "email": "lizamirliza@mail.com",
+      "password": "$2a$10$WWViBtqQwQiHwbjBmD/0GOtmA8vAeXrVvrjl765qfExUdbSoKgttO",
+      "firstname": "Лиза",
+      "lastname": "Миронова",
+      "login": "mirmir",
+      "id": 8
+    }
+  ],
+  "events": [
+    {
+      "title": "Марафон",
+      "date": "2022-12-15",
+      "description": "Ежегодный марафон",
+      "src": "/src/assets/image/cards/sport.jfif",
+      "id": 1,
+      "city": "Санкт-Петербург",
+      "mero": "Спорт"
+    },
+    {
+      "title": "Новое выступление",
+      "date": "2022-01-01",
+      "description": "Приезжает PSY",
+      "src": "/src/assets/image/cards/musicMoscow.jpg",
+      "id": 2,
+      "city": "Москва",
+      "mero": "Музыка"
+    },
+    {
+      "title": "Увлекательное шоу",
+      "date": "2022-05-14",
+      "description": "Приезжают группы 80х",
+      "src": "/src/assets/image/cards/musicSaint.jpg",
+      "id": 3,
+      "city": "Санкт-Петербург",
+      "mero": "Музыка"
+    },
+    {
+      "title": "К спорту вместе!",
+      "date": "2022-05-24",
+      "description": "Присоединяйся к нашей борьбе",
+      "src": "/src/assets/image/cards/sportMoscow.webp",
+      "id": 4,
+      "city": "Москва",
+      "mero": "Спорт"
+    }
+  ],
+  "calendarEvents": [
+    {
+      "title": "Новый год",
+      "description": "Готовим мандарины",
+      "date": "2022-12-31",
+      "id": 1
+    },
+    {
+      "title": "Отдых",
+      "description": "Леша рил отдохни ",
+      "date": "2022-12-29",
+      "id": 2
+    }
+  ],
+  "userEvents": [
+    {
+      "userId": 2,
+      "eventId": 3,
+      "id": 2
+    },
+    {
+      "userId": 1,
+      "eventId": 1,
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "eventId": 2,
+      "id": 7
+    }
+  ]
+}

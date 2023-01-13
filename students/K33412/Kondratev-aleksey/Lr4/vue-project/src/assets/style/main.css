@@ -1,0 +1,32 @@
+.colors {
+	color: white;
+	background-color: var(--bg-color);
+}
+
+.card-colors {
+	background-color: var(--bg-card) !important;
+}
+
+.background {
+	background-color: var(--bg-color) !important;
+}
+
+.background-main {
+	background-color: var(--bg-main);
+}
+
+.border-color {
+	border: 1px solid var(--border-color);
+}
+
+.text-color {
+	color: var(--color-text) !important;
+	border: none;
+}
+
+.icon-main {
+	stroke: currentColor;
+	fill: none;
+	width: 16px;
+	height: 16px;
+}

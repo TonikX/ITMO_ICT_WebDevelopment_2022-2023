@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Рейс</title>
+</head>
+<body>
+<p>Номер: {{ object.number }}</p>
+<p>Авиакомпания: {{ object.company.name }}</p>
+<p>Город отлета: {{ object.from_city }}</p>
+<p>Время отлета: {{ object.departure_time }}</p>
+<p>Город прилета: {{ object.to_city }}</p>
+<p>Время прилета: {{ object.arrival_time }}</p>
+<p>Отлет/прилет: {{ object.get_type_display }}</p>
+<p>Гейт: {{ object.gate }}</p>
+<p>Отзывы:</p>
+{% for booking in object.bookings.all %}
+    {% if booking.review_number %}
+        <p>{{ booking.user.username }}: {{ booking.review_text }} {{ booking.review_number }}/10</p>
+    {% endif %}
+{% empty %}
+    <p>Отзывов пока нет</p>
+{% endfor %}
+<p><a href="/booking_create?flight={{ object.id }}">Забронировать</a></p>
+<p><a href="/flight_list">Назад</a></p>
+</body>
+</html>
