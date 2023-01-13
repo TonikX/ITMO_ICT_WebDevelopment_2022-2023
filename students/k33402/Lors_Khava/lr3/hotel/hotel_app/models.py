@@ -29,7 +29,7 @@ class Room(models.Model):
         return f'Room #{self.number}'
 
 class Booking(models.Model):
-    room = models.ForeignKey('Room', on_delete=models.CASCADE)
+    room = models.ForeignKey('Room', related_name='bookings', on_delete=models.CASCADE)
     guest = models.ForeignKey('Guest', on_delete=models.CASCADE)
     check_in = models.DateField(verbose_name='Check-in')
     check_out = models.DateField(verbose_name='Check-out')

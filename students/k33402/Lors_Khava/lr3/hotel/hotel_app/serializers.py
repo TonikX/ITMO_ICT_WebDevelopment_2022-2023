@@ -40,11 +40,18 @@ class RoomRetrieveSerializer(serializers.ModelSerializer):
 
 
 class GuestRetrieveSerializer(serializers.ModelSerializer):
-    #room_client = RoomSerializer(many=True)
+    # room_book = RoomSerializer(many=True)
 
     class Meta:
         model = Guest
         fields = "__all__"
+
+class BookingRetrieveSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Booking
+        fields = "__all__"
+
 
 
 class AvailableRoomSerializer(serializers.ModelSerializer):

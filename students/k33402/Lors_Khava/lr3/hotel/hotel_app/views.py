@@ -77,6 +77,14 @@ class BookingCreateAPIView(CreateAPIView):
     serializer_class = BookingSerializer
     queryset = Booking.objects.all()
 
+class BookingRetrieveAPIView(RetrieveAPIView):
+    serializer_class = BookingRetrieveSerializer
+    queryset = Booking.objects.all()
+
+class BookingRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = BookingSerializer
+    queryset = Booking.objects.all()
+
 
 
 class AvailableRoomAPIView(ListAPIView):
