@@ -26,6 +26,9 @@ class Ownership(models.Model):
     currency = models.ForeignKey(Currency, verbose_name="Валюта", on_delete=models.CASCADE)
     count = models.IntegerField(verbose_name="Количество валюты у пользователя", default=0)
 
+    class Meta:
+        unique_together = ('user', 'currency')
+
     def __str__(self):
         return f"{self.user.username} - {self.currency.name}"
 
