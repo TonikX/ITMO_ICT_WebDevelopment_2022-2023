@@ -1,11 +1,19 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import useUsersStore from '@/stores/users'
+import useOrdersStore from '@/stores/orders'
+import { COLORS } from '@/const/lang'
 
 export default {
   name: 'ProfileView',
+  data() {
+    return {
+      COLORS
+    }
+  },
   computed: {
     ...mapState(useUsersStore, ['user', 'token']),
+    ...mapState(useOrdersStore, ['orders']),
   },
   mounted() {
     this.fetchCurrentUser().then(result => {
@@ -13,9 +21,11 @@ export default {
         this.$router.replace({ path:'/' })
       }
     })
+    this.fetchOrders(this.token)
   },
   methods: {
     ...mapActions(useUsersStore, ['fetchCurrentUser', 'logout']),
+    ...mapActions(useOrdersStore, ['fetchOrders', 'token']),
     async onLogout() {
       await this.logout()
       this.$router.push('/')
@@ -40,12 +50,48 @@ export default {
         <li class="list-group-item">Username: {{ user.username }}</li>
         <li class="list-group-item">Token: {{ token }}</li>
       </ul>
-    </div>
-    <div class="col">
       <button
-        class="btn btn-danger btn-lg"
+        class="btn btn-danger btn-lg mt-3"
         @click="onLogout"
       >Выйти</button>
+    </div>
+    <div class="col-1">
+
+    </div>
+    <div class="col">
+      <h1>Заказы</h1>
+      <div
+        v-for="order in orders"
+        :key="'order-' + order.id"
+        class="border py-3 px-4"
+      >
+        <h3 class="mb-4">Заказ #{{ order.id }}</h3>
+        <RouterLink
+          v-for="item in order.cart"
+          :key="'item' + item.id"
+          :to="`/products/${item.product.id}`"
+          class="row justify-content-between align-items-stretch"
+          style="text-decoration:none"
+        >
+          <div class="col-auto">
+            <img
+              :src="item.product.photo"
+              :alt="item.product.name"
+              width="64"
+              height="64"
+            >
+          </div>
+          <div class="col d-flex align-items-center">
+            <h5>{{ item.product.name + (item.quantity > 1 ? (' * ' + item.quantity) : '') }}</h5>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex justify-content-between align-items-end flex-column" style="height:100%">
+              <small>{{ item.product.price }}</small>
+            </div>
+          </div>
+          <hr class="mt-3">
+        </RouterLink>
+      </div>
     </div>
   </div>
 </main>

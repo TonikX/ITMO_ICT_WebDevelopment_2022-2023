@@ -2,6 +2,7 @@
 <script>
 import { mapState, mapActions } from 'pinia';
 import useUsersStore from '@/stores/users'
+import useOrdersStore from '@/stores/orders'
 
 export default {
   name: 'TheHeader',
@@ -12,7 +13,11 @@ export default {
     this.setToken(window.localStorage.getItem('fabiana-user'))
   },
   methods: {
-    ...mapActions(useUsersStore, ['setToken'])
+    ...mapActions(useUsersStore, ['setToken']),
+    ...mapActions(useOrdersStore, ['fetchCartItems']),
+    openCart() {
+      this.fetchCartItems(this.token)
+    }
   }
 }
 </script>
@@ -61,7 +66,14 @@ export default {
             <use xlink:href="#icon-favorite"></use>
           </svg>
         </button>
-        <button type="button" class="cart-icon-button btn btn-link py-0 px-1" aria-label="Корзина" data-bs-toggle="modal" data-bs-target="#cart">
+        <button
+          type="button"
+          class="cart-icon-button btn btn-link py-0 px-1"
+          aria-label="Корзина"
+          data-bs-toggle="modal"
+          data-bs-target="#cart"
+          @click="openCart"
+        >
           <svg width="17" height="22" viewBox="0 0 17 22" aria-label="Корзина" fill="none" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#icon-cart"></use>
           </svg>

@@ -1,6 +1,8 @@
 <script>
 import { mapState, mapActions } from 'pinia'
+import useUsersStore from '@/stores/users'
 import useProductsStore from '@/stores/products'
+import useOrdersStore from '@/stores/orders'
 import { COLORS } from '@/const/lang'
 
 export default {
@@ -13,6 +15,7 @@ export default {
   },
   computed: {
     ...mapState(useProductsStore, ['product', 'products']),
+    ...mapState(useUsersStore, ['token']),
     recommendedProducts() {
       return this.products
         .filter((p) => p.id !== this.product.id)
@@ -30,6 +33,7 @@ export default {
   },
   methods: {
     ...mapActions(useProductsStore, ['fetchProduct']),
+    ...mapActions(useOrdersStore, ['createCartItem']),
     plusOne() {
       this.cartCount += 1;
     },
@@ -37,6 +41,11 @@ export default {
       if (this.cartCount > 1) {
         this.cartCount -= 1;
       }
+    },
+    addToCart() {
+      this.createCartItem(this.product.id, this.cartCount, this.token).then(() => {
+        document.querySelector('.cart-icon-button').dispatchEvent(new Event('click'))
+      })
     }
   }
 }
@@ -105,7 +114,7 @@ export default {
       </div>
       <div class="mt-2 mb-3">
         <input type="radio" class="btn-check" name="color" id="color-jut" autocomplete="off" checked>
-        <label class="btn btn-outline-warning" for="color-jut">ДЖУТ</label>
+        <label class="btn btn-outline-warning" for="color-jut">ЭКРЮ</label>
 
         <input type="radio" class="btn-check" name="color" id="color-gray" autocomplete="off">
         <label class="btn btn-outline-secondary" for="color-gray">СЕРЫЙ</label>
@@ -122,7 +131,11 @@ export default {
           </div>
         </div>
         <div class="col-12 col-sm mt-sm-0 mt-4">
-          <button type="button" class="btn btn-outline-dark btn-lg">ДОБАВИТЬ В КОРЗИНУ</button>
+          <button
+            type="button"
+            class="btn btn-outline-dark btn-lg"
+            @click="addToCart"
+          >ДОБАВИТЬ В КОРЗИНУ</button>
         </div>
       </div>
     </form>
