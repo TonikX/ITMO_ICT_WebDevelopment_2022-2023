@@ -30,10 +30,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     if instance.is_staff:
-        if Guest.objects.get(user_g=instance):
-            Guest.objects.filter(user_g=instance).delete()
-        Employee.objects.create(user_empl=instance)
+        try:
+            if Guest.objects.get(user_g=instance):
+                Guest.objects.filter(user_g=instance).delete()
+            Employee.objects.create(user_empl=instance)
+        except:
+            print('Employee already exist')
     else:
-        if Employee.objects.all():
-            if Employee.objects.get(user_empl=instance):
-                Employee.objects.filter(user_empl=instance).delete()
+        try:
+            if Employee.objects.all():
+                if Employee.objects.get(user_empl=instance):
+                    Employee.objects.filter(user_empl=instance).delete()
+        except:
+            print('No such employee')
