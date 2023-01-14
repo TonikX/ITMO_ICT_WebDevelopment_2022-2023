@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAdminUser, AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, AllowAny
 
 from .models import Hotel, RoomType, Room
 from .serializers import HotelSerializer, RoomTypeSerializer, RoomSerializer
