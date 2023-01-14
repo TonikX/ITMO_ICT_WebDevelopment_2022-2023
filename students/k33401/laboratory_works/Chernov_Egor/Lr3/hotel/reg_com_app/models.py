@@ -35,8 +35,7 @@ class Registration(models.Model):
 class Comment(models.Model):
     user_com = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='user_comment',
                                  verbose_name='ID Guest')
-    room_com = models.ForeignKey(Room, on_delete=models.CASCADE, null=True, blank=True, related_name='room_comment',
-                                 verbose_name='ID Room')
+    room_com = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='room_comment', verbose_name='ID Room')
 
     rating_com = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
                                                   verbose_name='Rating')
