@@ -18,3 +18,9 @@ source ../.web-dev-env/Scripts/activate
 ```bash
 python django_project_reingeverts/manage.py runserver
 ```
+
+### Admin
+
+User: `admin`
+Email: `admin@example.com`
+Password: `admin`
