@@ -52,6 +52,10 @@ View
 
 ![](https://i.imgur.com/cRPpsFy.gif)
 
+### Practical work 2.2.3
+
+![](https://i.imgur.com/vwzqnWc.gif)
+
 ## Lab work part
 
 ...

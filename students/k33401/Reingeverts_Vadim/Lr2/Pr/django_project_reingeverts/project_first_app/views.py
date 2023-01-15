@@ -1,7 +1,10 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect
+
+from .forms import CarOwnerForm
 
 from .models import Car, CarOwner, Ownership, DriverLicense
 
@@ -80,3 +83,41 @@ def driver_license_list(request):
     driver_licenses = DriverLicense.objects.all()
 
     return render(request, 'driver_license_list.html', {'driver_licenses': driver_licenses, 'title': "Driver Licenses"})
+
+
+def car_owner_create(request):
+    # dictionary for initial data with
+    # field names as keys
+    context = {}
+
+    # add the dictionary during initialization
+    # создание экземпляра формы, передача в него данных из формы (из полей в браузере)
+    form = CarOwnerForm(request.POST or None)
+    if form.is_valid():  # проверка формы на корректность (валидация)
+        form.save()
+        return redirect('car-owner-list')
+    context['form'] = form
+    context['title'] = "Car Owner Creation"
+    return render(request, "form.html", context)
+
+
+class CarUpdate(UpdateView):
+    model = Car
+    fields = ['license_plate', 'brand', 'model', 'color']
+    success_url = '/car/'
+    pk_url_kwarg = 'car_pk'
+    template_name = "form.html"
+
+
+class CarCreate(CreateView):
+    model = Car
+    fields = ['license_plate', 'brand', 'model', 'color']
+    success_url = '/car/'
+    template_name = "form.html"
+
+
+class CarDelete(DeleteView):
+    model = Car
+    success_url = '/car/'
+    pk_url_kwarg = 'car_pk'
+    template_name = "confirm_delete.html"

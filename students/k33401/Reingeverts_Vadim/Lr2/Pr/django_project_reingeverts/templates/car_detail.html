@@ -10,5 +10,8 @@
         <label>Color:</label>
         <input type="color" value="{{ car.color }}" disabled/>
     </p>
+    <p>
+        <a href={% url 'car-update' car.id %}>Update</a>
+    </p>
     <a href={% url 'car-list' %}>Back</a>
 {% endblock main %}
