@@ -1,0 +1,29 @@
+:root {
+    --nav-bg-color: #B7A995;
+    --main-bg-color: #FDFDFC;
+    --secondary-bg-color: #404040;
+    --card-bg-color: #FFFFFF;
+
+    --card-main: #000;
+    --card-muted: #6c757d;
+
+    --success-color: #198754;
+    --danger-color: #DC3445;
+
+    --main-color: #404040;
+    --main-focused-color: #565656;
+
+    --secondary-color: #FFFFFF;
+
+    --logo-filter: invert(31%) sepia(94%) saturate(777%) hue-rotate(351deg) brightness(101%) contrast(93%);
+    --logo-color: #404040;
+    --logo-focused-color: #BC5815;
+
+    --main-link: #404040;
+    --main-link-focused: #565656;
+
+    --side-link: #5E5E5E;
+    --side-link-focused: #BC5815;
+
+    --text-headers-color: #BC5815;
+}
