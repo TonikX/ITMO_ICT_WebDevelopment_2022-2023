@@ -42,10 +42,12 @@ INSTALLED_APPS = [
     'djoser',
     'django_extensions',
     'crypto_wallet_app',
-    'drf_yasg'
+    'drf_yasg',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -136,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPH_MODELS = {
   'app_labels': ["crypto_wallet_app"],
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
