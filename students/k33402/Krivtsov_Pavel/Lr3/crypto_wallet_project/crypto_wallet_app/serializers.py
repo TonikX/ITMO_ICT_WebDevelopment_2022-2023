@@ -44,7 +44,14 @@ class TagSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class DiscussionSerializer(serializers.ModelSerializer):
+class DiscussionCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Discussion
+        fields = "__all__"
+
+
+class DiscussionExtInfoSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     user = DiscussionUserSerializer()
 

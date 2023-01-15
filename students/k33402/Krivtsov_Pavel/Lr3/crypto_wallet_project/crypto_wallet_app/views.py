@@ -159,7 +159,7 @@ class DiscussionCreateApiView(APIView):
         request_data = request.data.copy()
         request_data["user"] = user.id
 
-        serializer = serializers.DiscussionSerializer(data=request_data)
+        serializer = serializers.DiscussionCreateSerializer(data=request_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -171,7 +171,7 @@ class DiscussionsListApiView(generics.ListAPIView):
     """
     Show all discussions
     """
-    serializer_class = serializers.DiscussionSerializer
+    serializer_class = serializers.DiscussionExtInfoSerializer
     queryset = Discussion.objects.all()
 
 
