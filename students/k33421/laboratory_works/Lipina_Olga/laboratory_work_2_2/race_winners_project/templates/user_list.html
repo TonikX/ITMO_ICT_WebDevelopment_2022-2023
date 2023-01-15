@@ -1,0 +1,22 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Список рейсеров</h2>
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <li>{{ object.username }}, {{ object.first_name }} {{ object.fathername }} {{ object.last_name }}</li>
+    <span>Команда {{ object.team_name }}</span> <br>
+<!--    <span>Машина {{ object.car_descr }}</span><br>-->
+    <span>Опыт: {{ object.experience }}</span><br>
+<!--    <span>Класс участника: {{ object.type_user }}</span><br>-->
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <span>No objects yet.</span>
+    {% endfor %}
+
+</ul>
+<a href="/main/">Get back</a> <br>
+{% endblock content %}
