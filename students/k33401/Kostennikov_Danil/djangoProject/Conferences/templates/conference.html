@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ conference.name }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-3">{{ conference.name }}:</h1>
+    <div class="card">
+        <div class="card-header">
+            {{ conference.start_date }} - {{ conference.end_date }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ conference.descriptions }}</p>
+            <h5 class="card-title">{{ conference.place }}</h5>
+            <p class="card-text">{{ conference.place_description }}</p>
+        </div>
+    </div>
+    <h6><br></br>Speakers</h6>
+    <div class="card-header mt-2">
+        {% for us in users_conf %}
+            {{ us.user_id.first_name }} {{ us.user_id.last_name }}
+            <br></br>
+        {% endfor %}
+    </div>
+    <a href="{{ conference.get_absolute_apply_url }}" class="btn btn-success g-5">Apply</a>
+    <br></br>
+    <h6>Coments</h6>
+    <div>
+            <a href="{{ conference.get_absolute_comment_url }}" class="btn btn-success g-5">Create comment</a>
+    </div>
+    {% for coment in coments %}
+        <div class="card">
+            <div class="card-header">
+                {{ coment.user_id.first_name}} {{ coment.user_id.last_name }}, {{ coment.rank }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ coment.comment }}</p>
+            </div>
+            <div class="card-footer">
+                {{ coment.date }}
+            </div>
+        </div>
+        <br></br>
+    {% endfor %}
+{% endblock %}
