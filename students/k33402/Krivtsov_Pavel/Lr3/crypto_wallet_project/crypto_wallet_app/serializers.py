@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Currency, Ownership, Transaction, Discussion, Tag, User, Comment
 
 
-class UserSerializer(serializers.ModelSerializer):
+class DiscussionUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
@@ -46,7 +46,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 class DiscussionSerializer(serializers.ModelSerializer):
     tags = TagSerializer(many=True)
-    user = UserSerializer()
+    user = DiscussionUserSerializer()
 
     class Meta:
         model = Discussion
