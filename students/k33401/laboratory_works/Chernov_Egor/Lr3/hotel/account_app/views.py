@@ -9,7 +9,6 @@ from .permissions import IsOwner
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = MyUserSerializer
-    # permission_classes = [IsAdminUser | IsOwner, ]
 
     def get_permissions(self):
         if self.action == 'create':
