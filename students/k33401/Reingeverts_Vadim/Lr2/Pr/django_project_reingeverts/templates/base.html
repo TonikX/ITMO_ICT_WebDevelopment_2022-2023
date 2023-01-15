@@ -4,13 +4,15 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            type="image/png"
-            sizes="32x32"
-            rel="icon"
-            href="https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/737373/external-magnifying-glass-digital-marketing-smashingstocks-glyph-smashing-stocks.png"
-        />
-        <title>Details</title>
+        <link type="image/png"
+              sizes="32x32"
+              rel="icon"
+              href="https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/737373/external-magnifying-glass-digital-marketing-smashingstocks-glyph-smashing-stocks.png"/>
+        <title>
+            {% block title %}
+                Cars
+            {% endblock title %}
+        </title>
         <style>
             html,
             body {
@@ -34,9 +36,8 @@
     </head>
     <body>
         <main>
-            <h1>Car owner details</h1>
-            <p>Name: {{ car_owner.first_name }} {{ car_owner.last_name }}</p>
-            <p>Date of birth: {{car_owner.date_of_birth|date:"Y.m.d"}}</p>
+            {% block main %}
+            {% endblock main %}
         </main>
     </body>
 </html>

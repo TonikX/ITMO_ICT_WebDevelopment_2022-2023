@@ -7,10 +7,13 @@ class Car(models.Model):
     model = models.CharField(max_length=20)
     color = models.CharField(max_length=30, blank=True)
 
+    def __str__(self):
+        return self.model
+
 
 class Ownership(models.Model):
-    car_owner_id = models.ForeignKey(
-        'CarOwner', on_delete=models.CASCADE, null=True, blank=True)
+    # car_owner_id = models.ForeignKey(
+    #     'CarOwner', on_delete=models.CASCADE, null=True, blank=True)
     car_id = models.ForeignKey(
         'Car', on_delete=models.CASCADE, null=True, blank=True)
     start_date = models.DateTimeField()
@@ -22,11 +25,24 @@ class Ownership(models.Model):
                 end_date__gt=models.F('start_date')), name='start_end_date_check', violation_error_message='Start date must be earlier than end date.'),
         ]
 
+    def __str__(self):
+        # return f"{self.car_id.__str__()} ({self.car_owner_id.__str__()})"
+        try:
+            date_range = f"{self.start_date.year}-{self.end_date.year}"
+        except AttributeError:
+            date_range = f"{self.start_date.year}-present"
+
+        return f"{self.car_id.__str__()} ({date_range})"
+
 
 class CarOwner(models.Model):
+    ownership_id = models.ManyToManyField('Ownership')
     last_name = models.CharField(max_length=30)
     first_name = models.CharField(max_length=30)
     date_of_birth = models.DateTimeField(max_length=30, null=True, blank=True)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 
 class DriverLicense(models.Model):
@@ -42,3 +58,6 @@ class DriverLicense(models.Model):
     license_type = models.CharField(max_length=10, choices=LICENSE_TYPES,
                                     default='B')
     issue_date = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.license_type} - {self.car_owner_id.__str__()} ({self.serial_number})"

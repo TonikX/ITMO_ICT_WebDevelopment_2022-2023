@@ -1,0 +1,10 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <h1>Ownership details</h1>
+    {% comment %} <p>Name: {{ car_owner.first_name }} {{ car_owner.last_name }}</p> {% endcomment %}
+    <p>Start date: {{ car_owner.start_date|date:"Y.m.d" }}</p>
+    <p>End date: {{ car_owner.end_date|date:"Y.m.d" }}</p>
+{% endblock main %}
