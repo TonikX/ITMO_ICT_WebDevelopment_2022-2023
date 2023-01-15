@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}All applies{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Conference name</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        {% for conf in user_conf %}
+        <tbody>
+            <tr>
+                <td>{{ conf.conference_id.name }}</td>
+                <td>{{ conf.conference_id.start_date }}</td>
+                <td>{{ conf.conference_id.end_date }}</td>
+                <td class="d-flex justify-content-start gap-2">
+                    <a href="/update_apply/{{  conf.id }}">
+                        <button type="button" class="btn btn-outline-primary">Edit</button>
+                    </a>
+                    <a href="/delete_apply/{{ conf.id }}">
+                        <button type="button" class="btn btn-outline-danger">Delete</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

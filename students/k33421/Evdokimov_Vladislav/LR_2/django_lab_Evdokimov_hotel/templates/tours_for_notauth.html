@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'main.html' %}
+<head>
+
+    <title>Туры</title>
+</head>
+<body>
+<div class="main">
+         <h1 class="text-center">Доступные туры</h1>
+
+
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+
+            <th scope="col">Название тура</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Город</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Начало</th>
+            <th scope="col">Конец</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+
+
+        {% for tour in tours %}
+            <tr>
+                <td>{{ tour.naming }} </td>
+                <td>{{ tour.country }} </td>
+                <td>{{ tour.city }} </td>
+                <td>{{ tour.description }} </td>
+                <td>{{ tour.start_date }} </td>
+                <td>{{ tour.end_date }} </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

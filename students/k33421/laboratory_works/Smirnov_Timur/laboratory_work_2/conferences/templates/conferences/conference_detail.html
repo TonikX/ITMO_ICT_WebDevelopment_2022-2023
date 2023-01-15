@@ -1,0 +1,62 @@
+{% extends 'conferences/main.html' %} {% block content %} 
+
+<div class="conference">
+  <div class="header-bar">
+    <h1 class="header">{{conference.conference.name}}</h1>
+    {% if request.user.is_authenticated %}
+      <a class="inroll" href={% url 'conference_register' conference.id%}>Записаться выступающим</a>
+    {% endif %}
+  </div>
+  <h3>Описание</h3>
+  <p class="description">{{conference.conference.description}}</p>
+  <h3>Условия участия</h3>
+  <p class="part-cond">{{conference.conference.participation_cond}}</p>
+  <h3>Информация о конференции</h3>
+  <div class="info">
+    <p class="place">Адрес: <i>{{conference.place.name}} | {{conference.place.address}}</i></p>
+    <p class="date">Дата проведения: {{conference.start_date}} - {{conference.end_date}}</p>
+  </div>
+</div>
+
+<div class="register-section">
+  <div class="header-bar">
+    <h3 class="header">Выступления</h3>
+  </div>
+  {% if registers|length > 0 %}
+    {% for register in registers %}
+      <h4>{{register.user}} - <i>{{register.name}}</i></h4>
+    {% endfor %}
+  {% else %}
+    <p>Выступлений нет</p>
+  {% endif %}
+</div>
+
+<div class="comment-section">
+  <div class="header-bar">
+    <h3 class="header">Комментарии</h3>
+  </div>
+
+  {% if request.user.is_authenticated %}
+    <form class='comment-form' method="post">
+      {% csrf_token %}
+      <p class="rating">Рейтинг: {{ comment_form.rating }}</p>
+      <p class="text">Текст: <br /> {{comment_form.text}}</p>
+      {{comment_form.user}}
+      {{comment_form.conference}}
+      <input class="button" type="submit" value="Добавить">
+    </form>
+  {% endif %}
+
+  {% for comment in comments %}
+    <div class="comment">
+      <div class="header-bar">
+        <h4 class="author">{{comment.user|title}}</h4>
+        <h3 class="rating">{{comment.rating|title}}</h3>
+      </div>
+      <p class="text">{{comment.text}}</p>
+    </div>
+  {% endfor %}
+
+</div>
+
+{% endblock content %}

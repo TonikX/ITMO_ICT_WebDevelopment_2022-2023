@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои бронирования</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>Номер бронирования</th>
+        <th>Количество</th>
+        <th>Номер рейса</th>
+        <th>Авиакомпания</th>
+        <th>Город отлета</th>
+        <th>Время отлета</th>
+        <th>Город прилета</th>
+        <th>Время прилета</th>
+        <th>Отлет/прилет</th>
+        <th>Гейт</th>
+        <th></th>
+    </tr>
+    {% for booking in object_list %}
+        <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.seats }}</td>
+            <td>{{ booking.flight.number }}</td>
+            <td>{{ booking.flight.company.name }}</td>
+            <td>{{ booking.flight.from_city }}</td>
+            <td>{{ booking.flight.departure_time }}</td>
+            <td>{{ booking.flight.to_city }}</td>
+            <td>{{ booking.flight.arrival_time }}</td>
+            <td>{{ booking.flight.get_type_display }}</td>
+            <td>{{ booking.flight.gate }}</td>
+            <td><a href="/booking_update/{{ booking.id }}">Отзыв</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<p><a href="/">Назад</a></p>
+</body>
+</html>
