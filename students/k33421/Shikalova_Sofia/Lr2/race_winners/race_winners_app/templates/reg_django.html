@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+        <div class="form-group">
+            <input class="form-control" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="first_name" placeholder="First name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="patronymic" placeholder="Patronymic">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="last_name" placeholder="Last name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="experience_years" placeholder="Years of experience">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" autofocus type="text" name="team" placeholder="Team name">
+        </div>
+
+
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+        </div>
+            <div class="form-group">
+            <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Registration</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                You already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

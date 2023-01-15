@@ -1,0 +1,27 @@
+{% include 'main.html' %}
+
+{% block body %}
+
+    <h2>Войти в аккаунт</h2>
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed, please log in with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input autofocus class="form-control" type="text" name="username" placeholder="Имя пользователя">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="password" name="password" placeholder="Пароль">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Войти">
+    </form>
+
+    Всё еще нет аккаунта? <a href="{% url 'register' %}">Зарегестрироваться</a><br>
+{% endblock %}

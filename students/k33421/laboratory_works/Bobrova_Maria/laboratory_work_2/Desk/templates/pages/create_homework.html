@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row d-flex justify-content-center">
+    <form method="POST" class="d-flex flex-column col-lg-6">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-sm btn-outline-secondary mt-2">Отправить</button>
+    </form>
+    </div>
+{% endblock %}
