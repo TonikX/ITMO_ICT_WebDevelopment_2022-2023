@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <h2>{{ object.name }}</h2>
+    <h3>{{ object.subject }}</h3>
+    <p>
+        Преподаватель: {{ object.teacher }}
+    </p>
+    <div>
+        <p>Выдано: {{ object.begin_date }}</p>
+        <p>Дедлайн: <span style="color: red">{{ object.deadline }}</span></p>
+    </div>
+    <hr/>
+    <div>
+        {{ object.task }}
+    </div>
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'handin' object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <br/>
+
+    <a href="{% url 'homework_list' %}">К спсику домашних заданий</a>
+
+{% endblock %}
