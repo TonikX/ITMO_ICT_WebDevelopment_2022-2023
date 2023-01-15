@@ -3,13 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start": "vite --port 8080",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "axios": "^1.2.2",
+    "bootstrap": "^5.3.0-alpha1",
     "pinia": "^2.0.28",
+    "pinia-persists": "^1.2.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
