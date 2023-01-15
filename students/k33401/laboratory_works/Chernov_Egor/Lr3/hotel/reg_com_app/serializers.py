@@ -19,7 +19,7 @@ class RegComHotelSerializer(serializers.ModelSerializer):
 
 
 class RegComRoomTypeSerializer(serializers.ModelSerializer):
-    type_rt = serializers.CharField(source='get_type_rt_display', read_only=True)
+    type_rt = serializers.CharField(source='get_type_rt_display')
 
     class Meta:
         model = RoomType
@@ -34,10 +34,10 @@ class RegistrationRoomSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    user_reg = RegComUserSerializer(read_only=True)
-    hotel_reg = RegComHotelSerializer(read_only=True)
-    rt_reg = RegComRoomTypeSerializer(read_only=True)
-    room_reg = RegistrationRoomSerializer(read_only=True)
+    user_reg = RegComUserSerializer()
+    hotel_reg = RegComHotelSerializer()
+    rt_reg = RegComRoomTypeSerializer()
+    room_reg = RegistrationRoomSerializer()
     status_reg_reg = serializers.CharField(source='get_status_reg_reg_display')
     status_pay_reg = serializers.CharField(source='get_status_pay_reg_display')
 
@@ -48,8 +48,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
 # Comment
 class CommentRoomSerializer(serializers.ModelSerializer):
-    hotel_r = RegComHotelSerializer(read_only=True)
-    rt_r = RegComRoomTypeSerializer(read_only=True)
+    hotel_r = RegComHotelSerializer()
+    rt_r = RegComRoomTypeSerializer()
     status_room = serializers.CharField(source='get_status_room_display')
 
     class Meta:
@@ -58,8 +58,8 @@ class CommentRoomSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user_com = RegComUserSerializer(read_only=True)
-    room_com = CommentRoomSerializer(read_only=True)
+    user_com = RegComUserSerializer()
+    room_com = CommentRoomSerializer()
 
     class Meta:
         model = Comment
