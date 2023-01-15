@@ -1,0 +1,24 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- auto_confirm_delete.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete reg</title>
+</head>
+
+<body>
+  <form method="post">{% csrf_token %}
+    <p>Вы уверены, что хотите удалить регистрацию "{{ object }}"?</p>
+    <input type="submit" value="Confirm">
+  </form>
+  <br>
+  <br>
+  <a href="/reg_race/list/">К списку регистраций</a>
+</body>
+</html>
+{% endblock content %}
