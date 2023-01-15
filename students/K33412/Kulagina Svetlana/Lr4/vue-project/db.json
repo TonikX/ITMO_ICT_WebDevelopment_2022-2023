@@ -1,0 +1,232 @@
+{
+  "users": [
+    {
+      "email": "example@ya.ru",
+      "password": "$2a$10$MjC0AIzXeyi.W9EK/1vnZex.w1Scsqcoue9H1vqNSJuSQab9WM8qm",
+      "username": "Sveta",
+      "id": 1
+    },
+    {
+      "email": "kulagina@ya.ru",
+      "password": "$2a$10$1S1y6.6yPD4OjRRapkkHDOrFTqaqKieZV5Y0.JX9CaEGqC.ASjW8.",
+      "first_name": "Sveta",
+      "last_name": "Kulagina",
+      "username": "SvetOOO",
+      "id": 2
+    },
+    {
+      "email": "Kirill1111@mail",
+      "password": "$2a$10$MgmZHRZp5G4c/vreE5yS/ushMxMzh1JqEEymSr8sNNn2R1PW6Ku76",
+      "first_name": "Kirill",
+      "last_name": "Бандит",
+      "username": "Kiry",
+      "id": 3
+    },
+    {
+      "email": "neverov.iv@gmail.com",
+      "password": "$2a$10$nQE86aJz2.slx0sT4FDuo.gH9LOF.TFnNJ5C5PQ9HQyYGfU9BiXle",
+      "first_name": "Lesha",
+      "last_name": "Kondratiev ",
+      "username": "qwerfgh",
+      "id": 4
+    },
+    {
+      "email": "nat@mail.com",
+      "password": "$2a$10$lZh2ZG3Nd5P4gfzI.y88eOl1NjmAEU6HEtT/pLR.peQcSTWwR9mL.",
+      "first_name": "Наталья",
+      "last_name": "Кулагина",
+      "username": "nat13",
+      "id": 5
+    },
+    {
+      "email": "sveta@ya.ru",
+      "password": "$2a$10$9t8ThhtEx5DTLBpbvkAe9uRwMzUPYrku/eHG2DEHsDPQMoYfMq1rC",
+      "first_name": "Светлана",
+      "last_name": "Кулагина",
+      "username": "rassvet",
+      "id": 6
+    },
+    {
+      "email": "kulaginanata@mail.com",
+      "password": "$2a$10$cI80Z4Ca3V3GY12N16vz2u3siOplT1fNVHVbhnShKlxwky5RzXSOa",
+      "first_name": "Наталья",
+      "last_name": "Кулагина",
+      "username": "nata11",
+      "id": 7
+    },
+    {
+      "email": "maryjane@mail.com",
+      "password": "$2a$10$NSSUXOxdIVk0/2p1R2Pr7OXJdm22721RiikhfhRYl5oWzcnujm0Y.",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Марина",
+      "last_name": "Петрова",
+      "username": "maryjane",
+      "id": 8
+    },
+    {
+      "email": "cringe@mail.ru",
+      "password": "$2a$10$QoEXYh.2TJSXP5ghytanm.QNkqhRvSVqFdcd4yntRcSh0T3rUYdXK",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Кринж",
+      "last_name": "Кринжовый",
+      "username": "cringe",
+      "id": 9
+    },
+    {
+      "email": "petr@mail.com",
+      "password": "$2a$10$nYpiXh6yONidnDctfPdv..k9o2RbG/SRDfEzF2NKWOKFA6Na0.Fta",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Petr",
+      "last_name": "Petrov",
+      "username": "pety",
+      "id": 10
+    },
+    {
+      "email": "alex@mail.com",
+      "password": "$2a$10$QllWy1zCPu/dXu0N4IhLQuob5TDWYstggN/JLyj8/IwgHXDiIoaje",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Алексей",
+      "last_name": "Алексеев",
+      "username": "alex",
+      "id": 11
+    },
+    {
+      "email": "svet@mail.com",
+      "password": "$2a$10$m3LijsJWIralc81YNig.eO717Coxs.OIL4qrd/jn11143cYfWpYOW",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Света",
+      "last_name": "Кулагина",
+      "username": "svetaaaaaa",
+      "id": 12
+    },
+    {
+      "email": "sveta123@mail.com",
+      "password": "$2a$10$x10xyOe0ruRbOwkjhPkyOOFNyWWBCoPNPGoil04tGYGKsV/4hgQxO",
+      "firstname": "",
+      "lastname": "",
+      "login": "",
+      "first_name": "Света",
+      "last_name": "Кулагина",
+      "username": "svetaaaaaa",
+      "id": 13
+    }
+  ],
+  "notes": [
+    {
+      "title": "Мюзик Холл",
+      "description": "Санкт-Петербургский Мюзик-холл - уникальный театр по своей жанровой природе и сегодня единственный в России...",
+      "date": "2022-12-01",
+      "id": 1,
+      "mero": "Мюзик Холл",
+      "data": "01.12.2022",
+      "address": "Парк Александровский, д. 4",
+      "metro": "Горьковская",
+      "category": "Театр",
+      "category2": "Петроградский",
+      "text": "Санкт-Петербургский Мюзик-холл - уникальный театр по своей жанровой природе и сегодня единственный в России...",
+      "img": "./src/assets/image/музик холл1.jpg"
+    },
+    {
+      "id": 2,
+      "mero": "Дворец культуры им.Ленсовета",
+      "data": "02.12.2022",
+      "address": "пр. Каменноостровский, д. 42",
+      "metro": "Горьковская, Петроградская",
+      "category": "Театр",
+      "category2": "Петроградский",
+      "text": "В 1931-1938 годах по проекту Е.А.Левинсона и В.О.Мунца строится здание Дворца культуры промкооперации или Промка...",
+      "img": "./src/assets/image/a_1_38.jpg"
+    },
+    {
+      "id": 3,
+      "mero": "Открытый ледовый каток",
+      "data": "03.12.2022",
+      "address": "ул. Кузнецовская, д. 25",
+      "metro": "Парк Победы",
+      "category": "Активный отдых",
+      "category2": "Московский",
+      "text": "Вход на каток платный. Есть прокат коньков и заточка. Каждая пара коньков выдаются под...",
+      "img": "./src/assets/image/a_18_0.jpg"
+    },
+    {
+      "title": "GorillaPark",
+      "description": "Взрослых гостей и детей от 7 лет ждут спортивные и очень весёлые локации: - 22 зоны скалодрома...",
+      "date": "2022-12-04",
+      "id": 4,
+      "mero": "GorillaPark",
+      "data": "04.12.2022",
+      "address": "л. Долгоозерная, д. 14, к.2",
+      "metro": "Комендантский проспект, Пионерская",
+      "category": "Активный отдых",
+      "category2": "Приморский",
+      "text": "Взрослых гостей и детей от 7 лет ждут спортивные и очень весёлые локации: - 22 зоны скалодрома...",
+      "img": "./src/assets/image/o_L-ubkbkoMrE_0.jpg"
+    }
+  ],
+  "calendarEvents": [],
+  "userEvents": [
+    {
+      "userId": 5,
+      "eventId": 1,
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "eventId": 2,
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "userId": 8,
+      "eventId": 3,
+      "id": 5
+    },
+    {
+      "userId": 9,
+      "eventId": 2,
+      "id": 10
+    },
+    {
+      "userId": 9,
+      "eventId": 3,
+      "id": 11
+    },
+    {
+      "userId": 8,
+      "eventId": 2,
+      "id": 12
+    },
+    {
+      "userId": 11,
+      "eventId": 1,
+      "id": 13
+    },
+    {
+      "userId": 11,
+      "eventId": 2,
+      "id": 14
+    },
+    {
+      "userId": 13,
+      "eventId": 1,
+      "id": 15
+    },
+    {
+      "userId": 13,
+      "eventId": 4,
+      "id": 17
+    }
+  ]
+}

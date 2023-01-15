@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Авиарейсы</title>
+</head>
+<body>
+<p><a href="/flight_list">Табло</a></p>
+{% if user.is_authenticated %}
+    <p><a href="/booking_list">Мои бронирования</a></p>
+    <p><a href="/logout">Выйти</a></p>
+{% else %}
+    <p><a href="/login">Войти</a></p>
+    <p><a href="/registration">Регистрация</a></p>
+{% endif %}
+</body>
+</html>

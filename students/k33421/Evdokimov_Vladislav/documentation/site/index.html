@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Документация</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">Документация</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="lab1/" class="nav-link">Лаба №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="." class="nav-link">Лаба №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="easteregg.html" class="nav-link">Лаба №3 (Пасхалочка)</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="pr3/" class="nav-link">Практика 3.1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="easteregg.html" class="nav-link">Лаба №4 (Пасхалочка)</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="lab1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="easteregg.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no2-33421" class="nav-link">Лабораторная работа №2. Евдокимов Владислав К33421</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Описание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Файлы проекта:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no2-33421">Лабораторная работа №2. Евдокимов Владислав К33421</h1>
+<h2 id="_1">Описание</h2>
+<pre><code>      ВАРИАНТ 4:
+Список туров туристической фирмы
+</code></pre>
+<p>Хранится информация о названии тура, турагенстве, описании тура, периоде проведения тура, условиях оплаты.
+Необходимо реализовать следующий функционал:
+1) Регистрация новых пользователей.
+2) Просмотр и резервирование туров. Пользователь должен иметь возможность редактирования и удаления своих резервирований. 
+3) Написание отзывов к турам. При добавлении комментариев, должны сохраняться даты тура, текст комментария, рейтинг (1-10), информация о комментаторе.
+4) Администратор должен иметь возможность подтвердить резервирование тура средствами Django-admin. 
+5) В клиентской части должна формироваться таблица, отображающая все проданные туры по странам.</p>
+<h2 id="_2">Файлы проекта:</h2>
+<pre><code>models.py
+</code></pre>
+<pre><code>from django.db import models
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser
+
+
+class User(AbstractUser):
+    username = models.CharField(&quot;username&quot;, max_length=150, unique=True)
+    password = models.CharField(max_length=30, null=False)
+    passport_data = models.CharField(max_length=30, null=False)
+    email = models.EmailField(&quot;email address&quot;, unique=True)
+    tour = models.ManyToManyField(&quot;self&quot;, through=&quot;Reservation&quot;)
+    phone_number = models.IntegerField(null=True)
+
+
+class Tour(models.Model):
+    payment_by = [('Наличные', 'Наличные'), ('Онлайн оплата', 'Онлайн оплата')]
+    naming = models.CharField(max_length=50, null=False)
+    country = models.CharField(max_length=30, null=False)
+    city = models.CharField(max_length=30, null=False)
+    description = models.CharField(max_length=2000, null=False)
+    paid_with = models.CharField(max_length=13, choices=payment_by)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+
+class Feedback(models.Model):
+    User = get_user_model()
+    rating = [(1, '1'), (2, '2'), (3, '3'), (3, '3'), (4, '4'),
+              (5, '5'), (6, '6'), (7, '7'), (8, '8'), (9, '9'), (10, '10')]
+    username = models.ForeignKey('User', on_delete=models.CASCADE)
+    comment = models.CharField(max_length=5000)
+    tour = models.ForeignKey(&quot;Tour&quot;, on_delete=models.CASCADE)
+    user_rating = models.IntegerField(choices=rating)
+    date_of_publication = models.DateField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+
+class Reservation(models.Model):
+    User = get_user_model()
+    username = models.ForeignKey('User', on_delete=models.CASCADE)
+    tour = models.ForeignKey('Tour', on_delete=models.CASCADE)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    status = models.BooleanField(null=True)
+</code></pre>
+<pre><code>forms.py
+</code></pre>
+<pre><code>from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from .models import *
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2', 'email', 'passport_data', 'phone_number']
+
+
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+
+class CreateCommentForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ('username', 'start_date', 'tour', 'end_date', 'user_rating', 'comment', 'date_of_publication')
+
+    def __init__(self, *args, **kwargs):
+        super(CreateCommentForm, self).__init__(*args, **kwargs)
+        self.fields['username'].disabled = True
+
+
+class CreateReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ('username', 'tour', 'start_date', 'end_date')
+
+    def __init__(self, *args, **kwargs):
+        super(CreateReservationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].disabled = True
+        self.fields['tour'].disabled = True
+</code></pre>
+<pre><code>views.py
+</code></pre>
+<pre><code>from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from .forms import *
+from .models import *
+from django.contrib.auth import authenticate, login, logout
+
+
+def homepage(request):
+    return render(request, 'main.html')
+
+
+def profile(request):
+    return render(request, 'profile.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/profile')
+    else:
+        form = RegistrationForm()
+    visual = {'form': form}
+    return render(request, 'registration/signin.html', visual)
+
+
+def user_login(request):
+    global form
+    if request.method == &quot;POST&quot;:
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('/main')
+        else:
+            return HttpResponse('Неправильный логин или пароль!')
+    else:
+        form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+
+def log_out(request):
+    logout(request)
+    return redirect('/main')
+
+
+class CreateReservation(CreateView):
+    form_class = CreateReservationForm
+    model = Reservation
+    template_name = 'reservation.html'
+    context_object_name = 'reservation'
+    success_url = '/profile'
+
+    def get_initial(self):
+        initial = super(CreateReservation, self).get_initial()
+        initial = initial.copy()
+        initial['username'] = self.request.user.pk
+        initial['tour'] = get_object_or_404(Tour, pk=self.kwargs['pk'])
+        return initial
+
+
+class UpdateReserveView(UpdateView):
+    model = Reservation
+    fields = ['start_date', 'end_date']
+    template_name = 'upreservation.html'
+    context_object_name = 'reservation'
+    success_url = '/profile'
+
+
+class DeleteReserveView(DeleteView):
+    model = Reservation
+    template_name = 'delreservation.html'
+    context_object_name = 'reservation'
+    success_url = '/profile'
+
+
+def reservedtourlist(request):
+    visual = {&quot;reservations&quot;: Reservation.objects.all()}
+    return render(request, 'reservedtour.html', visual)
+
+
+class listreservations(ListView):
+    template_name = 'profilereservations.html'
+    context_object_name = 'reservation_list'
+
+    def get_queryset(self):
+        self.user = self.request.user.pk
+        return Reservation.objects.filter(username=self.user)
+
+
+def commentlist(request):
+    visual = {&quot;comments&quot;: Feedback.objects.all()}
+    return render(request, 'comments.html', visual)
+
+
+def tourlist(request):
+    visual = {&quot;tours&quot;: Tour.objects.all()}
+    return render(request, 'tours.html', visual)
+
+
+class CreateComment(CreateView):
+    form_class = CreateCommentForm
+    model = Feedback
+    template_name = 'comment.html'
+    context_object_name = 'comment'
+    success_url = '/comments'
+
+    def get_initial(self):
+        initial = super(CreateComment, self).get_initial()
+        initial = initial.copy()
+        initial['username'] = self.request.user.pk
+        return initial
+</code></pre>
+<pre><code>urls.py
+</code></pre>
+<pre><code>from django.urls import path
+from . import views
+from .views import *
+
+urlpatterns = [
+    path('main/', views.homepage),
+    path('profile/', views.profile),
+    path('login/', views.user_login, name='login'),
+    path('register/', register, name='register'),
+    path('logout/', views.log_out),
+    path('reservedtour/', views.reservedtourlist),
+    path('comments/', views.commentlist),
+    path('createcomment/', CreateComment.as_view()),
+    path('tours/', views.tourlist),
+    path('tours/&lt;int:pk&gt;/reservation', CreateReservation.as_view(), name='reservation'),
+    path('profilereservations/', listreservations.as_view(), name='reservations'),
+    path('profilereservations/deletereservation/&lt;int:pk&gt;/', views.DeleteReserveView.as_view()),
+    path('profilereservations/updatereservation/&lt;int:pk&gt;/', views.UpdateReserveView.as_view())
+]
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-01-11 09:53:19.793806+00:00
+-->

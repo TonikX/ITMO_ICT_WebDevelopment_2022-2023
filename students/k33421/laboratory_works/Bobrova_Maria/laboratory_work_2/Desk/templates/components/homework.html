@@ -1,0 +1,39 @@
+<div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+            {% if request.user.is_teacher %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5>{{ homework.subject }}</h5>
+                    <a href="{% url 'delete_homework' homework.pk%}" class="btn btn-outline-danger btn-sm">x</a>
+                </div>
+            {% else %}
+                <h5>{{ homework.subject }}</h5>
+            {% endif %}
+                <small class="text-muted">Описание:</small>
+                <p class="card-text">{{ homework.task_description }}</p>
+                <small class="text-muted">Выдано:</small>
+                <p class="m-0">{{ homework.start_date | date:"d M, Y"  }}</p>
+                <small class="text-muted">Выполнить до:</small>
+                <p class="m-0">{{ homework.end_date | date:"d M, Y" }}</p>
+                <small class="text-muted">Максимальный балл:</small>
+                <p class="m-0">{{ homework.max_points }}</p>
+                <small class="text-muted">Штраф:</small>
+                <p class="m-0">{{ homework.fine_info }}</p>
+            {% if request.user.is_teacher %}
+                <small class="text-muted">Группа:</small>
+                <p class="m-0">{{ homework.student_group}}</p>
+            {% else %}
+                <small class="text-muted">Преподаватель:</small>
+                <p class="m-0">{{ homework.teacher}}</p>
+            {% endif %}
+              <div class="d-flex justify-content-end align-items-center">
+                  {% if request.user.is_teacher %}
+                      <a href="{% url 'change_homework' homework.id%}" class="btn btn-sm btn-outline-secondary">Изменить</a>
+                  {% endif %}
+                  {% if request.user.is_student %}
+                      <a href="{% url 'make_homework' homework.id%}" class="btn btn-sm btn-outline-secondary">Выполнить</a>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>

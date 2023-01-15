@@ -1,0 +1,27 @@
+<header>
+    <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{% url 'home' %}" class="nav-link px-2 link-secondary">Главная</a></li>
+          <li><a href="{% url 'marks' %}" class="nav-link px-2 link-secondary">Оценки</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end d-flex justify-content-end align-items-center gap-3">
+
+          {% if request.user.is_authenticated %}
+              {% if request.user.is_teacher %}
+                  <span class="text-nowrap">Преподаватель: {{ request.user.teacher }}</span>
+              {% else %}
+                  <span class="text-nowrap">Студент: {{ request.user.student }}</span>
+                  <span class="text-nowrap">Группа: {{ request.user.student.student_group }}</span>
+              {% endif %}
+              <a href="{% url 'logout' %}" class="btn btn-outline-primary me-2 text-nowrap">Выйти</a>
+
+          {% else %}
+              <a href="{% url 'login' %}" class="btn btn-outline-primary me-2 text-nowrap">Войти</a>
+              <a href="{% url 'register' %}" class="btn btn-primary text-nowrap">Зарегистрироваться</a>
+          {% endif %}
+
+      </div>
+    </div>
+</header>
