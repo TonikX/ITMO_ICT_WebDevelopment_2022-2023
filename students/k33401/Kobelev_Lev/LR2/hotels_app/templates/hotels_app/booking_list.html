@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="main mx-3 my-1">
+    <h1>Your bookings</h1>
+    {% for booking in booking_list %}
+        <a href="/hotel/{{ booking.reservation.hotel.id }}/{{ booking.reservation.id }}/">Room №{{ booking.reservation.number }}</a> at <a href="/hotel/{{ booking.reservation.hotel.id }}/">{{ booking.reservation.hotel.name }}</a> from {{ booking.date_start }} to {{ booking.date_end }}
+    <br>
+    Status:
+    {% if booking.approved %}
+        <b>approved</b>
+    {% else %}
+        <b>not approved</b>, <a href="/bookings/{{ booking.id }}/update/">Update</a>
+    {% endif %}
+    <br>
+    <a href="/bookings/{{ booking.id }}/delete/">Cancel booking</a>
+    <hr>
+    {% endfor %}
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'main.html' %}
+<head>
+
+    <title>Отзывы</title>
+</head>
+<body>
+<div class="main">
+     <h1 class="text-center">Отызвы</h1>
+
+        <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+
+            <th scope="col">Пользователь</th>
+            <th scope="col">Название тура</th>
+            <th scope="col">Начало тура</th>
+            <th scope="col">Конец тура</th>
+            <th scope="col">Оценка</th>
+            <th scope="col">Комментарий</th>
+            <th scope="col">Дата публикации</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for comment in comments %}
+
+            <tr>
+                <td>{{ comment.username }} </td>
+                <td>{{ comment.tour_id }} </td>
+                <td>{{ comment.start_date }} </td>
+                <td>{{ comment.end_date }} </td>
+                <td>{{ comment.user_rating }} </td>
+                <td>{{ comment.comment }} </td>
+                <td>{{ comment.date_of_publication }} </td>
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

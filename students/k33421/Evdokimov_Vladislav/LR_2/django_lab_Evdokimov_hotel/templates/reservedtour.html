@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'main.html' %}
+<head>
+
+</head>
+<body>
+{% block content %}
+     <h1 class="text-center">Зарезервированные туры</h1>
+
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+
+            <th scope="col">Название тура</th>
+            <th scope="col">Страна</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Начало</th>
+            <th scope="col">Конец</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for reservation in reservations %}
+
+            <tr>
+                <td>{{ reservation.tour_id }} </td>
+                <td>{{ reservation.tour_id.country }} </td>
+                <td>{{ reservation.username.username }} </td>
+                <td>{{ reservation.tour_id.start_date }} </td>
+                <td>{{ reservation.tour_id.end_date }} </td>
+
+
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+</body>
+</html>

@@ -6,6 +6,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+.idea
 
 # Icon must end with two \r
 Icon
@@ -323,3 +324,5 @@ fabric.properties
 /students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/hotel_app/migrations/
 /students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/account_app/migrations/
 /students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/reg_com_app/migrations/
+
+.idea/

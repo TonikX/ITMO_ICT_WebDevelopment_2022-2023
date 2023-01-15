@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+        <ul>
+            {% for obj in object_list %}
+
+            <li>{{ obj.state_number }}</li>
+            <li>{{ obj.brand }}</li>
+            <li>{{ obj.model }}</li>
+            <li>{{ obj.color }}</li>
+            <hr>
+
+            {% endfor %}
+
+        </ul>
+    </div>
+</body>
+</html>
