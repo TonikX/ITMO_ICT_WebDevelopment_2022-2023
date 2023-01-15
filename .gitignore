@@ -320,5 +320,9 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
-.idea/
+# Migrations
+/students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/hotel_app/migrations/
+/students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/account_app/migrations/
+/students/k33401/laboratory_works/Chernov_Egor/Lr3/hotel/reg_com_app/migrations/
 
+.idea/

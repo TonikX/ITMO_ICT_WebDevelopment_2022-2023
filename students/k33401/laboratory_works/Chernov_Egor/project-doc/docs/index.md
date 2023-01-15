@@ -14,10 +14,10 @@ Contacts: [vk.com](vk.com/4ernovec), [telgram](t.me/chernovec)
 
 * `Lab 1` - Work with sockets.
 * `Lab 2` - Create a site on Djando.
+* `Lab 3` - Work with Django REST Framework. Server side, API.
 
 #### Processed labs:
 
-* `Lab 3` - Work with Django REST Framework. Server side, API.
 * `Lab 4` - Work with Vue.JS. Client side.
 
 #### Practical works:
