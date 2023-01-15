@@ -3,8 +3,8 @@
     {{ title }}
 {% endblock title %}
 {% block main %}
-    <h1>Ownership details</h1>
-    {% comment %} <p>Name: {{ car_owner.first_name }} {{ car_owner.last_name }}</p> {% endcomment %}
-    <p>Start date: {{ car_owner.start_date|date:"Y.m.d" }}</p>
-    <p>End date: {{ car_owner.end_date|date:"Y.m.d" }}</p>
+    <p>Vehicle: {{ ownership.car_id }}</p>
+    <p>Start date: {{ ownership.start_date|date:"Y.m.d H:m" }}</p>
+    <p>End date: {{ ownership.end_date|date:"Y.m.d H:m" }}</p>
+    <a href={% url 'ownership-list' %}>Back</a>
 {% endblock main %}

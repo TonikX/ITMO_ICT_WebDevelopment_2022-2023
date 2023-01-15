@@ -48,7 +48,9 @@ Model
 View
 ![](https://i.imgur.com/G0y3Vvm.png)
 
-### Practical work 2.2
+### Practical work 2.2.1-2.2.2
+
+![](https://i.imgur.com/cRPpsFy.gif)
 
 ## Lab work part
 

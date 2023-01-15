@@ -3,7 +3,7 @@
     {{ title }}
 {% endblock title %}
 {% block main %}
-    <h1>Car owner details</h1>
     <p>Name: {{ car_owner.first_name }} {{ car_owner.last_name }}</p>
     <p>Date of birth: {{ car_owner.date_of_birth|date:"Y.m.d" }}</p>
+    <a href={% url 'car-owner-list' %}>Back</a>
 {% endblock main %}
