@@ -17,9 +17,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class UserSerializer(serializers.ModelSerializer):
-    user_guest = GuestSerializer()
-    user_employee = EmployeeSerializer()
+class MyUserSerializer(serializers.ModelSerializer):
+    user_guest = GuestSerializer(required=False)
+    user_employee = EmployeeSerializer(required=False)
 
     class Meta:
         model = User
