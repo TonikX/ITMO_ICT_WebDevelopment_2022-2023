@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Вход</h1>
+    <form action="" method="POST" class="d-flex flex-column col-lg-3">
+        {% csrf_token %}
+        <label for="username">Имя пользователя</label>
+        <input type="text" name="username">
+
+        <label for="password">Пароль</label>
+        <input type="password" name="password">
+
+
+        <button type="submit" class="btn btn-sm btn-outline-secondary mt-2">Войти</button>
+    </form>
+{% endblock %}
