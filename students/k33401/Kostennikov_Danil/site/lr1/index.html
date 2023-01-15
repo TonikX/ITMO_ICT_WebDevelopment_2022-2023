@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Lab 1 - Kostennikov documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Lab 1";
+        var mkdocs_page_input_path = "lr1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Kostennikov documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Lab 1</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#task-1">Task 1</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#task-2">Task 2</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#task-3">Task 3</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#task-4">Task 4</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#task-5">Task 5</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Kostennikov documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Lab 1</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="lab-1">Lab 1</h1>
+<h2 id="task-1">Task 1</h2>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code class="language-python">import socket
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+s.send(b'Hello server')
+
+msg = s.recv(1024)
+print(msg.decode(&quot;utf-8&quot;))
+</code></pre>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code class="language-python">import socket
+HOST = '127.0.0.1'
+PORT = 14900
+s = socket.socket()
+s.bind((HOST, PORT))
+s.listen()
+
+while True:
+    cliensocket, address = s.accept()
+    print(f&quot;Connection from {address} has been esteblished&quot;)
+    cliensocket.send(b'Hello cleint')
+    msg = cliensocket.recv(1024)
+    if not msg:
+        break
+    print(msg.decode(&quot;utf-8&quot;))
+    cliensocket.close()
+</code></pre>
+<h2 id="task-2">Task 2</h2>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code class="language-python">import socket
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+m = ''
+while not m.isdigit():
+    m = input(&quot;Enter m of trapezoid: &quot;)
+
+h = ''
+while not h.isdigit():
+    h = input(&quot;Enter h of trapezoid: &quot;)
+
+#s.send(b'Hello server')
+s.send(m.encode())
+s.send(h.encode())
+res = s.recv(1024)
+print(res.decode(&quot;utf-8&quot;))
+</code></pre>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code class="language-python">import socket
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST, PORT))
+s.listen()
+
+while True:
+    cliensocket, address = s.accept()
+    print(f&quot;Connection from {address} has been esteblished&quot;)
+    m = float(cliensocket.recv(1024).decode())
+    if not m:
+        break
+    #print(m)
+    h = float(cliensocket.recv(1024).decode())
+    if not h:
+        break    
+    #print(h)
+    res = m*h
+    res = str(res)
+    cliensocket.send(res.encode())
+
+cliensocket.close()
+</code></pre>
+<h2 id="task-3">Task 3</h2>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code class="language-python">import socket
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+full_msg = ''
+while True:
+    msg = s.recv(1024)
+    if len(msg) &lt;=0:
+        break
+    full_msg += msg.decode(&quot;utf-8&quot;)
+
+print(full_msg)
+</code></pre>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code class="language-python">
+import socket
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST, PORT))
+s.listen()
+
+while True:
+    cliensocket, address = s.accept()
+    print(f&quot;Connection from {address} has been esteblished&quot;)
+    html_file = open('index.html', 'r').read()
+    cliensocket.sendall(f'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n{html_file}'.encode())
+    cliensocket.close()
+</code></pre>
+<h2 id="task-4">Task 4</h2>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code class="language-python">import socket
+import threading
+
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+name = input(&quot;Enter your name: &quot;)
+
+
+def receive():
+    while True:
+        res = s.recv(1024)
+        print(res.decode(&quot;utf-8&quot;))
+
+def write():
+    while True:
+        mes = input('')
+        s.send(f&quot;{name}: {mes}&quot;.encode(&quot;utf-8&quot;))
+
+
+thread = threading.Thread(target=write)
+thread2 = threading.Thread(target=receive)
+thread2.start() , thread.start()
+</code></pre>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code class="language-python">import socket
+import threading
+HOST = '127.0.0.1'
+PORT = 14900
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((HOST, PORT))
+s.listen()
+
+clients = []
+
+def brodcast(message):
+    print(message)
+    for client in clients:
+        client.send(message)
+
+def handle(client):
+    while True:
+        try:
+            message = client.recv(1024)
+            brodcast(message)
+        except:
+            index = clients.index(client)
+            clients.remove(client)
+            client.close()
+            break
+
+def receive():
+    while True:
+        client, address = s.accept()
+        print(&quot;Connected with {}&quot;.format(str(address)))
+        clients.append(client)
+
+        thread = threading.Thread(target=handle, args=(client,))
+        thread.start()
+
+receive()
+</code></pre>
+<h2 id="task-5">Task 5</h2>
+<ul>
+<li>MyHTTPServer.py</li>
+</ul>
+<pre><code class="language-python">
+import json
+import socket
+import sys
+from email.parser import Parser
+from functools import lru_cache
+from urllib.parse import parse_qs, urlparse
+
+MAX_LINE = 64*1024
+MAX_HEADERS = 100
+
+class MyHTTPServer:
+  def __init__(self, host, port, server_name):
+    self._host = host
+    self._port = port
+    self._server_name = server_name
+    self.marks = {}
+
+  def serve_forever(self):
+    serv_sock = socket.socket(
+      socket.AF_INET,
+      socket.SOCK_STREAM,
+      proto=0)
+
+    try:
+      serv_sock.bind((self._host, self._port))
+      serv_sock.listen()
+
+      while True:
+        conn, _ = serv_sock.accept()
+        try:
+          self.serve_client(conn)
+        except Exception as e:
+          print('Client serving failed', e)
+    finally:
+      serv_sock.close()
+
+  def serve_client(self, conn):
+    try:
+      req = self.parse_request(conn)
+      resp = self.handle_request(req)
+      self.send_response(conn, resp)
+    except ConnectionResetError:
+      conn = None
+    except Exception as e:
+      self.send_error(conn, e)
+
+    if conn:
+      req.rfile.close()
+      conn.close()
+
+  def parse_request(self, conn):
+    rfile = conn.makefile('rb')
+    method, target, ver = self.parse_request_line(rfile)
+    headers = self.parse_headers(rfile)
+    host = headers.get('Host')
+    if not host:
+      raise HTTPError(400, 'Bad request',
+        'Host header is missing')
+    if host not in (self._server_name,
+                    f'{self._server_name}:{self._port}'):
+      raise HTTPError(404, 'Not found')
+    return Request(method, target, ver, headers, rfile)
+
+  def parse_request_line(self, rfile):
+    raw = rfile.readline(MAX_LINE + 1)
+    if len(raw) &gt; MAX_LINE:
+      raise HTTPError(400, 'Bad request',
+        'Request line is too long')
+
+    req_line = str(raw, 'iso-8859-1')
+    words = req_line.split()
+    if len(words) != 3:
+      raise HTTPError(400, 'Bad request',
+        'Malformed request line')
+
+    method, target, ver = words
+    if ver != 'HTTP/1.1':
+      raise HTTPError(505, 'HTTP Version Not Supported')
+    return method, target, ver
+
+  def parse_headers(self, rfile):
+    headers = []
+    while True:
+      line = rfile.readline(MAX_LINE + 1)
+      if len(line) &gt; MAX_LINE:
+        raise HTTPError(494, 'Request header too large')
+
+      if line in (b'\r\n', b'\n', b''):
+        break
+
+      headers.append(line)
+      if len(headers) &gt; MAX_HEADERS:
+        raise HTTPError(494, 'Too many headers')
+
+    sheaders = b''.join(headers).decode('iso-8859-1')
+    return Parser().parsestr(sheaders)
+
+  def handle_request(self, req):
+    if req.path == '/marks' and req.method == 'POST':
+      return self.handle_post_marks(req)
+
+    if req.path == '/marks' and req.method == 'GET':
+      return self.handle_get_marks(req)
+
+    if req.path.startswith('/mark/'):
+      subject_id = req.path[len('/mark/'):]
+      print(subject_id)
+      print('')
+      if subject_id.isdigit():
+        return self.handle_get_user(req, subject_id)
+
+    raise HTTPError(404, 'Not found')
+
+  def send_response(self, conn, resp):
+    wfile = conn.makefile('wb')
+    status_line = f'HTTP/1.1 {resp.status} {resp.reason}\r\n'
+    wfile.write(status_line.encode('iso-8859-1'))
+
+    if resp.headers:
+      for (key, value) in resp.headers:
+        header_line = f'{key}: {value}\r\n'
+        wfile.write(header_line.encode('iso-8859-1'))
+
+    wfile.write(b'\r\n')
+
+    if resp.body:
+      wfile.write(resp.body)
+
+    wfile.flush()
+    wfile.close()
+
+  def send_error(self, conn, err):
+    try:
+      status = err.status
+      reason = err.reason
+      body = (err.body or err.reason).encode('utf-8')
+    except:
+      status = 500
+      reason = b'Internal Server Error'
+      body = b'Internal Server Error'
+    resp = Response(status, reason,
+                   [('Content-Length', len(body))],
+                   body)
+    self.send_response(conn, resp)
+
+  def handle_post_marks(self, req):
+    mark = int(req.query['mark'][0])
+    if  mark &lt; 1 or mark &gt; 5:
+        return Response(401, 'Value of mark have to be between 1 and 5')
+    subject_id = len(self.marks) + 1
+    self.marks[subject_id] = {'id': subject_id,
+                            'name': req.query['name'][0],
+                            'mark': req.query['mark'][0]}
+
+    return Response(204, 'Created')
+
+  def handle_get_marks(self, req):
+    accept = req.headers.get('Accept')
+    if 'text/html' in accept:
+      contentType = 'text/html; charset=utf-8'
+      body = '&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;'
+      body += f'&lt;div&gt;Marks ({len(self.marks)})&lt;/div&gt;'
+      body += '&lt;ul&gt;'
+      for m in self.marks.values():
+        body += f'&lt;li&gt;#{m[&quot;id&quot;]} {m[&quot;name&quot;]}, {m[&quot;mark&quot;]}&lt;/li&gt;'
+      body += '&lt;/ul&gt;'
+      body += '&lt;/body&gt;&lt;/html&gt;'
+
+    elif 'application/json' in accept:
+      contentType = 'application/json; charset=utf-8'
+      body = json.dumps(self.marks)
+
+    else:
+      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+      return Response(406, 'Not Acceptable')
+
+    body = body.encode('utf-8')
+    headers = [('Content-Type', contentType),
+               ('Content-Length', len(body))]
+    return Response(200, 'OK', headers, body)
+    mark = self.marks.get(int(mark_id))
+    if not mark:
+      raise HTTPError(404, 'Not found')
+
+    accept = req.headers.get('Accept')
+    if 'text/html' in accept:
+      contentType = 'text/html; charset=utf-8'
+      body = '&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;'
+      body += f'#{mark[&quot;id&quot;]} {mark[&quot;name&quot;]}, {mark[&quot;age&quot;]}'
+      body += '&lt;/body&gt;&lt;/html&gt;'
+
+    elif 'application/json' in accept:
+      contentType = 'application/json; charset=utf-8'
+      body = json.dumps(mark)
+
+    else:
+      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+      return Response(406, 'Not Acceptable')
+
+    body = body.encode('utf-8')
+    headers = [('Content-Type', contentType),
+               ('Content-Length', len(body))]
+    return Response(200, 'OK', headers, body)
+
+
+class Request:
+  def __init__(self, method, target, version, headers, rfile):
+    self.method = method
+    self.target = target
+    self.version = version
+    self.headers = headers
+    self.rfile = rfile
+
+  @property
+  def path(self):
+    return self.url.path
+
+  @property
+  @lru_cache(maxsize=None)
+  def query(self):
+    return parse_qs(self.url.query)
+
+  @property
+  @lru_cache(maxsize=None)
+  def url(self):
+    return urlparse(self.target)
+
+  def body(self):
+    size = self.headers.get('Content-Length')
+    if not size:
+      return None
+    return self.rfile.read(size)
+
+class Response:
+  def __init__(self, status, reason, headers=None, body=None):
+    self.status = status
+    self.reason = reason
+    self.headers = headers
+    self.body = body
+
+class HTTPError(Exception):
+  def __init__(self, status, reason, body=None):
+    super()
+    self.status = status
+    self.reason = reason
+    self.body = body
+
+
+if __name__ == '__main__':
+  host = sys.argv[1]
+  port = int(sys.argv[2])
+  name = sys.argv[3]
+
+  serv = MyHTTPServer(host, port, name)
+  try:
+    serv.serve_forever()
+  except KeyboardInterrupt:
+    pass
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
