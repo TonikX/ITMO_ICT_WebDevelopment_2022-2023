@@ -9,5 +9,5 @@ urlpatterns = [
     path('hotel/', HotelViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('hotel/<int:pk>/', HotelViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     path('hotel/room_type/<int:pk>/', RoomTypeViewSet.as_view({'get': 'retrieve', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
-    path('hotel/room_type/room/<int:pk>/', RoomViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+    path('hotel/room_type/room/<int:pk>/', RoomViewSet.as_view({'get': 'retrieve', 'post': 'create', 'put': 'update', 'delete': 'destroy'})),
 ]
