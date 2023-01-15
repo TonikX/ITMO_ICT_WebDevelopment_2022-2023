@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'djoser',
     'django_extensions',
     'crypto_wallet_app',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
