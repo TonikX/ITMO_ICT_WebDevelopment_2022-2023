@@ -1,22 +1,22 @@
 <template>
   <main class="text-center sign-body">
     <div class="sign-form w-100 m-auto">
-        <LoginForm />
+      <RegisterForm/>
     </div>
   </main>
 </template>
 
 <script>
-import LoginForm from "../components/LoginForm.vue";
+import RegisterForm from "../components/RegisterForm.vue";
 
 export default {
-  name: "LoginView",
+  name: "RegisterView",
   components: {
-    LoginForm
+    RegisterForm
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
