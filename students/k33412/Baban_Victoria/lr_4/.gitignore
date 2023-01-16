@@ -1,0 +1,7 @@
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+lab4-venv
+node_modules
