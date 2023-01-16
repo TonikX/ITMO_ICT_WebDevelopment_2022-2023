@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car owner</title>
+</head>
+<body>
+<div class="main">
+    <table>
+        <tr><th>Фамилия</th><th>Имя</th><th>Дата рождения</th></tr>
+        {% for d in data %}
+            <tr>
+                <td>{{ d.last_name }}</td>
+                <td>{{ d.first_name }}</td>
+                <td>{{ d.date_of_birthday }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
