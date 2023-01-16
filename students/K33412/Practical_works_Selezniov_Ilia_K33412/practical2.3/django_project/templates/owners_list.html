@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>
+        <a href="/owners">Владельцы</a>
+        <a href="/cars">Машины</a>
+    </h3>
+
+    {% for object in object_list %}
+
+    <li>
+        <a href="/owners/{{ object.id }}">{{ object.first_name }}</a>
+        {{ object.last_name }}
+    </li>
+
+    <hr>
+    {% endfor %}
+
+    <a href="/create_owner">Добавить владельца</a>
+
+</body>
+
+</html>
