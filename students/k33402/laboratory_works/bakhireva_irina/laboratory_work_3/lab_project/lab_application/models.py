@@ -24,7 +24,7 @@ ROLE_CHOICES = (
 class User(AbstractUser):
 	REQUIRED_FIELDS = ["first_name", "last_name", "phone", "email"]
 
-	role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, null=True)
+	role = models.PositiveSmallIntegerField(choices=ROLE_CHOICES, default=ROLE_APPLICANT, null=True)
 	phone = models.TextField()
 
 

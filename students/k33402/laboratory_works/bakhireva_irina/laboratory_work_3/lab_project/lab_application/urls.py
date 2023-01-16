@@ -6,7 +6,7 @@ from rest_framework import permissions
 from lab_application.views import SpecializationsListView, VacanciesListView, VacancyView, MyCVGetUpdateView, \
 	CoursesListView, CoursesForCVListView, SpecializationsForCVListView, CompaniesListView, CompanyView, MyCompanyView, \
 	GetListAndCreateVacancyListView, GetAndUpdateVacancyView, GetCVSForVacancyListView, VacanciesForCVListView, \
-	CVSListView, CVView
+	CVSListView, CVView, UserView
 
 schema_view = get_schema_view(
 	openapi.Info(
@@ -41,5 +41,6 @@ urlpatterns = [
 	path("company/my/vacancy/<pk>/cvs", GetCVSForVacancyListView.as_view()),
 	path("company/<pk>/", CompanyView.as_view()),
 	path("cvs/", CVSListView.as_view()),
-	path("cv/<pk>", CVView.as_view()),
+	path("cv/<pk>/", CVView.as_view()),
+	path("user/", UserView.as_view()),
 ]

@@ -1,3 +1,4 @@
+from django.db.models import Max
 from rest_framework import serializers
 
 from lab_application.models import *
@@ -42,6 +43,14 @@ class FullUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ["id", "first_name", "last_name", "phone", "email"]
+
+
+class RoleUserSerializer(serializers.ModelSerializer):
+	role = serializers.CharField(source="get_role_display", read_only=True)
+
+	class Meta:
+		model = User
+		fields = ["id", "first_name", "last_name", "phone", "email", "role"]
 
 
 class FullHRSerializer(serializers.ModelSerializer):
@@ -128,11 +137,12 @@ class ShortUserSerializer(serializers.ModelSerializer):
 
 class ShortApplicantSerializer(serializers.ModelSerializer):
 	user = ShortUserSerializer(read_only=True)
-	specializations = serializers.SerializerMethodField("get_specializations")
+	education = serializers.SerializerMethodField()
+	specializations = serializers.SerializerMethodField()
 
 	class Meta:
 		model = Applicant
-		fields = ["user", "specializations"]
+		fields = ["user", "education", "specializations"]
 
 	def get_specializations(self, applicant: Applicant):
 		user_specs = \
@@ -140,6 +150,10 @@ class ShortApplicantSerializer(serializers.ModelSerializer):
 			    [history.spec.id for history in applicant.work_history.all() if history.spec])
 		specs = Specialization.objects.filter(id__in=user_specs)
 		return FullSpecializationSerializer(specs, many=True).data
+
+	def get_education(self, applicant: Applicant):
+		user_education = applicant.education.aggregate(Max("education_level"))["education_level__max"]
+		return EDUCATION_LEVEL_CHOICES[user_education-1][1] if user_education else ""
 
 	def to_representation(self, instance):
 		response = super().to_representation(instance)

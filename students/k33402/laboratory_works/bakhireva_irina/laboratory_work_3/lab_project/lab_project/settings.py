@@ -39,10 +39,12 @@ INSTALLED_APPS = [
 	"rest_framework.authtoken",
 	"djoser",
 	'drf_yasg',
-	"lab_application"
+	"lab_application",
+	'corsheaders'
 ]
 
 MIDDLEWARE = [
+	'corsheaders.middleware.CorsMiddleware',
 	"django.middleware.security.SecurityMiddleware",
 	"django.contrib.sessions.middleware.SessionMiddleware",
 	"django.middleware.common.CommonMiddleware",
@@ -116,3 +118,10 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'lab_application.User'
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+	'http://localhost:5173',
+	'http://127.0.0.1:5173',
+)

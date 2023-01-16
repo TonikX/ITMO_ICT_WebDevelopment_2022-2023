@@ -11,7 +11,7 @@ from lab_application.models import *
 from lab_application.serializers import FullSpecializationSerializer, ShortVacancySerializer, FullVacancySerializer, \
 	FullApplicantSerializer, EditApplicantSerializer, CourseSerializer, ShortCompanySerializer, \
 	FullCompanyAndVacanciesSerializer, ShortVacancyWithoutCompanySerializer, CreateVacancySerializer, \
-	EditVacancySerializer, ShortApplicantSerializer
+	EditVacancySerializer, ShortApplicantSerializer, RoleUserSerializer
 
 specialization = openapi.Parameter('specialization', openapi.IN_QUERY,
                                    description="Фильтр вывода по требуемой профессии",
@@ -95,6 +95,7 @@ class MyCVGetUpdateView(APIView):
 		)
 	})
 	def get(self, request, *args, **kwargs):
+		print(request.user.role)
 		check_user_role(request.user, ROLE_APPLICANT)
 		user_cv = Applicant.objects.get(user=request.user)
 		serializer = FullApplicantSerializer(user_cv)
@@ -314,9 +315,9 @@ class GetCVSForVacancyListView(APIView):
 
 		applicants = Applicant.objects \
 			.filter(Q(work_history__spec__id__in=spec_ids) | Q(courses__course__spec__id__in=spec_ids)) \
-			.filter(education__education_level__gte=vacancy.education_level)
+			.filter(education__education_level__gte=vacancy.education_level).distinct()
 
-		serializer = FullApplicantSerializer(applicants, many=True)
+		serializer = ShortApplicantSerializer(applicants, many=True)
 		return Response(serializer.data)
 
 
@@ -356,4 +357,13 @@ class CVView(APIView):
 		check_user_role(self.request.user, ROLE_HR)
 		applicant = Applicant.objects.get(user=pk)
 		serializer = FullApplicantSerializer(applicant)
+		return Response(serializer.data)
+
+
+class UserView(APIView):
+	authentication_classes = [TokenAuthentication]
+	permission_classes = [IsAuthenticated]
+
+	def get(self, request):
+		serializer = RoleUserSerializer(self.request.user)
 		return Response(serializer.data)
