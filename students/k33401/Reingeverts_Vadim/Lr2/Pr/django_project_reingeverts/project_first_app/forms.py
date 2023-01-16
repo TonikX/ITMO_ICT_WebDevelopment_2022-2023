@@ -10,8 +10,13 @@ class CarOwnerForm(forms.ModelForm):
 
         # specify fields to be used
         fields = [
-            "ownership_id",
             "last_name",
             "first_name",
+            "username",
+            "password",
+            "ownership_id",
             "date_of_birth",
+            "passport",
+            "address",
+            "nationality",
         ]

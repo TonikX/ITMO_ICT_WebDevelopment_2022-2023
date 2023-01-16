@@ -1,3 +1,6 @@
+from django import forms
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -35,14 +38,27 @@ class Ownership(models.Model):
         return f"{self.car_id.__str__()} ({date_range})"
 
 
-class CarOwner(models.Model):
-    ownership_id = models.ManyToManyField('Ownership')
+class CarOwner(AbstractUser):
+
+    ownership_id = models.ManyToManyField('Ownership', blank=True)
     last_name = models.CharField(max_length=30)
     first_name = models.CharField(max_length=30)
     date_of_birth = models.DateTimeField(max_length=30, null=True, blank=True)
 
+    passport = models.CharField(max_length=10)
+    address = models.CharField(max_length=200, blank=True)
+    nationality = models.CharField(max_length=50, blank=True)
+
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return f"{self.username} ({self.first_name} {self.last_name})"
+
+    class Meta:
+        verbose_name = "Car owner"
+        verbose_name_plural = "Car owners"
+
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+        super().save(*args, **kwargs)
 
 
 class DriverLicense(models.Model):

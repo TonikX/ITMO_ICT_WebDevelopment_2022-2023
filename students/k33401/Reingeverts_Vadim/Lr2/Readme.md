@@ -27,7 +27,7 @@ Install djlint extension and add its config - `.djlintrc`:
 ### Running
 
 ```bash
-python django_project_reingeverts/manage.py makemigrations && python django_project_reingeverts/manage.py migrat e && python django_project_reingeverts/manage.py runserver
+python django_project_reingeverts/manage.py makemigrations && python django_project_reingeverts/manage.py migrate && python django_project_reingeverts/manage.py runserver
 ```
 
 ### Admin
@@ -55,6 +55,10 @@ View
 ### Practical work 2.2.3
 
 ![](https://i.imgur.com/vwzqnWc.gif)
+
+### Practical work 2.3
+
+![](https://i.imgur.com/FlRST5k.png)
 
 ## Lab work part
 
