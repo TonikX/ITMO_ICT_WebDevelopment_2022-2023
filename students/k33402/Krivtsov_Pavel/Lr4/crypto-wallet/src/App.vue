@@ -2,11 +2,15 @@
 import $ from "jquery";
 
 export default {
+  computed: {
+    auth_token() {
+      return localStorage.getItem("auth_token")
+    }
+  },
   created() {
-    let authToken = localStorage.getItem("auth_token")
-    if (authToken) {
+    if (this.auth_token) {
       $.ajaxSetup({
-        headers: {'Authorization': "Token" + authToken}
+        headers: {'Authorization': "Token" + " " + this.auth_token}
       })
     }
   }
