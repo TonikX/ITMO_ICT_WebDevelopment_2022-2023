@@ -47,6 +47,7 @@ export default {
         },
         success: (response) => {
           localStorage.setItem("auth_token", response.auth_token)
+          $.ajaxSetup({headers: {'Authorization': "Token" + " " + response.auth_token}})
           this.$router.push({name: "welcome"})
         },
         error: (response) => {
