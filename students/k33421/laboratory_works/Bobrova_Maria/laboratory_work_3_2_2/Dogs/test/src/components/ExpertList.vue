@@ -1,10 +1,18 @@
 <template>
 <div>
+      <v-card
+      elevation="2"
+      outlined
+      class="my-2"
+    >
+    <v-card-text>
  <div  v-for="expert in experts" :key="expert.id"> <!-- v-for - директива для отображения списка элементов на основе массива. -->
    <div><strong>Имя:</strong> {{ expert.name }}</div>
    <div><strong>Фамилия:</strong> {{ expert.last_name }}</div>
-   <div><strong>Клуб:</strong> {{ expert.club }}</div>
+   <div><strong>Клуб:</strong> {{ expert.club }}</div><br>
  </div>
+    </v-card-text>
+      </v-card>
 </div>
 </template>
 

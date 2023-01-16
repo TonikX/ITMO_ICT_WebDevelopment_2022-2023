@@ -1,75 +1,20 @@
 <template>
   <div class="edit">
-      <div>
-        <h2>Личный кабинет</h2>
-      </div>
-
-      <h3>Форма регистрации вашей собаки</h3>  
-
-     <form @submit.prevent="signDogs"
-      ref="editForm"
-      class="my-2">
-      <div class="row">
-
-
-        <div class="col-25">
-          <label for="fname">Кличка</label>
-        </div>
-        <div class="col-75">
-          <input v-model="name" type="text" id="fname" name="name" placeholder="Кличка">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="breed">Порода</label>
-        </div>
-        <div class="col-75">
-          <select v-model="breed" id="breed" name="breed">
-            <option value="h">haski</option>
-            <option value="t">terrier</option>
-            <option value="b">bulldog</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="age">Возраст</label>
-        </div>
-        <div class="col-75">
-          <input v-model="age" id="age" name="age" placeholder="Возраст">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="family">Родословная</label>
-        </div>
-        <div class="col-75">
-          <textarea v-model="family" id="family" name="family" placeholder="Родословная"></textarea>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="owner_data">Данные хозяина</label>
-        </div>
-        <div class="col-75">
-          <textarea v-model="owner_data" id="owner_data" name="owner_data" placeholder="Данные хозяина"></textarea>
-        </div>
-      </div>
-    
-      <button type="submit">Зарегистрировать</button>
-       
-  </form>
-  <br>
-    <div>
-      <div style="margin-top:1cm">
-        <!--<a @click.prevent="goCatalogue">Каталог</a><br>-->
-        <a @click.prevent="goHome">На главную</a>
-      </div>
-    </div>
+    <h2>Личный кабинет</h2>
+    <h3>Добро пожаловать, {{login ()}} </h3>
+    <v-card>
+      <v-card-text style="margin-top:1cm">
+        <div class="text--primary">
+          Имя: <b>{{ this.first_name }}</b> <br>
+          Фамилия: <b>{{ this.last_name }} </b><br>
+          Телефон: <b>{{ this.tel }} </b><br>
+        </div><br><br>
+        <a @click.prevent="goRegister" style="text-decoration: none; color: #4E342E">Зарегистрировать собаку</a> <br>
+        <a @click.prevent="goGrade" style="text-decoration: none; color: #4E342E">Оценить собаку</a> <br>
+        <a @click.prevent="goEdit" style="text-decoration: none; color: #4E342E">Редактировать профиль</a> <br>
+        <a @click.prevent="goHome" style="text-decoration: none; color: #4E342E">На главную</a>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -78,48 +23,51 @@
 import $ from "jquery";
 export default {
   name: 'Profile',
-
-  data: () => ({
-    editForm: {
-      //participant: Object,
-      name: '',
-      breed: '',
-      age: '',
-      family: '',
-      owner_data: '',
-      //club
-    },
-    options: ['h', 'b', 't']
-  }),
-
+  data () {
+    return {
+      userme: Object,
+      first_name: '',
+      last_name: '',
+      tel: '',
+    }
+  },
+  created () {
+    this.loadReaderData()
+  },
 
   methods: {
-    async signDogs () {
-      
-      $.ajax({
-                type: "POST",
-                data: {
-                        name: this.name,
-                        breed: this.breed,
-                        age: this.age,
-                        family: this.family,
-                        owner_data: this.owner_data
-                },
-                url: "http://127.0.0.1:8000/participants/"
-            }).done(function () {
-                console.log(this.data)
-                //this.$router.push({ name: 'participants' }) //сделать Participants.vue
-            });
+
+    async loadReaderData () {
+      const response = await this.axios
+        .get('http://127.0.0.1:8000/auth/users/me/', {
+          headers: {
+            Authorization: `Token ${sessionStorage.getItem('auth_token')}`
+          }
+        })
+      this.first_name = response.data.first_name
+      this.last_name = response.data.last_name
+      this.tel = response.data.tel
     },
-   
 
     goHome () {
       this.$router.push({ name: 'home' })
     },
 
-    //goEdit () {
-      //this.$router.push({ name: 'profile_edit' })
-    //}
+    goRegister () {
+      this.$router.push({ name: 'regdog' })
+    },
+
+    goEdit () {
+      this.$router.push({ name: 'profile_edit' })
+    },
+
+    goGrade () {
+      this.$router.push({ name: 'grading' })
+    },
+
+    login () {
+      return (sessionStorage.getItem('username'))
+}
   }
 }
 </script>

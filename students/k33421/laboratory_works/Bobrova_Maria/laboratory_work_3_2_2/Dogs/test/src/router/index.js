@@ -11,6 +11,8 @@ import LogOut from '../views/reader/LogOut.vue'
 import ParticipationView from "@/components/ParticipationView.vue";
 import ExpertsView from "@/components/ExpertsView.vue";
 import ParticipantsView from "@/components/ParticipantsView.vue";
+import DogRegister from "@/views/reader/DogRegister.vue"
+import DogGrade from "@/views/reader/DogGrade.vue"
 
 Vue.use(VueRouter)
 
@@ -66,6 +68,17 @@ const routes = [
     path: '/participants', // конкретный url-адрес
     component: ParticipantsView // Ссылка на компонент
   },
+  
+  {
+    path: '/show/profile/regdog',
+    name: 'regdog',
+    component: DogRegister
+  },
+  {
+    path: '/show/profile/grading',
+    name: 'grading',
+    component: DogGrade
+  }
 
 ]
 

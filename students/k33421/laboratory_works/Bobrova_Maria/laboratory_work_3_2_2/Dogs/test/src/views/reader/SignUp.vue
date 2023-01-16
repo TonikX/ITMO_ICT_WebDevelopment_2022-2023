@@ -19,7 +19,7 @@
           <button type="submit">Зарегистрироваться</button>
 
     </form>
-    <p class="mt-15">Уже зарегистрированы? <router-link to="/show/signin">Войти</router-link></p>
+    <p class="mt-15">Уже зарегистрированы? <router-link to="/show/signin" style="text-decoration: none; color: #4E342E">Войти</router-link></p>
   </div>
 </template>
 
@@ -46,7 +46,8 @@ export default {
                 url: "http://127.0.0.1:8000/auth/users/"
             }).done(function () {
                 console.log(this.data)
-                this.$router.push({ name: 'signin' })
+                alert("Спасибо за регистрацию")
+                //this.$router.push({ name: 'signin' })
             });
     }
   }
