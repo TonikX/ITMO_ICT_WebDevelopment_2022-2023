@@ -12,10 +12,6 @@ body {
     background-color: var(--nav-bg-color);
 }
 
-.bg-main {
-    background-color: var(--main-bg-color);
-}
-
 .bg-side {
     background-color: var(--secondary-bg-color);
 }
