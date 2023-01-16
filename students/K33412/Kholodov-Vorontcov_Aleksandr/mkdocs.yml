@@ -13,3 +13,5 @@ markdown_extensions:
 nav:
  - Знакомство: index.md
  - Лабораторная работа №1: labs/lab_1.md
+ - Лабораторная работа №2: labs/lab_2.md
+
