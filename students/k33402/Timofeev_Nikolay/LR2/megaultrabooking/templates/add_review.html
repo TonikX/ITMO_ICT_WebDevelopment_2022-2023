@@ -1,9 +1,0 @@
-<h1>Новый отзыв. {{booking.room.hotel.name}} ({{booking.room.room_type}})</h1>
-
-<a href="/hotels">Обратно к списку отелей</a>
-
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
