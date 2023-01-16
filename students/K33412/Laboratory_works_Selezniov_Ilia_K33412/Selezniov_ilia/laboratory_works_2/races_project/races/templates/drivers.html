@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class = "row justify-content-md-center">
+	<div class = "col-md-4">
+		<h4>Drivers:</h4>
+		<hr>
+		{% if drivers|length == 0 %}
+		<p>There is no drivers registered yet</p>
+		{% endif %}
+		{% for reg in regs %}
+		<div class = "card card-body">
+			<h6>{{reg.driver.name}} {{reg.driver.surname}}</h6>
+			{% if reg.place == 1 %}
+			<a style="color: white; background: gold;" class="btn place">#{{reg.place}}</a>
+			{% endif %}
+			{% if reg.place == 2 %}
+			<a style="color: white; background: silver;" class="btn place">#{{reg.place}}</a>
+			{% endif %}
+			{% if reg.place == 3 %}
+			<a style="color: white; background: #CD7F32;" class="btn place">#{{reg.place}}</a>
+			{% endif %}
+			{% if reg.place > 3 %}
+			<a class="btn place">#{{reg.place}}</a>
+			{% endif %}
+			<hr>
+			<p>Team: {{reg.driver.team}}</p>
+			<p>Age: {{reg.driver.age}}</p>
+			<p>Country: {{reg.driver.country}}</p>
+			<p>Experinece: {{reg.driver.experience}}</p>
+			<p>Class: {{reg.driver.driver_class}}</p>
+
+		</div>
+		<p></p>
+		{% endfor %}
+	</div>
+	<div class = "col-md-3">
+		<h4>Cars:</h4>
+		<hr>
+		{% if cars|length == 0 %}
+		<p>There is no cars</p>
+		{% endif %}
+		{% for reg in regs %}
+		<div class = "card card-body">
+			<h6>{{ reg.car.car_model }} {{ reg.car.number }}</h6>
+			<hr>
+			<p>Speed: {{ reg.car.speed }}km/h</p>
+			<p>Class:  {{ reg.car.car_class }}</p>
+			<p>Weight: {{ reg.car.weight }}kg</p>
+			<p>Length: {{ reg.car.length }}m</p>
+			<p>Mileage: {{ reg.car.mileage }}km</p>
+		</div>
+		<p></p>
+		{% endfor %}
+	</div>
+</div>
+
+{% endblock %}
