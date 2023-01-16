@@ -2,11 +2,14 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
-class Car_owner(models.Model):
-    last_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    date_of_birthday = models.DateField()
 
+class Car_owner(AbstractUser):
+    last_name = models.CharField(max_length = 30)
+    first_name = models.CharField(max_length = 30)
+    date_of_birthday = models.DateField()
+    passport = models.IntegerField(null=True)
+    address = models.CharField(max_length=50, null=True, blank=True)
+    nationality = models.CharField(max_length=20, null=True, blank=True)
 
 class Car(models.Model):
     state_number = models.CharField(max_length=15)
