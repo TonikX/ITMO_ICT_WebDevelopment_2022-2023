@@ -37,5 +37,7 @@ nav:
           - Общее: "lr4/common.md"
           - Applicant: "lr4/applicant.md"
           - HR: "lr4/hr.md"
+  - Practical work:
+      - Pr3.1: pr3.1.md
 theme:
   name: mkdocs
