@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ввод паспорта
+{% endblock %}
+
+{% block form %}
+
+<form method="POST">
+    <div class="d-flex justify-content-center ">
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        <div class="d-flex p-2 flex-column ">
+            <label>Введите номер паспорта:</label>
+            <input type="text" name="id_passport">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center p-2">
+        <input type="submit" class="btn btn-primary p-2 "></input>
+    </div>
+</form>
+
+{% endblock %}
