@@ -3,6 +3,10 @@ body {
     height: 100%;
 }
 
+.box {
+    height: 100%;
+}
+
 .bg-navbar {
     background-color: var(--nav-bg-color);
 }
@@ -33,7 +37,7 @@ body {
     font-size: 1.2rem;
     color: var(--logo-color);
     text-decoration: none;
-    white-space:nowrap
+    white-space: nowrap
 }
 
 @media only screen and (max-width: 991px) {
@@ -49,10 +53,10 @@ body {
 .btn-main {
     --bs-btn-color: var(--secondary-color);
     --bs-btn-bg: var(--main-color);
-    --bs-btn-border-color: var(--secondary-color);
+    --bs-btn-border-color: var(--main-color);
     --bs-btn-hover-color: var(--secondary-color);
     --bs-btn-hover-bg: var(--main-focused-color);
-    --bs-btn-hover-border-color: var(--secondary-color);
+    --bs-btn-hover-border-color: var(--main-color);
     --bs-btn-focus-shadow-rgb: 130, 138, 145;
     --bs-btn-active-color: var(--secondary-color);
     --bs-btn-active-bg: var(--main-color);
@@ -74,7 +78,12 @@ body {
     --bs-btn-disabled-color: var(--secondary-bg-color);
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--secondary-bg-color);
-    --bs-gradient:none
+    --bs-gradient: none
+}
+
+.logo-link, .logo-link:focus, .logo-link:hover {
+    color: var(--side-link);
+    text-decoration: none;
 }
 
 .link-main {
@@ -119,10 +128,9 @@ body {
 }
 
 .sign-body {
+    height: 100%;
     display: flex;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
     background-color: var(--main-bg-color);
 }
 
