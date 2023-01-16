@@ -19,5 +19,5 @@ class Request:
 class Response:
     status: int
     reason: str
-    headers: str = "Content-Type: text/html; charset=utf-8"
     body: str | None
+    headers: str = "Content-Type: text/html; charset=utf-8"

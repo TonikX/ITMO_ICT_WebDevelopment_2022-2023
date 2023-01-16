@@ -6,5 +6,6 @@ from . import models
 
 admin.site.register(models.User)
 admin.site.register(models.MarketEntry)
-admin.site.register(models.MarketRequest)
+admin.site.register(models.MarketOffer)
 admin.site.register(models.MarketRequestDeal)
+admin.site.register(models.UserBalance)

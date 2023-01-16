@@ -15,6 +15,29 @@ class User(AbstractUser):
         balance, _ = UserBalance.objects.get_or_create(user=self)
         return balance.balance
 
+    @property
+    def owned_assets(self):
+        assets = {}
+        for e in MarketEntry.objects.all():
+            bought = sum([
+                d.request.count
+                for d in MarketRequestDeal.objects.filter(
+                    buyer=self,
+                    request__entry=e,
+                ).all()
+            ])
+            sold = sum([
+                d.request.count 
+                for d in MarketRequestDeal.objects.filter(
+                    request__seller=self,
+                    request__entry_id=e,
+                ).all()
+            ])
+            amount = max(bought - sold, 0)
+            if amount != 0:
+                assets[e.id] = {'amount' : max(bought - sold, 0), 'meta': str(e)} # type: ignore
+        return assets
+
     def __str__(self) -> str:
         return self.username
 
@@ -50,7 +73,7 @@ class MarketEntry(models.Model):
     def last_price(self) -> float:
         deal = MarketRequestDeal.objects.filter(request__entry=self).last()
         if deal:
-            return float(deal.request.total_price)
+            return float(deal.request.price)
         return 0.0
 
     @property
@@ -77,10 +100,16 @@ class MarketEntry(models.Model):
         return self.name
 
 
-class MarketRequest(models.Model):
+class OfferType(models.TextChoices):
+    sell = ('s', 'Sell')
+    buy = ('b', 'Buy')
+
+
+class MarketOffer(models.Model):
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     entry = models.ForeignKey(MarketEntry, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
+    type = models.CharField(max_length=2, choices=OfferType.choices, default=OfferType.buy)
     count = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     ts_created = models.DateTimeField(auto_now=True, editable=True)
@@ -95,7 +124,7 @@ class MarketRequest(models.Model):
 
 class MarketRequestDeal(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
-    request = models.ForeignKey(MarketRequest, on_delete=models.CASCADE)
+    request = models.ForeignKey(MarketOffer, on_delete=models.CASCADE)
     ts_created = models.DateTimeField(default=timezone.now, editable=True)
 
     def __str__(self) -> str:

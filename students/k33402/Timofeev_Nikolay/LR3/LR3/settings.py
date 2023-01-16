@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
 ]
 DJOSER = {
     "SERIALIZERS": {"current_user": "tinvest.serializers.UserSerializer"},
@@ -40,6 +41,7 @@ MIDDLEWARE = [
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    "http://127.0.0.1:8080",
 ]
 ROOT_URLCONF = "LR3.urls"
 TEMPLATES = [

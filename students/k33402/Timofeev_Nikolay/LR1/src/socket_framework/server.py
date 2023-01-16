@@ -36,7 +36,7 @@ class BaseHTTPServer:
                 self.serve_client(client)
         except KeyboardInterrupt:
             self._server.close()
-    
+
     def parse_request(self, data) -> Request:
         req = data.split("\r\n")
         method, target, ver = req[0].split(" ")
@@ -57,7 +57,7 @@ class BaseHTTPServer:
         client.sendall(f'HTTP/1.1 {res.status} OK\r\n{res.headers}\r\n\r\n{res.body}'.encode())
 
     def _generate_error(self, code: int, text: str) -> Response:
-        return Response(code, "OK", "Content-Type: text/html; charset=utf-8", text)
+        return Response(code, "OK", text)
 
 
 class MyHTTPServer(BaseHTTPServer):
@@ -84,38 +84,37 @@ class MyHTTPServer(BaseHTTPServer):
         with open("form.html", "r") as file:
             body += file.read()
         body += """</body></html>"""
-        return Response(200, "OK", "Content-Type: text/html; charset=utf-8", body)
+        return Response(200, "OK", body)
 
 
     def handle_request(self, req):
         try:
-            match req.method:
-                case 'GET':
-                    if req.path == "/":
-                        return self.handle_root()
-                    return self._generate_error(404, 'page not found')
-                case 'POST':
-                    if req.path.startswith("/api"):
-                        subject_id = int(req.query["id"][0]) - 1
-                        value = int(req.query["value"][0])
-                        if value not in range(1, 6):
-                            raise ValueError("Score must be between 1, 2, 3, 4 or 5")
-                        self._marks[list(self._marks.keys())[subject_id]] = str(value)
-                        return self.handle_root()
-                    if req.path.startswith("/form-request"):
-                        query = parse_qs(req.data[-int(req.headers["Content-Length"]):])
-                        _id = int(query["id"][0]) - 1
-                        value = int(query["value"][0])
-                        if value not in range(1, 6):
-                            raise ValueError("Score must be between 1, 2, 3, 4 or 5")
-                        self._marks[list(self._marks.keys())[_id]] = str(value)
-                        return self.handle_root()
-                case _:
-                    return self._generate_error(405, "Method not allowed")
+            if req.method == 'GET':
+                if req.path == "/":
+                    return self.handle_root()
+                return self._generate_error(404, 'page not found')
+            elif req.method == 'POST':
+                if req.path.startswith("/api"):
+                    subject_id = int(req.query["id"][0]) - 1
+                    value = int(req.query["value"][0])
+                    if value not in range(1, 6):
+                        raise ValueError("Score must be between 1, 2, 3, 4 or 5")
+                    self._marks[list(self._marks.keys())[subject_id]] = str(value)
+                    return self.handle_root()
+                if req.path.startswith("/form-request"):
+                    query = parse_qs(req.data[-int(req.headers["Content-Length"]):])
+                    _id = int(query["id"][0]) - 1
+                    value = int(query["value"][0])
+                    if value not in range(1, 6):
+                        raise ValueError("Score must be between 1, 2, 3, 4 or 5")
+                    self._marks[list(self._marks.keys())[_id]] = str(value)
+                    return self.handle_root()
+            else:
+                return self._generate_error(405, "Method not allowed")
         except Exception as e:
             print(f"Exception: {e}")
             return self._generate_error(500, str(e))
 
 
 if __name__ == '__main__':
-    MyHTTPServer('127.0.0.1', 2007, 'example.com').serve_forever()
+    MyHTTPServer('127.0.0.1', 2009, 'example.com').serve_forever()
