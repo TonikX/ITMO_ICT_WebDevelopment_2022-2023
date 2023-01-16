@@ -1,0 +1,16 @@
+site_name: Kozlov Ivan - WEB - ICT
+nav:
+    - Главная страница: index.md
+    - Лабораторные:
+        - Лабораторная №1: lr_1.md
+        - Лабораторная №2: lr_2.md
+        - Лабораторная №3: lr_3.md
+    - Практические:
+        - Практическая №3.1: pr_3.md
+
+theme:
+  name: null
+  custom_dir: "MkDocs-Theme-Cinder-Superhero/cinder-superhero"
+
+markdown:
+  extra: true
