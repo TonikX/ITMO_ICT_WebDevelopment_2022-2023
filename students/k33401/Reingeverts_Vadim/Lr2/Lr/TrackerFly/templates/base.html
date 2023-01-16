@@ -1,0 +1,30 @@
+{% load tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link type="image/png"
+              sizes="32x32"
+              rel="icon"
+              href="https://img.icons8.com/external-kosonicon-lineal-color-kosonicon/64/null/external-ticket-flight-airport-kosonicon-lineal-color-kosonicon.png"/>
+        {% tailwind_css %}
+        <link rel="stylesheet"
+              href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+    </head>
+    <body class="text-xl">
+        <nav class="backdrop-blur-lg backdrop-saturate-100 sticky inset-x-0 top-0 shadow-[0_1px_0_var(--muted-border-color)]">
+            Nav
+        </nav>
+        <main class="mx-auto max-w-md">
+            <h1>{{ title | default:"Hello" }}</h1>
+            {% block main %}
+            {% endblock main %}
+        </main>
+    </body>
+</html>
