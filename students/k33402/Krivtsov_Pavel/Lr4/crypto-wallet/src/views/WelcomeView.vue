@@ -1,12 +1,15 @@
 <template>
-<div>
-  <h1>Hello world!</h1>
-</div>
+  <HeaderNavBar/>
 </template>
 
 <script>
+import HeaderNavBar from "../components/HeaderNavBar.vue";
+
 export default {
-  name: "WelcomeView"
+  name: "WelcomeView",
+  components: {
+    HeaderNavBar
+  }
 }
 </script>
 
