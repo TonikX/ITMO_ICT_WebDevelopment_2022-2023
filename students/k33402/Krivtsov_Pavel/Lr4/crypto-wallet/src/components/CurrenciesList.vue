@@ -2,7 +2,7 @@
   <div class="row row-cols-1 g-4">
     <div class="col">
       <div v-for="currency in currencies" v-bind:key="currency" class="card shadow-sm my-3">
-        <router-link to="/currency/{{currency.id}}" class="btn btn-light card-bg-color text-left">
+        <router-link :to="'/currency/' + currency.id" class="btn btn-light card-bg-color text-left">
           <div class="row d-flex align-items-center px-4">
 
             <div class="col-5 col-sm-3 col-xl-1 col-lg-2 d-flex justify-content-center">

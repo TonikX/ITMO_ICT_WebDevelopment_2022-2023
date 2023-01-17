@@ -1,5 +1,12 @@
+<template>
+  <AppLayout>
+    <RouterView/>
+  </AppLayout>
+</template>
+
 <script>
 import $ from "jquery";
+import AppLayout from "./layouts/AppLayout.vue";
 
 export default {
   computed: {
@@ -13,19 +20,13 @@ export default {
         headers: {'Authorization': "Token" + " " + this.auth_token}
       })
     }
+  },
+  components: {
+    AppLayout
   }
 }
 </script>
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterView} from 'vue-router'
 </script>
-
-<template>
-<!--  <RouterLink to="/">Home</RouterLink>-->
-  <RouterView />
-</template>
-
-<style>
-
-</style>
