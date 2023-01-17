@@ -1,11 +1,18 @@
 <template>
-  <div>
+  <div class="container py-5">
+    <div class="row row-cols-2">
+      <div class="col-12 pb-3">
+        <CurrencyChart :currency_coinlib_id="currency.coinlib_id"/>
+      </div>
+    </div>
     {{currency.name}}
   </div>
 </template>
 
 <script>
 import $ from "jquery"
+
+import CurrencyChart from "../components/CurrencyChart.vue";
 
 export default {
   name: "CurrencyView",
@@ -27,10 +34,9 @@ export default {
         }
       })
     }
+  },
+  components: {
+    CurrencyChart
   }
 }
 </script>
-
-<style scoped>
-
-</style>
