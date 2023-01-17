@@ -24,12 +24,6 @@ Install djlint extension and add its config - `.djlintrc`:
 }
 ```
 
-### Running
-
-```bash
-python django_project_reingeverts/manage.py makemigrations && python django_project_reingeverts/manage.py migrate && python django_project_reingeverts/manage.py runserver
-```
-
 ### Admin
 
 User: `admin`
@@ -78,12 +72,20 @@ View
 
 ### Running
 
+Script for running dev server with tailwinds,
+
 ```bash
-python manage.py makemigrations && python manage.py migrate && python manage.py runserver
+bash run.sh
 ```
 
-Second terminal
+which combines this:
 
 ```bash
-python manage.py tailwind start
+source ../../../.web-dev-env/Scripts/activate && python manage.py makemigrations && python manage.py migrate && python manage.py runserver
+```
+
+and that command:
+
+```bash
+source ../../../.web-dev-env/Scripts/activate && python manage.py tailwind start
 ```
