@@ -95,3 +95,47 @@ ownership = Ownership.objects.create(ownership_owner=Owner.objects.get(username=
 ownership = Ownership.objects.create(ownership_owner=Owner.objects.get(username='sphinx'), ownership_car=Car.objects.get(id=15), date_start='2023-01-21')
 ownership = Ownership.objects.create(ownership_owner=Owner.objects.get(username='SPARTA'), ownership_car=Car.objects.get(id=16), date_start='2023-01-22')
 ```
+
+##Задание 3.1.2
+### Ход работы:
+1. Выведите все машины марки "BMW":
+
+    ![](bmw.png)
+
+2. Получение всех водителей с именем "ALex":
+
+    ![](alex.png)
+
+3. Получение удостоверения случайного водителя:
+
+    ![](driver_license.png)
+
+4. Получение всех автовладельцев машин с цветом "black":
+
+    ![](black.png)
+
+5. Получение всех автовладельцев, чей год владения машиной начинается с 2023:
+
+    ![](2023.png)
+
+##Задание 3.1.3
+### Ход работы:
+1. Вывод даты выдачи самого старшего водительского удостоверения:
+
+    ![](min.png)
+
+2. Укажите самую позднюю дату владения машиной в вашей базе:
+
+    ![](max.png)
+
+3. Выведите количество машин для каждого водителя:
+
+    ![](count.png)
+
+4. Подсчитайте количество машин каждой марки:
+
+    ![](count_2.png)
+
+5. Отсортируйте всех автовладельцев по дате выдачи удостоверения:
+
+    ![](issue_date.png)
