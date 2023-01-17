@@ -1,9 +1,5 @@
 <template>
-  <main class="text-center sign-body">
-    <div class="sign-form w-100 m-auto">
-        <LoginForm />
-    </div>
-  </main>
+  <LoginForm/>
 </template>
 
 <script>
