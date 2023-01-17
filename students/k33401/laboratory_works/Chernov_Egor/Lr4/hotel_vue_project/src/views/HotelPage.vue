@@ -1,11 +1,12 @@
 <template>
   <base-layout>
     <h1>Mountain hotels:</h1>
-    <div class="">
-      <div class="row" v-for="hotel in hotels" :key="hotel.id">
-        <hotel-item :name_hotel="hotel.name_hotel" :address_hotel="hotel.address_hotel" :des_hotel="hotel.des_hotel" />
-      </div>
-    </div>
+    <ul class="">
+      <li class="row" v-for="hotel in hotels" :key="hotel.id">
+        <hotel-item class="col" :name_hotel="hotel.name_hotel" :address_hotel="hotel.address_hotel" :des_hotel="hotel.des_hotel" />
+        <RouterLink :to="{name: 'room_types', params: {id: hotel.id}}">Look</RouterLink>
+      </li>
+    </ul>
   </base-layout>
 </template>
 

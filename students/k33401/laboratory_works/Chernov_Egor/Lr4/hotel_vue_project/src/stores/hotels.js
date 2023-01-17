@@ -3,7 +3,9 @@ import { hotelsApi } from "@/api";
 
 const useHotelsStore = defineStore('hotels',  {
   state: () => ({
-    hotels: []
+    hotels: [],
+    hotel_room_types: [],
+    rooms: []
   }),
 
   actions: {
@@ -11,6 +13,20 @@ const useHotelsStore = defineStore('hotels',  {
       const response = await hotelsApi.getAll()
 
       this.hotels = response.data
+
+      return response
+    },
+    async loadHotelRoomTypes(id) {
+      const response = await hotelsApi.getHotelRoomTypes(id)
+
+      this.hotel_room_types = response.data
+
+      return response
+    },
+    async loadRooms(id) {
+      const response = await hotelsApi.getRooms(id)
+
+      this.rooms = response.data
 
       return response
     }
