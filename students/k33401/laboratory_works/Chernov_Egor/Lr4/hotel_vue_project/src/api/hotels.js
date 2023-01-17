@@ -23,6 +23,13 @@ class HotelsApi {
             url: `/hotel/room_type/${id}/`
         })
     }
+
+    getRoom = async (id) => {
+        return this.API({
+            method: 'GET',
+            url: `/hotel/room_type/room/${id}/`
+        })
+    }
 }
 
 export default HotelsApi

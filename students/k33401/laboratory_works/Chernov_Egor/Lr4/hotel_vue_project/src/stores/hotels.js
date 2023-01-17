@@ -5,7 +5,8 @@ const useHotelsStore = defineStore('hotels',  {
   state: () => ({
     hotels: [],
     hotel_room_types: [],
-    rooms: []
+    rooms: [],
+    room: []
   }),
 
   actions: {
@@ -27,6 +28,13 @@ const useHotelsStore = defineStore('hotels',  {
       const response = await hotelsApi.getRooms(id)
 
       this.rooms = response.data
+
+      return response
+    },
+    async loadRoom(id) {
+      const response = await hotelsApi.getRoom(id)
+
+      this.room = response.data
 
       return response
     }

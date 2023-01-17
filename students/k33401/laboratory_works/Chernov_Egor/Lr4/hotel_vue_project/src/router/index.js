@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HotelView from '../views/HotelPage.vue'
 import RoomTypeView from '../views/RoomTypePage.vue'
 import RoomView from '../views/RoomPage.vue'
+import RetrieveRoomView from '../views/RetrieveRoomPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,12 @@ const router = createRouter({
       name: 'rooms',
       props: true,
       component: RoomView
+    },
+    {
+      path: '/hotel/room_type/room/:id/',
+      name: 'room',
+      props: true,
+      component: RetrieveRoomView
     },
     // {
     //   path: '/',

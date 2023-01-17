@@ -6,7 +6,7 @@
     <ul class="">
       <li class="row" v-for="room in rooms.rt_room" :key="room.id">
         <room-item class="col" :number_room="room.number_room" :status_room="room.status_room" :review_room="room.review_room" />
-        <RouterLink to="/hotel/room_type/{{ room.id }}/">Look</RouterLink>
+        <RouterLink :to="{name: 'room', params: {id: room.id}}">Look</RouterLink>
       </li>
     </ul>
   </base-layout>

@@ -2,7 +2,7 @@
   <div>
     <h3 class="">Number: {{ number_room }}</h3>
     <h4 class="">Status: {{ status_room }}</h4>
-    <p class="">Review: {{ review_room }}</p>
+    <p v-if="review_room">Review: {{ review_room }}</p>
   </div>
 </template>
 

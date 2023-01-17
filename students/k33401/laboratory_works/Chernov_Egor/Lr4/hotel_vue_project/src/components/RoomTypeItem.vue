@@ -3,7 +3,7 @@
     <h3 class="">Type {{ type_rt }}</h3>
     <h4 class="">Price: {{ price_rt }}</h4>
     <p class="">Rating: {{ rating_rt }}</p>
-    <p class="">Description: {{ des_rt }}</p>
+    <p v-if="des_rt">Description: {{ des_rt }}</p>
   </div>
 </template>
 

@@ -2,7 +2,7 @@
   <div class="">
     <h3 class="">Name: {{ name_hotel }}</h3>
     <h4 class="">Address: {{ address_hotel }}</h4>
-    <p class="">Description: {{ des_hotel }}</p>
+    <p v-if="des_hotel">Description: {{ des_hotel }}</p>
   </div>
 </template>
 
