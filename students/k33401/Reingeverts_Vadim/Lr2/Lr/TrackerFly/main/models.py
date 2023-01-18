@@ -9,3 +9,14 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class User(AbstractUser):
+    pass
+
+    # def __str__(self):
+    #     return f"{self.username} ({self.first_name} {self.last_name})"
+
+    # def save(self, *args, **kwargs):
+    #     self.set_password(self.password)
+    #     super().save(*args, **kwargs)

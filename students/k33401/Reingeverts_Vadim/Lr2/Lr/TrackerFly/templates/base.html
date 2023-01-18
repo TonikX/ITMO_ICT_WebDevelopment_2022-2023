@@ -1,7 +1,7 @@
 {% load tailwind_tags %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="min-h-full flex">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,46 +20,37 @@
             }
         </style>
         <title>
-            {% block title %}
-            {% endblock title %}
+            {% block tab_title %}
+            {% endblock tab_title %}
         </title>
     </head>
-    <body class="text-xl bg-[#070423]">
-        <nav class="backdrop-blur-lg m-w-[90%] backdrop-saturate-150 sticky inset-x-0 top-0 shadow-[0_0.5px_0_var(--muted-border-color)]">
+    <body class=" bg-[#070423] min-h-full relative">
+        <nav class="z-10 backdrop-blur-lg m-w-[90%] backdrop-saturate-150 sticky inset-x-0 top-0 shadow-[0_0.5px_0_var(--muted-border-color)]">
             <ul >
                 <li class="py-0">
-                    <a class="block" href="/" aria-label="Back home">
+                    <a class="block" href="{% url 'home' %}" aria-label="Back home">
                         <img alt="" class="h-16" src="{% static 'logo-256.webp' %}"/>
                     </a>
                 </li>
-                <li class="text-2xl text-[var(--h1-color)]">Brand</li>
+                <li class="text-2xl text-[var(--h1-color)]">Tracker Fly</li>
             </ul>
             <ul class="px-4">
                 <li>
-                    <a class="text-[var(--h6-color)] hover:text-[var(--h2-color)]" href="#">Link</a>
+                    <a href="{% url 'sign_up' %}"
+                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
+                       href="#">Sign Up</a>
                 </li>
                 <li>
-                    <a class="text-[var(--h6-color)] hover:text-[var(--h2-color)]" href="#">Link</a>
-                </li>
-                <li>
-                    <a href="#" role="button">Button</a>
+                    <a class="bg-[var(--h1-color)]" href="{% url 'log_in' %}" role="button">Log In</a>
                 </li>
             </ul>
         </nav>
-        <main class="bg-cover bg-[url('/static/bg.jpg')] ">
-            <div class="mx-auto max-w-md ">
-                <h1>{{ title | default:"Hello" }}</h1>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
-                <img class="max-h-64" src="{% static 'bg.jpg' %}" alt=""/>
+        <main class="bg-cover bg-[url('/static/bg.webp')] min-h-full absolute top-0 pt-40 px-8">
+            <div class="mx-auto max-w-xl ">
+                <h1 class="text-4xl">
+                    {% block title %}
+                    {% endblock title %}
+                </h1>
                 {% block main %}
                 {% endblock main %}
             </div>
