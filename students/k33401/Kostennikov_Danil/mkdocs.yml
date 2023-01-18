@@ -1,7 +1,14 @@
 site_name: Kostennikov documentation
 
 theme:
-    name: readthedocs
+  name: readthedocs
 nav:
   #- Introduction: "index.md"
   - Lab 1: "lr1.md"
+  - Lab 2: "lr2.md"
+  - Lab 3: "lr3.md"
+  - Practice: "pr3.1.md"
+
+plugins:
+  - search
+  - mkdocstrings

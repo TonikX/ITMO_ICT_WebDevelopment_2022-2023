@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Lab 3 - Kostennikov documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Lab 3";
+        var mkdocs_page_input_path = "lr3.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Kostennikov documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Lab 1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Lab 2</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Lab 3</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pr3.1/">Practice</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Kostennikov documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Lab 3</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="lab-3">Lab 3</h1>
+<p>Реализация серверной части приложения средствами django и djangorestframework в соответствии с заданием из <a href="https://drive.google.com/file/d/1QxQo5jln6soFUj6EmOVEo1yauCo375PP/view?usp=sharing">текста работы</a>.<br></p>
+<p>Порядок выполнения работы:<br></p>
+<ol>
+<li>Выполнить Практические работы <a href="https://docs.google.com/document/d/1jB8EYOWk-bbjB6sLr1s7dOmLYRC9Z5jIV6xIpnigdvY/edit?usp=sharing">3.1</a> и <a href="https://docs.google.com/document/d/1PkpwxCUYQ2_Pi8Fpcgno6te3oCQHZfkh03Zxt6DhHSw/edit">3.2</a><br><br></li>
+<li>Выбрать вариант или предложить свой, есть 3 способа:<br>
+   2.1. Предложить свой вариант.<br>
+   2.3. Выбрать вариант из <a href="https://drive.google.com/file/d/174gPjJ7AOHfzteYcobPY0x7sFBTkN1Xx/view?usp=sharing">вариантов</a> по курсу «Основы баз данных» .<br>
+   2.3. Использовать вариант из курса Давида по фронтент-разработке.
+   2.4. Если хочется сделать что-то полнофункциональное для порфтолио и задеплоить, можно поговорить с Антоном Игореувичем и он предложит несколько важных для него тем (при этом варианте шаги по работе чаще нужно будет согласовывать с преподавателями).
+   По любому из способов функционал нужно согласовать с преподавателем или ментором. В лабораторной работе №4 необходимо будет реализовать клиентскую часть(фронтенд) по этому же варианту.<br><br></li>
+<li>Реализовать модель базы данных средствами DjangoORM (согласовать с преподавателем на консультации).<br>
+   При необходимости, студент может согласовать модель базы данных с преподавателем и только потом приступить к описанию модели средствами Django ORM<br>
+   Полезные материалы:<br> - <a href="https://www.youtube.com/watch?v=LZyk9p0tKXc">Создание модели данных в Django ORM</a> (Видео)<br><br> - <a href="https://docs.google.com/document/d/1jB8EYOWk-bbjB6sLr1s7dOmLYRC9Z5jIV6xIpnigdvY/edit?usp=sharing">3.1</a></li>
+<li>Реализовать логику работу API средствами Django REST Framework (используя методы сериализации).<br>
+   Полезные материалы:<br> - Пункты 4, 5, 6 в <a href="https://docs.google.com/document/d/1PkpwxCUYQ2_Pi8Fpcgno6te3oCQHZfkh03Zxt6DhHSw/edit">Практической работе 3.1</a><br> - <a href="https://youtu.be/AHnBL9x6-rs">DJANGO API VIEWS, GENERICS, FILTER</a> (Видео)<br> - <a href="https://youtu.be/sxdPf3z6Uw8">JSON. Сериализация данных. Пишем свой сериализатор. Разбираем Django REST Framework Serializers</a> (Видео)<br> - <a href="https://youtu.be/HhrPbmHbDPU">Работа с Django ORM</a> (Видео)<br><br></li>
+<li>Подключить регистрацию / авторизацию по токенам / вывод информации о текущем пользователе средствами Djoser.<br>
+   Полезные материалы:<br> - Djoser (<a href="https://youtu.be/NT-cI6rJl5Q">DRF + Djoser часть 1. Регистрация, авторизация по токенам, получение и изменение данных пользователя</a>) (Видео)<br><br></li>
+<li>Выполнить практическую работу 3.2 по оформлению документации (в процессе разработки)<br><br></li>
+<li>Реализовать документацию, описывающую работу всех используемых endpoint-ов из пункта 3 и 4 средствами Read the Docs или MkDocs.<br><br>
+   Полезные материалы: - Пункт 3 <a href="https://docs.google.com/document/d/1rIfREFvCB4pp8uF990Tz3PLXRJ5u_w-Y3vLxfXWKoxg/edit?usp=sharing">из практической работы №3.2</a></li>
+</ol>
+<p>Работа выполняется индивидуально.<br>
+Код практический и лабораторной части должен быть загружен в репозиторий курса, в соответствии с инструкциями тут.<br>
+Работу необходимо защитить на консультации или прислать видео с описанием проделанной работы.<br>)</p>
+<hr>
+
+<h1 id="_1">Схема базы данных</h1>
+<p><img alt="Screenshot" src="../img/13.png" /></p>
+<ul>
+<li>models.py</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+
+class RoomType(models.Model):
+    id = models.AutoField(&quot;id&quot;, primary_key=True)
+    pricePerNight = models.FloatField()
+    name = models.TextField()
+
+
+
+class Room(models.Model):
+    id = models.AutoField(&quot;id&quot;, primary_key=True)
+    roomType = models.ForeignKey(RoomType, on_delete=models.CASCADE)
+    number = models.IntegerField()
+    isBooked = models.BooleanField()
+    isCleaned = models.BooleanField()
+
+class Client(models.Model):
+    passport = models.CharField(max_length=20, primary_key=True)
+    firstName = models.TextField()
+    lastName = models.TextField()
+    phone = models.TextField()
+    email = models.TextField()
+    homeTown = models.TextField()
+
+class Employee(models.Model):
+    id = models.AutoField(&quot;id&quot;, primary_key=True)
+    firstName = models.TextField()
+    lastName = models.TextField()
+
+class Cleening(models.Model):
+    id = models.AutoField(&quot;id&quot;, primary_key=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    day = models.DateField()
+
+class Booking(models.Model):
+    bookStatusType = (
+            (&quot;F&quot;, &quot;free&quot;),
+            (&quot;B&quot;, &quot;booked&quot;),
+        )
+
+    paymentStatusType= (
+        (&quot;P&quot;, &quot;payed&quot;),
+        (&quot;N&quot;, &quot;not payed&quot;),
+    )
+    id = models.AutoField(&quot;id&quot;, primary_key=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    checkInDate = models.DateField()
+    checkOutDate = models.DateField()
+    bookStatus = models.CharField(choices=bookStatusType,max_length=20)
+    paymentStatus = models.CharField(choices=paymentStatusType, max_length=20)
+</code></pre>
+<ul>
+<li>views.py</li>
+</ul>
+<pre><code class="language-python">
+from django.shortcuts import render
+# from rest_framework.generics import ListAPIView
+
+from .models import *
+from rest_framework import generics
+from rest_framework.response import Response
+from .serializers import *
+from datetime import datetime
+from rest_framework.permissions import IsAdminUser
+from django.shortcuts import render
+from rest_framework.views import APIView
+from django.db.models import Q, Count
+
+
+class CountObj:
+    def __init__(self, count):
+        self.count = count
+
+
+class ClientsLivingPeriod(generics.ListAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingFieldRoomSerializer
+
+    def get_queryset(self):
+        return self.queryset.filter(
+            Q(checkInDate__gte=self.kwargs[&quot;checkInDate&quot;], checkOutDate__lte=self.kwargs[&quot;checkOutDate&quot;]) |
+            Q(checkInDate__lte=self.kwargs[&quot;checkInDate&quot;], checkOutDate__gte=self.kwargs[&quot;checkOutDate&quot;]),
+
+            room=self.kwargs[&quot;room&quot;]
+        )
+
+
+class ClientsCountByCity(generics.RetrieveAPIView):
+    queryset = Client.objects.all()
+    serializer_class = CountSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            CountObj(self.queryset.filter(homeTown=self.kwargs[&quot;homeTown&quot;]).count())
+        )
+        return Response(serializer.data)
+
+
+class FreeRoomsCount(generics.RetrieveAPIView):
+    serializer_class = CountSerializer
+    queryset = Room.objects.all()
+
+    def fitration(self, *args, **kwargs):
+        return self.queryset.filter(Q(booking__checkInDate__lte=self.kwargs[&quot;date&quot;]) &amp;
+                                    Q(booking__checkOutDate__gt=self.kwargs[&quot;date&quot;])).distinct()
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            CountObj(self.queryset.count() - self.fitration().count())
+        )
+        return Response(serializer.data)
+
+
+class ClientsSamePeriods(generics.RetrieveAPIView):
+    serializer_class = CountSerializer
+
+    def fitration(self, *args, **kwargs):
+        result = []
+        client = Client.objects.filter(passport=self.kwargs[&quot;client&quot;]).first()
+        for booking in Booking.objects.filter(client=client).all():
+            result += Booking.objects.filter(Q(checkOutDate__gte=booking.checkOutDate) &amp;
+                                             Q(checkInDate__lte=booking.checkInDate) &amp;
+                                             Q(client__homeTown__isnull=False)).exclude(
+                client__passport=self.kwargs[&quot;client&quot;])
+        return result
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(
+            CountObj(len(self.fitration()))
+        )
+        return Response(serializer.data)
+
+
+class EmployeesCleaning(APIView):
+    # queryset = Room.objects.all()
+    def get(self, *args, **kwargs):
+        bookings = Booking.objects.filter(client__passport=kwargs[&quot;client&quot;]).all()
+        result = Employee.objects.none()
+        for booking in bookings:
+            result |= Cleening.objects.filter(Q(day__lte=booking.checkOutDate) &amp;
+                                              Q(day__gte=booking.checkInDate) &amp;
+                                              Q(day=kwargs[&quot;day&quot;]) &amp;
+                                              Q(room=booking.room)).all()
+        serializer = CleaningSerializer(result, many=True)
+        return Response(serializer.data)
+
+
+class Report(APIView):
+    def get(self, *args, **kwargs):
+
+        if kwargs[&quot;quarter&quot;] == 1:
+            quarterFilter = Q(checkInDate__gte=datetime(datetime.today().year, 1, 1),
+                              checkInDate__lt=datetime(datetime.today().year, 3, 31))
+        elif kwargs[&quot;quarter&quot;] == 2:
+            quarterFilter = Q(checkInDate__gte=datetime(datetime.today().year, 4, 1),
+                              checkInDate__lt=datetime(datetime.today().year, 6, 30))
+        elif kwargs[&quot;quarter&quot;] == 3:
+            quarterFilter = Q(checkInDate__gte=datetime(datetime.today().year, 7, 1),
+                              checkInDate__lt=datetime(datetime.today().year, 9, 30))
+        elif kwargs[&quot;quarter&quot;] == 4:
+            quarterFilter = Q(ccheckInDate__gte=datetime(datetime.today().year, 10, 1),
+                              checkInDate__lt=datetime(datetime.today().year, 12, 31))
+
+        floors = []
+        for f in Room.objects.values(&quot;number&quot;).annotate(Count(&quot;id&quot;)):
+            floors.append({&quot;floor&quot;: int(f[&quot;number&quot;] / 10), &quot;count&quot;: f[&quot;id__count&quot;]})
+
+        rooms = []
+        for room in Room.objects.all():
+            days = 0
+            counter = 0
+            for booking in room.booking_set.filter(quarterFilter):
+                days += (booking.checkOutDate - booking.checkInDate).days
+                counter += 1
+            rooms.append(
+                {
+                    &quot;name&quot;: room.number,
+                    &quot;count&quot;: counter,
+                    &quot;profit&quot;: room.roomType.pricePerNight * days
+                }
+            )
+
+        return render(
+            self.request,
+            &quot;report.html&quot;,
+            {&quot;floors&quot;: floors, &quot;rooms&quot;: rooms, &quot;profit&quot;: sum(r[&quot;profit&quot;] for r in rooms)}
+        )
+
+
+# admin views
+class CreateEmployee(generics.CreateAPIView):
+    serializer_class = EmployeeSerializer
+    permission_classes = [IsAdminUser]
+    queryset = Employee.objects.all()
+
+
+class DeleteEmployee(generics.DestroyAPIView):
+    serializer_class = EmployeeSerializer
+    permission_classes = [IsAdminUser]
+    queryset = Employee.objects.all()
+
+
+class UpdateEmployee(generics.UpdateAPIView):
+    serializer_class = EmployeeSerializer
+    permission_classes = [IsAdminUser]
+    queryset = Employee.objects.all()
+
+
+class CreateBooking(generics.CreateAPIView):
+    serializer_class = BookingSerializer
+    permission_classes = [IsAdminUser]
+    queryset = Booking.objects.all()
+
+
+class DeleteBooking(generics.DestroyAPIView):
+    permission_classes = [IsAdminUser]
+    serializer_class = BookingSerializer
+    queryset = Booking.objects.all()
+
+
+class UpdateBooking(generics.UpdateAPIView):
+    permission_classes = [IsAdminUser]
+    serializer_class = BookingSerializer
+    queryset = Booking.objects.all()
+
+</code></pre>
+<ul>
+<li>serializers.py</li>
+</ul>
+<pre><code class="language-python">
+from rest_framework import serializers
+from .models import *
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = (&quot;id&quot;, &quot;firstName&quot;, &quot;lastName&quot;)
+
+
+class EmployeeCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = &quot;__all__&quot;
+
+
+class CleaningSerializer(serializers.ModelSerializer):
+    employee = EmployeeSerializer()
+
+    class Meta:
+        model = Cleening
+        fields = &quot;__all__&quot;
+
+
+class RoomTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RoomType
+        fields = &quot;__all__&quot;
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    type = RoomTypeSerializer()
+
+    class Meta:
+        model = Room
+        fields = &quot;__all__&quot;
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = &quot;__all__&quot;
+
+
+class ClientCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = &quot;__all__&quot;
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = &quot;__all__&quot;
+
+
+class BookingFieldRoomSerializer(serializers.ModelSerializer):
+    client = ClientSerializer()
+
+    class Meta:
+        model = Booking
+        fields = &quot;__all__&quot;
+
+
+class BookingRoomSerializer(serializers.ModelSerializer):
+    room = RoomSerializer()
+
+    class Meta:
+        model = Booking
+        fields = &quot;__all__&quot;
+
+
+class CountSerializer(serializers.Serializer):
+    count = serializers.IntegerField()
+</code></pre>
+<ul>
+<li>urls.py</li>
+</ul>
+<pre><code class="language-python">from django.urls import path, include, re_path
+from .views import *
+
+app_name = &quot;hotel_app&quot;
+
+urlpatterns = [
+    path(&quot;living_clients/&lt;int:room&gt;/&lt;str:checkInDate&gt;/&lt;str:checkOutDate&gt;&quot;, ClientsLivingPeriod.as_view()),
+    path(&quot;client/&lt;str:homeTown&gt;&quot;, ClientsCountByCity.as_view()),
+    path(&quot;free_rooms/&lt;str:date&gt;&quot;, FreeRoomsCount.as_view()),
+    path(&quot;clients_same/&lt;str:client&gt;&quot;, ClientsSamePeriods.as_view()),
+    path(&quot;employees/&lt;str:day&gt;/&lt;int:client&gt;&quot;, EmployeesCleaning.as_view()),
+    path(&quot;report/&lt;int:quarter&gt;&quot;, Report.as_view()),
+    path(&quot;admin_/create_booking&quot;, CreateBooking.as_view()),
+    path(&quot;admin_/delete_booking&quot;, DeleteBooking.as_view()),
+    path(&quot;admin_/update_booking&quot;, UpdateBooking.as_view()),
+    path(&quot;admin_/create_employee&quot;, CreateEmployee.as_view()),
+    path(&quot;admin_/delete_employee&quot;, DeleteEmployee.as_view()),
+    path(&quot;admin_/update_employee&quot;, UpdateEmployee.as_view()),
+]
+```
+
+**URL** : `/client/&lt;str:city&gt;/`
+
+**Method** : `GET`
+
+**Auth required** : NO
+
+**Permissions required** : None
+
+## Success Responses
+
+**Code** : `200 OK`
+
+
+```json
+{
+  {
+    &quot;count&quot;: 1
+  }
+}
+</code></pre>
+<p><strong>URL</strong> : <code>/living_clients/&lt;int:room&gt;/&lt;str:checkInDate&gt;/&lt;str:checkOutDate&gt;</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : NO</p>
+<p><strong>Permissions required</strong> : None</p>
+<h2 id="success-responses">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<pre><code class="language-json">{
+    {
+        &quot;id&quot;: 1,
+        &quot;client&quot;: {
+            &quot;passport&quot;: &quot;1&quot;,
+            &quot;firstName&quot;: &quot;Danil&quot;,
+            &quot;lastName&quot;: &quot;Kostennikov&quot;,
+            &quot;phone&quot;: &quot;+7775&quot;,
+            &quot;email&quot;: &quot;kost@gmail.com&quot;,
+            &quot;homeTown&quot;: &quot;SPB&quot;
+        },
+        &quot;checkInDate&quot;: &quot;2023-01-10&quot;,
+        &quot;checkOutDate&quot;: &quot;2023-01-15&quot;,
+        &quot;bookStatus&quot;: &quot;B&quot;,
+        &quot;paymentStatus&quot;: &quot;P&quot;,
+        &quot;room&quot;: 1
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;client&quot;: {
+            &quot;passport&quot;: &quot;2&quot;,
+            &quot;firstName&quot;: &quot;Test2&quot;,
+            &quot;lastName&quot;: &quot;TestLast2&quot;,
+            &quot;phone&quot;: &quot;+7894&quot;,
+            &quot;email&quot;: &quot;test2@gmail.com&quot;,
+            &quot;homeTown&quot;: &quot;MSC&quot;
+        },
+        &quot;checkInDate&quot;: &quot;2023-01-05&quot;,
+        &quot;checkOutDate&quot;: &quot;2023-01-09&quot;,
+        &quot;bookStatus&quot;: &quot;B&quot;,
+        &quot;paymentStatus&quot;: &quot;P&quot;,
+        &quot;room&quot;: 1
+    }
+}
+</code></pre>
+<p><strong>URL</strong> : <code>/free_rooms/&lt;str:date&gt;</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : NO</p>
+<p><strong>Permissions required</strong> : None</p>
+<h2 id="success-responses_1">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<pre><code class="language-json">{
+  {
+    &quot;count&quot;: 1
+  }
+}
+</code></pre>
+<p><strong>URL</strong> : <code>/clients_same/&lt;str:client&gt;</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : NO</p>
+<p><strong>Permissions required</strong> : None</p>
+<h2 id="success-responses_2">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<pre><code class="language-json">{
+  {
+    &quot;count&quot;: 1
+  }
+}
+</code></pre>
+<p><strong>URL</strong> : <code>/employees/&lt;str:day&gt;/&lt;str:client&gt;</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : NO</p>
+<p><strong>Permissions required</strong> : None</p>
+<h2 id="success-responses_3">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<pre><code class="language-json">{
+    {
+        &quot;id&quot;: 1,
+        &quot;employee&quot;: {
+            &quot;id&quot;: 1,
+            &quot;firstName&quot;: &quot;CleanerFirst&quot;,
+            &quot;lastName&quot;: &quot;CleanerLast&quot;
+        },
+        &quot;day&quot;: &quot;2023-01-14&quot;,
+        &quot;room&quot;: 1
+    }
+}
+</code></pre>
+<p><strong>URL</strong> : <code>/report/&lt;int:quarter&gt;</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : NO</p>
+<p><strong>Permissions required</strong> : None</p>
+<h2 id="success-responses_4">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<pre><code class="language-html">&lt;p&gt;Room number: 11. Booking count: 2. Profit: 900.0&lt;/p&gt;
+
+&lt;p&gt;Room number: 21. Booking count: 0. Profit: 0.0&lt;/p&gt;
+
+&lt;p&gt;Floor: 1. Rooms count: 1&lt;/p&gt;
+
+&lt;p&gt;Floor: 2. Rooms count: 1&lt;/p&gt;
+
+&lt;p&gt;Quarter profit: 900.0&lt;/p&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr2/" class="btn btn-neutral float-left" title="Lab 2"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../pr3.1/" class="btn btn-neutral float-right" title="Practice">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lr2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../pr3.1/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

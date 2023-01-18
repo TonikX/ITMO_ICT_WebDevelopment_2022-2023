@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
     
       <script>
         // Current page data
@@ -54,6 +55,18 @@
     <li class="toctree-l2"><a class="reference internal" href="#task-5">Task 5</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Lab 2</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr3/">Lab 3</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pr3.1/">Practice</a>
                 </li>
               </ul>
       </div>
@@ -284,6 +297,7 @@ receive()
 <li>MyHTTPServer.py</li>
 </ul>
 <pre><code class="language-python">
+
 import json
 import socket
 import sys
@@ -338,13 +352,6 @@ class MyHTTPServer:
     rfile = conn.makefile('rb')
     method, target, ver = self.parse_request_line(rfile)
     headers = self.parse_headers(rfile)
-    host = headers.get('Host')
-    if not host:
-      raise HTTPError(400, 'Bad request',
-        'Host header is missing')
-    if host not in (self._server_name,
-                    f'{self._server_name}:{self._port}'):
-      raise HTTPError(404, 'Not found')
     return Request(method, target, ver, headers, rfile)
 
   def parse_request_line(self, rfile):
@@ -464,29 +471,6 @@ class MyHTTPServer:
     headers = [('Content-Type', contentType),
                ('Content-Length', len(body))]
     return Response(200, 'OK', headers, body)
-    mark = self.marks.get(int(mark_id))
-    if not mark:
-      raise HTTPError(404, 'Not found')
-
-    accept = req.headers.get('Accept')
-    if 'text/html' in accept:
-      contentType = 'text/html; charset=utf-8'
-      body = '&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;'
-      body += f'#{mark[&quot;id&quot;]} {mark[&quot;name&quot;]}, {mark[&quot;age&quot;]}'
-      body += '&lt;/body&gt;&lt;/html&gt;'
-
-    elif 'application/json' in accept:
-      contentType = 'application/json; charset=utf-8'
-      body = json.dumps(mark)
-
-    else:
-      # https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
-      return Response(406, 'Not Acceptable')
-
-    body = body.encode('utf-8')
-    headers = [('Content-Type', contentType),
-               ('Content-Length', len(body))]
-    return Response(200, 'OK', headers, body)
 
 
 class Request:
@@ -546,6 +530,9 @@ if __name__ == '__main__':
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr2/" class="btn btn-neutral float-right" title="Lab 2">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -567,6 +554,8 @@ if __name__ == '__main__':
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+    
+      <span><a href="../lr2/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

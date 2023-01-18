@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Practice - Kostennikov documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Practice";
+        var mkdocs_page_input_path = "pr3.1.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Kostennikov documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Lab 1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Lab 2</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr3/">Lab 3</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Practice</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Kostennikov documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Practice</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="31">Описание 3.1 практической работы</h2>
+<p>Django заапросы и их выполнение.</p>
+<hr>
+
+<h2 id="311">Задание 3.1.1</h2>
+<p><code>Описание:</code> напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей,
+каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей.
+Задание можете выполнить либо в интерактивном режиме интерпретатора, либо в отдельном python-файле.
+Результатом должны стать запросы и отображение созданных объектов.</p>
+<ul>
+<li>models.py</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+# Create your models here.
+class CarOwner(models.Model):
+    id = models.AutoField(primary_key=True)
+    last_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30)
+    birthdate = models.DateField(blank=True, null=True)
+
+
+class Car(models.Model):
+    car_number = models.CharField(max_length=15, unique=True)
+    brand = models.CharField(max_length=20)
+    model = models.CharField(max_length=20)
+    color = models.CharField(max_length=30, blank=True, null=True)
+
+
+class Ownership(models.Model):
+    start_own_date = models.DateField()
+    end_own_date = models.DateField(blank=True, null=True)
+    car_owner = models.ForeignKey(CarOwner, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+
+
+class License(models.Model):
+    car_owner = models.ForeignKey(CarOwner, on_delete=models.CASCADE)
+    license_number = models.CharField(max_length=10, unique=True)
+    type = models.CharField(max_length=10)
+    reg_date = models.DateField()
+</code></pre>
+<blockquote>
+<p>Создание автомобилей</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/1.png" /></p>
+<blockquote>
+<p>Создание автовладельцев</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/2.png" /></p>
+<blockquote>
+<p>Создание водительских прав</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/3.png" /></p>
+<blockquote>
+<p>Присвоение автовладельцам автомобили</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/4.png" /></p>
+<blockquote>
+<p>Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть):</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/5.png" /></p>
+<blockquote>
+<p>Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение):</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/6.png" /></p>
+<blockquote>
+<p>Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса).
+Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/7.png" /></p>
+<blockquote>
+<p>Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):</p>
+</blockquote>
+<pre><code class="language-python">&gt;&gt;&gt; Ownership.objects.filter(start_own_date__gte=&quot;2007-01-01&quot;)
+&lt;QuerySet [&lt;Ownership: Ownership object (1)&gt;, &lt;Ownership: Ownership object (2)&gt;, &lt;Ownership: Ownership object (3)&gt;,
+&lt;Ownership: Ownership object (4)&gt;, &lt;Ownership: Ownership object (5)&gt;,
+&lt;Ownership: Ownership object (6)&gt;]&gt;
+</code></pre>
+<blockquote>
+<p>Вывод даты выдачи самого старшего водительского удостоверения:</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/8.png" /></p>
+<blockquote>
+<p>Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе:</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/10.png" /></p>
+<blockquote>
+<p>Выведите количество машин для каждого водителя
+Подсчитайте количество машин каждой марки:</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/11.png" /></p>
+<blockquote>
+<p>Отсортируйте всех автовладельцев по дате выдачи удостоверения:</p>
+</blockquote>
+<p><img alt="Screenshot" src="../img/12.png" /></p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr3/" class="btn btn-neutral float-left" title="Lab 3"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lr3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
