@@ -17,7 +17,7 @@ export default {
       required: true
     },
     rating_com: {
-      type: String,
+      type: Number,
       required: true
     },
     review_com: {

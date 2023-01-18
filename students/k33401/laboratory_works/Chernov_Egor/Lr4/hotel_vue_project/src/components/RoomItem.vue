@@ -12,7 +12,7 @@ export default {
 
   props: {
     number_room: {
-      type: String,
+      type: Number,
       required: true
     },
     status_room: {

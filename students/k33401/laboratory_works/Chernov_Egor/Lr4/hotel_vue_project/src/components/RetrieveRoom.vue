@@ -24,7 +24,7 @@ export default {
       required: true
     },
     price_rt: {
-      type: String,
+      type: Number,
       required: true
     },
     des_rt: {
@@ -36,7 +36,7 @@ export default {
       required: true
     },
     number_room: {
-      type: String,
+      type: Number,
       required: true
     },
     review_room: {

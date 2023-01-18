@@ -1,0 +1,36 @@
+<template>
+  <base-layout>
+    <div>
+      <reg-form :idHotel="room.hotel_r.id" :nameHotel="room.hotel_r.name_hotel" :idRoomType="room.rt_r.id" :typeRoom="room.rt_r.type_rt" :numberRoom="room.number_room" />
+    </div>
+  </base-layout>
+</template>
+
+<script>
+import BaseLayout from "@/layouts/BaseLayout.vue";
+import RegForm from "@/components/RegRoomForm.vue";
+import {mapActions, mapState} from "pinia";
+import useHotelsStore from "@/stores/hotels";
+
+export default {
+  name: "BookingPage",
+
+  components: { RegForm, BaseLayout },
+
+  computed: {
+    ...mapState(useHotelsStore, ['room'])
+  },
+
+  methods: {
+    ...mapActions(useHotelsStore, ['loadRoom']),
+  },
+
+  mounted() {
+    this.loadRoom(localStorage.getItem('idBookRoom'))
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

@@ -17,11 +17,11 @@ export default {
       required: true
     },
     rating_rt: {
-      type: String,
+      type: Number,
       required: true
     },
     price_rt: {
-      type: String,
+      type: Number,
       required: true
     },
     des_rt: {

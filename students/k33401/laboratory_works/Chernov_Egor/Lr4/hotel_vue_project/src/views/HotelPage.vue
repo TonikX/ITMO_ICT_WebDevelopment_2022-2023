@@ -1,5 +1,6 @@
 <template>
   <base-layout>
+    <nav-bar />
     <h1>Mountain hotels:</h1>
     <ul class="">
       <li class="row" v-for="hotel in hotels" :key="hotel.id">
@@ -17,12 +18,13 @@ import useHotelsStore from "@/stores/hotels";
 
 import BaseLayout from "@/layouts/BaseLayout.vue";
 import HotelItem from "@/components/HotelItem.vue";
+import NavBar from "@/components/NavBar.vue";
 
 
 export default {
   name: "HotelPage",
 
-  components: { BaseLayout, HotelItem },
+  components: { BaseLayout, HotelItem, NavBar },
 
   computed: {
     ...mapState(useHotelsStore, ['hotels'])
