@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All cars</title>
+</head>
+<body>
+    <div class="main">
+        <ul>
+            {% for car in object_list %}
+
+            <li>Гос. номер: {{car.number}}</li>
+            <li>Марка: {{car.brand}}</li>
+            <li>Модель: {{car.model}}</li>
+            <li>Цвет: {{car.color}}</li>
+            <hr/>
+
+            {% empty %}
+            <li>No cars yet.</li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

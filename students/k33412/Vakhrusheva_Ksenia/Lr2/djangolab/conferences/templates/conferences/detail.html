@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block main %}
+
+	<h1>{{ conference.name }}</h1>
+	<h3 class="text-muted">{{ conference.subject }}</h3>
+	<h5>Место проведения: {{ conference.location }} ({{ conference.date|date:'d/m/Y H:i' }})</h3>
+		<h5>Условия участия: {{ conference.terms_of_participation }}</h5>
+
+		<table class="table my-5">
+			<thead>
+			<tr>
+				<th scope="col">Докладчик</th>
+				<th scope="col">Тема выступления</th>
+				<th scope="col">Описание</th>
+				<th scope="col">Рекомендован к публикации</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for performance in performances %}
+				<tr>
+					<td>{{ performance.author.first_name }} {{ performance.author.last_name }}</td>
+					<td>{{ performance.title }}</td>
+					<td>{{ performance.description }}</td>
+					<td>{% if performance.is_recommended %} Да {% else %} Нет {% endif %}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<h3 class="my-5">Комментарии</h3>
+
+		{% for comment in comments %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<h4 class="card-title">{{ comment.author.first_name }} {{ comment.author.last_name }}</h4>
+					<h6 class="card-subtitle mb-2 text-muted">{{ comment.created_on|date:'d/m/Y H:i' }}</h6>
+					<p class="card-text">{{ comment.body }}</p>
+					<h6 class="card-subtitle mb-2 text-muted">Оценка {{ comment.rating }}/10</h6>
+				</div>
+			</div>
+		{% endfor %}
+
+		{% if user.is_authenticated %}
+			<h3 class="my-3">Оставьте комментарий</h3>
+			<form method="post" class="my-3">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ next }}">
+
+				{{ form.as_p }}
+
+				<button type="submit" class="btn btn-primary btn-block">Оставить комментарий</button>
+			</form>
+			<a href="{% url 'conference_register' conference.id %}">Подать заявку</a><br>
+			<a href="{% url 'performances' %}?conference={{ conference.id }}">Мои заявки на эту конференцию</a>
+		{% endif %}
+		<br>
+		<a href="{% url 'conferences' %}">К списку конференций</a>
+
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'conferences/main.html' %}
+
+{% block content %}
+
+<div>
+    <div class="header-bar">
+  <h1>Темы</h1>
+</div>
+    {% for theme in themes %}
+        <h2 class='theme'>
+            <a href={% url 'theme' theme.id %}>{{theme}}</a>
+        </h2>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+

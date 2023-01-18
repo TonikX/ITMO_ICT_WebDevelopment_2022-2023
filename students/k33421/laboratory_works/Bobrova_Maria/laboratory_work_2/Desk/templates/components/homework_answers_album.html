@@ -1,0 +1,16 @@
+{% if homework_answers %}
+    <h2 class="text-muted">Не проверенные</h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for homework_answer in unchecked_homeworks %}
+        {% include 'components/homework_answer.html' %}
+    {% endfor %}
+</div>
+<h2 class="text-muted mt-2">Проверенные</h2>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for homework_answer in checked_homeworks %}
+        {% include 'components/homework_answer.html' %}
+    {% endfor %}
+</div>
+{% else %}
+    <h2 class="text-muted">Нет ответов</h2>
+{% endif %}

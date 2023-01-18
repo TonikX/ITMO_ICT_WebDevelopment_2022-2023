@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block main %}
+	<h1>Конференции</h1>
+	{% if conferences %}
+		<div class="list-group">
+			{% for conference in conferences %}
+				<a href="{% url 'conference_detail' conference.id %}"
+				   class="list-group-item list-group-item-action">{{ conference.name }}</a>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div>Нет ни одной конференции</div>
+	{% endif %}
+{% endblock %}

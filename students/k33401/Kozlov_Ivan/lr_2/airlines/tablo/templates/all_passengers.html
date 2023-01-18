@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Пассажиры рейса
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-end ">
+    <button type="button" class="btn-dark p-2 flex-grow-1">Пассажиры рейса</button>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Номер рейса</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамиия</th>
+        </tr>
+    </thead>
+    {% for object in object_list %}
+    <tbody>
+        <tr>
+            <th scope="row">{{ object_list_flight }}</th>
+            <td>{{ object.first_name }}</td>
+            <td>{{ object.last_name }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

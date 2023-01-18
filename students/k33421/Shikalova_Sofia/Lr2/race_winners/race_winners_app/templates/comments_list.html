@@ -1,0 +1,23 @@
+<h1>Comments</h1>
+<div class="main">
+    <ul>
+        {% for comment in object_list %}
+
+        <br>
+        <span><u>Race:</u> {{ comment.num_race }}</span><br>
+        <span><u>Race time:</u> {{ comment.time_race }}</span><br>
+        <span><u>Rating:</u> {{ comment.rate }}</span><br>
+        <span><u>Comment type:</u> {{ comment.comment_type }}</span><br>
+        <span><u>Author:</u> {{ comment.username }}</span><br>
+        <span><u></u> {{ comment.comment_time }}</span><br>
+        <span  style="display:inline-block; border-width:2px; border-style:solid; border-color:#a916a7; width:400px;">
+             {{ comment.text }}
+        </span>
+        <br><br><br>
+
+        {% endfor %}
+    </ul>
+</div>
+
+<a href="/comments/create/">Leave a comment</a> <br>
+<a href="/home/">Back</a> <br>

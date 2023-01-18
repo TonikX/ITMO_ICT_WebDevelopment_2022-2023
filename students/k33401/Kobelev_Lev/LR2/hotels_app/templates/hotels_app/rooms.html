@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="main mx-3 my-1">
+    h1>Rooms</h1>
+    {% for room in data %}
+    <br>
+    <ul>
+        <li><a href="/hotel/{{ room.hotel.id }}/rooms/{{ room.number }}">Room №{{ room.number }}</a></li>
+    </ul>
+    <hr>
+    {% endfor %}
+</div>
+</body>
+</html>
