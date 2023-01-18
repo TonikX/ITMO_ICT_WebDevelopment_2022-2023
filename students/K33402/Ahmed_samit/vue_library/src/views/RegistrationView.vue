@@ -35,7 +35,7 @@
               label="Фамилия"
               v-model="signUpForm.last_name"
               name="last_name"
-              placeholder="Балдина"
+              placeholder="Hamadi"
             />
           </v-col>
         </v-row>
