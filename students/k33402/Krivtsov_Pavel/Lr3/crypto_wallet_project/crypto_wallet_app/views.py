@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import filters
 from .models import Currency, Ownership, Transaction, Discussion, Tag, Comment
+from django.core.exceptions import ObjectDoesNotExist
 from . import serializers
 
 
@@ -80,10 +81,13 @@ class UserCurrencyOwnershipApiView(APIView):
         if not user.is_authenticated:
             raise PermissionDenied()
 
-        ownership = Ownership.objects.get(user=user, currency=currency_id)
-        serializer = serializers.OwnershipSerializer(ownership)
+        try:
+            ownership = Ownership.objects.get(user=user, currency=currency_id)
+            serializer = serializers.OwnershipSerializer(ownership)
 
-        return Response(serializer.data)
+            return Response(serializer.data)
+        except ObjectDoesNotExist:
+            return Response({"Object does not exist"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class OwnershipCreateApiView(APIView):
