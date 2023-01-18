@@ -15,8 +15,23 @@
               href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
         <style>
             /* pico fixes */
+            [data-theme="light"],
+            :root:not([data-theme="dark"]) {
+                --primary: #7e22ce;
+                --primary-hover: #631aa2;
+                --primary-focus: hsla(272, 72%, 37%, 0.5);
+                --primary-inverse: #FFF;
+            }
+
             .nav ol:last-of-type, nav ul:last-of-type {
                 margin-right: 0;
+            }
+            [type='text'], [type='email'], [type='url'], [type='password'], [type='number'], [type='date'], [type='datetime-local'], [type='month'], [type='search'], [type='tel'], [type='time'], [type='week'], [multiple], textarea, select {
+                border-radius: var(--border-radius);
+                background-color: var(--background-color);
+            }
+            ol, ul {
+                margin-left: 1.25rem !important;
             }
         </style>
         <title>
@@ -41,7 +56,7 @@
                        href="#">Sign Up</a>
                 </li>
                 <li>
-                    <a class="bg-[var(--h1-color)]" href="{% url 'log_in' %}" role="button">Log In</a>
+                    <a href="{% url 'log_in' %}" role="button">Log In</a>
                 </li>
             </ul>
         </nav>
