@@ -4,8 +4,8 @@
       <div class="col-12 pb-3">
         <CurrencyChart :currency_coinlib_id="currency.coinlib_id"/>
       </div>
+      <BuySellButtonsBlock :currency="currency" v-if="currency"/>
     </div>
-    {{currency.name}}
   </div>
 </template>
 
@@ -13,6 +13,7 @@
 import $ from "jquery"
 
 import CurrencyChart from "../components/CurrencyChart.vue";
+import BuySellButtonsBlock from "../components/BuySellButtonsBlock.vue";
 
 export default {
   name: "CurrencyView",
@@ -36,7 +37,8 @@ export default {
     }
   },
   components: {
-    CurrencyChart
+    CurrencyChart,
+    BuySellButtonsBlock
   }
 }
 </script>
