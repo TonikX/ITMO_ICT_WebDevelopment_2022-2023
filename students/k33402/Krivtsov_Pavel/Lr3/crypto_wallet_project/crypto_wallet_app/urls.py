@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('ownerships/all/', views.AllOwnershipListApiView.as_view()),
     path('ownerships/', views.UserOwnershipsListApiView.as_view()),
+    path('ownerships/currency/<int:pk>', views.UserCurrencyOwnershipApiView.as_view()),
     path('ownerships/create/', views.OwnershipCreateApiView.as_view()),
     path('ownerships/change_count/<int:pk>/', views.OwnershipUpdateApiView.as_view()),
 

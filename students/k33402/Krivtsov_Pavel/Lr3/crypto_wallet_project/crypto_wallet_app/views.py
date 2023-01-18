@@ -67,6 +67,25 @@ class UserOwnershipsListApiView(generics.ListAPIView):
         return Ownership.objects.filter(user=user)
 
 
+class UserCurrencyOwnershipApiView(APIView):
+    """
+    Displaying user ownership of a specific (by pk) currency
+    """
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        currency_id = kwargs['pk']
+        user = request.user
+
+        if not user.is_authenticated:
+            raise PermissionDenied()
+
+        ownership = Ownership.objects.get(user=user, currency=currency_id)
+        serializer = serializers.OwnershipSerializer(ownership)
+
+        return Response(serializer.data)
+
+
 class OwnershipCreateApiView(APIView):
     """
     Creates ownership
