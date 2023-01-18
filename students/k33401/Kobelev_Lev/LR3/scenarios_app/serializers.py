@@ -22,9 +22,15 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField('get_author')
+
+    def get_author(self, review):
+        author = User.objects.get(username=review.author)
+        return author.username
+
     class Meta:
         model = Review
-        fields = ['text', 'author', 'publish_date', 'is_edited']
+        fields = ['text', 'publish_date', 'author', 'is_edited']
 
 
 class ScenarioSerializer(serializers.ModelSerializer):
@@ -33,6 +39,7 @@ class ScenarioSerializer(serializers.ModelSerializer):
     author = UserSerializer()
     likes = serializers.SerializerMethodField(read_only=True)
     reviews = serializers.SerializerMethodField('get_reviews')
+    liked = serializers.SerializerMethodField('get_liked')
 
     def get_reviews(self, scenario):
         selected_reviews = Review.objects.filter(scenario=scenario.id)
@@ -40,6 +47,14 @@ class ScenarioSerializer(serializers.ModelSerializer):
 
     def get_likes(self, scenario):
         return scenario.likes.all().count()
+
+    def get_liked(self, scenario):
+        user = self.context['request'].user
+        if user is None:
+            return False
+        if user in scenario.likes.all():
+            return True
+        return False
 
     class Meta:
         model = Scenario
@@ -100,7 +115,7 @@ class ReviewCreateUpdateSerializer(serializers.Serializer):
 class ScenarioLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scenario
-        fields = ['likes']
+        fields = '__all__'
 
     def update(self, scenario, validated_data):
         user = self.context['request'].user

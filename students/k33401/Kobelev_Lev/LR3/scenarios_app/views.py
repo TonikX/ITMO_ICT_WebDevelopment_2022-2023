@@ -4,7 +4,42 @@ from .serializers import *
 
 class ScenarioListAPIView(ListAPIView):
     serializer_class = ScenarioSerializer
-    queryset = Scenario.objects.all()
+
+    def get_queryset(self):
+        game_systems = self.request.query_params.getlist('game_system')
+        tags = self.request.query_params.getlist('tag')
+        adult = self.request.query_params.get('adult')
+        finished = self.request.query_params.get('finished')
+
+        # Game Systems Filtering
+        if len(game_systems) == 0:
+            game_systems = GameSystem.objects.all()
+
+        queryset = Scenario.objects.filter(game_system__id__in=game_systems)
+
+        # Checkbox filtering
+        if adult is None:
+            queryset = queryset.filter(is_age_restricted=False)
+        if finished is not None:
+            queryset = queryset.filter(is_completed=True)
+
+        # Tags filtering
+        if len(tags) == 0:
+            return queryset
+
+        ids_to_exclude = []
+        for el in queryset:
+            object_tags = el.tags.values()
+            count_tag = 0
+            for tag in object_tags:
+                if str(tag['id']) in tags:
+                    count_tag += 1
+            if count_tag < len(tags):
+                ids_to_exclude.append(el.id)
+
+        queryset = queryset.exclude(id__in=ids_to_exclude)
+
+        return queryset
 
 
 class ScenarioAPIView(RetrieveAPIView):
