@@ -2,7 +2,7 @@
 {% load static %}
 {% block body %}
     {% block aside_container %}
-        {% if not aside_image %}
+        {% if not hide_nav == True %}
             {% block nav %}
                 {% include "./sub_nav.html" %}
             {% endblock nav %}

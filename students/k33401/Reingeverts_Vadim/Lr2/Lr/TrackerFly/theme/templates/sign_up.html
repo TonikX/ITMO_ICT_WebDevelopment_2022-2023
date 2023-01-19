@@ -7,13 +7,10 @@
     Sign Up
 {% endblock title %}
 {% block subtitle %}
-<p>
-    Let's setup your personal Tracker Fly account
-</p>
+    <p>Let's setup your personal Tracker Fly account</p>
 {% endblock subtitle %}
-
 {% block aside_container %}
-    {% with aside_image="plane.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
+    {% with hide_nav=True aside_image="plane.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
 {% endblock aside_container %}
 {% block content %}
     <form action="" method="post" class="!grid grid-cols-2 gap-6">

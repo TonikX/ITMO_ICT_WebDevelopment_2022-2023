@@ -13,7 +13,11 @@
         {% tailwind_css %}
         <link rel="stylesheet"
               href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"/>
-        <style>
+        {% comment %}
+            Using class tag on style to force tailwind to include 
+            into dist dynamically generated class names
+        {% endcomment %}
+        <style class="col-span-1 col-span-2 col-span-3 col-span-4">
             /* pico fixes */
             [data-theme="light"],
             :root:not([data-theme="dark"]) {

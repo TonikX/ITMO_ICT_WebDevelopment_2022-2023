@@ -10,7 +10,7 @@
 {% endblock subtitle %}
 
 {% block aside_container %}
-    {% with aside_image="plane2.webp" aside_col_span=2 %}{{ block.super }}{% endwith %}
+    {% with hide_nav=True aside_image="plane2.webp" aside_col_span=2 %}{{ block.super }}{% endwith %}
 {% endblock aside_container %}
 {% block content %}
     <form action="" method="post" class="!grid gap-6">
