@@ -7,8 +7,6 @@
       </router-link>
     </div>
 
-    <div id="alertPlaceholder"></div>
-
     <div class="form-floating mb-2">
       <input v-model="username" name="username" class="form-control" id="floatingInput" placeholder="username">
       <label for="floatingInput">Username</label>

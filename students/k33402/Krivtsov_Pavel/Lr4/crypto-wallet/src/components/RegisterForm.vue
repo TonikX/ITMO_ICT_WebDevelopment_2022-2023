@@ -7,8 +7,6 @@
       </router-link>
     </div>
 
-    <div id="alertPlaceholder"></div>
-
     <div class="input-group mb-2">
       <span class="input-group-text bg-side text-light">@</span>
       <div class="form-floating">
