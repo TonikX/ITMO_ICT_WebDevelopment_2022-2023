@@ -1,0 +1,23 @@
+{% load static %}
+{% block nav %}
+    <nav class="z-10 backdrop-blur-lg m-w-[90%] backdrop-saturate-150 sticky inset-x-0 top-0 shadow-[0_0.5px_0_var(--muted-border-color)]">
+        <ul class="!ml-0">
+            <li class="py-0">
+                <a class="block p-0" href="{% url 'home' %}" aria-label="Back home">
+                    <img alt="" class="h-16" src="{% static 'logo-256.webp' %}"/>
+                </a>
+            </li>
+            <li class="text-2xl text-[var(--h1-color)]">Tracker Fly</li>
+        </ul>
+        <ul class="px-4">
+            <li>
+                <a href="{% url 'sign_up' %}"
+                   class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
+                   href="#">Sign Up</a>
+            </li>
+            <li>
+                <a href="{% url 'log_in' %}" role="button">Log In</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock nav %}

@@ -1,11 +1,15 @@
-{% extends "./base.html" %}
+{% extends "./base_body.html" %}
+{% load static %}
 {% block tab_title %}
     Tracker Fly: Sign Up
 {% endblock tab_title %}
 {% block title %}
     Sign Up
 {% endblock title %}
-{% block main %}
+{% block aside_container %}
+    {% with aside_image="plane.jpg" %}{{ block.super }}{% endwith %}
+{% endblock aside_container %}
+{% block content %}
     <form action="" method="post" class="!grid grid-cols-2 gap-6">
         {% csrf_token %}
         <p class="col-span-full">
@@ -31,4 +35,4 @@
             <input class="max-w-xs" type="submit" value="Create Account"/>
         </p>
     </form>
-{% endblock main %}
+{% endblock content %}

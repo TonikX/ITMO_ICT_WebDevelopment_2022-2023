@@ -1,14 +1,14 @@
-{% extends "./base.html" %}
+{% extends "./base_body.html" %}
 {% block tab_title %}
     Tracker Fly: Log In
 {% endblock tab_title %}
 {% block title %}
     Log In
 {% endblock title %}
-{% block main %}
+{% block content %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit"/>
     </form>
-{% endblock main %}
+{% endblock content %}

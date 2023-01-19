@@ -1,0 +1,22 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block body %}
+    {% block nav %}
+        {% include "./sub_nav.html" %}
+    {% endblock nav %}
+    {% block aside_container %}
+        {% comment %} <div class="min-w-full grid {% if aside_image %}grid{% endif %}">
+        {% include "./sub_aside.html" %} {% endcomment %}
+        <main class="min-h-full absolute top-0 pt-40 px-8">
+            <div class="mx-auto max-w-xl ">
+                <h1 class="text-4xl">
+                    {% block title %}
+                    {% endblock title %}
+                </h1>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </main>
+        {% comment %} </div> {% endcomment %}
+    {% endblock aside_container %}
+{% endblock body %}
