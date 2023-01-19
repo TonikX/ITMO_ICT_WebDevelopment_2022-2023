@@ -118,7 +118,7 @@ export default {
     sellButtonPressed() {
       if (this.ownership) {
         const remainder = this.ownership.count - currencyCountForTransaction
-        if (remainder > 0) {
+        if (remainder >= 0) {
           this.createTransaction(TransactionType.S, currencyCountForTransaction)
           this.changeOwnership(remainder, TransactionType.S)
         } else {
