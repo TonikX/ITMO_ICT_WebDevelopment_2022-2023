@@ -5,6 +5,7 @@ import RegisterView from "../views/RegisterView.vue";
 import CurrencyView from "../views/CurrencyView.vue";
 import MarketView from "../views/MarketView.vue";
 import ProfileView from "../views/ProfileView.vue";
+import ChangePasswordView from "../views/ChangePasswordView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,6 +56,14 @@ const router = createRouter({
             component: ProfileView,
             meta: {
                 layout: 'DefaultLayout'
+            }
+        },
+        {
+            path: '/change_password',
+            name: 'change_password',
+            component: ChangePasswordView,
+            meta: {
+                layout: 'AuthLayout'
             }
         }
     ]
