@@ -23,6 +23,14 @@ class OwnershipSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class OwnershipCurrencyExtInfoSerializer(serializers.ModelSerializer):
+    currency = CurrencySerializer()
+
+    class Meta:
+        model = Ownership
+        fields = ["id", "currency", "count"]
+
+
 class OwnershipUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:

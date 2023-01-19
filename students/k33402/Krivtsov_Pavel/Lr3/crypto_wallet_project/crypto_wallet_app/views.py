@@ -56,7 +56,7 @@ class UserOwnershipsListApiView(generics.ListAPIView):
     """
     Displaying user ownerships
     """
-    serializer_class = serializers.OwnershipSerializer
+    serializer_class = serializers.OwnershipCurrencyExtInfoSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
