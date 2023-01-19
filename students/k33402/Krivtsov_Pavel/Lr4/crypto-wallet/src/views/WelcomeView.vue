@@ -10,7 +10,7 @@
 
       <div class="d-flex justify-content-center pt-4">
         <div tabindex="0">
-          <router-link to="/markets" class="link-side">
+          <router-link to="/market" class="link-side">
             Посмотреть больше
           </router-link>
         </div>

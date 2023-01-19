@@ -9,7 +9,7 @@
 
         <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center">
           <li>
-            <router-link to="/markets" class="nav-link px-3 link-main">Рынки</router-link>
+            <router-link to="/market" class="nav-link px-3 link-main">Рынки</router-link>
           </li>
         </ul>
 

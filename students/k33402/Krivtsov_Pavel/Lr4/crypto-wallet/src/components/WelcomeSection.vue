@@ -48,7 +48,7 @@ export default {
   methods: {
     checkAuthForStart() {
       if (localStorage.getItem("auth_token")) {
-        this.$router.push({name: "markets"})
+        this.$router.push({name: "market"})
       } else {
         this.$router.push({name: "login"})
       }
