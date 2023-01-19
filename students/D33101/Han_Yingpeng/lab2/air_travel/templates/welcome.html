@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+  </head>
+  <body>
+    <br>
+    <h2>WELCOME</h2>
+    <br>
+    <form action="http://127.0.0.1:8000/login/" method="POST">{% csrf_token %}
+        
+        <input type="submit" value="login">
+    </form>
+    <form action="http://127.0.0.1:8000/register/" method="POST">{% csrf_token %}
+        
+      <input type="submit" value="Sign up">
+  </form>
+  </body>
+</html>

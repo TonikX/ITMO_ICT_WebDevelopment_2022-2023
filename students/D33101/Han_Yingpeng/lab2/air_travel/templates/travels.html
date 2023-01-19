@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home </title>
+  </head>
+  <body>
+    <table border="1">
+      <tr>
+        <th>flight Number</th>
+        <th>Airline</th>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Type</th>
+        <th>Gate number</th>
+        <th>Date</th>
+        <th></th>
+      </tr>
+      {% for Air_travel in list %}
+        <tr>
+          <td>{{ Air_travel.flight_number }}</td>
+          <td>{{ Air_travel.Airline.name }}</td>
+          <td>{{ Air_travel.departure }}</td>
+          <td>{{ Air_travel.arrival }}</td>
+          <td>{{ Air_travel.type}}</td>
+          <td>{{ Air_travel.gate_number }}</td>
+          <td>{{ Air_travel.date }}</td>
+          <td>
+            <form action="http://127.0.0.1:8000/passenger/{{ Air_travel.id }}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="" value="See more">
+            </form>
+            <form action="http://127.0.0.1:8000/passenger_edit/{{ user.id }}/{{ Air_travel.id }}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="" value="Remove">
+            </form>
+            <form action="http://127.0.0.1:8000/comment/{{ user.id }}/{{ Air_travel.id }}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="" value="Comments">
+            </form>
+        </td>
+        </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <form action="http://127.0.0.1:8000/logout/" method="post">
+        {% csrf_token %}
+        <input type="submit" name="" value="Logout">
+    </form>
+    <form action="http://127.0.0.1:8000/home/{{ user.id }}" method="post">
+      {% csrf_token %}
+      <input type="submit" name="" value="Home">
+  </form>
+  </body>
+</html>
