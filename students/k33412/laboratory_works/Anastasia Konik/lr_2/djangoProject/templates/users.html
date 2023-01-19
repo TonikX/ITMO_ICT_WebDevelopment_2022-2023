@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <h1>People on board {{flight}}</h1>
+    <table style="width:80%">
+            <tr>
+                <th>First name</th>
+                <th>Lastname</th>
+            </tr>
+            {% for user in users %}.
+            <tr>
+                <td>{{user.first_name}}</td>
+                <td>{{user.lastname}}</td>
+            </tr>
+            {% endfor %}
+    </table>
+    <a href="http://127.0.0.1:8000/flights">Back to flights</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Owners list</title>
+    <style>
+        li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    {% for owner in all_owners %}
+        <li>Owner_id: {{ owner.owner_id }}</li>
+        <li>Last_name: {{ owner.last_name }}</li>
+        <li>First_name: {{ owner.first_name }}</li>
+        <li>Birth_date: {{ owner.birth_date }}</li>
+        <li>Passport_number: {{ owner.passport }}</li>
+        <li>Address: {{ owner.address }}</li>
+        <li>Nationality: {{ owner.nationality }}</li>
+        <li>Username: {{ owner.username }}</li>
+        <br>
+    {% empty %}
+        List is empty
+    {% endfor %}
+</div>
+<br>
+<a href="/admin/">Get back</a>
+</body>
+</html>

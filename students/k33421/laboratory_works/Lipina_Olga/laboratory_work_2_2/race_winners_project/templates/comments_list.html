@@ -1,0 +1,28 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Комментарии к гонкам</h2>
+<div class="main">
+    <ol>
+        {% for comment in object_list %}.
+
+        <br>
+        <span><u>Гонка:</u> {{ comment.num_race }}</span><br>
+        <span><u>Время гонки:</u> {{ comment.time_race }}</span><br>
+        <span><u>Рейтинг:</u> {{ comment.rate }}✭</span><br>
+        <span><u>Тип комментария:</u> {{ comment.type_comment }}</span><br>
+        <span><u>Автор:</u> {{ comment.username }}</span><br>
+        <span><u></u> {{ comment.comment_time }}</span><br>
+        <span>Текст:</span><br>
+        <span  style="display:inline-block; border-width:2px; border-style:solid; border-color:#a916a7; width:400px;">
+             {{ comment.text }}
+        </span>
+        <br><br><br>
+
+        {% endfor %}
+    </ol>
+</div>
+
+<a href="/comments/create/">Оставить комментарий </a> <br>
+<a href="/main/">Get back</a> <br>
+{% endblock content %}

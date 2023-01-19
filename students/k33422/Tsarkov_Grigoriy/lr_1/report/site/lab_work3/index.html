@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №3 - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Web-программирование 2022-2023</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work2/" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №3</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_work2/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no3" class="nav-link">Лабораторная работа №3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Задание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Основные файлы:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_3" class="nav-link">Показать все участия</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#success-responses" class="nav-link">Success Responses</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no3">Лабораторная работа №3</h1>
+<h2 id="_1">Задание</h2>
+<p>Реализовать сайт, используя фреймворк Django 3 и СУБД PostgreSQL *, в
+соответствии с вариантом задания лабораторной работы.</p>
+<h2 id="_2">Основные файлы:</h2>
+<p><code>models.py</code></p>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+class Organizer(AbstractUser):
+    tel = models.CharField(verbose_name='phone number', max_length=15, null=True, blank=True)
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'tel']
+
+    def __str__(self):
+        return self.username
+
+
+class Participant(models.Model):
+    name = models.CharField(max_length=100)
+    fandom_types = (
+        ('n', 'naruto'),
+        ('h', 'harry potter'),
+        ('s', 'supernatural'),
+        ('d', 'doctor who')
+    )
+    fandom = models.CharField(max_length=1, choices=fandom_types)
+    age = models.IntegerField()
+    character = models.CharField(max_length=1000)
+    club = models.ForeignKey('Club', on_delete=models.CASCADE,
+                             null=True, blank=True
+                             )
+
+    def __str__(self):
+        return self.name
+
+
+class Show(models.Model):
+    year = models.IntegerField(primary_key=True)
+    show_types = (
+        ('mono', 'mono-fandom'),
+        ('poly', 'poly-fandom')
+    )
+    type = models.CharField(max_length=4, choices=show_types)
+    participants = models.ManyToManyField('Participant',
+                                          # through='Participation',
+                                          related_name='show_participants'
+                                          )
+
+    def __str__(self):
+        return str(self.year)
+
+
+class Participation(models.Model):
+    participant = models.ForeignKey('Participant', on_delete=models.CASCADE)
+    medal_types = (
+        ('g', 'gold'),
+        ('s', 'silver'),
+        ('b', 'bronze'),
+    )
+    medal = models.CharField(max_length=1, choices=medal_types, null=True)
+    stage = models.ManyToManyField('Stage', null=True, blank=True)
+    dismissed = models.BooleanField()
+    final_grade = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.participant}'
+
+
+class Expert(models.Model):
+    name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    club = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f'{self.name} {self.last_name}'
+
+
+class Club(models.Model):
+    name = models.CharField(max_length=100)
+    members = models.ManyToManyField('Participant',
+                                     related_name='club_members'
+                                     )
+
+    def __str__(self):
+        return self.name
+
+
+class Stage(models.Model):
+    show = models.ForeignKey('Show', on_delete=models.CASCADE)
+    experts = models.ManyToManyField('Expert',
+                                     # through='Grade'
+                                     related_name='stage_experts',
+                                     null=True,
+                                     blank=True
+                                     )
+    fandom_types = (
+        ('n', 'naruto'),
+        ('h', 'harry potter'),
+        ('s', 'supernatural'),
+        ('d', 'doctor who')
+    )
+    fandom = models.CharField(max_length=1, choices=fandom_types)
+
+    def __str__(self):
+        return f'{self.show} {self.fandom}'
+
+
+</code></pre>
+<p><code>views.py</code></p>
+<pre><code class="language-python">from rest_framework import generics
+from rest_framework.views import APIView, Response
+from .serializers import *
+from .models import *
+from django.db.models.aggregates import Count, Sum
+
+
+class ExpertAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExpertSerializer
+    queryset = Expert.objects.all()
+
+
+class ParticipationAPIList(generics.ListCreateAPIView):
+    serializer_class = ParticipationSerializer
+    queryset = Participation.objects.all()
+
+
+class ParticipantAPIList(generics.ListCreateAPIView):
+    serializer_class = ParticipantSerializer
+    queryset = Participant.objects.all()
+
+
+class StageParticipationAPIView(generics.RetrieveAPIView):
+    serializer_class = StageParticipationSerializer
+    queryset = Participation.objects.all()
+
+
+class ClubFandomsRetrieveAPIView(generics.RetrieveAPIView):
+    serializer_class = ClubFandomsSerializer
+    queryset = Club.objects.all()
+
+
+class DismissedCountAPIView(generics.RetrieveAPIView):
+    serializer_class = DismissedCountSerializer
+    queryset = Participation.objects.all()
+
+
+class FandomExpertsAPIView(generics.ListAPIView):
+    serializer_class = FandomExpertsSerializer
+    queryset = Stage.objects.all()
+
+
+class FandomCountAPIView(APIView):
+
+    def get(self, request):
+        fandom_count = Participant.objects \
+            .values('fandom').annotate(count=Count('fandom'))
+        content = {'fandom_count': fandom_count}
+        return Response(content)
+
+
+class FandomCountAPIView(APIView):
+
+    def get(self, request):
+        fandom_count = Stage.objects \
+            .values('fandom').annotate(count=Count('fandom'))
+        content = {'fandom_count': fandom_count}
+        return Response(content)
+
+
+class ReportAPIView(APIView):
+
+    def get(self, request, year):
+        participants = Show.objects.get(year=year).participants
+        participant_count = participants.count()
+        fandom_count = participants.values('fandom').annotate(count=Count('fandom'))
+        best_grades = Participation.objects.filter(stage__show__year=year)\
+            .values('participant')\
+            .annotate(ex_sum=Sum('final_grade'))\
+            .order_by()
+        medals = Participation.objects.values('stage__fandom')\
+            .annotate(medals_count=Count('medal'))
+        content = {'participant_count': participant_count,
+                   'fandoms': fandom_count,
+                   'best_grades': best_grades,
+                   'medals': medals}
+        return Response(content)
+
+</code></pre>
+<p><code>serializers.py</code></p>
+<pre><code class="language-python">from rest_framework import serializers
+from .models import *
+
+
+class ExpertSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Expert
+        fields = &quot;__all__&quot;
+
+
+class ParticipationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Participation
+        fields = &quot;__all__&quot;
+
+
+class ParticipantSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Participant
+        fields = &quot;__all__&quot;
+
+
+class StageParticipationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Participation
+        fields = [&quot;stage&quot;]
+
+
+class ParticipantFandomsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participant
+        fields = [&quot;fandom&quot;]
+
+
+class ClubFandomsSerializer(serializers.ModelSerializer):
+    members = ParticipantFandomsSerializer(many=True)
+
+    class Meta:
+        model = Club
+        fields = [&quot;name&quot;, &quot;members&quot;]
+
+
+class StageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Stage
+        fields = &quot;__all__&quot;
+
+
+class DismissedCountSerializer(serializers.ModelSerializer):
+    dismissed_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Participation
+        fields = ['dismissed_count']
+
+    def get_dismissed_count(self, obj):
+        return Participation.objects.filter(dismissed=True).count()
+
+
+class FandomExpertsSerializer(serializers.ModelSerializer):
+    experts = ExpertSerializer(many=True)
+
+    class Meta:
+        model = Stage
+        fields = [&quot;fandom&quot;, &quot;experts&quot;]
+
+</code></pre>
+<p><code>urls.py</code></p>
+<pre><code class="language-python">from django.urls import path
+from .views import *
+
+
+app_name = &quot;lab3_app&quot;
+
+
+urlpatterns = [
+    path('experts/&lt;int:pk&gt;', ExpertAPIView.as_view()),
+    path('participation/', ParticipationAPIList.as_view()),
+    path('participants/', ParticipantAPIList.as_view()),
+
+    path('participant_stage/&lt;int:pk&gt;', StageParticipationAPIView.as_view()),
+    path('club_fandoms/&lt;int:pk&gt;', ClubFandomsRetrieveAPIView.as_view()),
+    path('dismissed_count/&lt;int:pk&gt;', DismissedCountAPIView.as_view()),
+    path('fandom_experts/', FandomExpertsAPIView.as_view()),
+    path('fandoms_count/', FandomCountAPIView.as_view()),
+    path('report/&lt;int:year&gt;', ReportAPIView.as_view()),
+]
+
+</code></pre>
+<h1 id="_3">Показать все участия</h1>
+<p>Выводит информацию о каждой записи об участии</p>
+<p><strong>URL</strong> : <code>/participation/</code></p>
+<p><strong>Method</strong> : <code>GET</code></p>
+<p><strong>Auth required</strong> : YES</p>
+<p><strong>Permissions required</strong> : None</p>
+<p><strong>Data constraints</strong> : <code>{}</code></p>
+<h2 id="success-responses">Success Responses</h2>
+<p><strong>Code</strong> : <code>200 OK</code></p>
+<p><strong>Content</strong> : <code>{[]}</code></p>
+<pre><code class="language-json">{
+   &quot;Warriors&quot;: [
+    {
+        &quot;id&quot;: 1,
+        &quot;medal&quot;: &quot;g&quot;,
+        &quot;dismissed&quot;: false,
+        &quot;final_grade&quot;: 100,
+        &quot;participant&quot;: 1,
+        &quot;stage&quot;: [
+            1
+        ]
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;medal&quot;: &quot;b&quot;,
+        &quot;dismissed&quot;: false,
+        &quot;final_grade&quot;: 61,
+        &quot;participant&quot;: 2,
+        &quot;stage&quot;: [
+            2
+        ]
+    },
+    {
+        &quot;id&quot;: 3,
+        &quot;medal&quot;: &quot;g&quot;,
+        &quot;dismissed&quot;: false,
+        &quot;final_grade&quot;: 23,
+        &quot;participant&quot;: 1,
+        &quot;stage&quot;: [
+            1
+        ]
+    }
+    ]
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

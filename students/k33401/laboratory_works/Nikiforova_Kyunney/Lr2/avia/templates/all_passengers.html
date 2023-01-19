@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Пассажиры рейса{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Пассажиры рейса {{ flight.flight_number }}</h1>
+        <table class="table table-hover table-bordered mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Имя</th>
+                </tr>
+            </thead>
+            {% for passenger in passengers %}
+            <tbody>
+                <tr>
+                    <td>{{passenger.last_name}}</td>
+                    <td>{{passenger.first_name}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

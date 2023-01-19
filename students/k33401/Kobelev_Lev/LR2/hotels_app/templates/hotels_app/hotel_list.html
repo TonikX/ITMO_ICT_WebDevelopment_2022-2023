@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="main mx-3 my-1">
+    <h1>Hotels</h1>
+    {% for hotel in hotel_list %}
+    <ul>
+        <li>
+            <b>{{ hotel.name }}</b> located in <b>{{ hotel.address }}</b> and owned by <b>{{ hotel.owner }}</b>.
+            <br>
+            {{ hotel.description }}
+            <br>
+            <a href="/hotel/{{ hotel.id }}/">Check rooms</a>
+        </li>
+    </ul>
+    <hr>
+    {% endfor %}
+</div>
+</body>
+</html>

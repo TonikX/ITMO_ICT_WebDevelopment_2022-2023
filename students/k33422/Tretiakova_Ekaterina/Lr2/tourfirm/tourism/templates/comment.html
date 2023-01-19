@@ -1,0 +1,13 @@
+<body bgcolor="#f5f5dc">
+<form method="POST" enctype="multipart/form-data">
+
+    <!-- Security token -->
+    {% csrf_token %}
+
+    <!-- Using the formset -->
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit">
+</form>
+<a href="/tour/registered">Get back</a>
+</body>
