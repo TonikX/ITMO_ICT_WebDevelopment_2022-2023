@@ -1,0 +1,18 @@
+{% extends "./base_body.html" %}
+{% load static %}
+{% block tab_title %}
+    Profile
+{% endblock tab_title %}
+{% block title %}
+    Profile
+{% endblock title %}
+{% comment %} {% block subtitle %}
+<p>Let's setup your personal Tracker Fly account</p>
+{% endblock subtitle %}
+
+{% block aside_container %}
+    {% with aside_image="plane.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
+{% endblock aside_container %} {% endcomment %}
+{% block content %}
+    Your profile {{ user }}
+{% endblock content %}

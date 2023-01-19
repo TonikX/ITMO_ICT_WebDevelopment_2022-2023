@@ -136,6 +136,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # App specific settings
 AUTH_USER_MODEL = "main.User"
+LOGIN_URL = "log_in"
+# LOGIN_REDIRECT_URL = "profile"
+LOGIN_REDIRECT_URL = "home"
 
 # Tailwind related settings
 TAILWIND_APP_NAME = 'theme'

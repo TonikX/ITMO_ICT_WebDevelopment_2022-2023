@@ -10,14 +10,23 @@
             <li class="text-2xl text-[var(--h1-color)]">Tracker Fly</li>
         </ul>
         <ul class="px-4">
-            <li>
-                <a href="{% url 'sign_up' %}"
-                   class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
-                   href="#">Sign Up</a>
-            </li>
-            <li>
-                <a href="{% url 'log_in' %}" role="button">Log In</a>
-            </li>
+            {% if user.is_authenticated %}
+                <li>
+                    <span>Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>!</span>
+                </li>
+                <li>
+                    <a href="{% url 'log_out' %}" role="button">Log Out</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'sign_up' %}"
+                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
+                       href="#">Sign Up</a>
+                </li>
+                <li>
+                    <a href="{% url 'log_in' %}" role="button">Log In</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endblock nav %}
