@@ -85,7 +85,8 @@ export default {
         success: () => {
           localStorage.setItem("auth_token", "")
           delete $.ajaxSettings.headers['Authorization']
-          this.isAuth = false
+          this.isAuth = false,
+          this.$router.push({name: "welcome"})
         },
         error: (response) => {
           alert(Object.values(response.responseJSON)[0])
