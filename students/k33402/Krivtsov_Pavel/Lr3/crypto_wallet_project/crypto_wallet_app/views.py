@@ -65,7 +65,7 @@ class UserOwnershipsListApiView(generics.ListAPIView):
         if not user.is_authenticated:
             raise PermissionDenied()
 
-        return Ownership.objects.filter(user=user)
+        return Ownership.objects.filter(user=user, count__gt=0)
 
 
 class UserCurrencyOwnershipApiView(APIView):
