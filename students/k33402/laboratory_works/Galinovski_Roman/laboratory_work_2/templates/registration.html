@@ -1,0 +1,11 @@
+<h1>Sign up</h1>
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit"> <br>
+</form>
+
+<a href="/login/">Войти в аккаунт</a><br>
