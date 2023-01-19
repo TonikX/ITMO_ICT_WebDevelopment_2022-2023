@@ -72,6 +72,11 @@ export default {
   created() {
     this.isAuth = !!localStorage.getItem("auth_token")
   },
+  watch: {
+    $route() {
+      this.isAuth = !!localStorage.getItem("auth_token")
+    }
+  },
   methods: {
     logout() {
       $.ajax({
