@@ -7,12 +7,12 @@
     Sign Up
 {% endblock title %}
 {% block aside_container %}
-    {% with aside_image="plane.jpg" %}{{ block.super }}{% endwith %}
+    {% with aside_image="plane.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
 {% endblock aside_container %}
 {% block content %}
     <form action="" method="post" class="!grid grid-cols-2 gap-6">
         {% csrf_token %}
-        <p class="col-span-full">
+        <div class="col-span-full">
             {% if form.errors %}
                 <ul class="text-pink-500">
                     {% for field, errors in form.errors.items %}
@@ -20,19 +20,16 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-        </p>
+        </div>
         {% for field in form %}
-            {% if not field.errors %}
-                <p class="text-md">{{ field.label_tag }} {{ field }}</p>
-            {% else %}
-                <p class="text-md text-pink-500">
-                    {{ field.label_tag }}
-                    {{ field }}
-                </p>
-            {% endif %}
+            <p class="text-md m-0 {% if field.errors %}text-pink-500{% endif %}">{{ field.label_tag }} {{ field }}</p>
         {% endfor %}
-        <p class="col-span-full">
-            <input class="max-w-xs" type="submit" value="Create Account"/>
-        </p>
+        <div class="col-span-full !grid grid-cols-2 gap-6">
+            <div>
+                <input class="max-w-xs" type="submit" value="Create Account"/>
+                Alerady have an account? <a class="text-[var(--h1-color)]" href="{% url 'log_in' %}">Log In</a>
+            </div>
+            <span/>
+        </div>
     </form>
 {% endblock content %}

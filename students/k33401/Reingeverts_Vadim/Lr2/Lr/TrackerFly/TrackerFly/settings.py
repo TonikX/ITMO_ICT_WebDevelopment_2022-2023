@@ -140,6 +140,8 @@ AUTH_USER_MODEL = "main.User"
 # Tailwind related settings
 TAILWIND_APP_NAME = 'theme'
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 INTERNAL_IPS = [
     "127.0.0.1",
     "192.168.1.246"

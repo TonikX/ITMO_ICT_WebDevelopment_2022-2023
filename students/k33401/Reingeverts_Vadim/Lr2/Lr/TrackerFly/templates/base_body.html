@@ -1,22 +1,24 @@
 {% extends "./base.html" %}
 {% load static %}
 {% block body %}
-    {% block nav %}
-        {% include "./sub_nav.html" %}
-    {% endblock nav %}
     {% block aside_container %}
-        {% comment %} <div class="min-w-full grid {% if aside_image %}grid{% endif %}">
-        {% include "./sub_aside.html" %} {% endcomment %}
-        <main class="min-h-full absolute top-0 pt-40 px-8">
-            <div class="mx-auto max-w-xl ">
-                <h1 class="text-4xl">
-                    {% block title %}
-                    {% endblock title %}
-                </h1>
-                {% block content %}
-                {% endblock content %}
-            </div>
-        </main>
-        {% comment %} </div> {% endcomment %}
+        {% if not aside_image %}
+            {% block nav %}
+                {% include "./sub_nav.html" %}
+            {% endblock nav %}
+        {% endif %}
+        <div class="{% if aside_image %}grid h-full{% endif %}">
+            {% include "./sub_aside.html" %}
+            <main class="min-h-full top-0 px-8 pt-40 {% if aside_image %}pt-20{% endif %}">
+                <div class="mx-auto max-w-xl ">
+                    <h1 class="text-4x">
+                        {% block title %}
+                        {% endblock title %}
+                    </h1>
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+            </main>
+        </div>
     {% endblock aside_container %}
 {% endblock body %}
