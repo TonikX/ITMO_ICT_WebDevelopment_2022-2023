@@ -1,0 +1,13 @@
+<body>
+    Студент: {{object.student.first_name}} {{object.student.last_name}}<br>
+    Дисциплина: {{object.homework.course.course_name}} <br>
+    Домашнее задание: {{object.homework.task}} <br>
+    Выполненное задание: {{object.done_task}} <br>
+
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+    <a href="/">Назад</a>
+</body>
