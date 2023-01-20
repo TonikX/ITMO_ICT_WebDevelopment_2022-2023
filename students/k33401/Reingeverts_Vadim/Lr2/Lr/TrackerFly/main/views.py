@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.views import LoginView
 from django.views.generic import RedirectView
 
@@ -24,6 +24,15 @@ class SignUp(CreateView):
 
     def get_success_url(self):
         return reverse("home")
+
+    def form_valid(self, form):
+        to_return = super().form_valid(form)
+        user = authenticate(
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password1"],
+        )
+        login(self.request, user)
+        return to_return
 
 
 class LogIn(LoginView):
