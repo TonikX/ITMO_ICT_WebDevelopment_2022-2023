@@ -1,0 +1,90 @@
+{% extends "./base_body.html" %}
+{% load static %}
+{% block tab_title %}
+    Flights
+{% endblock tab_title %}
+{% block title %}
+    Flights
+{% endblock title %}
+{% block subtitle %}
+    <p>All flights</p>
+{% endblock subtitle %}
+{% block content %}
+    {% if error %}<p class="text-pink-500">{{ error }}</p>{% endif %}
+    {% for flight in fligts %}
+        {% for iata_code, airport in iata_codes.items %}
+            <li>{{ iata_code }} - {{ airport.city }}, {{ airport.country }} ({{ airport.name }})</li>
+        {% endfor %}
+    {% endfor %}
+    {% comment %} <p>{{ flight }}:</p>
+    <p>{{ flight.source_airport_code }} - {{ test }}</p>
+    <p>{{ flight.destination_airport_code }}</p> {% endcomment %}
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+                <th scope="col">Heading</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>Cell</td>
+                <td>
+                    Cell
+                </td>
+                <td>
+                    Cell
+                </td>
+                <td>
+                    Cell
+                </td>
+                <td>
+                    Cell
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col">
+                    #
+                </th>
+                <td scope="col">
+                    Total
+                </td>
+                <td scope="col">
+                    Total
+                </td>
+                <td scope="col">
+                    Total
+                </td>
+                <td scope="col">
+                    Total
+                </td>
+                <td scope="col">
+                    Total
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock content %}

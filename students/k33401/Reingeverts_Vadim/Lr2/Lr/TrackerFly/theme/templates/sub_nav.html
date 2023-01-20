@@ -9,6 +9,15 @@
             </li>
             <li class="text-2xl text-[var(--h1-color)]">Tracker Fly</li>
         </ul>
+        {% if user.is_authenticated %}
+            <ul class="px-4">
+                <li>
+                    <a href="{% url 'flights' %}"
+                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
+                       href="#">Flights</a>
+                </li>
+            </ul>
+        {% endif %}
         <ul class="px-4">
             {% if user.is_authenticated %}
                 <li>
