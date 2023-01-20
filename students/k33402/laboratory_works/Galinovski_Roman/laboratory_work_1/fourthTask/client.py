@@ -23,8 +23,13 @@ class Client:
 
     def send(self):
         while True:
-            message = input()
-            self.socketVar.send(message.encode())
+            try:
+                message = input()
+                self.socketVar.send(message.encode())
+            except:
+                print("Error...")
+                self.socketVar.close()
+                break               
 
     def start(self):
         self.nickname = input("Enter your nickname: ")
@@ -36,4 +41,6 @@ class Client:
 
 
 if __name__ == "__main__":
-    Client("127.0.0.1", 9980).start()
+    host = '127.0.0.1'
+    port = 9880
+    Client(host, port).start()

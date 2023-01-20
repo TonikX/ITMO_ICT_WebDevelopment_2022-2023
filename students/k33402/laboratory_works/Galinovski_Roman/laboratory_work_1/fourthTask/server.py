@@ -1,26 +1,30 @@
 import socket
 import threading
 
-class Chat:
+class Server:
     def __init__(self, ip, host):
         self.socketVar = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socketVar.bind((ip, host))
         self.socketVar.listen()
-        self.clients = {}  # {client:nickname}
+        self.clients = {}
 
     def broadcast(self, message, nickname):
-        for client in self.clients.keys():
-            client.send(f"{nickname}: {message}".encode())
+        try:
+            for client in self.clients.keys():
+                client.send(f"{nickname}: {message}".encode("utf-8"))
+        except:
+            print('Broadcast error!')
 
-    def handle_client(self, client):
+
+    def handleClient(self, client):
         while True:
             try:
                 message = client.recv(1024).decode()
                 self.broadcast(message, self.clients[client])
             except:
                 client.close()
-                self.broadcast(f'{self.clients[client]} has left the chat...'.encode('utf-8'))
-                self.clients.pop(client)
+                leftClient = self.clients.pop(client)
+                self.broadcast('Left the chat ', leftClient)
                 break
 
     def receive(self):
@@ -32,7 +36,7 @@ class Chat:
             nickname = client.recv(1024).decode()
             self.clients[client] = nickname
             self.broadcast(f"{nickname} has connected to the chat", "Server")
-            thread = threading.Thread(target=self.handle_client, args=(client,))
+            thread = threading.Thread(target=self.handleClient, args=(client,))
             thread.start()
 
     def run(self):
@@ -40,4 +44,6 @@ class Chat:
 
 
 if __name__ == "__main__":
-    Chat("127.0.0.1", 9980).run()
+    host = '127.0.0.1'
+    port = 9880
+    Server(host, port).run()

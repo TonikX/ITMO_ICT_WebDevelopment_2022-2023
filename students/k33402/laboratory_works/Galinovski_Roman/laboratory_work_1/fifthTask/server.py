@@ -1,32 +1,26 @@
 import socket
-
 class MyHTTPServer:
-
-    def __init__(self, host, port, name):
+    def __init__(self, host, port):
         self.host = host
         self.port = port
-        self.name = name
         self.marks = []
 
     def serveForever(self):
-
-        serveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        serveSocket.bind((self.host, self.port))
-        serveSocket.listen(10)
-        print('hi')
+        self.serveSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto = 0)
+        self.serveSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.serveSocket.bind((self.host, self.port))
+        self.serveSocket.listen(10)
         while True:
-            clientSocket, address = serveSocket.accept()
+            clientSocket, address = self.serveSocket.accept()
             self.serveClient(clientSocket)
 
     def serveClient(self, sock):
-
         data = sock.recv(4096).decode("utf-8")
         request = self.parseRequest(data)
         response = self.handleRequest(request)
         sock.send(response.encode())
 
     def parseRequest(self, data):
-
         requestLine = data.split('\r\n')[0]
         words = requestLine.split()
         if len(words) == 3:
@@ -50,10 +44,9 @@ class MyHTTPServer:
             parts = line.split(': ')
             headers[parts[0]] = parts[1]
         return headers
-
+        
     def handleRequest(self, request):
         response = f"{request['version']} 200 OK\n\n"
-
         if request['method'] == 'GET' and request['url'] == "/":
             with open('index.html') as page:
                 response += page.read()
@@ -71,15 +64,13 @@ class MyHTTPServer:
             body += '</table></body></html>'
             response += body
         elif request['method'] == 'POST':
-            self.marks.append((request['parametrs']['subject'], request['parametrs']['mark']))
-
+            self.marks.append((request['parametrs']['subject'], request['parametrs']['mark']))    
         return response
 
 if __name__ == '__main__':
-    host = 'localhost'
+    host = '127.0.0.1'
     port = 9889
-    name = 'torry-site.ru'
-    serv = MyHTTPServer(host, port, name)
+    serv = MyHTTPServer(host, port)
     try:
         serv.serveForever()
     except KeyboardInterrupt:
