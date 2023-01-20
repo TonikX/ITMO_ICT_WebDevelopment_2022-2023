@@ -70,6 +70,13 @@ View
 
 ...
 
+### Requirements
+
+geocoder
+requests_cache
+django-money
+
+
 ### Running
 
 Script for running dev server with tailwinds,

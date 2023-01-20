@@ -12,14 +12,31 @@
 {% block content %}
     {% if error %}<p class="text-pink-500">{{ error }}</p>{% endif %}
     {% for flight in fligts %}
-        {% for iata_code, airport in iata_codes.items %}
+        {% comment %} {% for iata_code, airport in iata_codes.items %}
             <li>{{ iata_code }} - {{ airport.city }}, {{ airport.country }} ({{ airport.name }})</li>
-        {% endfor %}
+        {% endfor %}     {% endcomment %}
+        <div class="bg-slate-800 flex flex-col gap-y-0 p-4">
+            <div class="flex gap-4 justify-between">
+                <div class="!grid grid-cols-2 grid-rows-[min-content_min-content] gap-x-4">
+                    <div>{{ flight.departure|date:"H:m" }} – {{ flight.arrival|date:"H:m" }}</div>
+                    <div>{{ flight.departure|timesince:flight.arrival }}</div>
+                    <div>{{ flight.source.city }} – {{ flight.destination.city }}</div>
+                </div>
+                {% comment %} <div>{{ flight.source.city }}</div>
+                <div>{{ flight.departure|date:"Y.m.d" }}</div>
+                <div>{{ flight.gate }}</div> {% endcomment %}
+                <div >
+                    <div>{{ flight.price }}</div>
+                    <a href="{% url 'home' %}" role="button">Reserve</a>
+                </div>
+            </div>
+            <div>{{ flight.airline }}</div>
+        </div>
     {% endfor %}
     {% comment %} <p>{{ flight }}:</p>
     <p>{{ flight.source_airport_code }} - {{ test }}</p>
     <p>{{ flight.destination_airport_code }}</p> {% endcomment %}
-    <table>
+    {% comment %} <table role="grid">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -27,21 +44,13 @@
                 <th scope="col">Heading</th>
                 <th scope="col">Heading</th>
                 <th scope="col">Heading</th>
-                <th scope="col">Heading</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th scope="row">1</th>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td>Cell</td>
+                <td>Cell1</td>
                 <td>Cell</td>
                 <td>Cell</td>
                 <td>Cell</td>
@@ -49,7 +58,15 @@
             </tr>
             <tr>
                 <th scope="row">1</th>
+                <td>Cell2</td>
                 <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+                <td>Cell</td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>Cell3</td>
                 <td>
                     Cell
                 </td>
@@ -64,27 +81,5 @@
                 </td>
             </tr>
         </tbody>
-        <tfoot>
-            <tr>
-                <th scope="col">
-                    #
-                </th>
-                <td scope="col">
-                    Total
-                </td>
-                <td scope="col">
-                    Total
-                </td>
-                <td scope="col">
-                    Total
-                </td>
-                <td scope="col">
-                    Total
-                </td>
-                <td scope="col">
-                    Total
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+    </table> {% endcomment %}
 {% endblock content %}

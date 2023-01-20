@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from djmoney.models.fields import MoneyField
 
 
 class Ticket(models.Model):
@@ -45,11 +46,30 @@ class Flight(models.Model):
     source_airport_code = models.CharField(max_length=10)
     destination_airport_code = models.CharField(max_length=10)
 
+    max_reservations = models.IntegerField(default=120)
+    reservations = models.IntegerField(default=0)
+    reservators = models.ManyToManyField('User', blank=True)
+
+    price = MoneyField(
+        decimal_places=2,
+        default=0,
+        default_currency='USD',
+        max_digits=11,
+    )
+
     def __str__(self):
         return self.airline + " " + self.fligt_number
+
+    def save(self, *args, **kwargs):
+        self.reservations = self.reservators.count()
+        print("So, thats it?", self.reservators.count())
+        super(Flight, self).save(*args, **kwargs)
 
     class Meta:
         constraints = [
             models.CheckConstraint(check=models.Q(
                 arrival__gt=models.F('departure')), name='departure_arrival_check', violation_error_message='Departure must be earlier than arrival.'),
+            # models.CheckConstraint(check=models.Q(
+            #     reservations__lte=models.F('max_reservations')), name='can_reserve_check', violation_error_message='All seats have already been reserved.'),
         ]
+    # def can_reserve(self):

@@ -28,8 +28,6 @@ def get_city_by_iata_code(api_key, api_url, iata_codes=[]):
         result['error'] = "Couldn't connect to the API"
         return result
 
-    print("IS IT CACHE?", raw_res.from_cache)
-
     response = raw_res.json()
     if raw_res.status_code == 200 and 'error' not in response:
         for airport in response['response']:

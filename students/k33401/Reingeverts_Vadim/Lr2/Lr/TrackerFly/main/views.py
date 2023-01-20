@@ -38,8 +38,14 @@ class Flights(LoginRequiredMixin, ListView):
             api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes', 'error')(cities_result)
+        
+        for flight in context['fligts']:
+            for key, value in iata_codes_dict.items():
+                if flight.source_airport_code == key:
+                    flight.source = value
+                if flight.destination_airport_code == key:
+                    flight.destination = value
 
-        context['iata_codes'] = iata_codes_dict
         context['error'] = error
 
         return context
