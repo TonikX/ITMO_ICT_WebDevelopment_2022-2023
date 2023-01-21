@@ -8,7 +8,7 @@ from hotel_app.models import Hotel
 
 class Guest(models.Model):
     user_g = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_guest", verbose_name='ID User')
-    phone_guest = models.CharField(max_length=10, verbose_name="Phone")
+    phone_guest = models.CharField(max_length=12, null=True, blank=True, verbose_name="Phone")
     passport_guest = models.CharField(max_length=10, null=True, blank=True, verbose_name="Passport")
 
 
@@ -17,8 +17,8 @@ class Employee(models.Model):
                                      verbose_name='ID User')
     hotel_empl = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True, blank=True,
                                    related_name="hotel_employee", verbose_name='ID Hotel')
-    phone_employee = models.CharField(max_length=10, verbose_name="Phone")
-    position_employee = models.CharField(max_length=100, verbose_name="Position")
+    phone_employee = models.CharField(max_length=12, null=True, blank=True, verbose_name="Phone")
+    position_employee = models.CharField(max_length=100, null=True, blank=True, verbose_name="Position")
 
 
 @receiver(post_save, sender=User)
