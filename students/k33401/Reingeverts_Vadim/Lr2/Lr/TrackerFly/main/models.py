@@ -41,7 +41,6 @@ class Flight(models.Model):
     destination_airport_code = models.CharField(max_length=10)
 
     max_reservations = models.IntegerField(default=120)
-    # reservations = models.IntegerField(default=0)
     reservators = models.ManyToManyField('User', blank=True)
 
     price = MoneyField(
