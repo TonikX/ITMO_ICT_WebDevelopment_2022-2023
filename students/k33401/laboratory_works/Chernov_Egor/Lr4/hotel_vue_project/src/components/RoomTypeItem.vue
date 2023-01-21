@@ -1,9 +1,15 @@
 <template>
-  <div class="">
-    <h3 class="">Type {{ type_rt }}</h3>
-    <h4 class="">Price: {{ price_rt }}</h4>
-    <p class="">Rating: {{ rating_rt }}</p>
-    <p v-if="des_rt">Description: {{ des_rt }}</p>
+  <div class="row" id="hotelItem">
+    <div class="col-6 text-center">
+      <p class="fs-2">Type {{ type_rt }}</p>
+      <p class="fs-4">Price: <span class="fs-5">{{ price_rt }}</span></p>
+      <p class="fs-4">Rating: <span class="fs-5">{{ rating_rt }}</span></p>
+    </div>
+    <div class="col-6 text-center">
+      <p class="fs-2">Description:</p>
+      <p v-if="des_rt" class="fs-5">{{ des_rt }}</p>
+      <p v-else class="fs-5">We don't have any description...</p>
+    </div>
   </div>
 </template>
 
@@ -33,5 +39,9 @@ export default {
 </script>
 
 <style scoped>
-
+#hotelItem {
+  background-color: rgb(108, 122, 137, 0.4);;
+  border-radius: 8px 8px 0px 0px;
+  color: black;
+}
 </style>

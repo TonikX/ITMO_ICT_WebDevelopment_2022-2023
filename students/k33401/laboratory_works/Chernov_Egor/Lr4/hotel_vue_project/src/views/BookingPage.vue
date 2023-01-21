@@ -1,5 +1,6 @@
 <template>
   <base-layout>
+    <nav-bar />
     <div>
       <reg-form :idHotel="room.hotel_r.id" :nameHotel="room.hotel_r.name_hotel" :idRoomType="room.rt_r.id" :typeRoom="room.rt_r.type_rt" :numberRoom="room.number_room" />
     </div>
@@ -11,11 +12,12 @@ import BaseLayout from "@/layouts/BaseLayout.vue";
 import RegForm from "@/components/RegRoomForm.vue";
 import {mapActions, mapState} from "pinia";
 import useHotelsStore from "@/stores/hotels";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "BookingPage",
 
-  components: { RegForm, BaseLayout },
+  components: { NavBar, RegForm, BaseLayout },
 
   computed: {
     ...mapState(useHotelsStore, ['room'])

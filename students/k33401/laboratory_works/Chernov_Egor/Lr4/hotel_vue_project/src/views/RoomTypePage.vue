@@ -1,12 +1,17 @@
 <template>
   <base-layout>
-    <h1>{{ hotel_room_types.name_hotel }} room types:</h1>
-    <ul class="">
-      <li class="row" v-for="room_type in hotel_room_types.hotel_room_type" :key="room_type.id">
-        <room-type-item class="col" :type_rt="room_type.type_rt" :rating_rt="room_type.rating_rt" :price_rt="room_type.price_rt" :des_rt="room_type.des_rt" />
-        <RouterLink :to="{name: 'rooms', params: {id: room_type.id}}">Look</RouterLink>
-      </li>
-    </ul>
+    <nav-bar />
+    <div class="container col-8 justify-content-center py-4">
+      <h1 class="text-center">{{ hotel_room_types.name_hotel }}</h1>
+      <ul class="navbar-nav p-3">
+        <li class="nav-item" v-for="room_type in hotel_room_types.hotel_room_type" :key="room_type.id">
+          <room-type-item class="mx-0 px-0" :type_rt="room_type.type_rt" :rating_rt="room_type.rating_rt" :price_rt="room_type.price_rt" :des_rt="room_type.des_rt" />
+          <p class="d-flex justify-content-center" id="lookButton">
+            <RouterLink class="nav-link btn-text w-100 text-center" :to="{name: 'rooms', params: {id: room_type.id}}">Look</RouterLink>
+          </p>
+        </li>
+      </ul>
+    </div>
   </base-layout>
 </template>
 
@@ -17,11 +22,12 @@ import useHotelsStore from "@/stores/hotels";
 
 import BaseLayout from "@/layouts/BaseLayout.vue";
 import RoomTypeItem from "@/components/RoomTypeItem.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "RoomTypePage",
 
-  components: {RoomTypeItem, BaseLayout },
+  components: { NavBar, RoomTypeItem, BaseLayout },
 
   props: {
     id: {
@@ -45,5 +51,16 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  color: black;
+}
 
+.btn-text {
+  color: black !important;
+}
+
+#lookButton {
+  background-color: #E0E7E9;
+  border-radius: 0px 0px 8px 8px;
+}
 </style>

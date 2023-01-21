@@ -1,8 +1,14 @@
 <template>
-  <div class="">
-    <h3 class="">Name: {{ name_hotel }}</h3>
-    <h4 class="">Address: {{ address_hotel }}</h4>
-    <p v-if="des_hotel">Description: {{ des_hotel }}</p>
+  <div class="row" id="hotelItem">
+    <div class="col-6">
+      <p class="fs-2">{{ name_hotel }}</p>
+      <p class="fs-4">Address: <span class="fs-5">{{ address_hotel }}</span></p>
+    </div>
+    <div class="col-6">
+      <p class="fs-2">Description:</p>
+      <p v-if="des_hotel" class="fs-5">{{ des_hotel }}</p>
+      <p v-else class="fs-5">We don't have any description...</p>
+    </div>
   </div>
 </template>
 
@@ -28,5 +34,9 @@ export default {
 </script>
 
 <style scoped>
-
+#hotelItem {
+  background-color: rgb(108, 122, 137, 0.4);;
+  border-radius: 8px 8px 0px 0px;
+  color: black;
+}
 </style>

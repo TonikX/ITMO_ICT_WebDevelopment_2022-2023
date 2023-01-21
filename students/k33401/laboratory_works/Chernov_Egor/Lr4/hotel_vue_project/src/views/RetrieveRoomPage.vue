@@ -1,8 +1,9 @@
 <template>
   <base-layout>
-    <retrieve-room :review_room="room.review_room" :number_room="room.number_room" :status_room="room.status_room"
-                   :des_rt="room.rt_r.des_rt" :price_rt="room.rt_r.price_rt" :type_rt="room.rt_r.type_rt"
-                   :name_hotel="room.hotel_r.name_hotel"/>
+    <nav-bar />
+    <retrieve-room :review_room="review" :number_room="number" :status_room="status"
+                   :des_rt="des" :price_rt="price" :type_rt="type"
+                   :name_hotel="nameHotel"/>
     <button @click="goToRegOrAuth()">Choose</button>
     <h3>Comments:</h3>
     <div v-for="comment in comments" :key="comment.id">
@@ -22,11 +23,24 @@ import useRegComStore from "@/stores/regCom";
 import BaseLayout from "@/layouts/BaseLayout.vue";
 import RetrieveRoom from "@/components/RetrieveRoom.vue";
 import CommentRoom from "@/components/CommentRoom.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "RetrieveRoomPage",
 
-  components: {RetrieveRoom, CommentRoom, BaseLayout},
+  components: { NavBar, RetrieveRoom, CommentRoom, BaseLayout },
+
+  data() {
+    return {
+      review: "",
+      number: 0,
+      status: "",
+      des: "",
+      price: 0,
+      type: "",
+      nameHotel: ""
+    }
+  },
 
   props: {
     id: {
@@ -61,10 +75,16 @@ export default {
     }
   },
 
-  mounted() {
-    this.loadRoom(this.id)
-
-    this.loadComments()
+  async mounted() {
+    await this.loadRoom(this.id)
+    this.review = this.room.review_room
+    this.number = this.room.number_room
+    this.status = this.room.status_room
+    this.des = this.room.rt_r.des_rt
+    this.price = this.room.rt_r.price_rt
+    this.type = this.room.rt_r.type_rt
+    this.nameHotel = this.room.hotel_r.name_hotel
+    await this.loadComments()
   }
 }
 </script>

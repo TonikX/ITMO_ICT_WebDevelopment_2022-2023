@@ -1,8 +1,9 @@
 <template>
   <base-layout>
-    <h1>{{ rooms.hotel_rt.name_hotel }}</h1>
-    <h2>{{ rooms.type_rt }} type rooms:</h2>
-    <h3>Price for room is {{ rooms.price_rt }}</h3>
+    <nav-bar />
+    <h1>{{ nameHotel }}</h1>
+    <h2>{{ typeRoom }} type rooms:</h2>
+    <h3>Price for room is {{ price }}</h3>
     <ul class="">
       <li class="row" v-for="room in rooms.rt_room" :key="room.id">
         <room-item class="col" :number_room="room.number_room" :status_room="room.status_room" :review_room="room.review_room" />
@@ -19,11 +20,20 @@ import useHotelsStore from "@/stores/hotels";
 
 import BaseLayout from "@/layouts/BaseLayout.vue";
 import RoomItem from "@/components/RoomItem.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "RoomPage",
 
-  components: { RoomItem, BaseLayout },
+  components: { NavBar, RoomItem, BaseLayout },
+
+  data() {
+    return {
+      nameHotel: "",
+      typeRoom: "",
+      price: ""
+    }
+  },
 
   props: {
     id: {
@@ -40,8 +50,11 @@ export default {
     ...mapActions(useHotelsStore, ['loadRooms'])
   },
 
-  mounted() {
-    this.loadRooms(this.id)
+  async mounted() {
+    await this.loadRooms(this.id)
+    this.nameHotel = this.rooms.hotel_rt.name_hotel
+    this.typeRoom = this.rooms.type_rt
+    this.price = this.rooms.price_rt
   }
 }
 </script>

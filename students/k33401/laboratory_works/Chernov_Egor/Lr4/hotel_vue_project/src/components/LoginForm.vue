@@ -24,18 +24,19 @@ export default {
   },
 
   computed: {
-    ...mapState(useUserStore, ['tokens', 'users'])
+    ...mapState(useUserStore, ['tokens', 'users', 'accUser'])
   },
 
   methods: {
-    ...mapActions(useUserStore, ['loadUserToken', 'loadUsers']),
-    login() {
+    ...mapActions(useUserStore, ['loadUserToken', 'loadUsers', 'loadAccUser']),
+    async login() {
       if (this.username && this.password) {
         this.isValid = false
 
-        this.loadUserToken(this.username, this.password)
+        await this.loadUserToken(this.username, this.password)
+        const refreshToken = this.tokens.refresh
         const accessToken = this.tokens.access
-        this.loadUsers(accessToken)
+        await this.loadUsers(accessToken)
         let idUser = ""
         let username = ""
         for (const user of this.users) {
@@ -44,13 +45,19 @@ export default {
             username = user.username
           }
         }
+
+        await this.loadAccUser(accessToken, idUser)
+        let isStaff = this.accUser.is_staff
+
         if (idUser === "null" || idUser === "") {
           alert('Try again.')
           return
         }
         localStorage.setItem('idUser', idUser)
         localStorage.setItem('username', username)
+        localStorage.setItem('isStaff', isStaff)
         localStorage.setItem('accessToken', accessToken)
+        localStorage.setItem('refreshToken', refreshToken)
 
         if (localStorage.getItem('idBookRoom')) {
           this.$router.push({name: "booking"})
