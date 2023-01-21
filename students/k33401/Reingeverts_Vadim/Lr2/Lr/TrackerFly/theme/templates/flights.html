@@ -11,29 +11,39 @@
     <p>All flights</p>
 {% endblock subtitle %}
 {% block content %}
-    {% if error %}<p class="text-pink-500">{{ error }}</p>{% endif %}
-    <ul class="flex flex-col gap-4 !m-0">
-        {% for flight in fligts %}
-            <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
-                <div class="flex gap-4 justify-between">
-                    <div class="w-full !grid grid-cols-[3fr_2fr] grid-rows-[min-content_min-content] gap-x-4 gap-y-2">
-                        <div>🕓{{ flight.departure|date:"H:m" }} – {{ flight.arrival|date:"H:m" }}</div>
-                        <div>✈{{ flight.departure|timesince:flight.arrival }}</div>
-                        <div>🏙{{ flight.source.city }} – {{ flight.destination.city }}</div>
-                        <div class="self-end"></div>
-                        <div class="self-end">
-                            <i>{{ flight.airline }}</i>
-                        </div>
-                    </div>
-                    <div class="col-span-full flex flex-col gap-2 justify-between items-end">
-                        <div class="text-right">
-                            <div>{{ flight.max_reservations|subtract:flight.reservators.count }} left at</div>
-                            <h3 class="m-0">{{ flight.price }}</h3>
-                        </div>
-                        <a href="{% url 'home' %}" role="button">Reserve</a>
-                    </div>
-                </div>
+    <ul class="!m-0 flex flex-col gap-4">
+        {% for date, flights in dates.items %}
+            <li class="list-none">
+                <div>{{ date }}</div>
+                <ul class="flex flex-col gap-4 !m-0">
+                    {% for flight in flights %}
+                        <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+                            <div class="flex gap-4 justify-between">
+                                <div class="w-full !grid grid-cols-[3fr_2fr] grid-rows-[min-content_min-content] gap-x-4 gap-y-2">
+                                    <div>🕓{{ flight.departure|date:"H:m" }} – {{ flight.arrival|date:"H:m" }}</div>
+                                    <div>✈{{ flight.departure|timesince:flight.arrival }}</div>
+                                    <div>🏙{{ flight.source.city }} – {{ flight.destination.city }}</div>
+                                    <div class="self-end"></div>
+                                    <div class="self-end">
+                                        <i>{{ flight.airline }}</i>
+                                    </div>
+                                </div>
+                                <div class="col-span-full flex flex-col gap-2 justify-between items-end">
+                                    <div class="text-right">
+                                        <div>{{ flight.max_reservations|subtract:flight.reservators.count }} left at</div>
+                                        <h3 class="m-0">{{ flight.price }}</h3>
+                                    </div>
+                                    <form class="m-0" method="post">
+                                        {% csrf_token %}
+                                        <a href="{% url 'reserve' flight.pk %}" role="button" type="submit">Reserve</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </li>
         {% endfor %}
     </ul>
+    {% if error %}<p class="text-pink-500">{{ error }}</p>{% endif %}
 {% endblock content %}

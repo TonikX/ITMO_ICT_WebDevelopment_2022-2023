@@ -29,6 +29,8 @@ def get_city_by_iata_code(api_key, api_url, iata_codes=[]):
         return result
 
     response = raw_res.json()
+    print("API response was cached:", raw_res.from_cache)
+
     if raw_res.status_code == 200 and 'error' not in response:
         for airport in response['response']:
             name, iata_code, lat, lng = itemgetter(
@@ -38,10 +40,10 @@ def get_city_by_iata_code(api_key, api_url, iata_codes=[]):
                 g = geocoder.osm(
                     [lat, lng], method='reverse', lang_code="en-US")
                 city, country = itemgetter('state', 'country')(g.json)
+                # print(g.json)
             except TypeError:
                 result['error'] = "Couldn't get city from coordinates."
                 return result
-
             result['iata_codes'][iata_code] = {
                 'name': name,
                 'city': city,

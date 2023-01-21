@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.db.models import Count
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -24,13 +26,14 @@ class Flights(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        flights = self.model.objects.all()
 
+        # Getting city names based on iata airport codes
         api_key = self.request.user.api_key
         api_url = self.request.user.api_url
 
-        context['fligts'] = self.model.objects.all()
         iata_codes = []
-        for flight in context['fligts']:
+        for flight in flights:
             iata_codes.append(flight.source_airport_code)
             iata_codes.append(flight.destination_airport_code)
 
@@ -38,15 +41,27 @@ class Flights(LoginRequiredMixin, ListView):
             api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes', 'error')(cities_result)
-        
-        for flight in context['fligts']:
-            for key, value in iata_codes_dict.items():
-                if flight.source_airport_code == key:
-                    flight.source = value
-                if flight.destination_airport_code == key:
-                    flight.destination = value
 
         context['error'] = error
+
+        # Grouping by day
+        context['dates'] = {}
+        dates = flights.extra(
+            select={'day': 'date( departure )'}
+        ).values('day').annotate(available=Count('departure'))
+
+        for date in dates:
+            grouped_date = datetime.strptime(date['day'], '%Y-%m-%d').date()
+            context['dates'][date['day']] = flights.filter(
+                departure__contains=grouped_date)
+
+            # Setting city names from dict
+            for flight in context['dates'][date['day']]:
+                for key, value in iata_codes_dict.items():
+                    if flight.source_airport_code == key:
+                        flight.source = value
+                    if flight.destination_airport_code == key:
+                        flight.destination = value
 
         return context
 
@@ -94,3 +109,7 @@ class Profile(LoginRequiredMixin, TemplateView):
         context = super(Profile, self).get_context_data(**kwargs)
         context.update({'user': self.request.user})
         return context
+
+
+class Reserve(UpdateView):
+    model = models.Flight
