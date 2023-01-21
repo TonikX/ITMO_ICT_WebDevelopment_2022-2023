@@ -21,6 +21,28 @@ class MyUserSerializer(serializers.ModelSerializer):
     user_guest = GuestSerializer(required=False)
     user_employee = EmployeeSerializer(required=False)
 
+    def update(self, instance, validated_data):
+        instance.username = validated_data.get('username', instance.username)
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.email = validated_data.get('email', instance.email)
+
+        try:
+            instance.user_guest.phone_guest = validated_data.get('user_guest')['phone_guest'] \
+                if validated_data.get('user_guest')['phone_guest'] else instance.user_guest.phone_guest
+            instance.user_guest.passport_guest = validated_data.get('user_guest')['passport_guest'] \
+                if validated_data.get('user_guest')['passport_guest'] else instance.user_guest.passport_guest
+            instance.user_guest.save()
+        except:
+            instance.user_employee.phone_employee = validated_data.get('user_employee')['phone_employee'] \
+                if validated_data.get('user_employee')['phone_employee'] else instance.user_employee.phone_employee
+            instance.user_employee.position_employee = validated_data.get('user_employee')['position_employee'] \
+                if validated_data.get('user_employee')['position_employee'] else instance.user_employee.position_employee
+            instance.user_employee.save()
+
+        instance.save()
+        return instance
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'user_guest', 'user_employee')
+        fields = ('id', 'is_staff', 'username', 'first_name', 'last_name', 'email', 'password', 'user_guest', 'user_employee')
