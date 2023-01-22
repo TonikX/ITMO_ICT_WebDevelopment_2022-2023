@@ -15,14 +15,5 @@
             {% for message in messages %}<li class="text-pink-500">{{ message }}</li>{% endfor %}
         </ul>
     {% endif %}
-    <ul class="!m-0 flex flex-col gap-4">
-        {% for date, flights in dates.items %}
-            <li class="list-none">
-                <div>{{ date }}</div>
-                <ul class="flex flex-col gap-4 !m-0">
-                    {% include "./sub_flights.html" %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
+    {% include "./sub_flights.html" %}
 {% endblock content %}

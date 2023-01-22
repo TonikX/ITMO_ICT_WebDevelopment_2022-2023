@@ -32,43 +32,25 @@ class Flights(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        flights = self.model.objects.all()
 
-        # Getting city names based on iata airport codes
         api_key = self.request.user.api_key
         api_url = self.request.user.api_url
+        iata_codes = self.model.get_iata_codes()
 
-        iata_codes = []
-        for flight in flights:
-            iata_codes.append(flight.source_airport_code)
-            iata_codes.append(flight.destination_airport_code)
-
-        cities_result = get_city_by_iata_code(
-            api_key, api_url, iata_codes)
+        # Getting city names based on iata airport codes
+        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes', 'error')(cities_result)
 
+        # Setting city names from dict
+        date_dict = self.model.group_by_day()
+        for date, flights in date_dict.items():
+            for flight in flights:
+                flight.source = iata_codes_dict[flight.source_airport_code]
+                flight.destination = iata_codes_dict[flight.destination_airport_code]
+
+        context['dates'] = date_dict
         context['error'] = error
-
-        # Grouping by day
-        context['dates'] = {}
-        dates = flights.extra(
-            select={'day': 'date( departure )'}
-        ).values('day').annotate(available=Count('departure'))
-
-        for date in dates:
-            grouped_date = datetime.strptime(date['day'], '%Y-%m-%d').date()
-            context['dates'][date['day']] = flights.filter(
-                departure__contains=grouped_date)
-
-            # Setting city names from dict
-            for flight in context['dates'][date['day']]:
-                for key, value in iata_codes_dict.items():
-                    if flight.source_airport_code == key:
-                        flight.source = value
-                    if flight.destination_airport_code == key:
-                        flight.destination = value
-
         return context
 
 
@@ -113,10 +95,27 @@ class Profile(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Profile, self).get_context_data(**kwargs)
-        context.update({'user': self.request.user})
-        flights = models.Flight.objects.filter(
+
+        api_key = self.request.user.api_key
+        api_url = self.request.user.api_url
+        iata_codes = models.Flight.get_iata_codes()
+
+        # Getting city names based on iata airport codes
+        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
+        iata_codes_dict, error = itemgetter(
+            'iata_codes', 'error')(cities_result)
+
+        # Setting city names from dict
+        date_dict = models.Flight.group_by_day(
             reservators__in=[self.request.user])
-        context['flights'] = flights
+        for date, flights in date_dict.items():
+            for flight in flights:
+                flight.source = iata_codes_dict[flight.source_airport_code]
+                flight.destination = iata_codes_dict[flight.destination_airport_code]
+
+        context['dates'] = date_dict
+        context['error'] = error
+        context.update({'user': self.request.user})
         return context
 
 

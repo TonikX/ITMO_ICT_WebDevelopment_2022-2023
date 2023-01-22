@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.db.models import Count
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from djmoney.models.fields import MoneyField
@@ -53,7 +55,32 @@ class Flight(models.Model):
     def __str__(self):
         return self.airline + " " + self.fligt_number
 
-    # def get_iata_codes(self):
+    @classmethod
+    def get_iata_codes(cls):
+        """ Returns the list of all iata codes used in model """
+        flights = cls.objects.all()
+        iata_codes = []
+
+        for flight in flights:
+            iata_codes.append(flight.source_airport_code)
+            iata_codes.append(flight.destination_airport_code)
+
+        return iata_codes
+
+    @classmethod
+    def group_by_day(cls, **kwargs):
+        flights = cls.objects.filter(**kwargs)
+
+        dates = flights.extra(
+            select={'day': 'date( departure )'}
+        ).values('day').annotate(available=Count('departure'))
+        dates_dict = {}
+        for date in dates:
+            grouped_date = datetime.strptime(date['day'], '%Y-%m-%d').date()
+            dates_dict[date['day']] = flights.filter(
+                departure__contains=grouped_date)
+
+        return dates_dict
 
     class Meta:
         constraints = [

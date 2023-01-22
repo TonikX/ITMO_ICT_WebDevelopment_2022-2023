@@ -18,7 +18,7 @@
         <div>Name: {{ user.first_name }} {{ user.last_name }}</div>
         <div>Email: {{ user.email }}</div>
     </p>
-    {% if flights %}
+    {% if dates %}
         <h2>Your flights</h2>
         {% include "./sub_flights.html" %}
     {% endif %}
