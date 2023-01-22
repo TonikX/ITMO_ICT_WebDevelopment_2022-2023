@@ -36,7 +36,7 @@ class Flight(models.Model):
 
     gate = models.CharField(max_length=20)
     airline = models.CharField(max_length=100)
-    fligt_number = models.CharField(max_length=10)
+    flight_number = models.CharField(max_length=10)
 
     # iata_codes
     source_airport_code = models.CharField(max_length=10)
@@ -53,7 +53,11 @@ class Flight(models.Model):
     )
 
     def __str__(self):
-        return self.airline + " " + self.fligt_number
+        return self.airline + " " + self.flight_number
+
+    def get_iata_code(self):
+        """ Returns the list of two iata codes used in source_airport_code and destination_airport_code fields """
+        return [self.source_airport_code, self.destination_airport_code]
 
     @classmethod
     def get_iata_codes(cls):
@@ -62,8 +66,7 @@ class Flight(models.Model):
         iata_codes = []
 
         for flight in flights:
-            iata_codes.append(flight.source_airport_code)
-            iata_codes.append(flight.destination_airport_code)
+            iata_codes = [*iata_codes, *flight.get_iata_code()]
 
         return iata_codes
 

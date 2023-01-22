@@ -10,10 +10,6 @@
     <p>All flights</p>
 {% endblock subtitle %}
 {% block content %}
-    {% if messages %}
-        <ul class="text-pink-500">
-            {% for message in messages %}<li class="text-pink-500">{{ message }}</li>{% endfor %}
-        </ul>
-    {% endif %}
+    {% include "./sub_error.html" %}
     {% include "./sub_flights.html" %}
 {% endblock content %}

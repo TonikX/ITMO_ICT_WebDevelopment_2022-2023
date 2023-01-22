@@ -11,5 +11,6 @@ urlpatterns = [
     path('logout/', views.LogOut.as_view(), name="log_out"),
     path('profile/', views.Profile.as_view(), name="profile"),
     path('flights/', views.Flights.as_view(), name="flights"),
+    path('flights/<int:pk>', views.FlightDetails.as_view(), name="flight_details"),
     path('flights/reserve/<int:pk>', views.toggle_reserve, name="toggle_reserve"),
 ]

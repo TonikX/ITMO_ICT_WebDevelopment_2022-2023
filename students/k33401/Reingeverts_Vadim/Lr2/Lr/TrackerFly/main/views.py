@@ -54,6 +54,32 @@ class Flights(LoginRequiredMixin, ListView):
         return context
 
 
+class FlightDetails(DetailView):
+    model = models.Flight
+    template_name = 'flight_details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FlightDetails, self).get_context_data(**kwargs)
+        flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+
+        api_key = self.request.user.api_key
+        api_url = self.request.user.api_url
+        iata_codes = flight.get_iata_code()
+
+        # Getting city names based on iata airport codes
+        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
+        iata_codes_dict, error = itemgetter(
+            'iata_codes', 'error')(cities_result)
+
+        flight.source = iata_codes_dict[flight.source_airport_code]
+        flight.destination = iata_codes_dict[flight.destination_airport_code]
+
+        context['flight'] = flight
+        context['error'] = error
+
+        return context
+
+
 class SignUp(CreateView):
     model = models.User
     form_class = forms.UserSignUpForm
