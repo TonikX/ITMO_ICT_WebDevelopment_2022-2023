@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 2 - My Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Web-программирование 2022-23</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../lab_1/" class="dropdown-item">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="../lab_3/" class="dropdown-item">Lab 3</a>
+</li>
+                                    
+<li>
+    <a href="../lab_4/" class="dropdown-item">Lab 4</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../lab_3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no2-django" class="nav-link">Лабораторная работа №2 - Реализация простого сайта на django</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Цель</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no2-django">Лабораторная работа №2 - Реализация простого сайта на django</h1>
+<h2 id="_1">Цель</h2>
+<ul>
+<li>дать краткое представление о работе Django WEB фреймворка.</li>
+<li>Необходимо реализовать следующий функционал:</li>
+<li>Регистрация новых пользователей.</li>
+<li>Просмотр автогонок и регистрацию гонщиков. Пользователь должен иметь
+возможность редактирования и удаления своих регистраций.</li>
+<li>Написание отзывов и комментариев к автогонкам. Предварительно
+комментатор должен зарегистрироваться. При добавлении комментариев
+должны сохраняться даты заезда, текст комментария, тип комментария
+(вопрос о сотрудничестве, вопрос о гонках, иное), рейтинг (1-10),
+информация о комментаторе.</li>
+<li>Администратор должен иметь возможность указания времени заезда и
+результата средствами Django-admin.</li>
+<li>
+<p>В клиентской части должна формироваться таблица всех заездов и
+результатов конкретной гонки.</p>
+</li>
+<li>
+<p><code>models.py</code></p>
+</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+from datetime import datetime
+import django
+from django.contrib.auth.models import User
+
+class Driver(models.Model):
+    COUNTRIES = (
+        ('ES', 'Spain'),
+        ('IT', 'Italy'),
+        ('FR', 'France'),
+        ('DE', 'Deutschland'))
+
+    RACER_TYPES = (
+        ('Drag', 'Drag racer'),
+        ('Sport', 'Sports car racer'),
+        ('Off', 'Off-road racer'))
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, null=True)
+    surname = models.CharField(max_length=200, null=True)
+    team = models.CharField(max_length=200, null=True)
+    country = models.CharField(max_length=2, choices=COUNTRIES, null=True)
+    driver_class = models.CharField(max_length=5, choices=RACER_TYPES, null=True)
+    age = models.IntegerField(null=True)
+    experience = models.IntegerField(null=True)
+
+    def __str__(self):
+        return '{} {}'.format(self.name, self.surname)
+
+class Car(models.Model):
+    CAR_TYPES = (
+        ('Drag', 'Drag'),
+        ('Sport', 'Sportscar'),
+        ('Off', 'Off-road'))
+    car_model = models.CharField(max_length=200, null=True)
+    number = models.IntegerField(null=True, unique=True)
+    car_class = models.CharField(max_length=200, choices=CAR_TYPES, null=True)
+    speed = models.IntegerField(null=True)
+    weight = models.FloatField(null=True)
+    length = models.FloatField(null=True)
+    mileage = models.IntegerField(null=True)
+    driver = models.ForeignKey(Driver, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return '{} {}'.format(self.car_model, self.number)
+
+class Race(models.Model):
+    RACE_TYPES = (
+        ('Drag', 'Drag racing'),
+        ('Sport', 'Sports car racing'),
+        ('Off', 'Off-road racing'))
+    race_date = models.DateField(null=True)
+    race_type = models.CharField(max_length=200, choices=RACE_TYPES, null=True)
+    length = models.IntegerField(null=True)
+    name = models.CharField(max_length=200, null=True)
+    registrations = models.ManyToManyField(Driver, through='Registration', blank=True)
+    time = models.TimeField(null=True, blank=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.id)
+
+
+class Comment(models.Model):
+    TYPE = (
+        ('Cooperation', 'Cooperation'),
+        ('Race', 'Race'),
+        ('Other', 'Other'))
+    RATE = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'))
+    race = models.ForeignKey(Race, null=True, on_delete=models.SET_NULL)
+    driver = models.ForeignKey(Driver, null=True, on_delete=models.SET_NULL)
+    text = models.TextField()
+    com_type = models.CharField(max_length=11, choices=TYPE, null=True)
+    grade = models.CharField(max_length=1, choices=RATE, null=True)
+    def __str__(self):
+        return '{}: {}'.format(self.driver, self.com_type)
+
+
+class Registration(models.Model):
+    race = models.ForeignKey(Race, null=True, on_delete=models.SET_NULL)
+    driver = models.ForeignKey(Driver, null=True, on_delete=models.SET_NULL)
+    reg_date = models.DateField(null=True, blank=True, default = django.utils.timezone.now)
+    place = models.IntegerField(null=True, blank=True)
+    car = models.ForeignKey(Car, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return '{} {}'.format(self.race, self.driver)
+</code></pre>
+<ul>
+<li><code>settings.py</code></li>
+</ul>
+<pre><code class="language-python">&quot;&quot;&quot;
+Django settings for races_project project.
+
+Generated by 'django-admin startproject' using Django 3.1.1.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.1/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/3.1/ref/settings/
+&quot;&quot;&quot;
+
+from pathlib import Path
+import os
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '$mg+gogaa2)hng#pw&amp;@4s46@e1#sr-aks-1_vbr!9iqkri_p1x'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'races.apps.RacesConfig',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'races_project.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'races_project.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = '/static/'
+</code></pre>
+<ul>
+<li><code>forms.py</code></li>
+</ul>
+<pre><code class="language-python">from django.forms import ModelForm
+from .models import Registration, Car, Driver, Comment, Race
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from django.contrib.auth.models import User
+
+
+class RegForm(ModelForm):
+    class Meta:
+        model = Registration
+        fields = '__all__'
+
+
+class CarForm(ModelForm):
+    class Meta:
+        model = Car
+        fields = ['car_model', 'number', 'car_class', 'speed', 'weight', 'length', 'mileage']
+
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+
+class CreateDriverForm(ModelForm):
+    class Meta:
+        model = Driver
+        fields = ['name', 'surname', 'team', 'country', 'driver_class', 'age', 'experience']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+class RaceForm(ModelForm):
+    class Meta:
+        model = Race
+        fields = '__all__'
+</code></pre>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">from django.contrib import admin
+from django.urls import path
+from django.http import HttpResponse
+from . import views
+
+
+urlpatterns = [
+    path('', views.races),
+    path('races/&lt;int:pk_test&gt;/drivers', views.drivers, name=&quot;race&quot;),
+    path('races/', views.races, name=&quot;races&quot;),
+    path('home/', views.home, name=&quot;home&quot;),
+    path('registration/create', views.createReg, name=&quot;registration_cr&quot;),
+    path('registration/&lt;int:pk&gt;/change', views.changeReg, name=&quot;registration_ch&quot;),
+    path('registration/&lt;int:pk&gt;/delete', views.deleteReg, name=&quot;registration_dl&quot;),
+    path('car/create', views.createCar, name=&quot;car_cr&quot;),
+    path('car/&lt;int:pk&gt;/change', views.changeCar, name=&quot;car_ch&quot;),
+    path('register', views.regPage, name=&quot;register&quot;),
+    path('login', views.loginPage, name=&quot;login&quot;),
+    path('logout', views.logoutUser, name=&quot;logout&quot;),
+    path('driver_cr', views.regDriver, name=&quot;driver_cr&quot;),
+    path('race/&lt;int:pk&gt;/registrate', views.raceReg, name=&quot;race_reg&quot;),
+    path('race/&lt;int:pk&gt;/comment', views.writeComment, name=&quot;comment&quot;),
+    path('race/create', views.createRace, name=&quot;race_cr&quot;),
+    path('race/&lt;int:pk&gt;/change', views.changeRace, name=&quot;race_ch&quot;),
+    path('race/&lt;int:pk&gt;/results', views.results, name=&quot;results&quot;),
+    path('race/&lt;int:pk&gt;/comments', views.comments, name=&quot;comments&quot;),
+    path('race/&lt;int:pk&gt;/delete', views.delRace, name=&quot;race_dl&quot;),
+]
+</code></pre>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import *
+from .forms import *
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from .decorators import unauthenticated_user, allowed_users
+from django.contrib.auth.models import Group
+from django.forms import inlineformset_factory
+
+
+@unauthenticated_user
+def regPage(request):
+    form = CreateUserForm()
+    if request.method == &quot;POST&quot;:
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+
+            group = Group.objects.get(name='driver')
+            user.groups.add(group)
+            Driver.objects.create(user=user)
+
+            messages.success(request, 'Account was created')
+            return redirect('driver_cr')
+
+    context = {'form': form}
+    return render(request, 'reg_user.html', context)
+
+
+@unauthenticated_user
+def loginPage(request):
+    if request.method == &quot;POST&quot;:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/races')
+        else:
+            messages.info(request, 'Username or password is not correct')
+
+    context = {}
+    return render(request, 'login_page.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('/login')
+
+
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['driver'])
+def home(request):
+    regs = request.user.driver.registration_set.all()
+    driver = Driver.objects.get(id=request.user.driver.id)
+    # cars = request.user.driver.car_set.all()
+    cars = Car.objects.filter(driver=Driver.objects.get(id=request.user.driver.id))
+
+    return render(request, 'home.html', {'regs': regs, 'cars': cars, 'driver': driver})
+
+
+@login_required(login_url='login')
+def drivers(request, pk_test):
+    drivers = []
+    cars = []
+
+    registrations = Registration.objects.filter(race=pk_test).order_by('place')
+    for reg in registrations:
+        drivers.append(reg.driver)
+        cars.append(reg.car)
+    print(drivers)
+
+    return render(request, 'drivers.html', {'drivers': drivers, 'cars': cars, 'regs': registrations})
+
+
+@login_required(login_url='login')
+def races(request):
+    context = Race.objects.all()
+    return render(request, 'races.html', {'races': context})
+
+
+@login_required(login_url='login')
+def createReg(request):
+    driver = Driver.objects.get(id=request.user.driver.id)
+    car = Car.objects.get(driver=driver)
+
+    # if Registration.objects.get(driver=driver, race=race):
+    #   messages.error(request, 'You are already regestered to this race')
+    #   return redirect('/home')
+
+    if car.car_model == None:
+        messages.error(request, 'You need a car to register')
+        return redirect('/home')
+
+    form = RegForm(initial={'driver': driver, 'car': car})
+    if request.method == &quot;POST&quot;:
+        print(request.POST)
+        form = RegForm(request.POST)
+        race_test = Race.objects.get(id=request.POST.get('race'))
+        if Registration.objects.filter(driver=driver, race=race_test):
+            messages.error(request, 'You are already regestered to this race')
+            return redirect('/home')
+        if form.is_valid():
+            reg = form.save()
+            return redirect('/home')
+            messages.success(request, 'You were registered')
+
+    context = {'form': form}
+    return render(request, 'reg_form.html', context)
+
+
+@login_required(login_url='login')
+def raceReg(request, pk):
+    driver = Driver.objects.get(id=request.user.driver.id)
+    race = Race.objects.get(id=pk)
+    if Registration.objects.filter(driver=driver, race=race):
+        messages.error(request, 'You are already regestered to this race')
+    else:
+        car = Car.objects.get(driver=driver)
+        if car.car_model != None:
+            Registration.objects.create(driver=driver, race=race, car=car)
+            messages.success(request, 'You were registered')
+        else:
+            messages.error(request, 'You need a car to register')
+
+    return redirect('/races')
+
+
+@login_required(login_url='login')
+def changeReg(request, pk):
+    reg = Registration.objects.get(id=pk)
+    form = RegForm(instance=reg)
+    if request.method == &quot;POST&quot;:
+        form = RegForm(request.POST, instance=reg)
+        if form.is_valid():
+            form.save()
+            return redirect('/home')
+    context = {'form': form}
+    return render(request, 'reg_form.html', context)
+
+
+def regDriver(request):
+    driver = Driver.objects.get(name=None)
+    form = CreateDriverForm(instance=driver)
+    if request.method == &quot;POST&quot;:
+        form = CreateDriverForm(request.POST, instance=driver)
+        if form.is_valid():
+            driver = form.save()
+            Car.objects.create(driver=driver)
+            messages.success(request, 'Driver was created')
+            return redirect('login')
+
+    context = {'form': form}
+    return render(request, 'reg_driver.html', context)
+
+
+@login_required(login_url='login')
+def deleteReg(request, pk):
+    reg = Registration.objects.get(id=pk)
+    context = {'reg': reg}
+    if request.method == &quot;POST&quot;:
+        reg.delete()
+        return redirect('/home')
+
+    return render(request, 'del_reg.html', context)
+
+
+@login_required(login_url='login')
+def createCar(request):
+    driver = Driver.objects.get(id=request.user.driver.id)
+    car = Car.objects.get(driver=driver)
+    form = CarForm(instance=car)
+
+    if request.method == &quot;POST&quot;:
+        form = CarForm(request.POST, instance=car)
+        if form.is_valid():
+            car = form.save()
+            return redirect('/home')
+
+    context = {'form': form}
+
+    return render(request, 'carForm.html', context)
+
+
+@login_required(login_url='login')
+def changeCar(request, pk):
+    car = Car.objects.get(id=pk)
+    form = CarForm(instance=car)
+
+    if request.method == &quot;POST&quot;:
+        form = CarForm(request.POST, instance=car)
+        if form.is_valid():
+            form.save()
+            return redirect('/home')
+
+    context = {'form': form}
+    return render(request, 'carForm.html', context)
+
+
+@login_required(login_url='login')
+def writeComment(request, pk):
+    race = Race.objects.get(id=pk)
+    driver = Driver.objects.get(id=request.user.driver.id)
+    form = CommentForm(initial={'race': race, 'driver': driver})
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You left a comment for admin. Wait for an answer')
+            return redirect('/races')
+
+    context = {'form': form}
+    return render(request, 'comment_form.html', context)
+
+
+@login_required(login_url='login')
+def createRace(request):
+    form = RaceForm()
+    if request.method == &quot;POST&quot;:
+        form = RaceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Race was created')
+            return redirect('/races')
+
+    context = {'form': form}
+    return render(request, 'race_form.html', context)
+
+
+@login_required(login_url='login')
+def changeRace(request, pk):
+    race = Race.objects.get(id=pk)
+    form = RaceForm(instance=race)
+
+    if request.method == &quot;POST&quot;:
+        form = RaceForm(request.POST, instance=race)
+        if form.is_valid():
+            form.save()
+            return redirect('/races')
+
+    context = {'form': form}
+    return render(request, 'race_form.html', context)
+
+
+@login_required(login_url='login')
+def results(request, pk):
+    raceFormSet = inlineformset_factory(Race, Registration, fields=('driver', 'place'), extra=0)
+    race = Race.objects.get(id=pk)
+    regs = race.registration_set.count()
+    formset = raceFormSet(instance=race)
+    if request.method == 'POST':
+        formset = raceFormSet(request.POST, instance=race)
+        if formset.is_valid():
+            formset.save()
+            return redirect('/races')
+
+    context = {'formset': formset, 'regs': regs}
+    return render(request, 'race_res.html', context)
+
+
+@login_required(login_url='login')
+def comments(request, pk):
+    race = Race.objects.get(id=pk)
+    comments = race.comment_set.all()
+    context = {'comments': comments}
+
+    return render(request, 'comments.html', context)
+
+
+@login_required(login_url='login')
+def delRace(request, pk):
+    race = Race.objects.get(id=pk)
+    context = {'race': race}
+    if request.method == &quot;POST&quot;:
+        race.delete()
+        return redirect('/races')
+
+    return render(request, 'del_race.html', context)
+</code></pre>
+<h3 id="21">Практическая 2.1</h3>
+<p>*Цель работы: дать краткое представление о работе Django WEB фреймворка.
+* <code>models.py</code></p>
+<pre><code class="language-python">from django.db import models
+
+
+class Car(models.Model):
+    brand = models.CharField(max_length=50)
+    model = models.CharField(max_length=50)
+    color = models.CharField(max_length=30)
+    plate_number = models.CharField(max_length=20)
+
+
+class Owner(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+
+
+class OwnedCars(models.Model):
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+
+class DrivingLicense(models.Model):
+    TYPES = (
+        ('M', 'Quadrocycles'),
+        ('A', 'Motorcycles'),
+        ('B', 'Car'),
+        ('C', 'Light Trucks'),
+        ('E', 'Trailers')
+    )
+    id_number = models.CharField(max_length=30)
+    date_of_giving = models.DateField()
+    category = models.CharField(max_length=5, choices=TYPES)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
+
+</code></pre>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">from django.shortcuts import render
+from django.http import Http404
+from project_first_app.models import Owner
+
+
+def index(request, owner_id):
+    try:
+        owner = Owner.objects.get(pk=owner_id)
+    except Owner.DoesNotExist:
+        raise Http404('Owner does not exist')
+
+    return render(request, 'index.html', {&quot;Owner&quot;: owner})
+
+</code></pre>
+<ul>
+<li><code>settings.py</code></li>
+</ul>
+<pre><code class="language-python">&quot;&quot;&quot;
+Django settings for django_project project.
+
+Generated by 'django-admin startproject' using Django 3.1.3.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.1/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/3.1/ref/settings/
+&quot;&quot;&quot;
+
+from pathlib import Path
+import os
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'ay#y*b9-o%1&amp;*qxd5hlfwtnq4y_6$vk=*u$5=j@5g*ey#gf^_1'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'project_first_app',
+]
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+ROOT_URLCONF = 'django_project.urls'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'django_project.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = '/static/'
+
+</code></pre>
+<ul>
+<li><code>urls.py</code></li>
+</ul>
+<pre><code class="language-python">&quot;&quot;&quot;django_project URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+&quot;&quot;&quot;
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('project_first_app.urls')),
+]
+
+</code></pre>
+<h3 id="22">Практическая 2.2</h3></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

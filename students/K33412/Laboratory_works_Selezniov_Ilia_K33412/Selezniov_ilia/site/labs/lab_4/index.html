@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 4 - My Docs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Web-программирование 2022-23</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../lab_1/" class="dropdown-item">Lab 1</a>
+</li>
+                                    
+<li>
+    <a href="../lab_2/" class="dropdown-item">Lab 2</a>
+</li>
+                                    
+<li>
+    <a href="../lab_3/" class="dropdown-item">Lab 3</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Lab 4</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_3/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#4-vuejs" class="nav-link">Лабораторная работа 4. Реализация клиентской части средствами Vue.js.</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#javascript-no41-js" class="nav-link">Цель работы: Ознакомится с базовыми конструкциями JavaScript. Текст "Практической работы №4.1 (сдавать не нужно, можно не делать, если базово знаете JS).</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="4-vuejs">Лабораторная работа 4. Реализация клиентской части средствами Vue.js.</h1>
+<h2 id="javascript-no41-js">Цель работы: Ознакомится с базовыми конструкциями JavaScript. Текст "Практической работы №4.1 (сдавать не нужно, можно не делать, если базово знаете JS).</h2>
+<ul>
+<li>router <code>index.js</code></li>
+</ul>
+<pre><code class="language-js">import {createRouter, createWebHistory} from 'vue-router'
+import LoginView from &quot;@/views/LoginView.vue&quot;;
+import RegisterView from &quot;@/views/RegisterView.vue&quot;;
+import MainView from &quot;@/views/MainView.vue&quot;;
+import WalletView from &quot;@/views/WalletView.vue&quot;;
+import ChartsView from &quot;@/views/ChartsView.vue&quot;;
+import Mainpage from &quot;@/views/Mainpage.vue&quot;;
+
+
+
+const router = createRouter({
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginView
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: RegisterView
+        },
+        {
+            path: '/search',
+            name: 'main',
+            component: MainView
+        },
+        {
+            path: '/personal',
+            name: 'wallet',
+            component: WalletView
+        },
+        {
+            path: '/charts',
+            name: 'chart',
+            component: ChartsView
+        },
+        {
+            path: '/',
+            name: 'mainpage',
+            component: Mainpage
+        }
+    ]
+})
+
+export default router
+
+</code></pre>
+<ul>
+<li>реализация api</li>
+<li><code>coins.js</code></li>
+</ul>
+<pre><code class="language-js">class CoinsAPI {
+    constructor(instance) {
+        this.API = instance
+    }
+
+    getCoins = async (search, sort, order, page, limit) =&gt; {
+        return this.API({
+            url: `/coins?q=${search}&amp;_sort=${sort}&amp;_order=${order}&amp;_limit=${limit}&amp;_page=${page}`
+        })
+    }
+
+    getCustomList = async () =&gt; {
+        return this.API({
+            url: `/coins`
+        })
+    }
+}
+
+export default CoinsAPI
+</code></pre>
+<ul>
+<li><code>users.js</code></li>
+</ul>
+<pre><code class="language-js">export default class UsersAPI {
+    constructor(instance) {
+        this.API = instance
+    }
+
+    getAllUsers = async () =&gt; {
+        return this.API({
+            method: 'GET',
+            url: '/users'
+        })
+    }
+
+    getCurrentUser = async (id) =&gt; {
+        return this.API({
+            method: 'GET',
+            url: `/users/${id}`
+        })
+    }
+
+    push = async (user) =&gt; {
+        return this.API({
+            method: 'PUT',
+            url: `/users/${user.id}`,
+            data: user,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
+
+    createNewUser = async (data) =&gt; {
+        return this.API({
+            method: 'POST',
+            url: '/users',
+            data,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+}
+
+</code></pre>
+<ul>
+<li><code>index.js</code></li>
+</ul>
+<pre><code class="language-js">import instance from &quot;@/api/instance.js&quot;;
+import CoinsAPI from &quot;@/api/coins.js&quot;;
+import UsersAPI from &quot;@/api/users.js&quot;;
+import ChartsAPI from &quot;@/api/charts.js&quot;;
+
+const coinsAPI = new CoinsAPI(instance);
+const usersAPI = new UsersAPI(instance);
+const chartsAPI = new ChartsAPI(instance);
+
+export {
+    coinsAPI,
+    usersAPI,
+    chartsAPI
+}
+</code></pre>
+<ul>
+<li><code>instance.js</code></li>
+</ul>
+<pre><code class="language-js">import axios from &quot;axios&quot;;
+
+const apiURL = 'http://localhost:3000'
+
+const instance = axios.create({
+    baseURL: apiURL
+})
+
+export default instance
+</code></pre>
+<ul>
+<li>управление состоянием</li>
+<li><code>coins.js</code></li>
+</ul>
+<pre><code class="language-js">import {defineStore} from &quot;pinia&quot;;
+import {coinsAPI, usersAPI} from &quot;@/api&quot;;
+
+const useCoinsStore = defineStore('coins', {
+    state: () =&gt; ({
+        coins: []
+    }),
+    actions: {
+        async loadCoins(search = '', sortName = '', page = 1, limit = 10) {
+            const sortSplit = sortName.split(' ');
+            const sort = sortSplit[0];
+            const order = sortSplit[1];
+            const response = await coinsAPI.getCoins(search, sort, order, page, limit);
+            this.coins = response.data;
+            return response.data;
+        },
+        async getWallet(idx) {
+            const actual = await usersAPI.getCurrentUser(idx);
+            const {id, coins} = actual.data;
+            return {id, coins};
+        },
+        async loadCustomCoins() {
+            const response = await coinsAPI.getCustomList();
+            this.coins = response.data;
+            return response.data;
+        },
+        async loadCoinsList(search = '') {
+            const response = await coinsAPI.getCoins(search, '', '', '', '');
+            this.coins = response.data;
+            return response.data;
+        }
+    }
+})
+
+export default useCoinsStore
+
+</code></pre>
+<ul>
+<li><code>users.js</code></li>
+</ul>
+<pre><code class="language-js">import {usersAPI} from &quot;@/api&quot;;
+import {defineStore} from &quot;pinia&quot;
+import router from &quot;@/router&quot;;
+
+
+const useUsersStore = defineStore('users', {
+    state: () =&gt; ({
+        user: {
+            id: null,
+            coins: []
+        }
+    }),
+
+    actions: {
+        async signUp(credentials) {
+            const response = await usersAPI.getAllUsers()
+            const data = response.data
+
+            const validUser = this.isValid(credentials, data)
+
+            if (validUser !== undefined) {
+                this.user.id = validUser.id;
+                this.user.coins = validUser.coins;
+                await router.push('/personal')
+            } else {
+                localStorage.clear()
+                alert('Ошибка! Проверьте email или пароль')
+            }
+        },
+
+        isValid(credentials, data) {
+            for (let i = 0; i &lt; data.length; i++) {
+                if (data[i].email === credentials.email &amp;&amp; data[i].password === credentials.password) {
+                    return {id: data[i].id, coins: data[i].coins}
+                }
+            }
+        },
+
+        async commitActions(user) {
+            const rawUser = JSON.parse(JSON.stringify(user))
+            const currentUser = await usersAPI.getCurrentUser(rawUser.id)
+            currentUser.data.coins = rawUser.coins
+            const response = await usersAPI.push(currentUser.data)
+            return response.data
+        },
+
+        async register(credentials) {
+            const response = await usersAPI.createNewUser(credentials)
+            const data = response.data
+
+            let {id} = data
+
+            this.user = {
+                'id': id,
+                'coins': [],
+            }
+        }
+    }
+})
+
+export default useUsersStore
+</code></pre>
+<ul>
+<li><code>index.js</code></li>
+</ul>
+<pre><code class="language-js">import { persist } from 'pinia-persists'
+import { createPinia } from 'pinia'
+
+const pinia = createPinia()
+
+pinia.use(persist())
+
+export default pinia
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
