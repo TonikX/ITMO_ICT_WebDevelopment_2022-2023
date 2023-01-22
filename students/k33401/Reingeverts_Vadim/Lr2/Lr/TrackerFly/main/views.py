@@ -1,3 +1,7 @@
+from django.contrib import messages
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from django.db.models import Count
 from django.views.generic.base import TemplateView
@@ -111,5 +115,22 @@ class Profile(LoginRequiredMixin, TemplateView):
         return context
 
 
-class Reserve(UpdateView):
+@login_required
+def toggle_reserve(request, pk):
     model = models.Flight
+    flight = model.objects.get(pk=pk)
+    is_reserved = request.user in flight.reservators.filter(pk=request.user.pk)
+
+    if not is_reserved:
+        reservators_count = flight.reservators.count()
+        max_reservations = flight.max_reservations
+
+        if reservators_count >= max_reservations:
+            messages.error(request, "All seats have already been reserved.")
+            return redirect(reverse_lazy('flights'))
+
+        flight.reservators.add(request.user)
+    else:
+        flight.reservators.remove(request.user)
+
+    return redirect(reverse_lazy('flights'))
