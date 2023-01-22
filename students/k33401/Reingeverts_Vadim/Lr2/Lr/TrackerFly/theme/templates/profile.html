@@ -14,9 +14,18 @@
 {% endblock aside_container %}
 {% block content %}
     <p>
-        <div>Username: {{ user.username }}</div>
-        <div>Name: {{ user.first_name }} {{ user.last_name }}</div>
-        <div>Email: {{ user.email }}</div>
+        <div>
+            <span class="text-[var(--muted-color)]">Username:</span> {{ user.username }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">First name:</span> {{ user.first_name }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">Last name:</span> {{ user.last_name }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">Email:</span> {{ user.email }}
+        </div>
     </p>
     {% if dates %}
         <h2>Your flights</h2>
