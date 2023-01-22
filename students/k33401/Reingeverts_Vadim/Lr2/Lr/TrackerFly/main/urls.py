@@ -13,4 +13,8 @@ urlpatterns = [
     path('flights/', views.Flights.as_view(), name="flights"),
     path('flights/<int:pk>', views.FlightDetails.as_view(), name="flight_details"),
     path('flights/reserve/<int:pk>', views.toggle_reserve, name="toggle_reserve"),
+    path('flights/passengers/<int:pk>',
+         views.FlightPassengers.as_view(), name="flight_passengers"),
+    path('flights/reviews/<int:pk>',
+         views.FlightReviews.as_view(), name="flight_reviews"),
 ]

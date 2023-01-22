@@ -40,7 +40,7 @@ class Flights(LoginRequiredMixin, ListView):
         # Getting city names based on iata airport codes
         cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
-            'iata_codes', 'error')(cities_result)
+            'iata_codes_dict', 'error')(cities_result)
 
         # Setting city names from dict
         date_dict = self.model.group_by_day()
@@ -69,14 +69,38 @@ class FlightDetails(DetailView):
         # Getting city names based on iata airport codes
         cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
-            'iata_codes', 'error')(cities_result)
-
-        flight.source = iata_codes_dict[flight.source_airport_code]
-        flight.destination = iata_codes_dict[flight.destination_airport_code]
+            'iata_codes_dict', 'error')(cities_result)
+        try:
+            flight.source = iata_codes_dict[flight.source_airport_code]
+            flight.destination = iata_codes_dict[flight.destination_airport_code]
+        except KeyError:
+            error = "Cached request is incorrect"
 
         context['flight'] = flight
         context['error'] = error
 
+        return context
+
+
+class FlightPassengers(DetailView):
+    model = models.Flight
+    template_name = 'flight_passengers.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FlightPassengers, self).get_context_data(**kwargs)
+        flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+        passengers = flight.reservators.all()
+        context['passengers'] = passengers
+        print(context['passengers'])
+        return context
+
+
+class FlightReviews(DetailView):
+    model = models.Flight
+    template_name = 'flight_reviews.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(FlightReviews, self).get_context_data(**kwargs)
         return context
 
 
@@ -129,7 +153,7 @@ class Profile(LoginRequiredMixin, TemplateView):
         # Getting city names based on iata airport codes
         cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
-            'iata_codes', 'error')(cities_result)
+            'iata_codes_dict', 'error')(cities_result)
 
         # Setting city names from dict
         date_dict = models.Flight.group_by_day(

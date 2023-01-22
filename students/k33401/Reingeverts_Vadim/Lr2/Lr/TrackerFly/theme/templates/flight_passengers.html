@@ -1,0 +1,14 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flight Passengers - {{ object }}
+{% endblock tab_title %}
+{% block title %}
+    Flight Passengers
+{% endblock title %}
+{% block subtitle %}
+    Passengers of the <span class="font-bold">{{ flight }}</span> flight:
+{% endblock subtitle %}
+{% block content %}
+    {% for passenger in passengers %}<div>{{ passenger }}</div>{% endfor %}
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flight Reviews - {{ object }}
+{% endblock tab_title %}
+{% block title %}
+    Flight Reviews
+{% endblock title %}
+{% block subtitle %}
+    Reviews of the <span class="font-bold">{{ flight }}</span> flight
+{% endblock subtitle %}
+{% for review in reviews %}{% endfor %}

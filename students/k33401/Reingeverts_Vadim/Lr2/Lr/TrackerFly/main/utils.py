@@ -16,10 +16,11 @@ session = requests_cache.CachedSession(
     # In case of request errors, use stale cache data if possible
     stale_if_error=True,
 )
+# session.cache.clear()
 
 
 def get_city_by_iata_code(api_key, api_url, iata_codes=[]):
-    result = {'iata_codes': {}, 'error': ''}
+    result = {'iata_codes_dict': {}, 'error': ''}
 
     try:
         raw_res = session.get(api_url, params={
@@ -44,7 +45,7 @@ def get_city_by_iata_code(api_key, api_url, iata_codes=[]):
             except TypeError:
                 result['error'] = "Couldn't get city from coordinates."
                 return result
-            result['iata_codes'][iata_code] = {
+            result['iata_codes_dict'][iata_code] = {
                 'name': name,
                 'city': city,
                 'country': country,
