@@ -1,0 +1,30 @@
+{% load tags %}
+{% for flight in flights %}
+    <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+        <div class="flex gap-4 justify-between">
+            <div class="w-full !grid grid-cols-[3fr_2fr] grid-rows-[min-content_min-content] gap-x-4 gap-y-2">
+                <div class="font-semibold">🕓{{ flight.departure|date:"H:m" }} – {{ flight.arrival|date:"H:m" }}</div>
+                <div>✈{{ flight.departure|timesince:flight.arrival }}</div>
+                <div>🏙{{ flight.source.city }} – {{ flight.destination.city }}</div>
+                <div class="self-end"></div>
+                <div class="self-end italic text-[var(--muted-color)]">{{ flight.airline }}</div>
+            </div>
+            <div class="col-span-full flex flex-col gap-2 justify-between items-end">
+                <div class="text-right">
+                    <div>{{ flight.max_reservations|subtract:flight.reservators.count }} left at</div>
+                    <h3 class="m-0">{{ flight.price }}</h3>
+                </div>
+                {% if user not in flight.reservators.all %}
+                    <a href="{% url 'toggle_reserve' flight.pk %}"
+                       role="button"
+                       type="submit">Reserve</a>
+                {% else %}
+                    <a href="{% url 'toggle_reserve' flight.pk %}"
+                       class="secondary"
+                       role="button"
+                       type="submit">Unreserve</a>
+                {% endif %}
+            </div>
+        </div>
+    </li>
+{% endfor %}

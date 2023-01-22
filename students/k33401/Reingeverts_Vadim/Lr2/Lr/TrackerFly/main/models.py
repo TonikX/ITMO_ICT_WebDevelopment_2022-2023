@@ -53,6 +53,8 @@ class Flight(models.Model):
     def __str__(self):
         return self.airline + " " + self.fligt_number
 
+    # def get_iata_codes(self):
+
     class Meta:
         constraints = [
             models.CheckConstraint(check=models.Q(

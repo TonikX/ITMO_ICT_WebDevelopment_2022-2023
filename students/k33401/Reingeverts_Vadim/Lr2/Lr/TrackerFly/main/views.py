@@ -1,3 +1,5 @@
+from django.urls import resolve
+from urllib.parse import urlparse
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
@@ -112,11 +114,17 @@ class Profile(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Profile, self).get_context_data(**kwargs)
         context.update({'user': self.request.user})
+        flights = models.Flight.objects.filter(
+            reservators__in=[self.request.user])
+        context['flights'] = flights
         return context
 
 
 @login_required
 def toggle_reserve(request, pk):
+    prev_url = urlparse(request.META.get('HTTP_REFERER')).path
+    prev_url_name = resolve(prev_url).url_name
+
     model = models.Flight
     flight = model.objects.get(pk=pk)
     is_reserved = request.user in flight.reservators.filter(pk=request.user.pk)
@@ -127,10 +135,10 @@ def toggle_reserve(request, pk):
 
         if reservators_count >= max_reservations:
             messages.error(request, "All seats have already been reserved.")
-            return redirect(reverse_lazy('flights'))
+            return redirect(reverse_lazy(prev_url_name))
 
         flight.reservators.add(request.user)
     else:
         flight.reservators.remove(request.user)
 
-    return redirect(reverse_lazy('flights'))
+    return redirect(reverse_lazy(prev_url_name))

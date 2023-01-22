@@ -10,7 +10,7 @@
     <p>Your account data.</p>
 {% endblock subtitle %}
 {% block aside_container %}
-    {% with aside_image="plane3.webp" aside_col_span=2 %}{{ block.super }}{% endwith %}
+    {% with aside_image="plane3.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
 {% endblock aside_container %}
 {% block content %}
     <p>
@@ -18,4 +18,8 @@
         <div>Name: {{ user.first_name }} {{ user.last_name }}</div>
         <div>Email: {{ user.email }}</div>
     </p>
+    {% if flights %}
+        <h2>Your flights</h2>
+        {% include "./sub_flights.html" %}
+    {% endif %}
 {% endblock content %}

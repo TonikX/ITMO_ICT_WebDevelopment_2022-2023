@@ -1,5 +1,4 @@
 {% extends "./base_body.html" %}
-{% load static %}
 {% load tags %}
 {% block tab_title %}
     Flights
@@ -21,34 +20,7 @@
             <li class="list-none">
                 <div>{{ date }}</div>
                 <ul class="flex flex-col gap-4 !m-0">
-                    {% for flight in flights %}
-                        <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
-                            <div class="flex gap-4 justify-between">
-                                <div class="w-full !grid grid-cols-[3fr_2fr] grid-rows-[min-content_min-content] gap-x-4 gap-y-2">
-                                    <div class="font-semibold">🕓{{ flight.departure|date:"H:m" }} – {{ flight.arrival|date:"H:m" }}</div>
-                                    <div>✈{{ flight.departure|timesince:flight.arrival }}</div>
-                                    <div>🏙{{ flight.source.city }} – {{ flight.destination.city }}</div>
-                                    <div class="self-end"></div>
-                                    <div class="self-end italic text-[var(--muted-color)]">{{ flight.airline }}</div>
-                                </div>
-                                <div class="col-span-full flex flex-col gap-2 justify-between items-end">
-                                    <div class="text-right">
-                                        <div>{{ flight.max_reservations|subtract:flight.reservators.count }} left at</div>
-                                        <h3 class="m-0">{{ flight.price }}</h3>
-                                    </div>
-                                    <a href="{% url 'toggle_reserve' flight.pk %}"
-                                       role="button"
-                                       type="submit">
-                                        {% if user not in flight.reservators.all %}
-                                            Reserve
-                                        {% else %}
-                                            Unreserve
-                                        {% endif %}
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
+                    {% include "./sub_flights.html" %}
                 </ul>
             </li>
         {% endfor %}
