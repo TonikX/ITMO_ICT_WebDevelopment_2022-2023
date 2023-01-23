@@ -19,6 +19,18 @@ class UserSignUpForm(UserCreationForm):
         ]
 
 
+class FlightReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = models.Review
+
+        fields = [
+            "title",
+            "text",
+            "rating",
+        ]
+
+
 class FlightValidationForm(forms.ModelForm):
     def clean(self):
         super(FlightValidationForm, self).clean()

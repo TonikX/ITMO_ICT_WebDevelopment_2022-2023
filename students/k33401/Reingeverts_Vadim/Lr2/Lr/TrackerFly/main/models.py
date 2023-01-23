@@ -1,15 +1,10 @@
+from django.db.models import Avg
 from datetime import datetime
 from django.db.models import Count
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from djmoney.models.fields import MoneyField
-
-
-class Ticket(models.Model):
-    name = models.CharField(max_length=30, blank=True)
-
-    def __str__(self):
-        return self.name
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class User(AbstractUser):
@@ -52,8 +47,9 @@ class Flight(models.Model):
         max_digits=11,
     )
 
-    def __str__(self):
-        return self.airline + " " + self.flight_number
+    def get_avg_rating(self):
+        reviews = self.review_set.all()
+        return reviews.aggregate(Avg("rating"))["rating__avg"] or 0
 
     def get_iata_code(self):
         """ Returns the list of two iata codes used in source_airport_code and destination_airport_code fields """
@@ -85,8 +81,24 @@ class Flight(models.Model):
 
         return dates_dict
 
+    def __str__(self):
+        return self.airline + " " + self.flight_number
+
     class Meta:
         constraints = [
             models.CheckConstraint(check=models.Q(
                 arrival__gt=models.F('departure')), name='departure_arrival_check', violation_error_message='Departure must be earlier than arrival.'),
         ]
+
+
+class Review(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    flight = models.ForeignKey('Flight', on_delete=models.CASCADE)
+
+    title = models.CharField(max_length=100)
+    text = models.TextField(blank=True)
+    rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(10)])
+
+    def __str__(self):
+        return self.title

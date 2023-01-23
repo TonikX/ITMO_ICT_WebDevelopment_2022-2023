@@ -1,7 +1,7 @@
 {% extends "./base_body.html" %}
 {% load tags %}
 {% block tab_title %}
-    Flight Details - {{ object }}
+    Flight Details – {{ object }}
 {% endblock tab_title %}
 {% block title %}
     Flight Details
@@ -34,13 +34,13 @@
                 <span class="text-[var(--muted-color)]">To:</span> {{ flight.destination.country }}, {{ flight.destination.city }} ({{ flight.destination_airport_code }})
             </div>
         </li>
-        <div class="flex w-full items-stretch gap-4">
+        <li class="flex w-full items-stretch gap-4">
             <a class="flex-1"
                href="{% url 'flight_reviews' flight.pk %}"
                role="button">Reviews</a>
             <a class="flex-1"
                href="{% url 'flight_passengers' flight.pk %}"
                role="button">Passengers</a>
-        </div>
+        </li>
     </ul>
 {% endblock content %}

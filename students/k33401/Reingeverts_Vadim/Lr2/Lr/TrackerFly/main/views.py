@@ -60,7 +60,13 @@ class FlightDetails(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(FlightDetails, self).get_context_data(**kwargs)
-        flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+        try:
+            flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+        except self.model.DoesNotExist:
+            return go_back(
+                self.request,
+                error_message="This flight does not exist"
+            )
 
         api_key = self.request.user.api_key
         api_url = self.request.user.api_url
@@ -88,10 +94,16 @@ class FlightPassengers(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(FlightPassengers, self).get_context_data(**kwargs)
-        flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+        try:
+            flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+        except self.model.DoesNotExist:
+            return go_back(
+                self.request,
+                error_message="This flight does not exist"
+            )
         passengers = flight.reservators.all()
+
         context['passengers'] = passengers
-        print(context['passengers'])
         return context
 
 
@@ -101,7 +113,31 @@ class FlightReviews(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(FlightReviews, self).get_context_data(**kwargs)
+        flight = self.object
+        flight.avg_rating = flight.get_avg_rating()
+        context['flight'] = flight
         return context
+
+
+class FlightReviewCreate(CreateView):
+    model = models.Review
+    form_class = forms.FlightReviewForm
+    template_name = 'flight_review_create.html'
+
+    def get_success_url(self):
+        return go_back(self.request, url="flight_reviews", redirect=False, ignore_provided_kwargs=True)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        try:
+            form.instance.flight = models.Flight.objects.get(
+                pk=self.kwargs['pk'])
+        except models.Flight.DoesNotExist:
+            return go_back(
+                self.request,
+                error_message="This flight does not exist"
+            )
+        return super().form_valid(form)
 
 
 class SignUp(CreateView):
@@ -171,11 +207,16 @@ class Profile(LoginRequiredMixin, TemplateView):
 
 @login_required
 def toggle_reserve(request, pk):
-    prev_url = urlparse(request.META.get('HTTP_REFERER')).path
-    prev_url_name = resolve(prev_url).url_name
-
     model = models.Flight
-    flight = model.objects.get(pk=pk)
+
+    try:
+        flight = model.objects.get(pk=pk)
+    except model.DoesNotExist:
+        return go_back(
+            request,
+            error_message="This flight does not exist"
+        )
+
     is_reserved = request.user in flight.reservators.filter(pk=request.user.pk)
 
     if not is_reserved:
@@ -183,11 +224,31 @@ def toggle_reserve(request, pk):
         max_reservations = flight.max_reservations
 
         if reservators_count >= max_reservations:
-            messages.error(request, "All seats have already been reserved.")
-            return redirect(reverse_lazy(prev_url_name))
+            return go_back(
+                request=request,
+                error_message="All seats have already been reserved."
+            )
 
         flight.reservators.add(request.user)
     else:
         flight.reservators.remove(request.user)
 
-    return redirect(reverse_lazy(prev_url_name))
+    return go_back(request)
+
+
+def go_back(request, redirect=True, ignore_provided_kwargs=True, url="", kwargs={}, error_message=""):
+    prev_url = urlparse(request.META.get('HTTP_REFERER')).path
+    prev_url_name = resolve(prev_url).url_name
+    prev_url_kwargs = resolve(prev_url).kwargs
+
+    if not url:
+        url = prev_url_name
+    if ignore_provided_kwargs:
+        kwargs = prev_url_kwargs
+
+    if error_message:
+        messages.error(request, error_message)
+    if redirect:
+        return redirect(reverse_lazy(url, kwargs=kwargs))
+    else:
+        return reverse_lazy(url, kwargs=kwargs)
