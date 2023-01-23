@@ -1,16 +1,13 @@
 from django.urls import resolve
 from urllib.parse import urlparse
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from datetime import datetime
-from django.db.models import Count
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import redirect, reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, authenticate, login
@@ -115,28 +112,41 @@ class FlightReviews(DetailView):
         context = super(FlightReviews, self).get_context_data(**kwargs)
         flight = self.object
         flight.avg_rating = flight.get_avg_rating()
+
+        reviews = flight.get_reviews()
+
+        print(reviews)
+
         context['flight'] = flight
+        context['reviews'] = reviews
         return context
 
 
-class FlightReviewCreate(CreateView):
+class FlightReviewCreate(LoginRequiredMixin, CreateView):
     model = models.Review
     form_class = forms.FlightReviewForm
     template_name = 'flight_review_create.html'
 
     def get_success_url(self):
-        return go_back(self.request, url="flight_reviews", redirect=False, ignore_provided_kwargs=True)
+        return go_back(self.request, url="flight_reviews", to_redirect=False, ignore_provided_kwargs=True)
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
         try:
-            form.instance.flight = models.Flight.objects.get(
-                pk=self.kwargs['pk'])
+            flight = models.Flight.objects.get(pk=self.kwargs['pk'])
         except models.Flight.DoesNotExist:
             return go_back(
                 self.request,
                 error_message="This flight does not exist"
             )
+
+        user = self.request.user
+        review = flight.get_user_review(user)
+        if review:
+            review.delete()
+
+        form.instance.flight = flight
+        form.instance.user = user
+
         return super().form_valid(form)
 
 
@@ -236,7 +246,7 @@ def toggle_reserve(request, pk):
     return go_back(request)
 
 
-def go_back(request, redirect=True, ignore_provided_kwargs=True, url="", kwargs={}, error_message=""):
+def go_back(request, to_redirect=True, ignore_provided_kwargs=True, url="", kwargs={}, error_message=""):
     prev_url = urlparse(request.META.get('HTTP_REFERER')).path
     prev_url_name = resolve(prev_url).url_name
     prev_url_kwargs = resolve(prev_url).kwargs
@@ -248,7 +258,7 @@ def go_back(request, redirect=True, ignore_provided_kwargs=True, url="", kwargs=
 
     if error_message:
         messages.error(request, error_message)
-    if redirect:
+    if to_redirect:
         return redirect(reverse_lazy(url, kwargs=kwargs))
     else:
         return reverse_lazy(url, kwargs=kwargs)

@@ -47,8 +47,14 @@ class Flight(models.Model):
         max_digits=11,
     )
 
+    def get_reviews(self):
+        return self.review_set.all()
+
+    def get_user_review(self, user):
+        return self.review_set.filter(user=user).first()
+
     def get_avg_rating(self):
-        reviews = self.review_set.all()
+        reviews = self.get_reviews()
         return reviews.aggregate(Avg("rating"))["rating__avg"] or 0
 
     def get_iata_code(self):
