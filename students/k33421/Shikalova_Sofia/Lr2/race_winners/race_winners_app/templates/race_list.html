@@ -1,0 +1,15 @@
+<p>To get info about the race enter:</p><br>
+<p>http:.../race/(race number)</p><br>
+    <ul>
+        {% for object in object_list %}
+        <li>{{ object.num_race }}</li>
+        <span>{{ object.name_race }}</span>
+        <hr/>
+
+        {% empty %}
+        <span>Empty :(</span>
+        {% endfor %}
+    
+    </ul>
+    <a href="/reg_race/">Register on the race</a><br>
+    <a href="/home/">Back</a> <br>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>All owners</title>
+</head>
+<body>
+
+<div class="main">
+    <p>To get specific info about owner, type
+        <u>http:.../owners/<b>number</b></u>,
+        where number is owner number in list.</p>
+    <ol>
+        {% for data in all_owners %}.
+
+        <br>
+        <li>{{ data.first_name }}<br></li>
+        {{ data.last_name}}<br>
+        <br><br>
+
+        {% endfor %}
+    </ol>
+</div>
+<a href="/owners/">Get back</a> <br>
+<a href="/owners/create/new">Create owner</a>
+
+
+</body>
+</html>

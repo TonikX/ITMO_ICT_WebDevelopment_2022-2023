@@ -1,0 +1,29 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- auto_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Race detail</title>
+</head>
+
+<body>
+  <h1  style="background-color:rgba(246,123,49,0.93);">{{ race }}</h1>
+  <p><strong>Дата и время:</strong> {{ race.date_race }}</p>
+  <p><strong>Место проведения:</strong> {{ race.place_race }}</p>
+  <p><strong>1 место:</strong> {{ race.first_place }}</p>
+  <p><strong>2 место:</strong> {{ race.second_place }}</p>
+  <p><strong>3 место:</strong> {{ race.third_place }}</p>
+  <p style="background-color:rgba(75,222,82,0.93);">Если вы видите места как None, значит гонка ещё не была проведена.</p>
+
+
+  <a href="/race/list/">Get back</a>
+
+</body>
+</html>
+{% endblock content %}

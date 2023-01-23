@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Отзывы</h1>
+        <form method="POST" enctype="multipart/form-data" class=mt-4>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Отправить отзыв" class="btn btn-dark mt-3 px-3">
+            <a href="{% url 'all_comments' %}">
+            <button type="button" class="btn btn-outline-dark mt-3 px-3">Вернуться</button>
+        </a>
+        </form>
+    </div>
+{% endblock %}
