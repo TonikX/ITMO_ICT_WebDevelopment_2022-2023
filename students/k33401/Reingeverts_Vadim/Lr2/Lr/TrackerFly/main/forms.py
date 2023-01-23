@@ -34,8 +34,11 @@ class FlightReviewForm(forms.ModelForm):
 class FlightValidationForm(forms.ModelForm):
     def clean(self):
         super(FlightValidationForm, self).clean()
-        reservators_count = self.cleaned_data.get("reservators").count()
+        reservators = self.cleaned_data.get("reservators")
         max_reservations = self.cleaned_data.get("max_reservations")
 
-        if reservators_count > max_reservations:
-            raise ValidationError("All seats have already been reserved.")
+        if reservators:
+            reservators_count = reservators.count()
+
+            if reservators_count > max_reservations:
+                raise ValidationError("All seats have already been reserved.")

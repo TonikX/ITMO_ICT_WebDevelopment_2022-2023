@@ -14,8 +14,21 @@ class User(AbstractUser):
     api_key = models.CharField(
         max_length=100, default="4a84701d-216b-4db5-a5f6-5b69f85fe6d7", blank=True)
 
-    # def __str__(self):
-    #     return f"{self.username} ({self.first_name} {self.last_name})"
+
+class FlightUser(models.Model):
+    flight = models.ForeignKey('Flight', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    ticket_number = models.CharField(max_length=15)
+
+    def get_random_ticket_number(self):
+        return User.objects.make_random_password(length=12, allowed_chars='1234567890')
+
+    def __str__(self):
+        return f"{self.ticket_number} ({self.user})"
+
+    class Meta:
+        verbose_name = "Flight Ticket"
+        verbose_name_plural = "Flight Tickets"
 
 
 class Flight(models.Model):
@@ -38,7 +51,8 @@ class Flight(models.Model):
     destination_airport_code = models.CharField(max_length=10)
 
     max_reservations = models.IntegerField(default=120)
-    reservators = models.ManyToManyField('User', blank=True)
+    reservators = models.ManyToManyField(
+        'User', through="FlightUser", blank=True)
 
     price = MoneyField(
         decimal_places=2,

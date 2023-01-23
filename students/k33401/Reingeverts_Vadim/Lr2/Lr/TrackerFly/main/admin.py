@@ -5,6 +5,7 @@ from . import forms
 
 admin.site.register(models.User)
 admin.site.register(models.Review)
+admin.site.register(models.FlightUser)
 
 
 @admin.register(models.Flight)

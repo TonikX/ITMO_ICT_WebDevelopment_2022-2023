@@ -6,7 +6,11 @@
             <div>✈{{ flight.departure|timesince:flight.arrival }}</div>
             <div>🏙{{ flight.source.city }} – {{ flight.destination.city }}</div>
             <div class="self-end">
-                {% if expanded %}<span class="text-[var(--muted-color)]">Flight:</span> {{ flight.flight_number }}{% endif %}
+                {% if not flight.ticket_number %}
+                    {% if expanded %}<span class="text-[var(--muted-color)]">Flight:</span> {{ flight.flight_number }}{% endif %}
+                {% else %}
+                    <span class="text-[var(--muted-color)]">Ticket:</span> {{ flight.ticket_number }}
+                {% endif %}
             </div>
             <div class="self-end italic text-[var(--muted-color)]">{{ flight.airline }}</div>
             <div class="self-end">

@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
+from django.views.generic.edit import CreateView
 from django.shortcuts import redirect, reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,9 +14,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.views.generic import RedirectView
 from operator import itemgetter
 
-from .utils import get_city_by_iata_code
-from . import models
-from . import forms
+from . import models, forms, utils
 
 
 class Home(TemplateView):
@@ -35,7 +33,8 @@ class Flights(LoginRequiredMixin, ListView):
         iata_codes = self.model.get_iata_codes()
 
         # Getting city names based on iata airport codes
-        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
+        cities_result = utils.get_city_by_iata_code(
+            api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes_dict', 'error')(cities_result)
 
@@ -70,7 +69,8 @@ class FlightDetails(DetailView):
         iata_codes = flight.get_iata_code()
 
         # Getting city names based on iata airport codes
-        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
+        cities_result = utils.get_city_by_iata_code(
+            api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes_dict', 'error')(cities_result)
         try:
@@ -86,21 +86,21 @@ class FlightDetails(DetailView):
 
 
 class FlightPassengers(DetailView):
-    model = models.Flight
+    model = models.FlightUser
     template_name = 'flight_passengers.html'
 
     def get_context_data(self, **kwargs):
         context = super(FlightPassengers, self).get_context_data(**kwargs)
         try:
-            flight = self.model.objects.get(pk=self.kwargs.get('pk'))
+            flight_tickets = self.model.objects.filter(
+                flight__pk=self.kwargs.get('pk'))
         except self.model.DoesNotExist:
             return go_back(
                 self.request,
                 error_message="This flight does not exist"
             )
-        passengers = flight.reservators.all()
 
-        context['passengers'] = passengers
+        context['flight_tickets'] = flight_tickets
         return context
 
 
@@ -197,7 +197,8 @@ class Profile(LoginRequiredMixin, TemplateView):
         iata_codes = models.Flight.get_iata_codes()
 
         # Getting city names based on iata airport codes
-        cities_result = get_city_by_iata_code(api_key, api_url, iata_codes)
+        cities_result = utils.get_city_by_iata_code(
+            api_key, api_url, iata_codes)
         iata_codes_dict, error = itemgetter(
             'iata_codes_dict', 'error')(cities_result)
 
@@ -206,6 +207,10 @@ class Profile(LoginRequiredMixin, TemplateView):
             reservators__in=[self.request.user])
         for date, flights in date_dict.items():
             for flight in flights:
+                flight_ticket = models.FlightUser.objects.filter(
+                    user=self.request.user, flight=flight).first()
+
+                flight.ticket_number = flight_ticket.ticket_number
                 flight.source = iata_codes_dict[flight.source_airport_code]
                 flight.destination = iata_codes_dict[flight.destination_airport_code]
 
@@ -240,6 +245,13 @@ def toggle_reserve(request, pk):
             )
 
         flight.reservators.add(request.user)
+
+        # Generation random ticket number
+        flight_ticket = models.FlightUser.objects.filter(
+            user=request.user, flight=flight).first()
+        flight_ticket.ticket_number = flight_ticket.get_random_ticket_number()
+        flight_ticket.save()
+
     else:
         flight.reservators.remove(request.user)
 
@@ -247,6 +259,7 @@ def toggle_reserve(request, pk):
 
 
 def go_back(request, to_redirect=True, ignore_provided_kwargs=True, url="", kwargs={}, error_message=""):
+    curr_url = request.path
     prev_url = urlparse(request.META.get('HTTP_REFERER')).path
     prev_url_name = resolve(prev_url).url_name
     prev_url_kwargs = resolve(prev_url).kwargs
@@ -255,6 +268,11 @@ def go_back(request, to_redirect=True, ignore_provided_kwargs=True, url="", kwar
         url = prev_url_name
     if ignore_provided_kwargs:
         kwargs = prev_url_kwargs
+
+    # Prevent getting stuck in redirecting
+    if curr_url == url:
+        url = "home"
+        kwargs = {}
 
     if error_message:
         messages.error(request, error_message)
