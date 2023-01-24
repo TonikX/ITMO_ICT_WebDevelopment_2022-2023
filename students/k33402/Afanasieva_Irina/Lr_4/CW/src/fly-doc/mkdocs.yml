@@ -1,0 +1,14 @@
+site_name: WebDevelopment by Me
+nav:
+  - Home: index.md
+  - API:
+      - "api/planes": api/planes.md
+      - "api/flights": api/flights.md
+      - "api/Log out": api/logout.md
+      - "api/Log In": api/login.md
+      - "api/Sign Up": api/signup.md
+      - "api/Tickets": api/tickets.md
+      - "api/Passengers": api/passengers.md
+
+theme:
+  name: windmill
