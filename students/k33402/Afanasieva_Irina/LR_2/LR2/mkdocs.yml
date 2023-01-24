@@ -1,0 +1,8 @@
+site_name: Web Development by Me
+nav:
+  - Лабораторная работа 2: index.md
+
+theme:
+  name: windmill
+  highlights: true
+  hljs_style: Eva
