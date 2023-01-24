@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of owners</title>
+</head>
+<body>
+  <div class="main">
+    {% for owner in owners %}
+      <h1><a href="{% url 'owner_info' owner_id=owner.id %}">{{ owner.username }}</a></h1>
+      <hr/>
+
+    {% endfor %}
+    </div>
+</body>
+</html>
