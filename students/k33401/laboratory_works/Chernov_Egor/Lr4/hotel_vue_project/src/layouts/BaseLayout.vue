@@ -1,12 +1,14 @@
 <template>
-  <!--  <main>-->
-  <!--    <slot />-->
-  <!--  </main>-->
-  <div class="background">
-    <div class="blur">
-      <slot/>
-    </div>
-  </div>
+    <main class="background">
+      <div class="blur">
+        <slot />
+      </div>
+    </main>
+<!--  <div class="background">-->
+<!--    <div class="blur">-->
+<!--      <slot/>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>
@@ -16,12 +18,21 @@ export default {
 </script>
 
 <style scoped>
+/*main {*/
+/*  height: 100%;*/
+/*}*/
+
 .background {
-  background-image: url(public/paco.jpg);
+  background: url(public/hill.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .blur {
-  background: rgba(108, 122, 137, 0.2);
+  background: rgba(243, 233, 221, 0.2);
   backdrop-filter: blur(8px);
+  /*min-height: min-content;*/
 }
 </style>

@@ -1,16 +1,18 @@
 <template>
   <base-layout>
     <nav-bar />
-    <div class="container col-8 justify-content-center py-4">
-      <h1 class="text-center">{{ hotel_room_types.name_hotel }}</h1>
-      <ul class="navbar-nav p-3">
-        <li class="nav-item" v-for="room_type in hotel_room_types.hotel_room_type" :key="room_type.id">
-          <room-type-item class="mx-0 px-0" :type_rt="room_type.type_rt" :rating_rt="room_type.rating_rt" :price_rt="room_type.price_rt" :des_rt="room_type.des_rt" />
-          <p class="d-flex justify-content-center" id="lookButton">
-            <RouterLink class="nav-link btn-text w-100 text-center" :to="{name: 'rooms', params: {id: room_type.id}}">Look</RouterLink>
-          </p>
-        </li>
-      </ul>
+    <div id="roomTypePage">
+      <div class="container col-7 justify-content-center py-4">
+        <h1 class="text-center">{{ hotel_room_types.name_hotel }}</h1>
+        <ul class="navbar-nav p-3">
+          <li class="nav-item" v-for="room_type in hotel_room_types.hotel_room_type" :key="room_type.id">
+            <room-type-item class="mx-0 px-0" :type_rt="room_type.type_rt" :rating_rt="room_type.rating_rt" :price_rt="room_type.price_rt" :des_rt="room_type.des_rt" />
+            <p class="d-flex justify-content-center" id="lookButton">
+              <RouterLink class="nav-link btn-text w-100 text-center fs-5" :to="{name: 'rooms', params: {id: room_type.id}}">Look</RouterLink>
+            </p>
+          </li>
+        </ul>
+      </div>
     </div>
   </base-layout>
 </template>
@@ -62,5 +64,9 @@ h1 {
 #lookButton {
   background-color: #E0E7E9;
   border-radius: 0px 0px 8px 8px;
+}
+
+#roomTypePage {
+  min-height: 100vh;
 }
 </style>

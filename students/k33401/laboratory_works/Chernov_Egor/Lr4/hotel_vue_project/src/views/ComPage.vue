@@ -1,12 +1,16 @@
 <template>
   <base-layout>
     <nav-bar />
-    <h1>My comments:</h1>
-    <ul>
-      <li class="row" v-for="comment in comments" :key="comment.id">
-        <com-item v-if="comment.user_com.id === idUser" :username="comment.user_com.username" :rating_com="comment.rating_com" :review_com="comment.review_com" :check_in_com="comment.check_in_com" :check_out_com="comment.check_out_com" />
-      </li>
-    </ul>
+    <div id="comPage">
+      <div class="container col-8 justify-content-center py-4">
+        <h1 class="text-center">My comments:</h1>
+        <ul class="navbar-nav p-3">
+          <li class="nav-item" v-for="comment in comments" :key="comment.id">
+            <com-item v-if="comment.user_com.id === idUser" :username="comment.user_com.username" :rating_com="comment.rating_com" :review_com="comment.review_com" :check_in_com="comment.check_in_com" :check_out_com="comment.check_out_com" />
+          </li>
+        </ul>
+      </div>
+    </div>
   </base-layout>
 </template>
 
@@ -43,5 +47,7 @@ export default {
 </script>
 
 <style scoped>
-
+#comPage {
+  min-height: 100vh;
+}
 </style>

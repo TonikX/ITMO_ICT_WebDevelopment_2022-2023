@@ -143,14 +143,10 @@ a {
 }
 
 .nav-text {
-  color: #E0E7E9 !important;
+  color: black !important;
 }
 
 .nav-background {
-  background: linear-gradient(#42464d, #424249);
-}
-
-.navbar-toggler {
-  background-color: #E0E7E9;
+  background: linear-gradient(#dab88b, #dab88b);
 }
 </style>

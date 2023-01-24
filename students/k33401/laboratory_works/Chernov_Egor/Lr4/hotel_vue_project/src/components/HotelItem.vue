@@ -7,7 +7,7 @@
     <div class="col-6">
       <p class="fs-2">Description:</p>
       <p v-if="des_hotel" class="fs-5">{{ des_hotel }}</p>
-      <p v-else class="fs-5">We don't have any description...</p>
+      <p v-else class="fs-5">We don't have any descriptions...</p>
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 #hotelItem {
-  background-color: rgb(108, 122, 137, 0.4);;
+  background-color: rgba(253, 246, 236, 0.4);
   border-radius: 8px 8px 0px 0px;
   color: black;
 }

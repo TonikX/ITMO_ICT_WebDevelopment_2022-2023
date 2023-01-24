@@ -8,6 +8,7 @@ import BookingView from '../views/BookingPage.vue'
 import RegView from '../views/RegPage.vue'
 import ComView from '../views/ComPage.vue'
 import ProfileView from '../views/ProfilePage.vue'
+import UpdateRegView from "../views/UpdateRegPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
             path: '/profile/',
             name: 'profile',
             component: ProfileView
+        },
+        {
+            path: '/update/reg/:id/',
+            name: 'update_reg',
+            component: UpdateRegView
         },
     ]
 })

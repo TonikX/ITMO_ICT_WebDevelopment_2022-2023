@@ -1,17 +1,24 @@
 <template>
-  <div v-if="isBooked" class="container">
-    <h1 class="row my-2">Registration</h1>
-    <h4 class="row my-2">Success!</h4>
-  </div>
-  <div v-else class="container">
-    <h1 class="row my-2">Registration</h1>
-    <h4 class="row my-2">{{ nameHotel }}</h4>
-    <h4 class="row my-2">{{ typeRoom }}</h4>
-    <h4 class="row my-2">Number room {{ numberRoom }}</h4>
-    <input class="col my-2 me-2" v-model="checkIn" type="date" placeholder="Check in" >
-    <input class="col my-2" v-model="checkOut" type="date" placeholder="Check out" >
-    <button class="row my-2" @click="book">Book</button>
-    <p v-if="isBadReq" class="row my-2">Incorrect data!</p>
+  <div class="p-3 pt-2" id="regRoomForm">
+    <div v-if="isBooked" class="">
+      <p class="text-center fs-2 m-0">Success!</p>
+      <a class="nav-link py-1 px-2 fs-5 mt-3 text-center" @click="goHome" id="actButton">Home</a>
+    </div>
+    <div v-else class="text-center">
+      <p class="fs-2">{{ nameHotel }}</p>
+      <p class="fs-2">Type: <span class="fs-3">{{ typeRoom }}</span></p>
+      <p class="fs-2">Number room: <span class="fs-3">{{ numberRoom }}</span></p>
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 110px" id="checkIn">Check in</span>
+        <input v-model="checkIn" type="date" class="form-control" aria-describedby="checkIn">
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" style="width: 110px" id="checkOut">Check out</span>
+        <input v-model="checkOut" type="date" class="form-control" aria-describedby="checkOut">
+      </div>
+      <a class="nav-link py-1 px-2 fs-5 mt-3" @click="book" id="actButton">Book</a>
+      <p v-if="isBadReq" class="row my-2">Incorrect data!</p>
+    </div>
   </div>
 </template>
 
@@ -60,6 +67,7 @@ export default {
 
   methods: {
     ...mapActions(useRegComStore, ['createReg']),
+
     book() {
       const accessToken = localStorage.getItem('accessToken')
       const idUser = localStorage.getItem('idUser')
@@ -76,11 +84,28 @@ export default {
       } else {
         this.isBadReq = true
       }
+    },
+
+    goHome() {
+      this.$router.push({name: "hotels"})
     }
   }
 }
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+}
 
+#regRoomForm {
+  background-color: rgba(253, 246, 236, 0.4);
+  border-radius: 8px 8px 8px 8px;
+  color: black;
+}
+
+#actButton {
+  background-color: #E0E7E9;
+  border-radius: 8px 8px 8px 8px;
+}
 </style>

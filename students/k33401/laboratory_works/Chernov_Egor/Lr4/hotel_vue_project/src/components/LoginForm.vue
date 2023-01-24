@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
-    <h1 class="row">Login</h1>
-    <input class="row my-2" v-model="username" type="text" placeholder="E-mail" />
-    <input class="row my-2" v-model="password" type="password" placeholder="Password" />
-    <button class="row my-2" @click="login">Login</button>
-    <p class="row my-2" v-if="isValid">Write username and password!</p>
+  <div class="p-0 text-center">
+    <h1 class="text-center my-4">Login</h1>
+    <input class="text-center" v-model="username" type="text" placeholder="E-mail" />
+    <input class="text-center mb-4" v-model="password" type="password" placeholder="Password" />
+    <a class="nav-link py-1 px-2 fs-5" @click="login">Login</a>
+    <p class="" v-if="isValid">Write username and password!</p>
   </div>
 </template>
 
@@ -73,5 +73,16 @@ export default {
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+  background-color: #E0E7E9;
+  border-radius: 8px 8px 8px 8px;
+  color: black;
+}
 
+input {
+  background-color: rgba(253, 246, 236, 0.4);
+  border-radius: 8px 8px 8px 8px;
+  color: black;
+}
 </style>

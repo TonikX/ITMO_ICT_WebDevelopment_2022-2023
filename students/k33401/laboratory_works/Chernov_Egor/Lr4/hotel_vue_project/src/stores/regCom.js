@@ -30,7 +30,33 @@ const useRegComStore = defineStore('regCom',  {
             this.regs = response.data
 
             return response
-        }
+        },
+
+        async createCom(token, idUser, idRoom, checkIn, checkOut, rating, review) {
+            const response = await regComApi.postCom(token, idUser, idRoom, checkIn, checkOut, rating, review)
+
+            this.comments.push(response.data)
+
+            return this.comments
+        },
+
+        async updateReg(token, idReg, idUser, idHotel, idRoomType, idRoom, idEmployee, statusReg, statusPay, checkIn, checkOut, booking) {
+            await regComApi.putReg(token, idReg, idUser, idHotel, idRoomType, idRoom, idEmployee, statusReg, statusPay, checkIn, checkOut, booking)
+            const response = await regComApi.getRegs(token)
+
+            this.regs = response.data
+
+            return response
+        },
+
+        async delReg(token, idReg) {
+            await regComApi.deleteReg(token, idReg)
+            const response = await regComApi.getRegs(token)
+
+            this.regs = response.data
+
+            return response
+        },
     }
 })
 

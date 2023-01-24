@@ -1,12 +1,17 @@
 <template>
-  <div>
-    <h1>{{ name_hotel }}</h1>
-    <h2>Room number: {{ number_room }}</h2>
-    <h3>{{ type_rt }}</h3>
-    <h4>Status: {{ status_room }}</h4>
-    <p>Price: {{ price_rt }}</p>
-    <p v-if="des_rt">Description: {{ des_rt }}</p>
-    <p v-if="review_room">Review: {{ review_room }}</p>
+  <div class="px-4 py-3" id="retrieveRoom">
+    <p class="fs-2">Room number: <span class="fs-3">{{ number_room }}</span></p>
+    <p class="fs-2">Type: <span class="fs-3">{{ type_rt }}</span></p>
+    <p class="fs-2">Status: <span class="fs-3">{{ status_room }}</span></p>
+    <p class="fs-2">Price: <span class="fs-3">{{ price_rt }}</span></p>
+    <p class="fs-3">Description:
+      <span v-if="des_rt" class="fs-4">{{ des_rt }}</span>
+      <span v-else class="fs-4">We don't have any descriptions...</span>
+    </p>
+    <p class="fs-3">Review:
+      <span v-if="review_room" class="fs-4">{{ review_room }}</span>
+      <span v-else>We don't have any reviews...</span>
+    </p>
   </div>
 </template>
 
@@ -15,10 +20,6 @@ export default {
   name: "RetrieveRoom",
 
   props: {
-    name_hotel: {
-      type: String,
-      required: true
-    },
     type_rt: {
       type: String,
       required: true
@@ -48,5 +49,9 @@ export default {
 </script>
 
 <style scoped>
-
+#retrieveRoom {
+  background-color: rgba(253, 246, 236, 0.4);;
+  border-radius: 8px 8px 0px 0px;
+  color: black;
+}
 </style>

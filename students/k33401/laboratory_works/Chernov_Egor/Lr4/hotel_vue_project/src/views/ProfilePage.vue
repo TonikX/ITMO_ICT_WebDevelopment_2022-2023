@@ -1,23 +1,49 @@
 <template>
   <base-layout>
     <nav-bar />
-    <h1>Profile info:</h1>
-    <div class="container">
-      <input v-model="username" type="text" class="row mb-2" placeholder="Username">
-      <input v-model="first_name" type="text" class="row mb-2" placeholder="First name">
-      <input v-model="last_name" type="text" class="row mb-2" placeholder="Last name">
-      <input v-model="email" type="text" class="row mb-2" placeholder="E-mail">
-      <div v-if="!isStaff">
-        <input v-model="user_guest.phone_guest" type="text" class="row mb-2" placeholder="Phone">
-        <input v-model="user_guest.passport_guest" type="text" class="row mb-2" placeholder="Passport">
+    <div class="container col-5 py-4" id="profilePage">
+      <h1 class="text-center mb-4">Profile info:</h1>
+      <div class="text-center p-4" id="profileForm">
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 156px" id="username">Username</span>
+          <input v-model="username" type="text" class="form-control" aria-describedby="username">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 156px">First and last name</span>
+          <input v-model="first_name" type="text" aria-label="First name" class="form-control">
+          <input v-model="last_name" type="text" aria-label="Last name" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 156px" id="email">E-mail</span>
+          <input v-model="email" type="text" class="form-control" aria-describedby="email">
+        </div>
+        <div v-if="!isStaff">
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 156px" id="phone">Phone</span>
+            <input v-model="user_guest.phone_guest" type="text" class="form-control" aria-describedby="phone">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 156px" id="passport">Passport</span>
+            <input v-model="user_guest.passport_guest" type="text" class="form-control" aria-describedby="passport">
+          </div>
+        </div>
+        <div v-else>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 156px" id="phone">Phone</span>
+            <input v-model="user_employee.phone_employee" type="text" class="form-control" aria-describedby="phone">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" style="width: 156px" id="position">Position</span>
+            <input v-model="user_employee.position_employee" type="text" class="form-control" aria-describedby="position">
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" style="width: 156px" id="password">Password</span>
+          <input v-model="password" type="password" class="form-control" aria-describedby="password">
+        </div>
+        <a class="nav-link py-1 px-2 fs-5 mt-3" @click="updateData" id="saveButton">Save</a>
+        <a class="nav-link py-1 px-2 fs-5 mt-3" @click="delUser" id="delButton">Delete</a>
       </div>
-      <div v-else>
-        <input v-model="user_employee.phone_employee" type="text" class="row mb-2" placeholder="Phone">
-        <input v-model="user_employee.position_employee" type="text" class="row mb-2" placeholder="Position">
-      </div>
-      <input v-model="password" type="password" class="row" placeholder="Password">
-      <button @click="updateData" class="col mt-2">Save</button>
-      <button @click="delUser" class="col ms-2 mt-2">Delete</button>
     </div>
   </base-layout>
 </template>
@@ -96,5 +122,27 @@ export default {
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+}
 
+#profileForm {
+  background-color: rgba(253, 246, 236, 0.4);
+  border-radius: 8px 8px 8px 8px;
+  color: black;
+}
+
+#profilePage {
+  min-height: 100vh;
+}
+
+#saveButton {
+  background-color: #E0E7E9;
+  border-radius: 8px 8px 8px 8px;
+}
+
+#delButton {
+  background-color: #ffdfd4;
+  border-radius: 8px 8px 8px 8px;
+}
 </style>

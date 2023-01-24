@@ -1,5 +1,5 @@
 <template>
-  <div class="row" id="hotelItem">
+  <div class="row" id="roomTypeItem">
     <div class="col-6 text-center">
       <p class="fs-2">Type {{ type_rt }}</p>
       <p class="fs-4">Price: <span class="fs-5">{{ price_rt }}</span></p>
@@ -39,8 +39,8 @@ export default {
 </script>
 
 <style scoped>
-#hotelItem {
-  background-color: rgb(108, 122, 137, 0.4);;
+#roomTypeItem {
+  background-color: rgba(253, 246, 236, 0.4);;
   border-radius: 8px 8px 0px 0px;
   color: black;
 }

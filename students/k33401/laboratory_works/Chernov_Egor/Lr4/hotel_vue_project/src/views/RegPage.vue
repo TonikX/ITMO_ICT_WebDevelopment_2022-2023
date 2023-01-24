@@ -1,19 +1,25 @@
 <template>
   <base-layout>
     <nav-bar />
-    <h1>My registrations:</h1>
-    <ul v-if="isLoad">
-      <li v-for="reg in regs" :key="reg.id">
-        <reg-item v-if="reg.user_reg.id.toString() === idUser" :booking="reg.booking_reg" :statusPay="reg.status_pay_reg" :statusReg="reg.status_reg_reg" :roomNumber="reg.room_reg.number_room" :price="reg.rt_reg.price_rt" :roomType="reg.rt_reg.type_rt" :checkOut="reg.check_out_reg" :checkIn="reg.check_in_reg" :nameHotel="reg.hotel_reg.name_hotel" />
-      </li>
-    </ul>
-    <div v-if="isStaff">
-      <h1>All registrations:</h1>
-      <ul v-if="isLoad">
-        <li v-for="reg in regs" :key="reg.id">
-          <reg-item v-if="reg.user_reg.id.toString() !== idUser" :booking="reg.booking_reg" :statusPay="reg.status_pay_reg" :statusReg="reg.status_reg_reg" :roomNumber="reg.room_reg.number_room" :price="reg.rt_reg.price_rt" :roomType="reg.rt_reg.type_rt" :checkOut="reg.check_out_reg" :checkIn="reg.check_in_reg" :nameHotel="reg.hotel_reg.name_hotel" />
+    <div class="container col-8 justify-content-center py-4" id="regPage">
+      <h1 class="text-center">My registrations:</h1>
+      <ul v-if="isLoad" class="navbar-nav p-3">
+        <li class="nav-item" v-for="reg in regs" :key="reg.id">
+          <a @click="updateReg(reg.id)">
+            <reg-item v-if="idsReg.includes(reg.id)" :booking="reg.booking_reg" :statusPay="reg.status_pay_reg" :statusReg="reg.status_reg_reg" :roomNumber="reg.room_reg.number_room" :price="reg.rt_reg.price_rt" :roomType="reg.rt_reg.type_rt" :checkOut="reg.check_out_reg" :checkIn="reg.check_in_reg" :nameHotel="reg.hotel_reg.name_hotel" />
+          </a>
         </li>
       </ul>
+      <div v-if="isStaff">
+        <h2 class="text-center">All registrations:</h2>
+        <ul v-if="isLoad" class="navbar-nav p-3">
+          <li class="nav-item" v-for="reg in regs" :key="reg.id">
+            <a @click="updateReg(reg.id)">
+              <reg-item v-if="!idsReg.includes(reg.id)" :booking="reg.booking_reg" :statusPay="reg.status_pay_reg" :statusReg="reg.status_reg_reg" :roomNumber="reg.room_reg.number_room" :price="reg.rt_reg.price_rt" :roomType="reg.rt_reg.type_rt" :checkOut="reg.check_out_reg" :checkIn="reg.check_in_reg" :nameHotel="reg.hotel_reg.name_hotel" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </base-layout>
 </template>
@@ -32,6 +38,7 @@ export default {
 
   data() {
     return {
+      idsReg: [],
       idUser: localStorage.getItem('idUser'),
       isStaff: localStorage.getItem('isStaff') === "true",
       isLoad: 0
@@ -43,16 +50,32 @@ export default {
   },
 
   methods: {
-    ...mapActions(useRegComStore, ['loadRegs'])
+    ...mapActions(useRegComStore, ['loadRegs']),
+
+    updateReg(id) {
+      this.$router.push({name: 'update_reg', params: {id}})
+    }
   },
 
   async mounted() {
     await this.loadRegs(localStorage.getItem('accessToken'))
     this.isLoad = this.regs.length
+
+    for (let reg of this.regs) {
+      if (reg.user_reg?.id.toString() === this.idUser) {
+        this.idsReg.push(reg.id)
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
+a {
+  cursor: pointer;
+}
 
+#regPage {
+  min-height: 100vh;
+}
 </style>
