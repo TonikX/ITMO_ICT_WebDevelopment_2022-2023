@@ -1,0 +1,12 @@
+:root {
+    --bg-color: #1c1e21;
+    --card-color: #0f1313;
+    --text-color: #fff;
+    --link-color: rgb(41, 116, 255);
+    --link-hover: rgb(136, 73, 255);
+    --btn-color: rgb(41, 116, 255);
+    --btn-hover: rgb(136, 73, 255);
+    --btn-secondary: #797979;
+    --border-bottom: #0f1313;
+    --border-input: #595656;
+}
