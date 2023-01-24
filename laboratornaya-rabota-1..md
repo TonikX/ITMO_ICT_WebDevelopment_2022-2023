@@ -231,44 +231,23 @@ while True:
 * server.py
 
 ```
-import socket, threading
+import socket
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = '127.0.0.1'
-port = 8080
-server.bind((host, port))
-server.listen()
+conn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+conn.bind(("127.0.0.1", 8081))
 
 clients = []
-users = []
-
-
-def broadcast(msg, client):
-    for each in clients:
-        if each != client:
-            each.send(msg)
-
-
-def handle(client):
+def send_message():
     while True:
-        msg = client.recv(2000)
-        broadcast(msg, client)
+        data, addr = conn.recvfrom(1024)
+        if addr not in clients:
+            clients.append(addr)
+        for i in clients:
+            if i == addr:
+                continue
+            conn.sendto(data, i)
 
-
-def receive():
-    while True:
-        client, addr = server.accept()
-        client.send('username'.encode())
-        user = client.recv(2000).decode()
-        clients.append(client)
-        users.append(user)
-        client.send('Connection established'.encode())
-        thread = threading.Thread(target=handle, args=(client,))
-        thread.start()
-
-
-receive()
-
+send_message()
 ```
 
 * client.py
@@ -276,37 +255,31 @@ receive()
 ```
 import socket
 import threading
+import datetime
 
+conn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+conn.connect(("127.0.0.1", 8081))
 
-conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server = '127.0.0.1', 8080
-conn.connect(server)
-
-username = input('Выберите псевдоним: ')
-
-
-def recv_msg():
+def send_mes():
     while True:
-        msg = conn.recv(2000).decode()
-        if msg == 'username':
-            conn.send(username.encode())
-        else:
-            print(msg)
+        message = input()
+        conn.send(message.encode("utf-8"))
 
-
-def print_msg():
+def get_m():
     while True:
-        msg = '{} says: {}'.format(username, input(''))
-        conn.send(msg.encode())
+        message = conn.recv(16384).decode("utf-8")
+        print(str(datetime.datetime.now()) + ": " + message)
 
+print("Привет!Вы можете написать ваше смс")
 
-recv_thr = threading.Thread(target=recv_msg)
-print_thr = threading.Thread(target=print_msg)
-recv_thr.start()
-print_thr.start()
+thread_send = threading.Thread(target=send_mes, args=())
+thread_get = threading.Thread(target=get_m, args=())
+
+thread_send.start()
+thread_get.start()
 ```
 
-### Часть: GET и POST запросы
+### Часть 5: GET и POST запросы
 
 * server.py
 

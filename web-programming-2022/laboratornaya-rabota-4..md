@@ -4,7 +4,7 @@ description: Реализация клиентской части средств
 
 # Лабораторная работа 4.
 
-### Вариант 1: **сайт администратора отеля**
+### Вариант 1: Са**йт администратора отеля**
 
 ### **Описание работы** <a href="#_1" id="_1"></a>
 
@@ -733,6 +733,8 @@ button:hover {
 
 * home.vue
 
+<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption><p>home page</p></figcaption></figure>
+
 ```
 <template>
   <main class="home">
@@ -1137,6 +1139,8 @@ h2 {
 
 * HomeDetails.vue
 
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Booking details</p></figcaption></figure>
+
 ```
 <template>
   <main class="main">
@@ -1377,6 +1381,8 @@ small {
 
 * HotelResults.vue
 
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>Results</p></figcaption></figure>
+
 ```
 <template>
   <div class="main">
@@ -1575,6 +1581,10 @@ h2 {
 
 * Payment.vue
 
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption><p>Payement verification</p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
 ```
 <template>
   <main class="main" ref="content">
@@ -1734,6 +1744,10 @@ button:hover {
 ```
 
 * Reservation.vue
+
+<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption><p>Reservation form</p></figcaption></figure>
 
 ```
 <template>

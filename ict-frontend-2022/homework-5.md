@@ -16,7 +16,7 @@ npm install -g @vue/cli
 
 npm init vue@latest
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### [Установить зависимости](homework-5.md#ustanovit-zavisimosti)
 
@@ -30,9 +30,9 @@ npm init vue@latest
 
 Теперь можно запустить проект следующей командой:
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
 ### [Вывод](homework-5.md#vyvod)
 
