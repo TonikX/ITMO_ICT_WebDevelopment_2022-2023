@@ -8,6 +8,6 @@ class IsOwner(permissions.BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if obj == request.user:
+        if obj.user_reg == request.user:
             return True
         return False
