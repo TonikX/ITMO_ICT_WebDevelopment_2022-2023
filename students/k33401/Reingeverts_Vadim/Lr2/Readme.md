@@ -593,7 +593,7 @@ Email: `admin@example.com`
 Password: `admin`
 
 ### Requirements
-
+- django-tailwind
 - geocoder
 - requests_cache
 - django-money
