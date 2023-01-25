@@ -1,0 +1,14 @@
+site_name: Project documentation
+site_author: Egor Chernov
+site_url: https://egorchernov5.github.io
+nav:
+  - Home: index.md
+  - Labs:
+    - Lab 1: Lr1/lr1-tasks.md
+    - Lab 2: Lr2/lr2-tasks.md
+    - Lab 3: Lr3/lr3-tasks.md
+    - Lab 4: Lr4/lr4-tasks.md
+  - PW:
+      - PW 3: PW3/pw3-tasks.md
+theme:
+  name: lux
