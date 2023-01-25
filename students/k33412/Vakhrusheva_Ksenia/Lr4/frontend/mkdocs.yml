@@ -1,0 +1,17 @@
+site_name: Лабораторная работа №4
+nav:
+  - Home: index.md
+  - LR4:
+      - Не требуется авторизация:
+          - "SignIn": "views/signin.md"
+          - "SignUp": "views/signup.md"
+      - Требуется авторизация:
+          - "Staff": "views/staff.md"
+          - "Sales": "views/sales.md"
+          - "Products": "views/products.md"
+          - "Profile": "views/profile.md"
+          - "Edit profile": "views/edit_profile.md"
+          - "Logout": "views/logout.md"
+
+theme:
+  name: material
