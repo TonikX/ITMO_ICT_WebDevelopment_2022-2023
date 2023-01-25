@@ -2,3 +2,4 @@ site_name: Timofeev Nikolas Lab 1 Docs
 
 nav:
  - LR1: lr1.md
+ - LR4: lr4.md
