@@ -115,8 +115,6 @@ class FlightReviews(DetailView):
 
         reviews = flight.get_reviews()
 
-        print(reviews)
-
         context['flight'] = flight
         context['reviews'] = reviews
         return context
