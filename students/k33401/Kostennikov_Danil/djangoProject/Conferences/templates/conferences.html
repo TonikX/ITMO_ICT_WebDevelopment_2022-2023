@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Posts list
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-3">All conferences:</h1>
+    {% for conference in conferences %}
+        <div class="card">
+            <div class="card-header">
+                {{ conference.start_date }} - {{ conference.end_date }}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ conference.name }}</h5>
+                <p class="card-text">{{ conference.descriptions }}</p>
+                <a href="{{ conference.get_absolute_url }}" class="btn btn-primary">More info</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

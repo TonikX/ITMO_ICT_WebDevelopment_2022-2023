@@ -1,0 +1,45 @@
+site_name: Лабораторная работа №3
+nav:
+  - Home: index.md
+  - PR3.1: practical3.1.md
+  - LR3:
+      - Author:
+          - "/author/{id}/ [GET]": api/author_id_get.md
+          - "/author/{id}/ [PATCH]": api/author_id_patch.md
+          - "/author/{id}/full/ [GET]": api/author_id_full_get.md
+          - "/authors/ [GET]": api/authors_get.md
+          - "/authors/ [POST]": api/authors_post.md
+      - Book:
+          - "/book/{id}/ [GET]": api/book_id_get.md
+          - "/book/{id}/ [PATCH]": api/book_id_patch.md
+          - "/book/{id}/full/ [GET]": api/book_id_full_get.md
+          - "/books/ [GET]": api/books_get.md
+      - Customer:
+          - "/customer/{id}/ [GET]": api/customer_id_get.md
+          - "/customer/me/ [GET]": api/customer_me_get.md
+          - "/customers/ [GET]": api/customers_get.md
+          - "/customers/ [POST]": api/customers_post.md
+      - Editor:
+          - "/editor/{id}/full [GET]": api/editor_id_full_get.md
+          - "/editor/{id}/ [GET]": api/editor_id_get.md
+          - "/editors/ [GET]": api/editors_get.md
+      - Manager:
+          - "/manager/{id}/ [GET]": api/manager_id_get.md
+          - "/managers/ [GET]": api/managers_get.md
+      - Order:
+          - "/order/{id}/ [GET]": api/order_id_get.md
+          - "/order/{id}/ [DELETE]": api/order_id_delete.md
+          - "/orders/ [GET]": api/orders_get.md
+          - "/orders/ [POST]": api/orders_post.md
+      - Profiles:
+          - "/profiles/ [GET]": api/profiles_get.md
+
+theme:
+  name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences

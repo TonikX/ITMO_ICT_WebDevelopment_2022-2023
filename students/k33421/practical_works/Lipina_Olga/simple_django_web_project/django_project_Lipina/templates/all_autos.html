@@ -1,0 +1,22 @@
+<p>To get specific info about auto, type
+<u>http:.../auto/<b>number</b></u>, where number is car number in list.</p>
+<p>To delete car from the base, type
+<u>http:.../auto/<b>number</b>/delete</u>, where number is car number in list.</p>
+<p>To update car info, type
+<u>http:.../auto/<b>number</b>/update</u>, where number is car number in list.</p>
+<ol>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <li>{{ object.mark }}</li>
+    <span>{{ object.model }}</span>
+
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <span>No objects yet.</span>
+    {% endfor %}
+
+</ol>
+<a href="/admin/">Get back</a> <br>
+<a href="/autos/create">Add new auto</a>

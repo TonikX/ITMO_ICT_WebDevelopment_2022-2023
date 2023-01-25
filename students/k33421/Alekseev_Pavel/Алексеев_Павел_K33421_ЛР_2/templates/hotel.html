@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotels</title>
+</head>
+<body>
+
+<h1>Hotels</h1>
+{% for hotel in object_list %}
+    <p><strong>Name:</strong> {{ hotel.name }}</p>
+    <p><strong>Owner:</strong> {{ hotel.owner }} </p>
+    <p><strong>Address:</strong> {{ hotel.address }} </p>
+    <p><strong>Description:</strong> {{ hotel.description }} </p>
+    <p><a class="btn btn-primary" href="/hotel/{{ hotel.id }}" role="button">Details</a></p>
+    <br>
+{% empty %}
+    No hotels
+{% endfor %}
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+	<h1>Конференции</h1>
+	{% if conferences %}
+		{% for conference in conferences %}
+			<div class="card mb-3">
+				<div class="card-body">
+					<h4 class="card-title">{{ conference.name }}</h4>
+					<h6 class="card-subtitle mb-2">{{ conference.subject }}</h6>
+					<h6 class="card-subtitle mb-2 text-muted">{{ conference.location }} ({{ conference.date }})</h6>
+					<p class="card-text">Список участников</p>
+					<table class="table">
+
+						<tbody>
+						{% for participant in conference.authors.all %}
+							<tr>
+								<td>{{ participant.first_name }} {{ participant.last_name }}</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					<a href="{% url 'conference_detail' conference.id %}" class="card-link">Подробнее</a>
+
+				</div>
+			</div>
+		{% endfor %}
+	{% else %}
+		<div>Нет ни одной конференции</div>
+	{% endif %}
+
+
+{% endblock %}

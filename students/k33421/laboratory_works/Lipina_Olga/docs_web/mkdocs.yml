@@ -1,0 +1,19 @@
+site_name: Lipina Olga WEB
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Знакомство: index.md
+ - Лабораторная работа №1: labs/lab1.md
+ - Лабораторная работа №2: labs/lab2.md
+ - Лабораторная работа №3: labs/lab3.md
+ - Практическая работа №3: labs/practical_work3.md
+ - Лабораторная работа №4: labs/lab4.md

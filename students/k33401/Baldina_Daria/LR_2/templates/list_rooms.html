@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}All rooms{% endblock %}
+
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <thead class="table-info">
+            <tr>
+                <th scope="col">Отель</th>
+                <th scope="col">Номер комнаты</th>
+                <th scope="col">Описание комнаты</th>
+                <th scope="col">Количество комнат</th>
+                <th scope="col">Стоимость комнаты в день</th>
+            </tr>
+        </thead>
+        {% for room in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ room.hotel.name }}</td>
+                <td>{{ room.number_room }}</td>
+                <td>{{ room.type_room}}</td>
+                <td>{{ room.beds }}</td>
+                <td>{{ room.room_price}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

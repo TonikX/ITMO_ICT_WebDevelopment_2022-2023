@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if request.user.is_teacher %}
+        <h1>Ответы на оценку</h1>
+    {% else %}
+        <h1>Твои ответы</h1>
+    {% endif %}
+    {% include 'components/homework_answers_album.html' %}
+{% endblock %}

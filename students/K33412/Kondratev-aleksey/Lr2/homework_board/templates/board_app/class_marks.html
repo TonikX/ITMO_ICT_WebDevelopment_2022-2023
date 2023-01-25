@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class marks</title>
+    <style>
+        body {
+            padding-left: 50px;
+        }
+
+        table {
+            border-top: 4px solid #000;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        caption {
+            text-align: left;
+            padding: 10px;
+        }
+
+        thead {
+            border-bottom: 4px solid #000;
+        }
+
+        tbody td  {
+            text-align: left;
+            padding-left: 5;
+        }
+
+        tbody td:last-child  {
+            text-align: center;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            padding: 10px;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<header>
+    <nav class="menu">
+        <br>
+        <a href="/profile/">Home</a> |
+        <a href="/profile/all_tasks/">Tasks</a> |
+        <a href="/profile/class_marks/subject_select">Class marks</a> |
+        <a href="/accounts/{{user.id}}/update/">Edit profile</a> |
+        <a href="/accounts/logout/">Log out</a><br>
+        <br>
+    </nav>
+</header>
+<body>
+    <table>
+        <caption>
+            Class: {{ user.group }}<br>
+            Subject: {{ subject }}
+        </caption>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Marks</th>
+                <th>Average</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in class_students %}
+            <tr>
+                <td>{{student.surname}} {{student.name}} {{student.patronymic}}</td>
+                {% for mark in marks %}
+                    {% if forloop.counter == forloop.parentloop.counter %}
+                        <td>{{ mark }}</td>
+                    {% endif %}
+                {% endfor %}
+                {% for grade in average %}
+                    {% if forloop.counter == forloop.parentloop.counter %}
+                        <td>{{ grade }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/profile/class_marks/subject_select">Select another subject</a>
+</body>
+</html>

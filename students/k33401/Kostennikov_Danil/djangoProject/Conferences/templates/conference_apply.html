@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Apply for confernece</h1>
+          <hr class="mt-0 mb-4">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form |crispy }}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success g-5">Apply</button>
+                  </div>
+            </form>
+            <h6> {{ message }}</h6>
+        </div>
+      </div>
+    </div>
+{% endblock %}
