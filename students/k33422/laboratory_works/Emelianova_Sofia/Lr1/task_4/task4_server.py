@@ -15,7 +15,7 @@ nicks = []
 def broadcast(mes):
     for cli in clients:
         cli.send(mes)
-
+# Обращение к сообщениям
 def handle(cli):
     while True:
         try:
@@ -29,7 +29,7 @@ def handle(cli):
             nicks.remove(i)
             cli.close()
             break
-# Присоединение пользователей 
+# Получение
 def recieve():
     while True:
         conn, add = s.accept()
