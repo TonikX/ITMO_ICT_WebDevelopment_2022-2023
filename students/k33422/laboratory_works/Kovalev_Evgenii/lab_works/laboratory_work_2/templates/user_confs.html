@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Конференции пользователя {{ request.user }}
+{% endblock %}
+
+{% block content %}
+
+    {% if not user_confs %}
+    <h2> Вы не участвуете ни в одной конференции </h2>
+    {% endif %}
+
+    {% for conf in user_confs %}
+        {% include '_conference.html' %}
+    {% endfor %}
+{% endblock %}
