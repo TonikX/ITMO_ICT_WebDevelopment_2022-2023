@@ -1,0 +1,13 @@
+site_name: WebDevelopment by Me
+
+site_dir: http://localhost:8000
+nav:
+  - Home: index.md
+  - API:
+      - "api/planes": api/planes.md
+      - "api/airlines": api/companies.md
+      - "api/flights": api/flights.md
+      - "api/tickets": api/tickets.md
+      - "api/passengers": api/passengers.md
+theme:
+  name: windmill

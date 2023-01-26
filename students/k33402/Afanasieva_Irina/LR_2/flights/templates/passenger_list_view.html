@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пассажиров {{ object_list.0.flight.number }}</title>
+</head>
+<body>
+<div class="main">
+    {% for object in object_list %}
+        Пассажир: {{ object.passenger.last_name }} {{ object.passenger.first_name }}<br/>
+        Место: {{ object.seat }}<br/>
+        Номер билета: {{ object.ticket }}<br/>
+        <hr/>
+    {% endfor %}
+</div>
+</body>
+</html>

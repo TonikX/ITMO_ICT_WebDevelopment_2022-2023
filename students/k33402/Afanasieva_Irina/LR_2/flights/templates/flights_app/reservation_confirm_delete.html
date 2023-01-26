@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отменить резервацию</title>
+</head>
+
+<body>
+<form method="post">{% csrf_token %}
+    <p>Вы уверены, что хотите отменить резервацию?</p>
+    Пассажир: <b>{{ object.passenger.last_name }} {{ object.passenger.first_name }}</b><br/>
+    Рейс: {{ object.flight.number }}<br/>
+    Авиакомпания: {{ object.flight.airline }}<br/>
+    Время вылета: {{ object.flight.departure }}<br/>
+    Время прилета: {{ object.flight.arrival }}<br/>
+    Тип: {{ object.flight.type }}<br/>
+    Гейт: {{ object.flight.gate }}<br/>
+    Место: <b>{{ object.seat }}</b><br/>
+    Номер билета: <b>{{ object.ticket }}</b><br/><br>
+    <input type="submit" value="Confirm">
+</form>
+</body>
+</html>
