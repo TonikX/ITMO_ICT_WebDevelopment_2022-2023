@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои билеты - Авиатабло</title>
+</head>
+<body>
+    <h1>Мои билеты</h1>
+    <table border="2" cellspacing="0" bordercolor="black">
+        <thead>
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <th>id</th>
+                {% endif %}
+                <th>Номер билета</th>
+                <th>Номер рейса</th>
+                <th>Посадочное место</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}.
+            <tr>
+                {% if user.get_username == 'admin' %}
+                <td>{{ticket.id}}</td>
+                {% endif %}
+                <td>{{ticket.ticket_number}}</td>
+                <td>{{ticket.flight}}</td>
+                <td>{{ticket.seat}}</td>
+                <td>
+                    <ul>
+                        {% if user.get_username != 'admin' %}
+                        <li><a href="/ticket/{{ticket.id}}/delete">Отменить</a></li>
+                        <li><a href="/ticket/{{ticket.id}}/update">Обновить</a></li>
+                        <li><a href="/flight/{{ticket.flight}}/review/create">Написать отзыв</a></li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">Назад</a>
+</body>
+</html>

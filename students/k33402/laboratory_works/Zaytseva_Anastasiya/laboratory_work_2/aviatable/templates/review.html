@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Оставить отзыв - Авиатабло</title>
+</head>
+<body>
+    <h1>Оставить отзыв на рейс {{flight.flight_number}}</h1>
+    {% if error %}
+    <strong style="color:red">{{ error }}</strong>
+    {% else %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="flight">
+            Номер рейса:<br>
+            <input type="text" name="flight" id="flight" value="{{flight.flight_number}}">
+        </label>
+        <br>
+        <label for="text">
+            Текст:<br>
+            <textarea name="text" id="text"></textarea>
+        </label>
+        <br>
+        <label for="rating">
+            Оценка:<br>
+            <select name="rating" id="rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+            </select>
+        </label>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% endif %}
+    <br>
+    <a href="/ticket">Назад</a>
+</body>
+</html>
