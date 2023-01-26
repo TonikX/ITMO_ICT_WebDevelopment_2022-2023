@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Лабораторная работа 4 - ITMO-ICT-WebDevelopment</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "\u041b\u0430\u0431\u043e\u0440\u0430\u0442\u043e\u0440\u043d\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430 4";
+        var mkdocs_page_input_path = "lr4.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> ITMO-ICT-WebDevelopment
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Начальная страница</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Лабораторная работа №1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr2/">Лабораторная работа №2</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../prac2/">Практическая работа 3.1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr3/">Лабораторная работа 3</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Лабораторная работа 4</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">ITMO-ICT-WebDevelopment</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Лабораторная работа 4</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="_1">Описание работы<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>Создать программную систему, предназначенную для администратора гостиницы. 
+С преподавателем по дисциплине "Web-программирование" утвердили список интерфейсов для взаимодействия с серверной частью:</p>
+<ol>
+<li>
+<p>Интерфейс просмотра доступных комнат</p>
+</li>
+<li>
+<p>Интерфейс просмотра одной комнаты + просмотра истории бронирования комнаты + кнопка "заселить" и тд</p>
+</li>
+<li>
+<p>Интерфейс создания гостя + список гостей + просмотр гостя и его бронирований и возможность выселить гостя (либо выселить можно через интерфейс списка комнат)</p>
+</li>
+<li>
+<p>Список уборок + создание уборки</p>
+</li>
+</ol>
+<h2 id="_2">Основные файлы с кодом<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>AboutRooms.vue</code> - интерфейс просмотра доступных комнат</li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+  &lt;div class=&quot;mb-5&quot;&gt;
+    &lt;h1 class=&quot;has-text-centered&quot;&gt;This is page about available rooms&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;columns is-multiline&quot;&gt;
+
+      &lt;RoomList v-for=&quot;room in rooms&quot; :key=&quot;room.id&quot; :room=&quot;room&quot; class=&quot;column is-one-third&quot;/&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import RoomList from '@/components/RoomList.vue';
+import axios from 'axios'
+
+export default {
+  name: &quot;Rooms&quot;,
+  data() {
+    return {
+      rooms: []
+    }
+  },
+  mounted() {
+    this.getRooms()
+  },
+  components: {RoomList},
+  methods: {
+    async getRooms() {
+      axios
+        .get('/hotel/rooms/')
+        .then(response =&gt; {
+            this.rooms = response.data
+        })
+        .catch(error =&gt; {
+            console.log(error)
+        })
+    }
+  }
+}
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>AboutRooms.vue</code> - интерфейс просмотра гостя + просмотра бронирования комнаты</li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;{{ guest.first_name }} {{ guest.last_name }}&lt;/h1&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;column is-6&quot;&gt;
+                &lt;div class=&quot;box&quot;&gt;
+                    &lt;h2 class=&quot;subtitle&quot;&gt;Contact information&lt;/h2&gt;
+                    &lt;p&gt;&lt;strong&gt;First Name: &lt;/strong&gt;{{ guest.first_name }}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Last Name: &lt;/strong&gt;{{ guest.last_name }}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;City: &lt;/strong&gt;{{ guest.city }}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Passport: &lt;/strong&gt;{{ guest.passport }}&lt;/p&gt;
+                    &lt;div class=&quot;buttons mt-4&quot;&gt;
+                        &lt;router-link v-if=&quot;typeof guest.id !== 'undefined'&quot; 
+                        :to=&quot;{ name: 'EditGuest', params: { id: guest.id }}&quot; class=&quot;button is-light&quot;&gt;Edit guest&lt;/router-link&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-6&quot;&gt;
+                &lt;div class=&quot;box&quot;&gt;
+                    &lt;h2 class=&quot;subtitle&quot;&gt;Room book&lt;/h2&gt;
+
+                    &lt;p&gt;&lt;strong&gt;Reserved room: &lt;/strong&gt;{{ guest.room_book }}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Check in: &lt;/strong&gt;{{ booking.check_in }}&lt;/p&gt;
+                    &lt;p&gt;&lt;strong&gt;Check out: &lt;/strong&gt;{{ booking.check_out }}&lt;/p&gt;
+                    &lt;div class=&quot;buttons mt-4&quot;&gt;
+                        &lt;router-link v-if=&quot;typeof guest.id !== 'undefined'&quot; 
+                        :to=&quot;{ name: 'EditBook', params: { id: guest.id }}&quot; class=&quot;button is-light&quot;&gt;Edit booking&lt;/router-link&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!-- когда сделаешь букинги добавь в mounted getBook, дальше получи get данные о бронировании --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    export default {
+        name: 'Guest',
+        data() {
+            return {
+                guest: {},
+                booking: {}
+            }
+        },
+        mounted() {
+            this.getGuest()
+        },
+        methods: {
+            async getGuest() {
+                this.$store.commit('setIsLoading', true)
+                const guestID = this.$route.params.id
+                await axios
+                    .get(`/hotel/guests/${guestID}/`)
+                    .then(response =&gt; {
+                        this.guest = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+
+                await axios
+                    .get(`/hotel/bookings/${guestID}/`)
+                    .then(response =&gt; {
+                        this.booking = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+                this.$store.commit('setIsLoading', false)
+            },
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>AddGuest.vue</code> - интерфейс создания гостя </li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;Add guest&lt;/h1&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;form @submit.prevent=&quot;submitForm&quot;&gt;
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;First Name&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;text&quot; class=&quot;input&quot; v-model=&quot;first_name&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Last Name&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;text&quot; class=&quot;input&quot; v-model=&quot;last_name&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Passport&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;text&quot; class=&quot;input&quot; v-model=&quot;passport&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;City&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;text&quot; class=&quot;input&quot; v-model=&quot;city&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;button class=&quot;button is-success&quot;&gt;Submit&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    import { toast } from 'bulma-toast'
+    export default {
+        name: 'AddGuest',
+        data() {
+            return {
+                first_name: '',
+                last_name: '',
+                passport: '',
+                city: ''
+            }
+        },
+        methods: {
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+                const guest = {
+                    first_name: this.first_name,
+                    last_name: this.last_name,
+                    passport: this.passport,
+                    city: this.city
+                }
+                await axios
+                    .post('/hotel/guests/create/', guest)
+                    .then(response =&gt; {
+                        toast({
+                            message: 'The guest was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+                        this.$router.push('/guests')
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+                this.$store.commit('setIsLoading', false)
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>Guests.vue</code> - список гостей </li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;Guests&lt;/h1&gt;
+
+                &lt;router-link to=&quot;/guests/create&quot;&gt;Add guest&lt;/router-link&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;table class=&quot;table is-fullwidth&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;tr&gt;
+                            &lt;th&gt;First Name&lt;/th&gt;
+                            &lt;th&gt;Last Name&lt;/th&gt;
+                            &lt;th&gt;Passport&lt;/th&gt;
+                            &lt;th&gt;City&lt;/th&gt;
+                            &lt;th&gt;Reserved room&lt;/th&gt;
+                            &lt;th&gt;&lt;/th&gt;
+                        &lt;/tr&gt;
+                    &lt;/thead&gt;
+
+                    &lt;tbody&gt;
+                        &lt;tr
+                            v-for=&quot;guest in guests&quot;
+                            v-bind:key=&quot;guest.id&quot;&gt;
+                                &lt;td&gt;{{ guest.first_name }}&lt;/td&gt;
+                                &lt;td&gt;{{ guest.last_name }}&lt;/td&gt;
+                                &lt;td&gt;{{ guest.passport }}&lt;/td&gt;
+                                &lt;td&gt;{{ guest.city }}&lt;/td&gt;
+                                &lt;td&gt;{{ guest.room_book }}&lt;/td&gt;
+                                &lt;td&gt;
+                                    &lt;router-link :to=&quot;{ name: 'Guest', params: { id: guest.id }}&quot;&gt;Details&lt;/router-link&gt;
+                                &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/tbody&gt;
+                &lt;/table&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    export default {
+        name: 'Guest',
+        data() {
+            return {
+                guests: []
+            }
+        },
+        mounted() {
+            this.getGuests()
+        },
+        methods: {
+            async getGuests() {
+                axios
+                    .get('/hotel/guests/')
+                    .then(response =&gt; {
+                        this.guests = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>EditBook.vue</code> - возможность выселить гостя</li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;Edit booking&lt;/h1&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;form @submit.prevent=&quot;submitForm&quot;&gt;
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Room&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;text&quot; class=&quot;input&quot; v-model=&quot;booking.room&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Check in&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;date&quot; class=&quot;input&quot; v-model=&quot;booking.check_in&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Check out&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;date&quot; class=&quot;input&quot; v-model=&quot;booking.check_out&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;button class=&quot;button is-success&quot;&gt;Update&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    import { toast } from 'bulma-toast'
+    export default {
+        name: 'EditBook',
+        data() {
+            return {
+                booking: {}
+            }
+        },
+        mounted() {
+            this.getBooking()
+        },
+        methods: {
+            async getBooking() {
+                this.$store.commit('setIsLoading', true)
+                const bookingID = this.$route.params.id
+                await axios
+                    .get(`/hotel/bookings/${bookingID}/`)
+                    .then(response =&gt; {
+                        this.booking = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+
+                this.$store.commit('setIsLoading', false)
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+                const bookingID = this.$route.params.id
+                await axios
+                    .patch(`/hotel/bookings/update/${bookingID}/`, this.booking)
+                    .then(response =&gt; {
+                        toast({
+                            message: 'The booking was updated',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+                        this.$router.push(`/guests/${bookingID}`)
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+                this.$store.commit('setIsLoading', false)
+            },
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>Cleaners.vue</code> - cписок уборок </li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;Cleanings&lt;/h1&gt;
+
+                &lt;router-link to=&quot;/cleanings/create&quot;&gt;Add cleaning&lt;/router-link&gt;
+
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;table class=&quot;table is-fullwidth&quot;&gt;
+                    &lt;thead&gt;
+                        &lt;tr&gt;
+                            &lt;th&gt;Clean room&lt;/th&gt;
+                            &lt;th&gt;Cleaner&lt;/th&gt;
+                            &lt;th&gt;Date time&lt;/th&gt;
+                            &lt;th&gt;&lt;/th&gt;
+                        &lt;/tr&gt;
+                    &lt;/thead&gt;
+
+                    &lt;tbody&gt;
+                        &lt;tr
+                            v-for=&quot;cleaning in cleanings&quot;
+                            v-bind:key=&quot;cleaning.id&quot;&gt;
+                                &lt;td&gt;{{ cleaning.clean_room }}&lt;/td&gt;
+                                &lt;td&gt;{{ cleaning.cleaner_id }}&lt;/td&gt;
+                                &lt;td&gt;{{ cleaning.date_time }}&lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/tbody&gt;
+                &lt;/table&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    export default {
+        name: 'Cleaning',
+        data() {
+            return {
+                cleanings: []
+            }
+        },
+        mounted() {
+            this.getCleanings()
+        },
+        methods: {
+            async getCleanings() {
+                axios
+                    .get('/hotel/cleanings/')
+                    .then(response =&gt; {
+                        this.cleanings = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>AddCleaning.vue</code> - создание уборки</li>
+</ul>
+<pre><code class="language-vue">&lt;template&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;columns is-multiline&quot;&gt;
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;h1 class=&quot;title&quot;&gt;Add cleaning&lt;/h1&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;column is-12&quot;&gt;
+                &lt;form @submit.prevent=&quot;submitForm&quot;&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Room&lt;/label&gt;
+                        &lt;br&gt;
+                        &lt;div class=&quot;select is-primary&quot;&gt;
+                            &lt;select v-model=&quot;clean_room&quot;&gt;
+
+                                &lt;option v-for=&quot;clean_room in rooms&quot; :value=&quot;clean_room.id&quot;
+                                &gt;{{ clean_room.id }}
+                                &lt;/option&gt;
+
+                            &lt;/select&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Cleaner&lt;/label&gt;
+                        &lt;br&gt;
+                        &lt;div class=&quot;select is-primary&quot;&gt;
+                            &lt;select v-model=&quot;cleaner_id&quot;&gt;
+                                &lt;option v-for=&quot;cleaner_id in cleaners&quot;
+                                    :value=&quot;cleaner_id.cleaner_id&quot;&gt;
+                                    {{ cleaner_id.cleaner_id }} 
+                                &lt;/option&gt;
+                            &lt;/select&gt;
+                        &lt;/div&gt;
+
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;label&gt;Date&lt;/label&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;input type=&quot;date&quot; class=&quot;input&quot; v-model=&quot;date_time&quot;&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;div class=&quot;field&quot;&gt;
+                        &lt;div class=&quot;control&quot;&gt;
+                            &lt;button class=&quot;button is-success&quot;&gt;Submit&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import axios from 'axios'
+    import { toast } from 'bulma-toast'
+    export default {
+        name: 'AddCleaning',
+        data() {
+            return {
+
+                cleaner_id: '',
+                clean_room: '',
+                date_time: '',
+                cleaners: [],
+                rooms: []
+            }
+        },
+        mounted() {
+            this.getCleaners(),
+            this.getRooms()
+        },
+        methods: {
+            async getCleaners() {
+                await axios
+                    .get('/hotel/cleaners/')
+                    .then(response =&gt; {
+                        this.cleaners = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+            },
+            async getRooms() {
+                await axios
+                    .get('/hotel/rooms/')
+                    .then(response =&gt; {
+                        this.rooms = response.data
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+            },
+            async submitForm() {
+                this.$store.commit('setIsLoading', true)
+
+                const cleaning = {
+                    cleaner_id: this.cleaner_id,
+                    clean_room: this.clean_room,
+                    date_time: this.date_time,
+                }
+
+                await axios
+                    .post('/hotel/cleanings/create/', cleaning)
+                    .then(response =&gt; {
+                        toast({
+                            message: 'The cleaning was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
+                        this.$router.push('/cleanings')
+                    })
+                    .catch(error =&gt; {
+                        console.log(error)
+                    })
+                this.$store.commit('setIsLoading', false)
+            },
+
+
+        }
+    }
+&lt;/script&gt;
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr3/" class="btn btn-neutral float-left" title="Лабораторная работа 3"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lr3/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
