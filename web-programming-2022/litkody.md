@@ -4,7 +4,7 @@ description: Решение 6 лит задач.
 
 # Литкоды
 
-### Задача 1: Find the teamm size. база данных №1303
+### Задача 1: Find the team size. база данных №1303
 
 ```
 +---------------+---------+
@@ -37,7 +37,7 @@ JOIN (
 
 <figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
-### Задача 3: Restore API Adresses №93
+### Задача 3: Restore IP Adresses №93
 
 <figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
