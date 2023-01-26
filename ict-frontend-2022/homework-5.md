@@ -10,7 +10,7 @@ description: >-
 
 npm install -g @vue/cli
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### [Инициализатия проекта](homework-5.md#inicializatiya-proekta)
 
@@ -22,11 +22,11 @@ npm init vue@latest
 
 Переходим в нашем проекте и установим
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 В файле package.json делаем следующие изменения в секции scripts:
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Теперь можно запустить проект следующей командой:
 

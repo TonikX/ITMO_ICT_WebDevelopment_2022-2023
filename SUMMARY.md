@@ -1,6 +1,7 @@
 # Table of contents
 
 * [👨💻 Web-Programming 2022](README.md)
+  * [Литкоды](web-programming-2022/litkody.md)
   * [Лабораторная работа 1.](laboratornaya-rabota-1..md)
   * [Лабораторная работа 2.](web-programming-2022/laboratornaya-rabota-2..md)
   * [Лабораторная работа 3.](laboratornaya-rabota-3.md)

@@ -1139,7 +1139,7 @@ h2 {
 
 * HomeDetails.vue
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Booking details</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption><p>Booking details</p></figcaption></figure>
 
 ```
 <template>
@@ -1381,7 +1381,7 @@ small {
 
 * HotelResults.vue
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption><p>Results</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption><p>Results</p></figcaption></figure>
 
 ```
 <template>
@@ -1747,7 +1747,7 @@ button:hover {
 
 <figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption><p>Reservation form</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (2).png" alt=""><figcaption><p>Reservation form</p></figcaption></figure>
 
 ```
 <template>
