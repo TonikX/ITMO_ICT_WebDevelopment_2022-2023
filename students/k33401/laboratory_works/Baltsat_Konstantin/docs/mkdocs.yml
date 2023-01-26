@@ -1,0 +1,19 @@
+site_name: Library API
+nav:
+- Home: index.md
+- Lab_works: 
+    - Lab 3: labs/lab3.md
+    - Lab 4: labs/lab4.md
+- Api:
+    - "Endpoints": api/endpoints.md
+    - "Authorization": api/authorization.md
+
+theme:
+name: material
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+
+plugins:
+    - glightbox
