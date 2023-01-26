@@ -1,0 +1,13 @@
+site_name: Описание сервиса "ONLINE STORE"
+nav:
+ - Home: index.md
+ - Api:
+     - "/admin": api/admin.md
+     - "/store/users": api/users.md
+     - "/store/add/product": api/add_product.md
+     - "/store/order": api/order.md
+     - "/store/add/toorder": api/addtoorder.md
+
+
+theme:
+ name: material

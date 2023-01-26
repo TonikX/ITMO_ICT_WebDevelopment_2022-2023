@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Drivers</title>
+</head>
+
+    <body>
+    {% for driver in drivers %}
+        <li>username: {{ driver.username }}  Имя: {{driver.first_name}}, Фамилия: {{driver.last_name}} , From: {{ driver.nationality }} Passport: {{ driver.passport }}<br></li>
+    {% endfor %}
+
+</body>
+
+</html>
