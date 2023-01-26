@@ -77,11 +77,11 @@ class Driver_license(models.Model):
 
 * Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует):
 
-![Запрос с владельцами машин определенного цвета](https://sun9-west.userapi.com/sun9-1/s/v1/ig2/i138JCeUXMdWcE-9cxJ087WNzlcbzdMvimnUK1wczY1dfxw6lszcRV--1Ukh0tv2E46xa4U2_Yz7dnVyvQjQCqc4.jpg?size=1430x54&quality=96&type=album)
+![Запрос с владельцами машин определенного цвета](https://sun9-east.userapi.com/sun9-75/s/v1/ig2/kp6_lGmBKqDT4qk-EtjUYU4P8ldKcOYmO3LhsN32kMm5ZPET81qf-mIr5VFsNIE6UXQv6mNfQHaJUtqkO_F75OM1.jpg?size=989x59&quality=96&type=album)
 
 * Найти всех владельцев, чей год владения машиной начинается с 2010 (или любой другой год, который присутствует у вас в базе):
 
-![Запрос с годом владения](https://sun9-east.userapi.com/sun9-36/s/v1/ig2/MH6oWEBeabqvU7Y2eI0toCZxYKuTTknxGvdX4LN2-s2x--j1bfPB1y8n-W0pdK0eSwlt3XPmM4ZeTJOozoNDjzZG.jpg?size=1321x58&quality=96&type=album)
+![Запрос с годом владения](https://sun9-west.userapi.com/sun9-52/s/v1/ig2/Z6tHPdO5B4TDtT-sx4FE6bw1uSvw8fhB_PfAZbtYjP7vzYc3VOGve4ncdUZfHE5BzrBpqiQAZJBkH4swfu0Db6Xz.jpg?size=1331x53&quality=96&type=album)
 
 -------------------------
 
