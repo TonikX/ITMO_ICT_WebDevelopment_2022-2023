@@ -51,16 +51,6 @@ class BreedCountAPIView(APIView):
         return Response(content)
 
 
-class BreedCountAPIView(APIView):
-
-    def get(self, request):
-        # breed_count = Participant.objects.filter(breed=breed).count()
-        breed_count = Ring.objects \
-            .values('breed').annotate(count=Count('breed'))
-        content = {'breed_count': breed_count}
-        return Response(content)
-
-
 class ReportAPIView(APIView):
 
     def get(self, request, year):
