@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+</head>
+<body>
+<h3>Общая сумма дохода за каждый номер и число гостей, проживавших в каждом номере</h3>
+{% for room in rooms %}
+    <p>Комната: {{ room.name }}. Количество гостей: {{ room.count }}. Доход: {{ room.profit }}</p>
+{% endfor %}
+<hr>
+<h3>Количество комнат на каждом этаже:</h3>
+{% for floor in floors %}
+    <p>Этаж: {{ floor.floor }}. Количество комнат: {{ floor.count }}</p>
+{% endfor %}
+<hr>
+<h3>Суммарный доход по всей гостинице</h3>
+<p>Общий доход: {{ profit }}</p>
+</body>
+</html>
