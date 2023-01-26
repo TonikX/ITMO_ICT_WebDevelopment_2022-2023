@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Название</th>
+        <th>Предмет</th>
+        <th>Выдано</th>
+        <th>Дедлайн</th>
+        <th>Преподаватель</th>
+        <th>Штраф</th>
+    </tr>
+
+    {% for homework in object_list %}
+        <tr>
+            <td>
+                <a href="{% url 'homework_detail' homework.pk %}">
+                    {{ homework.name }}
+                </a>
+            </td>
+            <td>{{ homework.subject }}</td>
+            <td>{{ homework.begin_date }}</td>
+            <td>{{ homework.deadline }}</td>
+            <td>{{ homework.teacher }}</td>
+            <td>{{ homework.penalty }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
