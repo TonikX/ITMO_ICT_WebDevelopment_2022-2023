@@ -11,10 +11,10 @@ class Room(models.Model):
     type = models.CharField(max_length=1, choices=ROOM_TYPE)
     floor = models.IntegerField()
     price = models.IntegerField()
-    cleaners = models.ManyToManyField('Staff', through='Cleaning')
+    
 
     def __str__(self):
-        return f'Room №{self.number}'
+        return f'Room №{self.id}'
 
 class Staff(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
@@ -39,8 +39,8 @@ class Guest(models.Model):
 
 class Cleaning(models.Model):
     id = models.IntegerField(primary_key=True, unique=True)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name='cleaning')
-    staff = models.ForeignKey(Staff, on_delete=models.CASCADE, related_name='cleaning')
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     date_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
