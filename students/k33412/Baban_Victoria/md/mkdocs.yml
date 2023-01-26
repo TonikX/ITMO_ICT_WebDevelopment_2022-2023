@@ -1,0 +1,7 @@
+site_name: Лабораторные работы Бабан Виктории
+nav:
+ - Home: index.md
+ - Lab 1: lab_1.md
+
+theme:
+ name: flatly
