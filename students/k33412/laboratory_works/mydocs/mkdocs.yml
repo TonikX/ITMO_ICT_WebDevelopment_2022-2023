@@ -1,0 +1,19 @@
+site_name: Omar Ceesay
+site_url: https://mylabs.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav: 
+ - Лабораторная работа №2: index.md
+ - Лабораторная работа №2: lab01.md
+ - Лабораторная работа №2: lab03.md
+ - Лабораторная работа №2: lab04.md
+
