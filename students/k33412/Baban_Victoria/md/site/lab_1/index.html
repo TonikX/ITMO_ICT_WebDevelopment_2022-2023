@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Lab 1 - Лабораторные работы Бабан Виктории</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/docco.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Лабораторные работы Бабан Виктории</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Lab 1</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#1" class="nav-link">Лабораторная работа 1. Работа с сокетами</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#1_1" class="nav-link">Задание 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2" class="nav-link">Задание 2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#3" class="nav-link">Задание 3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#4" class="nav-link">Задание 4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#5" class="nav-link">Задание 5</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="1">Лабораторная работа 1. Работа с сокетами</h1>
+<h2 id="1_1">Задание 1</h2>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 9523))
+sock.listen(10)
+conn, addr = sock.accept()
+
+print('connected with:', addr)
+
+while True:
+    data = conn.recv(1024)
+    print(data.decode(&quot;utf-8&quot;))
+    if not data:
+        break
+    conn.send(b'Hello, client.\n')
+
+conn.close()
+</code></pre>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 9523))
+sock.send(b'Hello, server.\n')
+
+data = sock.recv(1024)
+print(data.decode(&quot;utf-8&quot;))
+
+sock.close()
+</code></pre>
+<h2 id="2">Задание 2</h2>
+<p><strong>Вариант:</strong> Теорема Пифагора</p>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code>import socket
+from math import sqrt
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 9523))
+sock.listen(10)
+conn, addr = sock.accept()
+
+print('connected:', addr)
+
+while True:
+    data = conn.recv(1024).decode()
+    try:
+        data = data.split(&quot; &quot;)
+        katet_1 = float(data[0])
+        katet_2 = float(data[1])
+        gipotenyza = float(data[2])
+    except:
+        conn.sendall('Неверный формат входных данных!\n'.encode())
+    else:
+        if katet_2 == 0:
+            katet_2 = sqrt(gipotenyza**2 - katet_1**2)
+            conn.sendall(f'Второй катет имеет длину: {katet_2}\n'.encode())
+        elif gipotenyza == 0:
+            gipotenyza = sqrt(katet_1**2 + katet_2**2)
+            conn.sendall(f'Гипотенуза имеет длину: {gipotenyza}\n'.encode())
+        else:
+            if gipotenyza == sqrt(katet_1**2 + katet_2**2):
+                conn.sendall('Теорема Пифагора выполняется. Всё верно, это - прямоугольный треугольник.'.encode())
+            else:
+                conn.sendall('Теорема Пифагора не выполняется. Треугольник не прямоугольный!'.encode())
+
+    if not data:
+        break
+    conn.send(b'Hello, client.\n')
+
+conn.close()
+</code></pre>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 9523))
+
+data = input(&quot;Введите значение одного из катетов: &quot;).replace(&quot; &quot;, &quot;&quot;)
+data += &quot; &quot; + input(&quot;Введите значение второго катета, если оно известно, иначе - введите 0: &quot;).replace(&quot; &quot;, &quot;&quot;)
+data += &quot; &quot; + input(&quot;Введите значение гипотенузы, если оно известно, иначе - введите 0: &quot;).replace(&quot; &quot;, &quot;&quot;)
+sock.send(data.encode())
+
+
+result = sock.recv(1024)
+print(result.decode(&quot;utf-8&quot;))
+
+sock.close()
+</code></pre>
+<h2 id="3">Задание 3</h2>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 9523))
+sock.listen(10)
+conn, addr = sock.accept()
+print('connected with:', addr)
+
+with open('index.html') as f:
+    page = f.read()
+response = 'HTTP/1.0 200 OK\n\n' + &quot;Content-Type: text/html\n\n&quot; + page
+conn.sendall(response.encode(&quot;utf-8&quot;))
+
+conn.close()
+</code></pre>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 9523))
+
+data = sock.recv(1024)
+print(data.decode(&quot;utf-8&quot;))
+
+sock.close()
+</code></pre>
+<ul>
+<li>index.html</li>
+</ul>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;My page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome, friend!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="4">Задание 4</h2>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code>import socket
+import threading
+
+def send_message(sock, msg):
+    for client in clients:
+        if sock != client:
+            client.send(msg)
+
+def handle_client(socket, address, username):
+    if not clients.setdefault(socket):
+        clients[socket] = username
+        print(f'{username}[{address[0]}:{address[1]}] присоединился к чату')
+        send_message(socket, f'Пользователь {username} присоединился к чату'.encode())
+
+    while True:
+        try:
+            message = socket.recv(1024)
+            if message.decode('utf-8').find('EXIT FROM CHAT') != -1:
+                print(f'{username}[{address[0]}:{address[1]}] покинул чат')
+                send_message(socket, f'Пользователь {username} покинул чат'.encode())
+                clients.pop(socket)
+                break
+            send_message(socket, message)
+        except ConnectionResetError:
+            print(f'{username}[{address[0]}:{address[1]}] неожиданно пропал...')
+            send_message(socket, f'Пользователь {username} неожиданно пропал...'.encode())
+            break
+    socket.close()
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.bind(('', 9523))
+sock.listen(10)
+clients = {}
+
+while True:
+  try:
+    conn, addr = sock.accept()
+    data = conn.recv(1024).decode('utf-8')
+    t1 = threading.Thread(target=handle_client, args=(conn, addr, data))
+    t1.start()
+  except KeyboardInterrupt:
+    print('Server stopped')
+    break
+
+conn.close()
+</code></pre>
+<ul>
+<li>client.py</li>
+</ul>
+<pre><code>import threading
+import socket
+import time
+
+def get_message():
+    while True:
+        try:
+            data = sock.recv(1024).decode('utf-8')
+            print(data)
+        except socket.error:
+            time.sleep(0.5)
+            continue
+
+def write_message():
+    while True:
+        message = input()
+        sock.sendto(('[' + name + '] ' + message).encode('utf-8'), server)
+        if message == 'EXIT FROM CHAT':
+            break
+            sock.close()
+
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 9523))
+
+name = input('Введи свой никнэйм: ')
+print(f'Привет, {name}! Теперь можешь писать сообщение.')
+print('Если захочешь выйти из чата напиши EXIT FROM CHAT\n')
+
+server = '', 9523
+sock.sendto((name).encode('utf-8'), server)
+
+thread_send = threading.Thread(target=write_message, args=())
+thread_get = threading.Thread(target=get_message, args=())
+
+thread_send.start()
+thread_get.start()
+</code></pre>
+<h2 id="5">Задание 5</h2>
+<ul>
+<li>server.py</li>
+</ul>
+<pre><code>import socket
+
+class MyHTTPServer:
+
+    def __init__(self, host, port, name):
+        self.host = host
+        self.port = port
+        self.name = name
+        self.marks = []
+
+    def serve_forever(self):
+
+        serve_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        serve_socket.bind((self.host, self.port))
+        serve_socket.listen(10)
+        print('hi')
+        while True:
+            client_socket, address = serve_socket.accept()
+            self.serve_client(client_socket)
+
+    def serve_client(self, sock):
+
+        data = sock.recv(4096).decode(&quot;utf-8&quot;)
+        request = self.parse_request(data)
+        response = self.handle_request(request)
+        sock.send(response.encode())
+
+    def parse_request(self, data):
+
+        request_line = data.split('\r\n')[0]
+        words = request_line.split()
+        if len(words) == 3:
+            try:
+                par = data.split('\r\n')[-1]
+                param = {}
+                for p in par.split(&quot;&amp;&quot;):
+                    param[p[:p.index('=')]] = p[p.index('=') + 1:]
+                req = {&quot;method&quot;: words[0], &quot;url&quot;: words[1], &quot;version&quot;: words[2], &quot;parametrs&quot;: param}
+            except:
+                req = {&quot;method&quot;: words[0], &quot;url&quot;: words[1], &quot;version&quot;: words[2], &quot;parametrs&quot;: {}}
+        else:
+            raise Exception('Malformed request line')
+        print(req)
+        return req
+
+    def parse_headers(self, data):
+        lines = data.split('\r\n')[1:]
+        headers = {}
+        for line in lines:
+            parts = line.split(': ')
+            headers[parts[0]] = parts[1]
+        return headers
+
+    def handle_request(self, request):
+        response = f&quot;{request['version']} 200 OK\n\n&quot;
+
+        if request['method'] == 'GET' and request['url'] == &quot;/&quot;:
+            with open('index.html') as page:
+                response += page.read()
+        elif request['method'] == 'GET' and request['url'] == &quot;/view&quot;:
+            body = '&lt;!DOCTYPE html&gt;' \
+               '&lt;html lang=&quot;ru&quot;&gt;' \
+               '&lt;head&gt;' \
+               '&lt;meta charset=&quot;UTF-8&quot;&gt;' \
+               '&lt;title&gt;Оценки&lt;/title&gt;' \
+               '&lt;/head&gt;' \
+               '&lt;body&gt;' \
+               '&lt;table align=&quot;center&quot; width=&quot;20%&quot; border=&quot;1&quot;&gt;'
+            for subject, mark in self.marks:
+                body +=f&quot;&lt;tr&gt;&lt;td&gt;{subject}&lt;/td&gt;&lt;td&gt;{mark}&lt;/td&gt;&lt;/tr&gt;&quot;
+            body += '&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;'
+            response += body
+        elif request['method'] == 'POST':
+            self.marks.append((request['parametrs']['subject'], request['parametrs']['mark']))
+
+        return response
+
+if __name__ == '__main__':
+    host = 'localhost'
+    port = 9523
+    name = 'torry-site.ru'
+    serv = MyHTTPServer(host, port, name)
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass
+</code></pre>
+<ul>
+<li>index.html</li>
+</ul>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Marks&lt;/title&gt;
+    &lt;script&gt;
+        function submitForm() {
+            let http = new XMLHttpRequest();
+            http.open(&quot;POST&quot;, &quot;http://127.0.0.1:9523/view&quot;, true);
+            http.setRequestHeader(&quot;Content&quot;,&quot;text/html&quot;);
+            let params = &quot;?mark=&quot; + document.getElementById(&quot;mark&quot;).value + &quot;&amp;subject=&quot; + document.getElementById(&quot;subject&quot;).value;
+            http.send(params);
+        }
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form action=&quot;&quot; method=&quot;post&quot; align=&quot;center&quot; onsubmit=&quot;submitForm();&quot;&gt;
+    &lt;br&gt;
+    &lt;div&gt;
+        &lt;label for=&quot;subject&quot;&gt;Subject:&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;subject&quot; name=&quot;subject&quot;/&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div&gt;
+        &lt;label for=&quot;mark&quot;&gt;Mark:&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;mark&quot; name=&quot;mark&quot;/&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+    &lt;div&gt;
+        &lt;input type=&quot;submit&quot;&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

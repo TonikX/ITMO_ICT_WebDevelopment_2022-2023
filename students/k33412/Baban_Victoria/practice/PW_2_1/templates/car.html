@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+<table>
+    <tr><th>Гос. номер</th><th>Марка</th><th>Модель</th><th>Цвет</th></tr>
+    {% for object in object_list %}
+        <tr>
+            <td>{{ object.state_number }}</td>
+            <td>{{ object.mark }}</td>
+            <td>{{ object.model }}</td>
+            <td>{{ object.color }}</td>
+        </tr>
+    {% empty %}
+        <li>No objects yet.</li>
+    {% endfor %}
+</table>
+</body>
+</html>
