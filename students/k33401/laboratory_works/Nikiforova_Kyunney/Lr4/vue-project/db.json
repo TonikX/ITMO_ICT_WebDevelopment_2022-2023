@@ -1,0 +1,237 @@
+{
+  "users": [
+    {
+      "email": "nik.kyunney@gmail.com",
+      "password": "$2a$10$mnWZjP9/FmnbLE97ybSy4OkC3inSZPaq42jZTSl7CzL8y/hIonnPy",
+      "firstname": "Kyunney",
+      "lastname": "Nikiforova",
+      "id": 1
+    },
+    {
+      "email": "rachelgreen@gmail.com",
+      "password": "$2a$10$S0baIwhsXRVUZJgBMaWZY.uawOpTdDtavQqe8itwm32rk4Wg5B8RS",
+      "firstname": "Rachel",
+      "lastname": "",
+      "id": 2
+    },
+    {
+      "email": "monicageller@yahoo.com",
+      "password": "$2a$10$wVEHrBz4IS3GyJ1RCKKKwesx9qA/8MqVRXWc1JdfOvQdK.aP/cCoa",
+      "firstname": "Monica",
+      "lastname": "Geller",
+      "id": 3
+    },
+    {
+      "email": "chandler@gmail.com",
+      "password": "$2a$10$c8vajcxsaXT8QAqHbnmLZO63MY7/mngeuRao17/t/jV/Ud4ug0ms2",
+      "firstname": "Chandler",
+      "lastname": "Bing",
+      "id": 4
+    },
+    {
+      "email": "rosssss@yahoo.com",
+      "password": "$2a$10$Z0VUYYKl/Ou3GcTvAyafmeGPhNj55pVVeWoZ2f25RKyheirMMTjwe",
+      "firstname": "Ross",
+      "lastname": "Geller",
+      "id": 5
+    },
+    {
+      "email": "check@gmail.com",
+      "password": "12345",
+      "lastname": "checkName",
+      "firstname": "firstName",
+      "id": 6
+    },
+    {
+      "email": "check2@gmail.com",
+      "password": "123456",
+      "lastname": "check2last",
+      "firstname": "Check2",
+      "id": 7
+    },
+    {
+      "email": "check3@gmail.com",
+      "password": "123456",
+      "lastname": "check3",
+      "firstname": "check3",
+      "id": 8
+    },
+    {
+      "email": "check4@gmail.com",
+      "password": "12345",
+      "lastname": "check4",
+      "firstname": "check4",
+      "id": 9
+    },
+    {
+      "email": "check5@gmail.com",
+      "password": "123456",
+      "lastname": "check5last",
+      "firstname": "check5",
+      "id": 10
+    },
+    {
+      "email": "logcheck@gmail.com",
+      "password": "123456",
+      "lastname": "logcheck",
+      "firstname": "logcheck",
+      "id": 75
+    },
+    {
+      "email": "userfinal@gmail.com",
+      "password": "123456",
+      "lastname": "NewLast",
+      "firstname": "NewUser",
+      "id": 76
+    },
+    {
+      "email": "check6@gmail.com",
+      "password": "123456",
+      "lastname": "check6",
+      "firstname": "check6",
+      "id": 77
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Frontend Development Lightning Talks",
+      "date": "Thu, Oct 13 · 8:45 PM",
+      "location": "2 Bankside, London",
+      "img": "https://images.squarespace-cdn.com/content/v1/5ba0247f697a981dfd427b7c/1538178237813-E39RCYV9BITL1KI68XW9/seats.jpg",
+      "eventtype": "inperson",
+      "category": "technology",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 2,
+      "title": "What is the Metaverse? Meta explains it all.",
+      "date": "Wed, Oct 19 · 6:00 PM",
+      "location": "Online",
+      "img": "https://coin-turk.com/wp-content/uploads/2022/01/Dev-balinadan-büyük-satin-alim-scaled.jpeg",
+      "eventtype": "online",
+      "category": "technology",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 3,
+      "title": "AutoML for Natural Language Processing",
+      "date": "Mon, Oct 17 · 7:30 PM",
+      "location": "Principal Place, London",
+      "img": "https://avatars.mds.yandex.net/get-images-cbir/8318428/jsZxkYBj4YI4BDiHn0jugw9492/ocr",
+      "eventtype": "inperson",
+      "category": "technology",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 4,
+      "title": "Visit the OM Yoga show",
+      "date": "Fri, Oct 14 · 1:00 PM",
+      "location": "Alexandra Palace, London",
+      "img": "https://sun9-77.userapi.com/impf/c841421/v841421652/49cf6/9R1Dz1MMb0M.jpg?size=1080x718&quality=96&sign=fb34b65481389dd535b555b9db813b94&c_uniq_tag=LEACQI9mvNsClAp0RI5IWLe0xGLN9PRta8KwiNlo07s&type=album",
+      "eventtype": "inperson",
+      "category": "sports",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 5,
+      "title": "Hampstead Heath Wellness Day - Pilates and Nature",
+      "date": "Sun, Oct 23 · 4:00 PM",
+      "location": "Hampstead Tube Station, London",
+      "img": "https://yoga-in-greece.ru/wp-content/uploads/e/0/b/e0bbee08182a3687720d2dc6eeef5e88.jpeg",
+      "eventtype": "inperson",
+      "category": "health",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 6,
+      "title": "On Kotlin: #4",
+      "date": "Thu, Oct 20 · 8:00 PM",
+      "location": "WeWork - Office Space & Coworking, London",
+      "img": "https://avatars.mds.yandex.net/get-images-cbir/6118639/paz7sRtBwFkhlx3zA8qzww9621/ocr",
+      "eventtype": "inperson",
+      "category": "technology",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 7,
+      "title": "[Free Workshop] Energy as Food & Medicine",
+      "date": "Sat, Oct 22 · 9:30 PM",
+      "location": "Online",
+      "img": "https://static.tumblr.com/9e445d68577604550ade59774c6e9f97/7nqnpsu/uiIotide1/tumblr_static_tumblr_static_8xgsfvib8qw4cs8kssgw8c8w4_focused_v3.jpg",
+      "eventtype": "online",
+      "category": "health",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    },
+    {
+      "id": 8,
+      "title": "London Hack Night",
+      "date": "Wed, Oct 12 · 8:30 PM",
+      "location": "Confluent Europe Ltd Richard ofice, London",
+      "img": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-mysterious-blue-fantasy-starry-sky-illustration-background-backgroundnight-sky-backgroundstarry-image_80987.jpg",
+      "eventtype": "inperson",
+      "category": "technology",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fringilla posuere ligula, id commodo est cursus et. Sed massa mauris, auctor sed faucibus vehicula, viverra eu turpis. Suspendisse sollicitudin ipsum non mi luctus malesuada. In hac habitasse platea dictumst. Proin sed elementum mi. Donec finibus venenatis vulputate. Nulla rutrum risus pretium velit rutrum convallis. Ut ut augue nunc. Aliquam consequat enim mollis, tempus est a, rhoncus tellus. Proin ornare vel turpis sed bibendum. Fusce tincidunt varius augue, eu laoreet libero dapibus quis. Vivamus arcu dui, gravida id cursus ac, blandit ullamcorper erat. Pellentesque lacinia nunc mauris, sit amet sagittis est faucibus ut."
+    }
+  ],
+  "user_joined_events": [
+    {
+      "user_id": 8,
+      "event_id": 1,
+      "id": 1
+    },
+    {
+      "user_id": 8,
+      "event_id": 2,
+      "id": 2
+    },
+    {
+      "user_id": 8,
+      "event_id": 5,
+      "id": 3
+    },
+    {
+      "user_id": 5,
+      "event_id": 8,
+      "id": 4
+    },
+    {
+      "user_id": 6,
+      "event_id": 4,
+      "id": 6
+    },
+    {
+      "user_id": 77,
+      "event_id": 2,
+      "id": 7
+    },
+    {
+      "user_id": 77,
+      "event_id": 1,
+      "id": 8
+    },
+    {
+      "user_id": 77,
+      "event_id": 4,
+      "id": 9
+    }
+  ],
+  "calendarEvents": [
+    {
+      "id": 1,
+      "title": "event_1",
+      "date": "2023-01-13"
+    },
+    {
+      "id": 2,
+      "title": "event_2",
+      "date": "2023-01-15"
+    },
+    {
+      "title": "event_3",
+      "description": "el;wkr",
+      "date": "2023-01-18",
+      "id": 3
+    }
+  ]
+}
