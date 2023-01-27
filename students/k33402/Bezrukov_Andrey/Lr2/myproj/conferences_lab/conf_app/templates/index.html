@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>conferences</title>
+    <style>
+   .layer {
+    border: 2px solid black;
+    padding: 20px;
+   }
+    </style>
+</head>
+<body class="layer">
+<h2>main</h2>
+<a href="{% url 'conferences' %}">conferences</a>
+<br/>
+{% if user.is_active %}
+<a href="{% url 'account_logout' %}">sign out</a>
+{% else %}
+<a href="{% url 'account_login' %}">sign in</a>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All_car_owners_info</title>
+</head>
+<body>
+    <div class="main">
+
+        {% for car_owner in owners %}
+
+        <ul>
+            <li>Name: {{car_owner.name}};</li>
+            <li>Surname: {{car_owner.surname}};</li>
+            <li>Date of birth: {{car_owner.date_of_birtg}}.</li>
+        </ul>
+        <hr/>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>
