@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Vdara Hotel & Spa",
+    "photo": "vdara.webp",
+    "star": 5,
+    "price": 343,
+    "location": "Petersbourg",
+    "adress": "09 Lomonossova Street,NV 89109, Russia",
+    "type": "Studio",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation",
+    "rating": 8.5,
+    "detailPhotos": [
+      "vdara1.jpg",
+      "vdara2.jpg",
+      "vdara3.jpg",
+      "vdara4.jpg",
+      "vdara5.jpg",
+      "vdara6.jpg",
+      "vdara7.jpg",
+      "vdara8.jpg",
+      "vdara9.jpg",
+      "vdara10.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "The Cromwell Hotel & Casino",
+    "photo": "cromwell.webp",
+    "star": 4,
+    "price": 380,
+    "location": "Petersbourg",
+    "adress": "09 Lomonossova Street,NV 89109, Russia",
+    "type": "Delux King Room - No Smoking",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation",
+    "rating": 8.3,
+    "detailPhotos": [
+      "cwell1.jpg",
+      "cwell2.jpg",
+      "cwell3.jpg",
+      "cwell4.jpg",
+      "cwell5.jpg",
+      "cwell6.jpg",
+      "cwell7.jpg",
+      "cwell8.jpg",
+      "cwell9.jpg",
+      "cwell10.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "NoMad Hotel",
+    "photo": "nomad.webp",
+    "star": 3,
+    "price": 360,
+    "location": "Petersbourg",
+    "adress": "09 Lomonossova Street,NV 89109, Russia",
+    "type": "Classic King with a King Bed",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation",
+    "rating": 9.1,
+    "detailPhotos": [
+      "nomad1.jpg",
+      "nomad2.jpg",
+      "nomad3.jpg",
+      "nomad4.jpg",
+      "nomad5.jpg",
+      "nomad6.jpg",
+      "nomad7.jpg",
+      "nomad8.jpg",
+      "nomad9.jpg",
+      "nomad10.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Delano at Mandalay Bay",
+    "photo": "delano.webp",
+    "star": 5,
+    "price": 384,
+    "location": "Petersbourg",
+    "adress": "09 Lomonossova Street,NV 89109, Russia",
+    "type": "Delano King Suit",
+    "bed": "1 King Bed",
+    "cancel": "FREE Cancellation",
+    "rating": 8.8,
+    "detailPhotos": [
+      "delano1.jpg",
+      "delano2.jpg",
+      "delano3.jpg",
+      "delano4.jpg",
+      "delano5.jpg",
+      "delano6.jpg",
+      "delano7.jpg",
+      "delano8.jpg",
+      "delano9.jpg",
+      "delano10.jpg"
+    ]
+  }
+]
