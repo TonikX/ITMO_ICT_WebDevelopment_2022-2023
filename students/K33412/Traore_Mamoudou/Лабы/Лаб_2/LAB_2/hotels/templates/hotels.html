@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul>
+    <h1>Available Hotels</h1>
+
+    {% for hotel in hotels %}
+
+    {{ hotel.name }} <br/>
+    {{ hotel.owner }} <br/>
+    {{ hotel.address }} <br/>
+
+    <a href="/hotels/{{ hotel.id }}/">Show rooms for this hotel</a>
+
+    <hr/>
+
+    {% empty %}
+    <li>no hotels yet</li>
+    {% endfor %}
+
+</ul>
+
+<a href="/rooms/"><button class="btn btn-secondary">Show all rooms</button></a>
+
+
+{% endblock %}
