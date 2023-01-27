@@ -19,7 +19,7 @@
           <button type="submit">Авторизоваться</button>
     </form>
     <p class="mt-15">Ещё нет аккаунта?<br>
-      <router-link to="/show/signup">Зарегистрироваться</router-link></p>
+      <router-link to="/show/signup" style="text-decoration: none; color: #4E342E">Зарегистрироваться</router-link></p>
   </div>
 </template>
 
@@ -48,6 +48,7 @@ import axios from "axios";
                     success: (response) => {
                         alert("Спасибо что Вы с нами")
                         sessionStorage.setItem("auth_token", response.auth_token)
+                        sessionStorage.setItem("username", this.login)
                         this.$router.push({name: "home"})
                     },
                     error: (response) => {

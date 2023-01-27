@@ -6,23 +6,22 @@
       class="my-2"
     >
       <v-card-title>
-        <h3 style='color: black; text-decoration: none'>
-        <a href="/participation">Участия</a><br>
-        <a href="/experts">Эксперты</a><br>
-        <a href="/participants">Участники</a> <br>
-        </h3>
-      </v-card-title>
+        <h2>Добро пожаловать на шоу собак!</h2>
+      </v-card-title>  
       <v-card-text>
-        <h3>
+        <h2>
+          <a href="/participation" style="text-decoration: none; color: #4E342E">Участия</a><br>
+          <a href="/experts" style="text-decoration: none; color: #4E342E">Эксперты</a><br>
+          <a href="/participants" style="text-decoration: none; color: #4E342E">Участники</a> <br>
           <template  v-if="this.authorized">
-            <a @click="goProfile">Личный кабинет</a><br>
-            <a @click="goLogOut">Выйти</a><br>
+            <a @click="goProfile" style="text-decoration: none; color: #4E342E">Личный кабинет</a><br>
+            <a @click="goLogOut" style="text-decoration: none; color: #4E342E">Выйти</a><br>
           </template>
           <template v-else>
-            <a @click="goSignIn">Войти</a><br>
-            <router-link to="/show/signup">Зарегистрироваться</router-link>
+            <a @click="goSignIn" style="text-decoration: none; color: #4E342E">Войти</a><br>
+            <router-link to="/show/signup" style="text-decoration: none; color: #4E342E">Зарегистрироваться</router-link>
           </template>
-        </h3>
+        </h2>
       </v-card-text>
     </v-card>
   </div>
@@ -41,6 +40,7 @@ export default {
 
   created () {
     console.log('hehe' + ' ' + sessionStorage.getItem('auth_token'))
+    console.log('hehe' + ' ' + sessionStorage.getItem('username'))
     if (sessionStorage.getItem('auth_token')) {
       if (sessionStorage.getItem('auth_token') !== '-1') {
         this.authorized = true
@@ -49,9 +49,6 @@ export default {
   },
 
   methods: {
-    goCatalogue () {
-      this.$router.push({ name: 'catalogue' })
-    },
 
     goProfile () {
       this.$router.push({ name: 'profile' })

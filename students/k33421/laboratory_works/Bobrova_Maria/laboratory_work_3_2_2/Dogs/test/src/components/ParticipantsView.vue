@@ -1,8 +1,8 @@
 <template>
    <div class="app">
      <h1>Участники</h1>
-       <a href="/">Главная</a><br><br>
-     <button v-on:click="fetchParticipants">Получить список участников'</button> 
+       <a href="/" style="text-decoration: none; color: #4E342E">Главная</a><br><br>
+     <!--<button v-on:click="fetchParticipants">Получить список участников'</button>-->
 
      <participants-list
          v-bind:participants="participants"

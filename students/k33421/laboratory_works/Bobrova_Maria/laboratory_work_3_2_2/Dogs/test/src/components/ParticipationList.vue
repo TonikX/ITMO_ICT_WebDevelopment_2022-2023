@@ -1,13 +1,21 @@
 <template>
 <div>
+    <v-card
+      elevation="2"
+      outlined
+      class="my-2"
+    >
+  <v-card-text>  
  <div  v-for="participation in participations" :key="participation.id"> <!-- v-for - директива для отображения списка элементов на основе массива. -->
    <div><strong>Медаль:</strong> {{ participation.medal }}</div>
    <div><strong>Вакцинация:</strong> {{ participation.vaccinated }}</div>
    <div><strong>Допуск:</strong> {{ participation.dismissed }}</div>
    <div><strong>Оценка:</strong> {{ participation.final_grade }}</div>
    <div><strong>Участник:</strong> {{ participation.participant }}</div>
-   <div><strong>Ринг:</strong> {{ participation.rings }}</div>
+   <div><strong>Ринг:</strong> {{ participation.rings }}</div><br>
  </div>
+  </v-card-text>
+    </v-card>
 </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
    <div class="app">
      <h1>Участия</h1>
-       <a href="/">Главная</a><br><br>
-     <button v-on:click="fetchParticipations">Получить список участий</button> <!-- Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
+       <a href="/" style="text-decoration: none; color: #4E342E">Главная</a><br><br>
+     <!--<button v-on:click="fetchParticipations">Получить список участий</button>  Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
 
      <participation-list
          v-bind:participations="participations"

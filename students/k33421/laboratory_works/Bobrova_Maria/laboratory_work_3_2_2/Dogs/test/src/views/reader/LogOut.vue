@@ -10,14 +10,15 @@ export default {
     LogOut () {
       try {
         const token = sessionStorage.getItem('auth_token')
-        if (token) {
+        if (token) {     
+          const data = {}    
           console.log(token)
           //this.axios.defaults.headers.common.Authorization = `token ${token}`
           //console.log(this.axios)
 
-          //sessionStorage.setItem('auth_token', '-1')
+          sessionStorage.setItem('auth_token', '-1')
           //console.log('h ' + token)
-          axios.post('http://127.0.0.1:8000/auth/token/logout/', {
+          axios.post('http://127.0.0.1:8000/auth/token/logout/', data, {
             headers: {
             'Authorization': `token ${token}` 
             }

@@ -1,8 +1,8 @@
 <template>
    <div class="app">
      <h1>Эксперты</h1>
-       <a href="/">Главная</a><br><br>
-     <button v-on:click="fetchExperts">Получить список экспертов'</button> <!-- Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
+       <a href="/" style="text-decoration: none; color: #4E342E">Главная</a><br><br>
+     <!--<button v-on:click="fetchExperts">Получить список экспертов'</button>  Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
 
      <expert-list
          v-bind:experts="experts"
