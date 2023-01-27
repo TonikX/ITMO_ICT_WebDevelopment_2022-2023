@@ -45,9 +45,9 @@
 
 <script>
 export default {
-  name: "Guest",
+  name: 'Guest',
   props: {
-    guest: Object,
+    guest: Object
   },
   data: () => ({
     exist: true,
@@ -60,11 +60,11 @@ export default {
     from_location: null,
     check_in_date: null,
     check_out_date: null,
-    room: null,
+    room: null
   }),
 
   methods: {
-    editGuest() {
+    editGuest () {
       const body = {
         passport_number: this.passport_number,
         name: this.name,
@@ -73,43 +73,42 @@ export default {
         from_location: this.from_location,
         check_in_date: this.check_in_date,
         check_out_date: this.check_in_date,
-        room: this.room,
-      };
+        room: this.room
+      }
 
       this.axios
-        .patch(this.$hostname + "hotel/guests/" + this.guest.id + "/", body, {
+        .patch(this.$hostname + 'hotel/guests/' + this.guest.id + '/', body, {
           headers: {
-            Authorization: "Token " + localStorage.getItem("auth_token"),
-          },
+            Authorization: 'Token ' + localStorage.getItem('auth_token')
+          }
         })
         .then(response => {
-          console.log(response);
-          this.guest.passport_number = this.passport_number;
-          this.guest.name = this.name;
-          this.guest.surname = this.surname;
-          this.guest.middlename = this.middlename;
-          this.guest.from_location = this.from_location;
-          this.guest.check_in_date = this.check_in_date;
-          this.guest.check_out_date = this.check_out_date;
-          this.guest.room = this.room;
-          this.edit = false;
+          console.log(response)
+          this.guest.passport_number = this.passport_number
+          this.guest.name = this.name
+          this.guest.surname = this.surname
+          this.guest.middlename = this.middlename
+          this.guest.from_location = this.from_location
+          this.guest.check_in_date = this.check_in_date
+          this.guest.check_out_date = this.check_out_date
+          this.guest.room = this.room
+          this.edit = false
         })
-        .catch(error => console.log(error));
-
+        .catch(error => console.log(error))
     },
 
-    deleteGuest() {
+    deleteGuest () {
       this.axios
-        .delete(this.$hostname + "hotel/guests/" + this.guest.id + "/", {
-          headers: { Authorization: "Token " + localStorage.getItem("auth_token") },
+        .delete(this.$hostname + 'hotel/guests/' + this.guest.id + '/', {
+          headers: { Authorization: 'Token ' + localStorage.getItem('auth_token') }
         })
         .then(response => {
-          console.log(response);
-          this.exist = false;
-          this.del = false;
+          console.log(response)
+          this.exist = false
+          this.del = false
         })
-        .catch(error => console.log(error));
-    },
-  },
-};
+        .catch(error => console.log(error))
+    }
+  }
+}
 </script>

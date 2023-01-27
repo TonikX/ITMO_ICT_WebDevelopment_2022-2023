@@ -33,33 +33,33 @@
 
 <script>
 export default {
-  name: "Login",
+  name: 'Login',
 
   data: () => ({
     username: null,
-    password: null,
+    password: null
   }),
 
   methods: {
-    submit() {
+    submit () {
       const body = {
         username: this.username,
-        password: this.password,
-      };
+        password: this.password
+      }
 
-      this.axios.post(this.$hostname + "auth/token/login/", body).then((response) => {
+      this.axios.post(this.$hostname + 'auth/token/login/', body).then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("auth_token", response.data.auth_token);
-          this.$router.push({ name: "Rooms" });
+          localStorage.setItem('auth_token', response.data.auth_token)
+          this.$router.push({ name: 'Rooms' })
         } else {
           if (response.status === 400) {
-            alert("Wrong username or password");
+            alert('Wrong username or password')
           } else {
-            alert("Unknown error");
+            alert('Unknown error')
           }
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>

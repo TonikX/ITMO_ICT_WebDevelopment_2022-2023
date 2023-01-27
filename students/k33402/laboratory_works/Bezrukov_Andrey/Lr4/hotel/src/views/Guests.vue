@@ -48,7 +48,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="green darken-1" text @click="dialog = false">
-                    Close 
+                    Close
                   </v-btn>
                   <v-btn color="green darken-1" text @click="addGuest">
                     Add Guest
@@ -66,13 +66,13 @@
 </template>
 
 <script>
-import Guest from "@/components/Guest.vue";
+import Guest from '@/components/Guest.vue'
 
 export default {
-  name: "Guests",
+  name: 'Guests',
 
   components: {
-    Guest,
+    Guest
   },
 
   data: () => ({
@@ -86,10 +86,10 @@ export default {
     from_location: null,
     check_in_date: null,
     check_out_date: null,
-    room: null,
+    room: null
   }),
   methods: {
-    addGuest() {
+    addGuest () {
       const body = {
         passport_number: this.passport_number,
         name: this.name,
@@ -98,37 +98,36 @@ export default {
         from_location: this.from_location,
         check_in_date: this.check_in_date,
         check_out_date: this.check_out_date,
-        room: this.room,
-      };
+        room: this.room
+      }
 
       this.axios
-        .post(this.$hostname + "hotel/guests/", body, {
+        .post(this.$hostname + 'hotel/guests/', body, {
           headers: {
-            Authorization: "Token " + localStorage.getItem("auth_token"),
-          },
+            Authorization: 'Token ' + localStorage.getItem('auth_token')
+          }
         })
         .then(response => {
           if (response.status === 201) {
-            this.guests.push(body);
+            this.guests.push(body)
           }
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
 
-      this.dialog = false;
-    },
+      this.dialog = false
+    }
   },
-  created() {
+  created () {
     this.axios
-      .get(this.$hostname + "hotel/guests/", {
-        headers: { Authorization: "Token " + localStorage.getItem("auth_token") },
+      .get(this.$hostname + 'hotel/guests/', {
+        headers: { Authorization: 'Token ' + localStorage.getItem('auth_token') }
       })
       .then(response => {
-        this.guests = response.data;
+        this.guests = response.data
       })
       .catch(error => {
-        console.log(error);
-      });
-  },
-};
+        console.log(error)
+      })
+  }
+}
 </script>
-

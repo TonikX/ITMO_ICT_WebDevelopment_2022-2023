@@ -27,34 +27,33 @@
 
 <script>
 export default {
-  name: "Signup",
+  name: 'Signup',
 
   data: () => ({
     email: null,
     username: null,
-    password: null,
+    password: null
   }),
 
   methods: {
-    signup() {
+    signup () {
       const body = {
         username: this.username,
         password: this.password,
-        email: this.email,
-      };
+        email: this.email
+      }
 
       this.axios
-        .post(this.$hostname + "auth/users/", body)
+        .post(this.$hostname + 'auth/users/', body)
         .then(response => {
           if (response.status === 201) {
-            this.$router.push({ name: "Login" });
+            this.$router.push({ name: 'Login' })
           } else {
-            alert("Something went wrong");
+            alert('Something went wrong')
           }
         })
-        .catch(error => console.log(error));
-    },
-  },
-};
+        .catch(error => console.log(error))
+    }
+  }
+}
 </script>
-

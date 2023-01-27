@@ -36,7 +36,7 @@
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="green darken-1" text @click="dialog = false">
-                    Close 
+                    Close
                   </v-btn>
                   <v-btn color="green darken-1" text @click="addRoom">
                     Add Room
@@ -54,13 +54,13 @@
 </template>
 
 <script>
-import Room from "@/components/Room.vue";
+import Room from '@/components/Room.vue'
 
 export default {
-  name: "Rooms",
+  name: 'Rooms',
 
   components: {
-    Room,
+    Room
   },
 
   data: () => ({
@@ -70,45 +70,44 @@ export default {
     roomNumber: null,
     roomType: null,
     roomPrice: null,
-    roomFloor: null,
+    roomFloor: null
   }),
   methods: {
-    addRoom() {
+    addRoom () {
       const body = {
         number: this.roomNumber,
         type: this.roomType,
         price: this.roomPrice,
-        floor: this.roomFloor,
-      };
+        floor: this.roomFloor
+      }
 
       this.axios
-        .post(this.$hostname + "hotel/rooms/", body, {
+        .post(this.$hostname + 'hotel/rooms/', body, {
           headers: {
-            Authorization: "Token " + localStorage.getItem("auth_token"),
-          },
+            Authorization: 'Token ' + localStorage.getItem('auth_token')
+          }
         })
         .then(response => {
           if (response.status === 201) {
-            this.rooms.push(body);
+            this.rooms.push(body)
           }
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
 
-      this.dialog = false;
-    },
+      this.dialog = false
+    }
   },
-  created() {
+  created () {
     this.axios
-      .get(this.$hostname + "hotel/rooms/", {
-        headers: { Authorization: "Token " + localStorage.getItem("auth_token") },
+      .get(this.$hostname + 'hotel/rooms/', {
+        headers: { Authorization: 'Token ' + localStorage.getItem('auth_token') }
       })
       .then(response => {
-        this.rooms = response.data;
+        this.rooms = response.data
       })
       .catch(error => {
-        console.log(error);
-      });
-  },
-};
+        console.log(error)
+      })
+  }
+}
 </script>
-

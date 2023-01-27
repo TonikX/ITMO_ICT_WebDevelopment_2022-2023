@@ -1,59 +1,59 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Login from "@/views/Login.vue";
-import Signup from "@/views/Signup.vue";
-import Rooms from "@/views/Rooms.vue";
-import Guests from "@/views/Guests.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Login from '@/views/Login.vue'
+import Signup from '@/views/Signup.vue'
+import Rooms from '@/views/Rooms.vue'
+import Guests from '@/views/Guests.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
+    path: '/signup',
+    name: 'Signup',
+    component: Signup
   },
   {
-    path: "/rooms",
-    name: "Rooms",
+    path: '/rooms',
+    name: 'Rooms',
     component: Rooms,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true }
   },
   {
-    path: "/",
-    redirect: "/rooms",
+    path: '/',
+    redirect: '/rooms'
   },
   {
-    path: "/guests",
-    name: "Guests",
+    path: '/guests',
+    name: 'Guests',
     component: Guests,
-    meta: { requiresAuth: true },
-  },
-];
+    meta: { requiresAuth: true }
+  }
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-});
+  routes
+})
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!localStorage.getItem("auth_token")) {
+    if (!localStorage.getItem('auth_token')) {
       next({
-        name: "Login",
-      });
+        name: 'Login'
+      })
     } else {
-      next();
+      next()
     }
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
+export default router

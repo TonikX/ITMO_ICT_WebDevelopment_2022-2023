@@ -23,23 +23,23 @@
 
 <script>
 export default {
-  name: "App",
+  name: 'App',
 
   data: () => ({
     //
   }),
 
   methods: {
-    logout() {
-      localStorage.removeItem("auth_token");
-      this.$router.push({ name: "Login" });
+    logout () {
+      localStorage.removeItem('auth_token')
+      this.$router.push({ name: 'Login' })
     },
-    guests() {
-      this.$router.push({ name: "Guests" });
+    guests () {
+      this.$router.push({ name: 'Guests' })
     },
-    rooms() {
-      this.$router.push({ name: "Rooms" });
-    },
-  },
-};
+    rooms () {
+      this.$router.push({ name: 'Rooms' })
+    }
+  }
+}
 </script>

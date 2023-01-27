@@ -39,9 +39,9 @@
 
 <script>
 export default {
-  name: "RoomCard",
+  name: 'Room',
   props: {
-    room: Object,
+    room: Object
   },
   data: () => ({
     exist: true,
@@ -49,46 +49,45 @@ export default {
     del: false,
     roomType: null,
     roomPrice: null,
-    roomFloor: null,
+    roomFloor: null
   }),
 
   methods: {
-    editRoom() {
+    editRoom () {
       const body = {
         type: this.roomType,
         price: this.roomPrice,
-        floor: this.roomFloor,
-      };
+        floor: this.roomFloor
+      }
 
       this.axios
-        .patch(this.$hostname + "hotel/rooms/" + this.room.number + "/", body, {
+        .patch(this.$hostname + 'hotel/rooms/' + this.room.number + '/', body, {
           headers: {
-            Authorization: "Token " + localStorage.getItem("auth_token"),
-          },
+            Authorization: 'Token ' + localStorage.getItem('auth_token')
+          }
         })
         .then(response => {
-          console.log(response);
-          this.room.price = this.roomPrice;
-          this.room.type = this.roomType;
-          this.room.floor = this.roomFloor;
-          this.edit = false;
+          console.log(response)
+          this.room.price = this.roomPrice
+          this.room.type = this.roomType
+          this.room.floor = this.roomFloor
+          this.edit = false
         })
-        .catch(error => console.log(error));
-
+        .catch(error => console.log(error))
     },
 
-    deleteRoom() {
+    deleteRoom () {
       this.axios
-        .delete(this.$hostname + "hotel/rooms/" + this.room.number + "/", {
-          headers: { Authorization: "Token " + localStorage.getItem("auth_token") },
+        .delete(this.$hostname + 'hotel/rooms/' + this.room.number + '/', {
+          headers: { Authorization: 'Token ' + localStorage.getItem('auth_token') }
         })
         .then(response => {
-          console.log(response);
-          this.exist = false;
-          this.del = false;
+          console.log(response)
+          this.exist = false
+          this.del = false
         })
-        .catch(error => console.log(error));
-    },
-  },
-};
+        .catch(error => console.log(error))
+    }
+  }
+}
 </script>
