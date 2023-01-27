@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Avanturin';
+    src: url("Avanturin.ttf");
+    font-weight: auto;
+    font-style: auto;
+    font-display: swap;
+}
+
+.title-font {
+    font-family: 'Avanturin', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.dropdown-menu {
+    width: 300px;
+}
+
+.empty-div {
+    height: 100px;
+}
+
+.img-rate {
+    width: 100%;
+    height: auto;
+}
+
+.img-library {
+    #margin-top: -20px;
+    #margin-bottom: -20px;
+    #width: 200px;
+    #height: 320px;
+}
+
+.adv {
+    height: 10em;
+}
+
+.card-book {
+    width: 13rem;
+}
+
+.card-library {
+    width: 50rem;
+}
+
+.h-100 {
+    height: 100%!important;
+}
