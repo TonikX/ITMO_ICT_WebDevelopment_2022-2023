@@ -11,7 +11,7 @@ class Car(models.Model):
     color = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
-        return self.model
+        return str(self.id) + " " + self.model
 
 
 class Ownership(models.Model):
@@ -35,7 +35,7 @@ class Ownership(models.Model):
         except AttributeError:
             date_range = f"{self.start_date.year}-present"
 
-        return f"{self.car_id.__str__()} ({date_range})"
+        return f"{self.id} - {self.car_id.__str__()} ({date_range})"
 
 
 class CarOwner(AbstractUser):
@@ -50,7 +50,7 @@ class CarOwner(AbstractUser):
     nationality = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name})"
+        return f"{self.id} - {self.username} ({self.first_name} {self.last_name})"
 
     class Meta:
         verbose_name = "Car owner"
