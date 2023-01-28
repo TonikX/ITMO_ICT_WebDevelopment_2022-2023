@@ -1,0 +1,12 @@
+<ul class="!m-0 flex flex-col gap-4">
+    {% for date, flights in dates.items %}
+        <li class="list-none">
+            <div>{{ date }}</div>
+            <ul class="flex flex-col gap-4 !m-0">
+                {% for flight in flights %}
+                    {% include "./sub_flight.html" %}
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

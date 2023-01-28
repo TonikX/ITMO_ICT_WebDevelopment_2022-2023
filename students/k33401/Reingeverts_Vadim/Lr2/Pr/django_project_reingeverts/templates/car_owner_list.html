@@ -1,0 +1,14 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <ul>
+        {% for car_owner in car_owners %}
+            <li>
+                <a href={% url 'car-owner-detail' car_owner.id %}>{{ car_owner.first_name }} {{ car_owner.last_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href={% url 'car-owner-create' %}>Add Car Owner</a>
+{% endblock main %}
