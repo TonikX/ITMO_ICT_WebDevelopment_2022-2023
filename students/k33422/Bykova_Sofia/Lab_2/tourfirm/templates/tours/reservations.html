@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>Нажмите на резервирование чтобы оставить отзыв (можно оставить только один отзыв и только после подтверждения)</p>
+    {% for reservation in object_list %}
+        {% if not reservation.has_review and reservation.approved %}
+        <a href= '{% url "write" %}?reservation={{ reservation.pk }}'>
+        {% endif %}
+        <p>
+            {{ reservation.tour.destination }} ({{ reservation.tour.date_from }} - {{ reservation.tour.date_to }})<br/>
+            Сумма: <b>{{ reservation.total_price }} руб.</b>
+            {% if reservation.approved %}
+                (Подтверждено)
+            {% else %}
+                (Ожидает подтверждения)
+            {% endif %}
+        </p>
+        {% if not reservation.has_review and reservation.approved %}
+        </a>
+        {% endif %}
+    {% empty %}
+        <p>Похоже вы еще ничего не резервировали</p>
+    {% endfor %}
+{% endblock %}

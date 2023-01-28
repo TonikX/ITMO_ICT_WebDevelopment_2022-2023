@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Тур "{{ tour.destination }}"</h3>
+    <p>С {{ tour.date_from }}</p>
+    <p>По {{ tour.date_to }}</p>
+    <p>Отель {{ tour.hotel }}</p>
+    <p>Мест свободно: <b>{{ tour.empty_count }}</b></p>
+    <p>Цена: <b>{{ tour.price }} руб.</b></p>
+    <a href='{% url "reserve" %}?select={{ tour.pk }}'>Забронировать</a>
+    <p>Отзывы:</p>
+    {% for review in reviews %}
+        <p><b>{{ review.reservation.user.anonimous_name }}:</b> {{ review.text }} <b>{{ review.stars }}/10</b></p>
+    {% empty %}
+        <p>Отзывов пока нет</p>
+    {% endfor %}
+{% endblock %}

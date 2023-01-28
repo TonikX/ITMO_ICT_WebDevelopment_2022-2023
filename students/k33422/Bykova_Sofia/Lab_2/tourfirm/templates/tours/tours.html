@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>Нажмите на тур чтобы посмотреть подробную информацию и отзывы</p>
+    {% for tour in object_list %}
+        <a href='{% url "reviews" tour.pk %}'>
+            <p>{{ tour.destination }} ({{ tour.date_from }} - {{ tour.date_to }})</p>
+        </a>
+    {% empty %}
+        <p>К сожалению, в данный момент нет туров</p>
+    {% endfor %}
+{% endblock %}
