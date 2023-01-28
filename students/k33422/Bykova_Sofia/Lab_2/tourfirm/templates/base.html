@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Туристическая компания</title>
+</head>
+<body>
+<nav>
+    <a href='{% url "index" %}'>Главная</a>
+    <a href='{% url "tours" %}'>Туры</a>
+    <a href='{% url "reservations" %}'>Мои резервации</a>
+    <a href='{% url "login" %}'>Войти</a>
+    <a href='{% url "register" %}'>Зарегистрироваться</a>
+</nav>
+<main>
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
