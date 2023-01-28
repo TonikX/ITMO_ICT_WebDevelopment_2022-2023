@@ -70,7 +70,7 @@ class Worker(models.Model):
     work_exp = models.IntegerField()
     passport = models.IntegerField()
     occupation = models.CharField(max_length=15, choices=OCCUP)
-    access = models.BooleanField()
+    access = models.BooleanField(null=True, blank=True)
     employer = models.CharField(max_length=10, choices=COMPANY)
     status = models.CharField(max_length=7, choices=STATUS)
 

@@ -22,6 +22,11 @@ class WorkerUpdate(generics.UpdateAPIView):
     serializer_class = WorkerSerializer
 
 
+class WorkerListView(generics.ListAPIView):
+    queryset = Worker.objects.all()
+    serializer_class = WorkerSerializer
+
+
 class AirplaneBrandList(generics.ListAPIView):
     queryset = Airplane.objects.values("brand")
     serializer_class = AirplaneSerializer
