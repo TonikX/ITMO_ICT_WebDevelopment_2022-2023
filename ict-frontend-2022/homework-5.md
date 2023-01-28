@@ -10,13 +10,13 @@ description: >-
 
 npm install -g @vue/cli
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### [Инициализатия проекта](homework-5.md#inicializatiya-proekta)
 
 npm init vue@latest
 
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### [Установить зависимости](homework-5.md#ustanovit-zavisimosti)
 

@@ -741,7 +741,7 @@ button:hover {
 
 * home.vue
 
-<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption><p>home page</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (13) (1).png" alt=""><figcaption><p>home page</p></figcaption></figure>
 
 ```
 <template>
@@ -1147,7 +1147,7 @@ h2 {
 
 * HomeDetails.vue
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption><p>Booking details</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption><p>Booking details</p></figcaption></figure>
 
 ```
 <template>
@@ -1589,7 +1589,7 @@ h2 {
 
 * Payment.vue
 
-<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption><p>Payement verification</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11) (1).png" alt=""><figcaption><p>Payement verification</p></figcaption></figure>
 
 <figure><img src="../.gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
 
