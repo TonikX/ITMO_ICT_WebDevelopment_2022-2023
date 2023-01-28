@@ -1,0 +1,15 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <ul>
+        {% for car in cars %}
+            <li>
+                <a href={% url 'car-detail' car.id %}>{{ car }}</a>
+                <a href={% url 'car-delete' car.id %}>Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href={% url 'car-create' %}>Add a new Car</a>
+{% endblock main %}
