@@ -4,12 +4,13 @@
 
 
 ## Practical part
+> [models.py](Pr\django_project_reingeverts\project_first_app\models.py)
+
 ![](https://i.imgur.com/IGscva6.png)
 
 
 
 ### 3.1.1
-> [models.py](Pr\django_project_reingeverts\project_first_app\models.py)
 
 Напишите запрос на создание 6-7 новых автовладельцев и 5-6 автомобилей, каждому автовладельцу назначьте удостоверение и от 1 до 3 автомобилей.
 
@@ -94,6 +95,9 @@ owner.ownership_id.set(Ownership.objects.filter(pk__in=[15, 16]))
 
 Удостоверения
 ```python
+from project_first_app.models import *
+import datetime
+
 
 DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=10), serial_number="111111", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
 
@@ -111,5 +115,97 @@ DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=15), serial_nu
 # <QuerySet [<DriverLicense: B - 10 - erin1 (Erin Solstice) (111111)>, <DriverLicense: B - 11 - zorian1 (Zorian Kazinski) (222222)>, <DriverLicense: B - 12 - garen1 (Garen Redfang) (333333)>, <DriverLicense: B - 
 # 13 - juniper1 (Juniper Smith) (444444)>, <DriverLicense: B - 14 - ivan1 (Ivan Petrov) (555555)>, <DriverLicense: B - 15 - garfield1 (James Garfield) (666666)>]>
 ```
+
+### 3.1.2
+
+[related_name | Stackoverflow](https://stackoverflow.com/a/2642645)
+По созданным в пр.1 данным написать следующие запросы на фильтрацию:
+
+- Где это необходимо, добавьте related_name к полям модели
+- Выведете все машины марки “Toyota” (или любой другой марки, которая у вас есть)
+
+```python
+from project_first_app.models import *
+
+Car.objects.filter(brand="Toyota")
+
+# <QuerySet [<Car: 12 Toyota Land Cruiser 2008>, <Car: 13 Toyota Tundra 2010>]>
+```
+
+
+- Найти всех водителей с именем “Олег” (или любым другим именем на ваше усмотрение)
+
+```python
+from project_first_app.models import *
+
+CarOwner.objects.filter(first_name="Erin")
+# <QuerySet [<CarOwner: 10 - erin1 (Erin Solstice)>]>
+```
+
+
+- Взяв любого случайного владельца получить его id, и по этому id получить экземпляр удостоверения в виде объекта модели (можно в 2 запроса)
+
+
+```python
+from project_first_app.models import *
+import random
+
+owners = list(CarOwner.objects.all())
+random_owner = random.choice(owners)
+
+# >>> random_owner
+# <CarOwner: 11 - zorian1 (Zorian Kazinski)>
+
+DriverLicense.objects.filter(car_owner_id=random_owner.pk).first()
+# <DriverLicense: B - 11 - zorian1 (Zorian Kazinski) (222222)>
+
+```
+
+- Вывести всех владельцев красных машин (или любого другого цвета, который у вас присутствует)
+
+```python
+from project_first_app.models import *
+
+black_cars = Car.objects.filter(color="#000000")
+
+black_ownerships = []
+for black_car in black_cars:
+    black_ownerships.append(list(black_car.ownership_set.all()))
+
+
+# Flattening list
+black_ownerships = sum(black_ownerships, [])
+black_owners = []
+for black_ownership in black_ownerships:
+    black_owners.append(list(black_ownership.carowner_set.all()))
+
+# Flattening list
+black_owners = sum(black_owners, [])
+
+# >>> black_owners
+# [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]
+```
+
+
+- Найти всех владельцев, чей [год владения машиной](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#year) начинается с 2010 (или любой другой год, который присутствует у вас в базе)
+
+```python
+from project_first_app.models import *
+import datetime
+
+
+ownerships = Ownership.objects.filter(start_date__gte=datetime.datetime(2018, 1, 1))
+
+car_owners = []
+for ownership in ownerships:
+    car_owners.append(ownership.carowner_set.first())
+
+# >>> car_owners
+# [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 13 - juniper1 (Juniper Smith)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]
+```
+
+
+### 3.1.3
+
 
 ## Lab work part
