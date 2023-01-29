@@ -1,14 +1,15 @@
 <template>
-   <div class="app">
-     <h1>Experts</h1>
-       <a href="/" style="text-decoration: none; color: #198754">Main</a><br><br>
-     <!--<button v-on:click="fetchExperts">Получить список экспертов'</button>  Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
+  <div class="app">
+    <h1>Experts</h1>
+    <a href="/" style="text-decoration: none; color: #198754">Main</a><br><br>
+    <!--<button v-on:click="fetchExperts">Получить список экспертов'</button>  Кнопка вызывает функцию получения списка данных (функция fetchWarriors объявлена в блоке "methods") -->
 
-     <expert-list
-         v-bind:experts="experts"
-     > <!-- Встраивание компонента вызывающего список объектов. v-bind - директива служит для так называемой data binding -- привязки данных (данные объявляются в блоке данных data() (см. код ниже)). -->
-     </expert-list>
-   </div>
+    <expert-list
+        v-bind:experts="experts"
+    >
+      <!-- Встраивание компонента вызывающего список объектов. v-bind - директива служит для так называемой data binding -- привязки данных (данные объявляются в блоке данных data() (см. код ниже)). -->
+    </expert-list>
+  </div>
 </template>
 
 
