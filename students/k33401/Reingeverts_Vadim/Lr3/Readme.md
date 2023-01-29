@@ -99,13 +99,13 @@ from project_first_app.models import *
 import datetime
 
 
-DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=10), serial_number="111111", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
+DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=10), serial_number="111111", license_type="B", issue_date=datetime.datetime(2018, 1, 1))
 
-DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=11), serial_number="222222", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
+DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=11), serial_number="222222", license_type="B", issue_date=datetime.datetime(2018, 5, 1))
 
 DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=12), serial_number="333333", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
 
-DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=13), serial_number="444444", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
+DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=13), serial_number="444444", license_type="B", issue_date=datetime.datetime(2019, 5, 1))
 
 DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=14), serial_number="555555", license_type="B", issue_date=datetime.datetime(2019, 1, 1))
 
@@ -206,6 +206,61 @@ for ownership in ownerships:
 
 
 ### 3.1.3
+
+
+Необходимо реализовать следующие запросы:
+
+- Вывод даты выдачи самого старшего водительского удостоверения
+```python
+from project_first_app.models import *
+
+DriverLicense.objects.all().order_by("issue_date").first().issue_date.strftime("%Y.%m.%d")
+# '2018.01.01'
+```
+
+- Укажите самую позднюю дату владения машиной, имеющую какую-то из существующих моделей в вашей базе
+```python
+from project_first_app.models import *
+import datetime
+
+
+Ownership.objects.all().order_by('-end_date').first().end_date.strftime("%Y.%m.%d")
+# '2021.12.01'
+
+# Или же имелось ввиду?: 
+
+Ownership.objects.filter(end_date__gte=datetime.datetime(2021, 12, 1))
+# <QuerySet [<Ownership: 13 - 11 Lincoln MKZ 2015 (2020-2021)>, <Ownership: 14 - 12 Toyota Land Cruiser 2008 (2020-2021)>, <Ownership: 16 - 13 Toyota Tundra 2010 (2015-2021)>]>
+```
+
+- Выведите количество машин для каждого водителя
+```python
+from project_first_app.models import *
+from django.db.models import Count
+
+CarOwner.objects.values('username').annotate(car_count=Count("ownership_id"))
+# <QuerySet [{'username': 'admin', 'car_count': 0}, {'username': 'erin1', 'car_count': 1}, {'username': 'garen1', 'car_count': 1}, {'username': 'garfield1', 'car_count': 2}, {'username': 'ivan1', 'car_count': 1}, {'username': 'juniper1', 'car_count': 1}, {'username': 'zorian1', 'car_count': 1}]>
+```
+
+- Подсчитайте количество машин каждой марки
+```python
+from project_first_app.models import *
+from django.db.models import Count
+
+Car.objects.values('brand').annotate(brand_count=Count("brand"))
+# <QuerySet [{'brand': 'Lexus', 'brand_count': 2}, {'brand': 'Mitsubishi', 'brand_count': 2}, {'brand': 'Toyota', 'brand_count': 2}]>
+```
+
+- Отсортируйте всех автовладельцев по дате выдачи удостоверения
+
+```python
+from project_first_app.models import *
+
+CarOwner.objects.all().order_by('driverlicense__issue_date')
+# <QuerySet [<CarOwner: 2 - admin ( )>, <CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 12 - garen1 (Garen Redfang)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>, <CarOwner: 15 - garfield1 (James Garfield)>, <CarOwner: 13 - juniper1 (Juniper Smith)>]>
+```
+
+(Примечание: чтобы не выводить несколько раз одни и те же таблицы воспользуйтесь методом [.distinct()](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.distinct)
 
 
 ## Lab work part
