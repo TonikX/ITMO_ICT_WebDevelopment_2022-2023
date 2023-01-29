@@ -263,6 +263,9 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 (Примечание: чтобы не выводить несколько раз одни и те же таблицы воспользуйтесь методом [.distinct()](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.distinct)
 
 ### 3.2.1
+> [views.py](Pr\warriors_project\warriors_app\views.py), [serializers.py](Pr\warriors_project\warriors_app\serializers.py), [urls.py](Pr\warriors_project\warriors_app\urls.py)
+
+
 Реализовать ендпоинты для добавления и просмотра скилов методом, описанным в пункте выше.
 
 ![](https://i.imgur.com/I6YxsvD.png)
@@ -272,13 +275,21 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 ### 3.2.2
 Реализовать ендпоинты:
 - Вывод полной информации о всех войнах и их профессиях (в одном запросе).
-
-
+![](https://i.imgur.com/Qt9YzC6.png)
 
 - Вывод полной информации о всех войнах и их скилах (в одном запросе).
+![](https://i.imgur.com/k1TuV5w.png)
+
 - Вывод полной информации о войне (по id), его профессиях и скилах.
+![](https://i.imgur.com/pm9fWLm.png)
+
 - Удаление война по id.
+![](https://i.imgur.com/Yt9jPej.png)
+
 - Редактирование информации о войне.
+![](https://i.imgur.com/apAL1To.png)
+![](https://i.imgur.com/Hh7ZQCA.png)
+
 
 
 
