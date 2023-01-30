@@ -179,7 +179,7 @@ from project_first_app.models import *
 import datetime
 
 CarOwner.objects.filter(ownership_id__start_date__gte=datetime.datetime(2018, 1, 1))
-# [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 13 - juniper1 (Juniper Smith)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]
+# <QuerySet [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 13 - juniper1 (Juniper Smith)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]>
 ```
 
 
