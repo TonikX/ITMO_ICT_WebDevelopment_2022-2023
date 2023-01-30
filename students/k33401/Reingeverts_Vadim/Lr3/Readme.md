@@ -119,6 +119,7 @@ DriverLicense.objects.create(car_owner_id=CarOwner.objects.get(pk=15), serial_nu
 ### 3.1.2
 
 [related_name | Stackoverflow](https://stackoverflow.com/a/2642645)
+
 По созданным в пр.1 данным написать следующие запросы на фильтрацию:
 
 - Где это необходимо, добавьте related_name к полям модели
@@ -166,24 +167,8 @@ DriverLicense.objects.filter(car_owner_id=random_owner.pk).first()
 ```python
 from project_first_app.models import *
 
-black_cars = Car.objects.filter(color="#000000")
-
-black_ownerships = []
-for black_car in black_cars:
-    black_ownerships.append(list(black_car.ownership_set.all()))
-
-
-# Flattening list
-black_ownerships = sum(black_ownerships, [])
-black_owners = []
-for black_ownership in black_ownerships:
-    black_owners.append(list(black_ownership.carowner_set.all()))
-
-# Flattening list
-black_owners = sum(black_owners, [])
-
-# >>> black_owners
-# [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]
+CarOwner.objects.filter(ownership_id__car_id__color="#000000")
+# <QuerySet [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]>
 ```
 
 
@@ -193,14 +178,7 @@ black_owners = sum(black_owners, [])
 from project_first_app.models import *
 import datetime
 
-
-ownerships = Ownership.objects.filter(start_date__gte=datetime.datetime(2018, 1, 1))
-
-car_owners = []
-for ownership in ownerships:
-    car_owners.append(ownership.carowner_set.first())
-
-# >>> car_owners
+CarOwner.objects.filter(ownership_id__start_date__gte=datetime.datetime(2018, 1, 1))
 # [<CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 13 - juniper1 (Juniper Smith)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>]
 ```
 
@@ -290,9 +268,7 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 ![](https://i.imgur.com/apAL1To.png)
 ![](https://i.imgur.com/Hh7ZQCA.png)
 
-
-
-
+### 3.3
 
 
 ## Lab work part
