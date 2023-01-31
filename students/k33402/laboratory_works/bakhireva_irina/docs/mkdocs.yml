@@ -1,0 +1,43 @@
+site_name: Project documentation
+site_author: Bakhireva Irina
+nav:
+  - Home: index.md
+  - Labs:
+      - Lab 1: lr1.md
+      - Lab 2: lr2.md
+      - Lab 3:
+          - Home: lr3.md
+          - End Points:
+              - COMPANY:
+                  - "[ GET ] /company/my/": lab3/company_my_get.md
+                  - "[ GET ] /company/my/vacancy/{ID}/": lab3/company_my_vacancy_id_get.md
+                  - "[ PATCH ] /company/my/vacancy/{ID}/": lab3/company_my_vacancy_id_patch.md
+                  - "[ GET ] /company/my/vacancy/{ID}/cvs/": lab3/company_my_vacancy_id_cvs_get.md
+                  - "[ GET ] /company/my/vacancys/": lab3/company_my_vacancys_get.md
+                  - "[ POST ] /company/my/vacancys/": lab3/company_my_vacancys_post.md
+                  - "[ GET ] /company/{ID}/": lab3/company_id_get.md
+                  - "[ GET ] /companys/": lab3/companys_get.md
+              - COURSES:
+                  - "[ GET ] /courses/": lab3/courses_get.md
+              - CV:
+                  - "[ GET ] /cv/my/": lab3/cv_my_get.md
+                  - "[ PATCH ] /cv/my/": lab3/cv_my_patch.md
+                  - "[ GET ] /cv/my/courses_for_me/": lab3/cv_my_courses_for_me_get.md
+                  - "[ GET ] /cv/my/specializations/": lab3/cv_my_specializations_get.md
+                  - "[ GET ] /cv/my/vacancys/": lab3/cv_my_vacancys_get.md
+                  - "[ GET ] /cv/{ID}/": lab3/cv_id_get.md
+                  - "[ GET ] /cvs/": lab3/cvs_get.md
+              - SPECIALIZATIONS:
+                  - "[ GET ] /specializations/": lab3/specializations_get.md
+              - VACANCIES:
+                  - "[ GET ] /vacancy/{ID}/": lab3/vacancy_id_get.md
+                  - "[ GET ] /vacancys/": lab3/vacancys_get.md
+      - Lab 4:
+          - Home: lr4.md
+          - Общее: "lr4/common.md"
+          - Applicant: "lr4/applicant.md"
+          - HR: "lr4/hr.md"
+  - Practical work:
+      - Pr3.1: pr3.1.md
+theme:
+  name: mkdocs

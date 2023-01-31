@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="list-group">
+{% for reservation in reservations %}
+    <div class="d-flex flex-direction-row justify-content-between list-group-item align-items-center">
+        <h3>{{ reservation.tour.name }}</h3>
+        <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-info btn-block">Отменить</a>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
