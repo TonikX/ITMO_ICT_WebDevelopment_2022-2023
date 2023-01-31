@@ -10,7 +10,6 @@
       </v-card-title>  
       <v-card-text class="test">
         <h2>
-          <a href="/participation" style="text-decoration: none; color: #198754">Participations</a><br>
           <a href="/experts" style="text-decoration: none; color: #198754">Experts</a><br>
           <a href="/participants" style="text-decoration: none; color: #198754">Paticipants</a> <br>
           <template  v-if="this.authorized">

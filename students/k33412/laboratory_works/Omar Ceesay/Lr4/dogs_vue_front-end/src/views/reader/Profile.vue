@@ -1,12 +1,12 @@
 <template>
-  <div class="edit">
-    <h2>Personal carbinet</h2>
+  <div class="test-3">
+    <h2>Personal information</h2>
     <h3>Welcome, {{ login() }} </h3>
     <v-card>
-      <v-card-text display: block style="margin-top:1cm">
-        <a @click.prevent="goRegister" style="text-decoration: none; color: #ff6347">Register dog</a> <br>
-        <a @click.prevent="goEdit" style="text-decoration: none; color: #ff6347">Edit profile</a> <br>
-        <a @click.prevent="goHome" style="text-decoration: none; color: #ff6347">Go to Main</a>
+      <v-card-text class="test-3">
+        <a @click.prevent="goRegister" style="text-decoration: none; color: #198754">Register dog</a> <br>
+        <a @click.prevent="goEdit" style="text-decoration: none; color: #198754">Edit profile</a> <br>
+        <a @click.prevent="goHome" style="text-decoration: none; color: #198754">Go to Main</a>
       </v-card-text>
     </v-card>
   </div>
@@ -49,7 +49,7 @@ export default {
     },
 
     goRegister() {
-      this.$router.push({name: 'regdog'})
+      this.$router.push({name: 'registerdog'})
     },
 
     goEdit() {
@@ -64,5 +64,25 @@ export default {
 </script>
 
 <style>
+  
+  .test-3 {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: dodgerblue;
+}
 
+
+.text, .text-1 {
+  width: 50%;
+  cursor: pointer;
+  margin: 0 auto;
+  text-align: center;
+  
+}
 </style>

@@ -9,26 +9,26 @@
         <v-col cols="5" class="mx-auto">
 
           <v-text-field
-              label="Имя"
+              label="first_name"
               v-model="changeForm.first_name"
               name="first_name"/>
 
           <v-text-field
-              label="Фамилия"
+              label="last_name"
               v-model="changeForm.last_name"
               name="last_name"/>
 
           <v-text-field
-              label="Телефон"
+              label="tel"
               v-model="changeForm.tel"
               name="tel"/>
 
-          <v-btn type="submit" color="#ff6347" dark>Save</v-btn>
+          <v-btn type="submit" color="#198754" dark>Save</v-btn>
         </v-col>
       </v-row>
     </v-form>
     <p class="mt-15">
-      <router-link to="/show/profile" style="text-decoration: none; color: #ff6347">Back</router-link>
+      <router-link to="/profile" color="#198754" dark>Back</router-link>
     </p>
   </div>
 </template>
@@ -40,7 +40,6 @@ export default {
   data: () => ({
     reader_old: Object,
     changeForm: {
-      // password: '',
       first_name: '',
       last_name: '',
       tel: '',
@@ -71,7 +70,7 @@ export default {
     }
   }
 }
-
+//end data to the api backend with patch if it exist
 </script>
 
 <style>

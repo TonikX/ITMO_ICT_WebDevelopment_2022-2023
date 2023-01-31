@@ -47,7 +47,6 @@
 //Create methods for handling user input and for submitting the form data to the API.
 /* eslint-disable */
 import $ from "jquery";
-
 export default {
   name: 'SignUp',
   data() {

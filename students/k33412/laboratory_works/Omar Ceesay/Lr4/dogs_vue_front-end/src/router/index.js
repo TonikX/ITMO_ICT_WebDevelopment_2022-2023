@@ -21,27 +21,27 @@ const routes = [
     component: Home
   },
   {
-    path: '/show/signup',
+    path: '/signup',
     name: 'signup',
     component: SignUp
   },
   {
-    path: '/show/logout',
+    path: '/logout',
     name: 'logout',
     component: LogOut
   },
   {
-    path: '/show/signin',
-    name: 'signin',
-    component: SignIn
+    path: '/login',
+    name: 'login',
+    component: LogIn
   },
   {
-    path: '/show/profile',
+    path: '/profile',
     name: 'profile',
     component: Profile
   },
   {
-    path: '/show/profile/edit',
+    path: '/profile/edit',
     name: 'profile_edit',
     component: ProfileEdit
   },
@@ -54,8 +54,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/participation', // конкретный url-адрес
-    component: ParticipationView // Ссылка на компонент
+    path: '/experts', // concreat url-adress
+    component: ExpertsView // link to the components
   },
   {
     path: '/participants', // concreat url-adress 
@@ -63,16 +63,11 @@ const routes = [
   },
   
   {
-    path: '/show/profile/regdog',
-    name: 'regdog',
+    path: '/profile/registerdog',
+    name: 'registerdog',
     component: DogRegister
   },
-  {
-    path: '/show/profile/grading',
-    name: 'grading',
-    component: DogGrade
-  }
-
+  
 ]
 
 const router = new VueRouter({
