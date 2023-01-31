@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if is_student %}
+    <div>
+    <h1>Мои сдачи:</h1>
+    <table>
+        <tr>
+            <td>Название ДЗ</td>
+            <td>Оценка</td>
+            <td>Отправлено</td>
+            <td>Последняя проверка</td>
+        </tr>
+
+    {% for submission in submissions_student %}
+        <tr>
+            <td>{{ submission.homework.name }}</td>
+            <td>{{ submission.mark }}</td>
+            <td>{{ submission.submitted_at }}</td>
+            <td>{{ submission.checked_at }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+
+    {% if is_teacher %}
+    <div>
+    <h1>Я должен проверить:</h1>
+    <table>
+        <tr>
+            <td>Название ДЗ</td>
+            <td>Студент</td>
+            <td>Группа</td>
+            <td>Оценка</td>
+            <td>Отправлено</td>
+            <td>Последняя проверка</td>
+        </tr>
+
+    {% for submission in submissions_teacher %}
+        <tr>
+            <td>{{ submission.homework.name }}</td>
+            <td>{{ submission.student }}</td>
+            <td>{{ submission.homework.group }}</td>
+            <td>{{ submission.mark }}</td>
+            <td>{{ submission.submitted_at }}</td>
+            <td>{{ submission.checked_at }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+{% endblock %}

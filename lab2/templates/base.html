@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab2</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<a href="{% url 'home' %}">Домашние задания</a>
+<a href="{% url 'submissions' %}">Сдачи заданий</a>
+<a href="{% url 'logout' %}">Выйти</a>
+{% block content %}
+{% endblock %}
+</body>
+</html>
