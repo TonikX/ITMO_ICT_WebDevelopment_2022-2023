@@ -14,6 +14,7 @@ class User(AbstractUser):
         'Library', on_delete=models.CASCADE, blank=True, null=True)
     reading_room = models.ForeignKey(
         'ReadingRoom', on_delete=models.CASCADE, blank=True, null=True)
+    # "номер читательского билета"
     serial_number = models.CharField(max_length=20)
     passport = models.CharField(max_length=20, blank=True)
     address = models.CharField(max_length=250, blank=True)
@@ -49,8 +50,16 @@ class Library(models.Model):
 
 class ReadingRoom(models.Model):
     name = models.CharField(max_length=100)
+    capacity = models.IntegerField(
+        default=20, validators=[MinValueValidator(0)])
 
     library = models.ForeignKey('Library', on_delete=models.CASCADE)
+
+    def get_empty_slots(self):
+        return self.capacity - self.user_set.count()
+
+    def get_all_books(self):
+        return self.book_set.all()
 
     def __str__(self):
         return self.name
@@ -60,16 +69,27 @@ class Book(models.Model):
     title = models.CharField(max_length=250)
     authors = models.CharField(max_length=250, blank=True)
     publisher = models.CharField(max_length=250, blank=True)
-    pub_date = models.DateField(blank=True, null=True)
-    series = models.CharField(max_length=250, blank=True)  # "раздел"
-    total_amount = models.IntegerField(
+    pub_date = models.DateField("Publication date", blank=True, null=True)
+    # "раздел"
+    series = models.CharField(max_length=250, blank=True)
+    total_stock = models.IntegerField(
         default=100, validators=[MinValueValidator(0)])
-    isbn = models.CharField(max_length=17, blank=True)  # "шифр"
+    # "шифр"
+    isbn = models.CharField(max_length=17, blank=True)
 
     reading_rooms = models.ManyToManyField(
         'ReadingRoom', through="ReadingRoomBook")
 
-    borrowers = models.ManyToManyField('User', through="BookUser", blank=True)
+    def get_undesignated_stock(self):
+        """
+        Returns the amount of books that are not
+        designated to any reading room
+        """
+        designated = self.reading_rooms.all().aggregate(
+            stock=models.Sum('readingroombook__stock'))
+        print("self.total_stock", self.total_stock,
+              "designated['stock']", designated['stock'], "=", self.total_stock - designated['stock'])
+        return self.total_stock - designated['stock']
 
     def set_authors(self, authors):
         self.authors = ", ".join(authors)
@@ -77,17 +97,15 @@ class Book(models.Model):
     def get_authors(self):
         return self.authors.split(', ')
 
-    def get_avaliable_amount(self):
-        borrowed = self.borrowers.filter(bookuser__returned_date__isnull=False)
-        return self.total_amount - borrowed.count()
-
     def __str__(self):
-        return self.title + " (" + str(self.total_amount) + " total)"
+        return self.title + " (" + str(self.total_stock) + " total)"
 
 
-class BookUser(models.Model):
-    book = models.ForeignKey('Book', on_delete=models.CASCADE)
+class ReadingRoomBookUser(models.Model):
+    reading_room_book = models.ForeignKey(
+        'ReadingRoomBook', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
+
     borrow_date = models.DateField(default=datetime.date.today)
     returned_date = models.DateField(blank=True, null=True)
 
@@ -95,7 +113,7 @@ class BookUser(models.Model):
         return self.returned_date is not None
 
     def __str__(self):
-        return self.user.__str__() + " | " + self.book.__str__()
+        return self.user.__str__() + " | " + self.reading_room_book.__str__()
 
     class Meta:
         constraints = [
@@ -107,7 +125,19 @@ class BookUser(models.Model):
 class ReadingRoomBook(models.Model):
     book = models.ForeignKey('Book', on_delete=models.CASCADE)
     reading_room = models.ForeignKey('ReadingRoom', on_delete=models.CASCADE)
-    amount = models.IntegerField(default=1)
+
+    borrowers = models.ManyToManyField(
+        'User', through="ReadingRoomBookUser", blank=True)
+    stock = models.IntegerField(default=1, validators=[MinValueValidator(0)])
+
+    def get_avaliable_stock(self):
+        """
+        Returns amount of avaliable books to be borrowed
+        in a particular reading room of particular library
+        """
+        borrowed = self.borrowers.filter(
+            readingroombookuser__returned_date__isnull=True)
+        return self.stock - borrowed.count()
 
     def __str__(self):
-        return self.book + " | " + self.reading_room
+        return self.book.__str__() + " | " + self.reading_room.__str__()

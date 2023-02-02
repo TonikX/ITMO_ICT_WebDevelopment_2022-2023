@@ -12,16 +12,14 @@
         {% if user.is_authenticated %}
             <ul class="px-4">
                 <li>
-                    <a href="{% url 'flights' %}"
-                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
-                       href="#">Flights</a>
+                    {% comment %} <a href="{% url 'flights' %}" class="text-[var(--h6-color)] hover:text-[var(--h2-color)]" href="#">Hmmm</a> {% endcomment %}
                 </li>
             </ul>
         {% endif %}
         <ul class="px-4">
             {% if user.is_authenticated %}
                 <li>
-                    <span>Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>!</span>
+                    <span>Welcome, <a href="{% url 'home' %}">{{ user.username }}</a>!</span>
                 </li>
                 <li>
                     <a href="{% url 'log_out' %}" role="button">Log Out</a>

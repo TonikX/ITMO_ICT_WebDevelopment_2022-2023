@@ -8,7 +8,7 @@
 {% block content %}
     {% if user.is_authenticated %}
         <p>
-            <span>Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>!</span>
+            <span>Welcome, <a href="{% url 'home' %}">{{ user.username }}</a>!</span>
         </p>
         <p>You can check your books now</p>
     {% else %}
