@@ -272,3 +272,8 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 
 
 ## Lab work part
+
+
+### Requirements
+
+- django-phonenumber-field[phonenumberslite]
