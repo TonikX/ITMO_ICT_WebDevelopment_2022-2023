@@ -273,6 +273,9 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 
 ## Lab work part
 
+ER Diagram
+![](https://i.imgur.com/G1Ifspz.png)
+
 
 ### Requirements
 
