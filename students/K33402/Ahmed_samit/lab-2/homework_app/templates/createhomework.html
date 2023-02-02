@@ -1,0 +1,21 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-md-8 col-sm-10 col-12">
+      <h2>Create Homework</h2>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        
+        <p class="text-16">{{ form.error_msg }} {{ form.non_field_errors }} {{ form.errors }}</p>
+        
+        <button type="submit" class="btn btn-success">Create</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
