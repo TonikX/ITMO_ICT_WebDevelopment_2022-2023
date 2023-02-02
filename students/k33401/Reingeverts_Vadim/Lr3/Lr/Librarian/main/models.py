@@ -75,7 +75,7 @@ class Book(models.Model):
     total_stock = models.IntegerField(
         default=100, validators=[MinValueValidator(0)])
     # "шифр"
-    isbn = models.CharField(max_length=17, blank=True)
+    isbn = models.CharField("ISBN", max_length=17, blank=True)
 
     reading_rooms = models.ManyToManyField(
         'ReadingRoom', through="ReadingRoomBook")
@@ -112,13 +112,16 @@ class ReadingRoomBookUser(models.Model):
     def is_returned(self):
         return self.returned_date is not None
 
+    def return_book(self):
+        self.returned_date = datetime.date.today
+
     def __str__(self):
         return self.user.__str__() + " | " + self.reading_room_book.__str__()
 
     class Meta:
         constraints = [
             models.CheckConstraint(check=models.Q(
-                returned_date__gt=models.F('borrow_date')), name='date_check', violation_error_message='Borrow date must be earlier than returned date.'),
+                returned_date__gte=models.F('borrow_date')), name='date_check', violation_error_message='Borrow date must be earlier than returned date.'),
         ]
 
 
