@@ -1,0 +1,11 @@
+<ul>
+  {% for object in object_list %}
+  <li>{{ object.student_id }}</li>
+  <li>{{ object.homework_id }}</li>
+  <li>{{ object.grade }}</li>
+
+  <hr/>
+  {% empty %}
+  <li>No grades yet.</li>
+  {% endfor %}
+</ul>
