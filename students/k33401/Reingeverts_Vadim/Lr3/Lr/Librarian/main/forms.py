@@ -11,16 +11,25 @@ class UserSignUpForm(UserCreationForm):
         model = models.User
 
         fields = [
+            "username",
+            "passport",
+
             "last_name",
             "first_name",
             "middle_name",
 
-            "username",
-            "passport",
             "address",
             "education_level",
             "phone_number",
         ]
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.serial_number = user.generate_random_serial()
+            user.save()
+        return user
 
 
 class UserValidationForm(forms.ModelForm):

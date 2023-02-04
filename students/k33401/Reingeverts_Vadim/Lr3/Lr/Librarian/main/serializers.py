@@ -1,4 +1,9 @@
+from django.contrib.auth.hashers import make_password
+from operator import itemgetter
 from rest_framework import serializers
+from django.core.exceptions import ValidationError
+from django.contrib.auth import authenticate
+
 from . import models
 
 
@@ -14,6 +19,9 @@ class ModelSerializer(serializers.ModelSerializer):
         object.save()
         return object
 
+    def validate(self, data):
+        return data
+
 
 class UserSerializer(ModelSerializer):
     model = models.User
@@ -21,6 +29,46 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = models.User
         fields = "__all__"
+
+        fields = [
+            "username",
+            "password",
+
+            "last_name",
+            "first_name",
+            "middle_name",
+
+            "serial_number",
+            "passport",
+            "address",
+            "education_level",
+            "phone_number",
+        ]
+
+    def create(self, validated_data):
+        # Put list of keys to separate variables, aka destructuring assignment
+        password = itemgetter(*['password'])(validated_data)
+        # Get dict, excluding the keys that were 'taken out'
+        rest = {key: validated_data[key]
+                for key in validated_data if key not in ['password']}
+
+        object = self.model.objects.create(
+            password=make_password(password),
+            serial_number=self.model.generate_random_serial(),
+            **rest
+        )
+
+        return object
+
+    def validate(self, data):
+
+        reading_room = data.get("reading_room")
+        if reading_room:
+            if reading_room.get_empty_slots() - 1 < 0:
+                raise ValidationError(
+                    "There is not enough slots in this reading room")
+
+        return data
 
 
 class LibrarySerializer(ModelSerializer):

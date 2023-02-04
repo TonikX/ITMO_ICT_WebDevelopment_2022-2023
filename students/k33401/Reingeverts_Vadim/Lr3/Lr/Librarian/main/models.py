@@ -31,6 +31,11 @@ class User(AbstractUser):
     academic_degree = models.CharField(
         max_length=20, choices=ACADEMIC_DEGREES, default=None, blank=True, null=True)
 
+    @classmethod
+    def generate_random_serial(self):
+        return User.objects.make_random_password(
+            length=12, allowed_chars='1234567890')
+
     def __str__(self):
         if (self.first_name or self.last_name):
             return self.first_name + " " + self.last_name
