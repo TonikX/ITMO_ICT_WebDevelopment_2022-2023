@@ -48,7 +48,7 @@ class ReadingRoomValidationForm(forms.ModelForm):
         reading_room = self.instance
         capacity = self.cleaned_data.get("capacity")
         if capacity is not None:
-            users = reading_room.user_set
+            users = reading_room.get_all_users()
 
             if users.count() > capacity:
                 raise ValidationError(
@@ -77,7 +77,10 @@ class ReadingRoomBookValidationForm(forms.ModelForm):
     def clean(self):
         super(ReadingRoomBookValidationForm, self).clean()
         reading_room_book = self.instance
-        book = reading_room_book.book
+        if hasattr(reading_room_book, 'book'):
+            book = reading_room_book.book
+        else:
+            book = self.cleaned_data.get("book")
 
         prev_stock = reading_room_book.stock
         new_stock = self.cleaned_data.get("stock")

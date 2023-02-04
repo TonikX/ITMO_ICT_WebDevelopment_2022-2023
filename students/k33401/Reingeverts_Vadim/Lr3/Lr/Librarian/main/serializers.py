@@ -48,6 +48,7 @@ class UserSerializer(ModelSerializer):
             "reading_room",
         ]
 
+    # Overriden for handling hashing of the password and generating serial number
     def create(self, validated_data):
         # Put list of keys to separate variables, aka destructuring assignment
         password = itemgetter(*['password'])(validated_data)
@@ -93,7 +94,7 @@ class ReadingRoomSerializer(ModelSerializer):
         reading_room = self.instance
         capacity = data.get("capacity")
         if capacity is not None:
-            users = reading_room.user_set
+            users = reading_room.get_all_users()
 
             if users.count() > capacity:
                 raise serializers.ValidationError({"error":
@@ -136,7 +137,10 @@ class ReadingRoomBookSerializer(ModelSerializer):
 
     def validate(self, data):
         reading_room_book = self.instance
-        book = reading_room_book.book
+        if hasattr(reading_room_book, 'book'):
+            book = reading_room_book.book
+        else:
+            book = data.get("book")
 
         prev_stock = reading_room_book.stock
         new_stock = data.get("stock")
@@ -170,7 +174,6 @@ class ReadingRoomBookUserSerializer(ModelSerializer):
         reading_room_book_user = self.instance
         reading_room_book = reading_room_book_user.reading_room_book
 
-        print(reading_room_book, reading_room_book.get_avaliable_stock())
         if reading_room_book.get_avaliable_stock() < 1:
             raise serializers.ValidationError({"error":
                                                "This book is out of stock in this reading room"})

@@ -1,6 +1,7 @@
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
+from django.db.models.functions import Coalesce
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -61,10 +62,22 @@ class ReadingRoom(models.Model):
     library = models.ForeignKey('Library', on_delete=models.CASCADE)
 
     def get_empty_slots(self):
-        return self.capacity - self.user_set.count()
+        if hasattr(self, 'user'):
+            return self.capacity - self.user_set.count()
+        else:
+            return self.capacity
 
     def get_all_books(self):
-        return self.book_set.all()
+        if hasattr(self, 'book'):
+            return self.book_set.all()
+        else:
+            return User.objects.none()
+
+    def get_all_users(self):
+        if hasattr(self, 'user'):
+            return self.user_set.all()
+        else:
+            return User.objects.none()
 
     def __str__(self):
         return self.name
@@ -90,10 +103,16 @@ class Book(models.Model):
         Returns the amount of books that are not
         designated to any reading room
         """
-        designated = self.reading_rooms.all().aggregate(
-            stock=models.Sum('readingroombook__stock'))
-        print("self.total_stock", self.total_stock,
-              "designated['stock']", designated['stock'], "=", self.total_stock - designated['stock'])
+
+        try:
+            designated = self.reading_rooms.all().aggregate(
+                stock=models.Sum('readingroombook__stock'))
+            if not str(designated['stock']).isnumeric():
+                designated['stock'] = 0
+
+        except ValueError:
+            return self.total_stock
+
         return self.total_stock - designated['stock']
 
     def set_authors(self, authors):
@@ -143,11 +162,22 @@ class ReadingRoomBook(models.Model):
         Returns amount of avaliable books to be borrowed
         in a particular reading room of particular library
         """
-        borrowed = self.borrowers.filter(
-            readingroombookuser__returned_date__isnull=True)
+        try:
+            borrowed = self.borrowers.filter(
+                readingroombookuser__returned_date__isnull=True)
+        except ValueError:
+            return self.stock
 
-        print('stock', self.stock, 'borrw', borrowed.count())
         return self.stock - borrowed.count()
 
     def __str__(self):
-        return self.book.__str__() + " | " + self.reading_room.__str__()
+        if hasattr(self, 'book') and hasattr(self, 'reading_room'):
+            book_str = self.book.__str__()
+            room_str = f"{self.reading_room.__str__()} (in stock {self.stock})"
+        else:
+            book_str = "Book"
+            room_str = "Room"
+        return book_str + " | " + room_str
+
+    class Meta:
+        unique_together = ('book', 'reading_room')
