@@ -13,8 +13,53 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, authenticate, login
 from django.views.generic import RedirectView
 from operator import itemgetter
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from . import models, forms
+from . import models, forms, serializers
+
+
+class UsersAPIView(APIView):
+    def get(self, request):
+        warriors = models.User.objects.all()
+        serializer = serializers.UserSerializer(warriors, many=True)
+        return Response({"users": serializer.data})
+
+
+class UserDetailAPIView(APIView):
+    def get(self, request, pk, *args, **kwargs):
+        user = models.User.objects.get(pk=pk)
+        serializer = serializers.UserSerializer(user)
+        return Response({"user": serializer.data})
+
+    def delete(self, request, pk, *args, **kwargs):
+        user = models.User.objects.get(pk=pk)
+        user.delete()
+        return Response({"Success": "Success"})
+
+    def patch(self, request, pk, *args, **kwargs):
+        prev_user = models.User.objects.get(pk=pk)
+
+        user_data = request.data.get("user")
+        serializer = serializers.UserSerializer(
+            prev_user, data=user_data, partial=True)
+
+        if serializer.is_valid(raise_exception=True):
+            new_user = serializer.save()
+
+        return Response({"Success": "User '{}' updated succesfully.".format(new_user)})
+
+
+# class ProfessionCreateView(APIView):
+
+#     def post(self, request):
+#         profession = request.data.get("profession")
+#         serializer = ProfessionCreateSerializer(data=profession)
+
+#         if serializer.is_valid(raise_exception=True):
+#             profession_saved = serializer.save()
+
+#         return Response({"Success": "Profession '{}' created succesfully.".format(profession_saved.title)})
 
 
 class Home(TemplateView):
