@@ -28,6 +28,15 @@ class ModelsAPIView(APIView):
         serializer = self.modelSerializer(objects, many=True)
         return Response({self.model.__name__: serializer.data})
 
+    def post(self, request):
+        object_data = request.data.get(self.model.__name__)
+        serializer = self.modelSerializer(data=object_data)
+
+        if serializer.is_valid(raise_exception=True):
+            new_object = serializer.save()
+
+        return Response({"Success": f"{self.model.__name__} '{new_object}' created succesfully."})
+
 
 class ModelDetailsAPIView(APIView):
     model = None

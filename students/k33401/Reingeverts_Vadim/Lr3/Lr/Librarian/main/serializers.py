@@ -2,52 +2,65 @@ from rest_framework import serializers
 from . import models
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ModelSerializer(serializers.ModelSerializer):
+    model = None
+
+    class Meta:
+        model = None
+        depth = 1
+
+    def create(self, validated_data):
+        object = self.model(**validated_data)
+        object.save()
+        return object
+
+
+class UserSerializer(ModelSerializer):
+    model = models.User
 
     class Meta:
         model = models.User
         fields = "__all__"
-        depth = 1
 
 
-class LibrarySerializer(serializers.ModelSerializer):
+class LibrarySerializer(ModelSerializer):
+    model = models.Library
 
     class Meta:
         model = models.Library
         fields = "__all__"
-        depth = 1
 
 
-class ReadingRoomSerializer(serializers.ModelSerializer):
+class ReadingRoomSerializer(ModelSerializer):
+    model = models.ReadingRoom
 
     class Meta:
         model = models.ReadingRoom
         fields = "__all__"
-        depth = 1
 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookSerializer(ModelSerializer):
+    model = models.Book
 
     class Meta:
         model = models.Book
         fields = "__all__"
-        depth = 1
 
 
-class ReadingRoomBookSerializer(serializers.ModelSerializer):
+class ReadingRoomBookSerializer(ModelSerializer):
+    model = models.ReadingRoomBook
 
     class Meta:
         model = models.ReadingRoomBook
         fields = "__all__"
-        depth = 1
 
 
-class ReadingRoomBookUserSerializer(serializers.ModelSerializer):
+class ReadingRoomBookUserSerializer(ModelSerializer):
+    model = models.ReadingRoomBookUser
 
     class Meta:
         model = models.ReadingRoomBookUser
         fields = "__all__"
-        depth = 1
 
 
 # class ProfessionSerializer(serializers.ModelSerializer):
