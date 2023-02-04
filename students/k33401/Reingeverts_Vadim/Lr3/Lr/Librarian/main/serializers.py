@@ -1,7 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from operator import itemgetter
 from rest_framework import serializers
-from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate
 
 from . import models
@@ -28,11 +27,12 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = models.User
-        fields = "__all__"
 
         fields = [
+            "id",
             "username",
             "password",
+            "email",
 
             "last_name",
             "first_name",
@@ -43,6 +43,9 @@ class UserSerializer(ModelSerializer):
             "address",
             "education_level",
             "phone_number",
+            "academic_degree",
+            "library",
+            "reading_room",
         ]
 
     def create(self, validated_data):
@@ -65,8 +68,8 @@ class UserSerializer(ModelSerializer):
         reading_room = data.get("reading_room")
         if reading_room:
             if reading_room.get_empty_slots() - 1 < 0:
-                raise ValidationError(
-                    "There is not enough slots in this reading room")
+                raise serializers.ValidationError(
+                    {"error": "There is not enough slots in this reading room"})
 
         return data
 
@@ -86,6 +89,17 @@ class ReadingRoomSerializer(ModelSerializer):
         model = models.ReadingRoom
         fields = "__all__"
 
+    def validate(self, data):
+        reading_room = self.instance
+        capacity = data.get("capacity")
+        if capacity is not None:
+            users = reading_room.user_set
+
+            if users.count() > capacity:
+                raise serializers.ValidationError({"error":
+                                                   "The amount of readers cannot exceed the capacity of the room"})
+        return data
+
 
 class BookSerializer(ModelSerializer):
     model = models.Book
@@ -93,6 +107,24 @@ class BookSerializer(ModelSerializer):
     class Meta:
         model = models.Book
         fields = "__all__"
+
+    def validate(self, data):
+        book = self.instance
+
+        prev_total_stock = book.total_stock
+        new_total_stock = data.get("total_stock")
+        if new_total_stock is not None:
+
+            stock_diff = new_total_stock - prev_total_stock
+
+            prev_undesignated_stock = book.get_undesignated_stock()
+            new_undesignated_stock = prev_undesignated_stock + stock_diff
+
+            if new_undesignated_stock < 0:
+                raise serializers.ValidationError({"error":
+                                                   "The amount of books designated to reading rooms cannot exceed the total stock"})
+
+        return data
 
 
 class ReadingRoomBookSerializer(ModelSerializer):
@@ -102,6 +134,30 @@ class ReadingRoomBookSerializer(ModelSerializer):
         model = models.ReadingRoomBook
         fields = "__all__"
 
+    def validate(self, data):
+        reading_room_book = self.instance
+        book = reading_room_book.book
+
+        prev_stock = reading_room_book.stock
+        new_stock = data.get("stock")
+        if new_stock is not None:
+            stock_diff = new_stock - prev_stock
+
+            prev_undesignated_stock = book.get_undesignated_stock()
+            new_undesignated_stock = prev_undesignated_stock - stock_diff
+
+            if stock_diff > 0 and new_undesignated_stock < 0:
+                raise serializers.ValidationError({"error":
+                                                   "Not enough undesignated books to restock this reading room"})
+
+            prev_avaliable_stock = reading_room_book.get_avaliable_stock()
+            new_avaliable_stock = prev_avaliable_stock + stock_diff
+
+            if stock_diff < 0 and new_avaliable_stock < 0:
+                raise serializers.ValidationError({"error":
+                                                   "The reduction in stock exceeds the avaliable stock"})
+        return data
+
 
 class ReadingRoomBookUserSerializer(ModelSerializer):
     model = models.ReadingRoomBookUser
@@ -109,6 +165,16 @@ class ReadingRoomBookUserSerializer(ModelSerializer):
     class Meta:
         model = models.ReadingRoomBookUser
         fields = "__all__"
+
+    def validate(self, data):
+        reading_room_book_user = self.instance
+        reading_room_book = reading_room_book_user.reading_room_book
+
+        print(reading_room_book, reading_room_book.get_avaliable_stock())
+        if reading_room_book.get_avaliable_stock() < 1:
+            raise serializers.ValidationError({"error":
+                                               "This book is out of stock in this reading room"})
+        return data
 
 
 # class ProfessionSerializer(serializers.ModelSerializer):

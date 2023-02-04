@@ -145,6 +145,8 @@ class ReadingRoomBook(models.Model):
         """
         borrowed = self.borrowers.filter(
             readingroombookuser__returned_date__isnull=True)
+
+        print('stock', self.stock, 'borrw', borrowed.count())
         return self.stock - borrowed.count()
 
     def __str__(self):
