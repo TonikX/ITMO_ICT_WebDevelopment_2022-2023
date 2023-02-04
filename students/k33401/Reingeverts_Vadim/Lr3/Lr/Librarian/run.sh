@@ -7,8 +7,8 @@ cd "$parent_path"
 if [ -z "$1" ] # https://stackoverflow.com/a/19486205
   then
     # Migrates and runs dev server
-    source ../../../.web-dev-env/Scripts/activate && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000 &
-    source ../../../.web-dev-env/Scripts/activate && python manage.py tailwind start 
+    source ../../../.web-dev-env/Scripts/activate && python manage.py tailwind start &
+    source ../../../.web-dev-env/Scripts/activate && python manage.py makemigrations && python manage.py migrate && python manage.py runserver
 else
     source ../../../.web-dev-env/Scripts/activate && python manage.py "$@"
 fi

@@ -10,6 +10,46 @@ class UserSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class LibrarySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Library
+        fields = "__all__"
+        depth = 1
+
+
+class ReadingRoomSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ReadingRoom
+        fields = "__all__"
+        depth = 1
+
+
+class BookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.Book
+        fields = "__all__"
+        depth = 1
+
+
+class ReadingRoomBookSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ReadingRoomBook
+        fields = "__all__"
+        depth = 1
+
+
+class ReadingRoomBookUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ReadingRoomBookUser
+        fields = "__all__"
+        depth = 1
+
+
 # class ProfessionSerializer(serializers.ModelSerializer):
 
 #     class Meta:

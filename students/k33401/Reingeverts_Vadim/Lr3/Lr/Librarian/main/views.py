@@ -19,35 +19,101 @@ from rest_framework.views import APIView
 from . import models, forms, serializers
 
 
-class UsersAPIView(APIView):
+class ModelsAPIView(APIView):
+    model = None
+    modelSerializer = None
+
     def get(self, request):
-        warriors = models.User.objects.all()
-        serializer = serializers.UserSerializer(warriors, many=True)
-        return Response({"users": serializer.data})
+        objects = self.model.objects.all()
+        serializer = self.modelSerializer(objects, many=True)
+        return Response({self.model.__name__: serializer.data})
 
 
-class UserDetailAPIView(APIView):
+class ModelDetailsAPIView(APIView):
+    model = None
+    modelSerializer = None
+
     def get(self, request, pk, *args, **kwargs):
-        user = models.User.objects.get(pk=pk)
-        serializer = serializers.UserSerializer(user)
-        return Response({"user": serializer.data})
+        object = self.model.objects.get(pk=pk)
+        serializer = self.modelSerializer(object)
+        return Response({self.model.__name__: serializer.data})
 
     def delete(self, request, pk, *args, **kwargs):
-        user = models.User.objects.get(pk=pk)
-        user.delete()
-        return Response({"Success": "Success"})
+        object = self.model.objects.get(pk=pk)
+        object.delete()
+        return Response({"Success": f"{self.model.__name__} '{object}' deleted succesfully."})
 
     def patch(self, request, pk, *args, **kwargs):
-        prev_user = models.User.objects.get(pk=pk)
+        prev_object = self.model.objects.get(pk=pk)
 
-        user_data = request.data.get("user")
-        serializer = serializers.UserSerializer(
-            prev_user, data=user_data, partial=True)
+        object_data = request.data.get(self.model.__name__)
+        serializer = self.modelSerializer(
+            prev_object, data=object_data, partial=True)
 
         if serializer.is_valid(raise_exception=True):
-            new_user = serializer.save()
+            new_object = serializer.save()
 
-        return Response({"Success": "User '{}' updated succesfully.".format(new_user)})
+        return Response({"Success": f"{self.model.__name__} '{new_object}' updated succesfully."})
+
+
+class UsersAPIView(ModelsAPIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+
+class UserDetailsAPIView(ModelDetailsAPIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+
+class LibrariesAPIView(ModelsAPIView):
+    model = models.Library
+    modelSerializer = serializers.LibrarySerializer
+
+
+class LibraryDetailsAPIView(ModelDetailsAPIView):
+    model = models.Library
+    modelSerializer = serializers.LibrarySerializer
+
+
+class ReadingRoomsAPIView(ModelsAPIView):
+    model = models.ReadingRoom
+    modelSerializer = serializers.ReadingRoomSerializer
+
+
+class ReadingRoomDetailsAPIView(ModelDetailsAPIView):
+    model = models.ReadingRoom
+    modelSerializer = serializers.ReadingRoomSerializer
+
+
+class BooksAPIView(ModelsAPIView):
+    model = models.Book
+    modelSerializer = serializers.BookSerializer
+
+
+class BookDetailsAPIView(ModelDetailsAPIView):
+    model = models.Book
+    modelSerializer = serializers.BookSerializer
+
+
+class ReadingRoomBooksAPIView(ModelsAPIView):
+    model = models.ReadingRoomBook
+    modelSerializer = serializers.ReadingRoomBookSerializer
+
+
+class ReadingRoomBookDetailsAPIView(ModelDetailsAPIView):
+    model = models.ReadingRoomBook
+    modelSerializer = serializers.ReadingRoomBookSerializer
+
+
+class ReadingRoomBookUsersAPIView(ModelsAPIView):
+    model = models.ReadingRoomBookUser
+    modelSerializer = serializers.ReadingRoomBookUserSerializer
+
+
+class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
+    model = models.ReadingRoomBookUser
+    modelSerializer = serializers.ReadingRoomBookUserSerializer
 
 
 # class ProfessionCreateView(APIView):
