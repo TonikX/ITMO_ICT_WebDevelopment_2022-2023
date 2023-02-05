@@ -21,6 +21,7 @@ class UserSignUpForm(UserCreationForm):
             "address",
             "education_level",
             "phone_number",
+            "date_of_birth",
         ]
 
     def save(self, commit=True):

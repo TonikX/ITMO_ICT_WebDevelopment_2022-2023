@@ -21,6 +21,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=250, blank=True)
     education_level = models.CharField(max_length=250, blank=True)
     phone_number = PhoneNumberField(region="RU", blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
 
     ACADEMIC_DEGREES = (
         ('', None),

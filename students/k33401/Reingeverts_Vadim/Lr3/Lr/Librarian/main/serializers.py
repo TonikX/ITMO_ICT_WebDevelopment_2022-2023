@@ -155,6 +155,7 @@ class UserSerializer(ModelSerializer):
             "education_level",
             "phone_number",
             "academic_degree",
+            "date_of_birth",
             "library",
             "reading_room",
 

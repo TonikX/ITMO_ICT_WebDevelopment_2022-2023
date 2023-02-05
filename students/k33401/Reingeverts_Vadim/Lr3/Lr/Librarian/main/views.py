@@ -144,11 +144,11 @@ class UserBooksAPIView(APIView):
                 books.append(book)
         except KeyError:
             books = []
-        return Response({"books": books})
+        return Response({"Books": books})
 
 
 # "Кто из читателей взял книгу более месяца тому назад?"
-class UsersBooksOverdue(APIView):
+class UserYoungAPIView(APIView):
     model = models.User
     modelSerializer = serializers.UserSerializer
 
@@ -160,25 +160,36 @@ class UsersBooksOverdue(APIView):
             readingroombookuser__borrow_date__lte=month_ago, readingroombookuser__returned_date__isnull=True)
         serializer = self.modelSerializer(objects, many=True)
 
-        # try:
-        #     reading_room_book_user_set = serializer.data['readingroombookuser_set']
-        #     unreturned_books = []
-        #     for reading_room_book_user in reading_room_book_user_set:
-        #         now = datetime.date.now()
-        #         borrow_date = datetime.strptime(
-        #             reading_room_book_user['borrow_date'], "%d-%m-%Y")
-        #         delta = now - borrow_date
+        return Response({self.model.__name__: serializer.data})
 
-        #         did_borrow_month_ago = delta.days > 30
-        #         is_not_returned = reading_room_book_user['returned_date'] is None
 
-        #         print(delta.days, did_borrow_month_ago)
-        #         if did_borrow_month_ago and is_not_returned:
-        #             book = reading_room_book_user['reading_room_book']['book']
-        #             unreturned_books.append(book)
-        # except KeyError:
-        #     unreturned_books = []
-        return Response({"books": serializer.data})
+# За кем из читателей закреплены книги, количество экземпляров которых в библиотеке не превышает 2?
+class UsersBooksRareAPIView(APIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        objects = self.model.objects.filter(
+            readingroombookuser__reading_room_book__book__total_stock__lte=2, readingroombookuser__returned_date__isnull=True)
+        serializer = self.modelSerializer(objects, many=True)
+
+        return Response({self.model.__name__: serializer.data})
+
+
+# Сколько в библиотеке читателей младше 20 лет?
+class UserYoungAPIView(APIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        now = datetime.datetime.now()
+        twenty_years_ago = now - datetime.timedelta(days=20 * 365)
+
+        objects = self.model.objects.filter(
+            date_of_birth__lte=twenty_years_ago)
+        serializer = self.modelSerializer(objects, many=True)
+
+        return Response({self.model.__name__: serializer.data})
 
 
 class Home(TemplateView):
