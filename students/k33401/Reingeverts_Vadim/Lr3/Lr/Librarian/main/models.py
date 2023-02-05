@@ -122,7 +122,7 @@ class Book(models.Model):
         return self.authors.split(', ')
 
     def __str__(self):
-        return self.title + " (" + str(self.total_stock) + " total)"
+        return self.title + " (" + str(self.total_stock) + " in library)"
 
 
 class ReadingRoomBookUser(models.Model):
@@ -165,15 +165,17 @@ class ReadingRoomBook(models.Model):
         try:
             borrowed = self.borrowers.filter(
                 readingroombookuser__returned_date__isnull=True)
+            print(borrowed)
         except ValueError:
             return self.stock
 
+        print(self.stock, '-', borrowed.count())
         return self.stock - borrowed.count()
 
     def __str__(self):
         if hasattr(self, 'book') and hasattr(self, 'reading_room'):
             book_str = self.book.__str__()
-            room_str = f"{self.reading_room.__str__()} (in stock {self.stock})"
+            room_str = f"{self.reading_room.__str__()} ({self.stock} in room)"
         else:
             book_str = "Book"
             room_str = "Room"

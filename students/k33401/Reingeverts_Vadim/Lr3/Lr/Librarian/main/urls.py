@@ -33,8 +33,10 @@ urlpatterns = [
     path('reading-room-book-user/<int:pk>', views.ReadingRoomBookUserDetailsAPIView.as_view(),
          name="reading_room_book_user_details"),
     # Custom API views
-    path('all-user-books/<int:pk>',
-         views.UserUnreturnedBooksAPIView.as_view(), name="all-user-books"),
+    path('user-books/<int:pk>',
+         views.UserBooksAPIView.as_view(), name="user_books"),
+    path('users-books-overdue/',
+         views.UsersBooksOverdue.as_view(), name="users_books_overdue"),
 
 
 

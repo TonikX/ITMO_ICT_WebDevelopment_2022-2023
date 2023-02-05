@@ -1,3 +1,4 @@
+import datetime
 from django.urls import resolve
 from urllib.parse import urlparse
 from django.contrib import messages
@@ -24,12 +25,12 @@ class ModelsAPIView(APIView):
     model = None
     modelSerializer = None
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         objects = self.model.objects.all()
         serializer = self.modelSerializer(objects, many=True)
         return Response({self.model.__name__: serializer.data})
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         object_data = request.data.get(self.model.__name__)
         serializer = self.modelSerializer(data=object_data)
 
@@ -126,7 +127,8 @@ class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
     modelSerializer = serializers.ReadingRoomBookUserSerializer
 
 
-class UserUnreturnedBooksAPIView(APIView):
+# "Какие книги закреплены за заданным читателем?"
+class UserBooksAPIView(APIView):
     model = models.User
     modelSerializer = serializers.UserSerializer
 
@@ -134,19 +136,49 @@ class UserUnreturnedBooksAPIView(APIView):
         object = self.model.objects.get(pk=pk)
         serializer = self.modelSerializer(object)
 
-        # print("all_user_books",
-        #       serializer.data['User']['readingroombookuser_set'])
         try:
             reading_room_book_user_set = serializer.data['readingroombookuser_set']
-            unreturned_books = []
+            books = []
             for reading_room_book_user in reading_room_book_user_set:
-                is_not_returned = reading_room_book_user['returned_date'] is None
-                if is_not_returned:
-                    book = reading_room_book_user['reading_room_book']['book']
-                    unreturned_books.append(book)
+                book = reading_room_book_user['reading_room_book']['book']
+                books.append(book)
         except KeyError:
-            unreturned_books = []
-        return Response({"books": unreturned_books})
+            books = []
+        return Response({"books": books})
+
+
+# "Кто из читателей взял книгу более месяца тому назад?"
+class UsersBooksOverdue(APIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        now = datetime.datetime.now()
+        month_ago = now - datetime.timedelta(days=30)
+
+        objects = self.model.objects.filter(
+            readingroombookuser__borrow_date__lte=month_ago, readingroombookuser__returned_date__isnull=True)
+        serializer = self.modelSerializer(objects, many=True)
+
+        # try:
+        #     reading_room_book_user_set = serializer.data['readingroombookuser_set']
+        #     unreturned_books = []
+        #     for reading_room_book_user in reading_room_book_user_set:
+        #         now = datetime.date.now()
+        #         borrow_date = datetime.strptime(
+        #             reading_room_book_user['borrow_date'], "%d-%m-%Y")
+        #         delta = now - borrow_date
+
+        #         did_borrow_month_ago = delta.days > 30
+        #         is_not_returned = reading_room_book_user['returned_date'] is None
+
+        #         print(delta.days, did_borrow_month_ago)
+        #         if did_borrow_month_ago and is_not_returned:
+        #             book = reading_room_book_user['reading_room_book']['book']
+        #             unreturned_books.append(book)
+        # except KeyError:
+        #     unreturned_books = []
+        return Response({"books": serializer.data})
 
 
 class Home(TemplateView):

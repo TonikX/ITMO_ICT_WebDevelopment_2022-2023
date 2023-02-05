@@ -106,9 +106,11 @@ class ReadingRoomBookValidationForm(forms.ModelForm):
 class ReadingRoomBookUserValidationForm(forms.ModelForm):
     def clean(self):
         super(ReadingRoomBookUserValidationForm, self).clean()
+        prev_returned_date = self.instance.returned_date
+
         reading_room_book = self.cleaned_data.get("reading_room_book")
-        returned_date = self.cleaned_data.get("returned_date")
-        is_trying_to_borrow = returned_date is not None
+        new_returned_date = self.cleaned_data.get("returned_date")
+        is_trying_to_borrow = new_returned_date is None and prev_returned_date is not None
 
         if reading_room_book and is_trying_to_borrow:
             if reading_room_book.get_avaliable_stock() < 1:
