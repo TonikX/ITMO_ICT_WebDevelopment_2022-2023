@@ -36,11 +36,13 @@ urlpatterns = [
     path('user-books/<int:pk>',
          views.UserBooksAPIView.as_view(), name="user_books"),
     path('users-books-overdue/',
-         views.UserYoungAPIView.as_view(), name="users_books_overdue"),
+         views.UsersYoungAPIView.as_view(), name="users_books_overdue"),
     path('users-books-rare/',
          views.UsersBooksRareAPIView.as_view(), name="users_books_rare"),
     path('users-young/',
-         views.UserYoungAPIView.as_view(), name="users_young"),
+         views.UsersYoungAPIView.as_view(), name="users_young"),
+    path('users-degree/',
+         views.UsersGroupedByDegreeAPIView.as_view(), name="users_degree"),
 
 
 

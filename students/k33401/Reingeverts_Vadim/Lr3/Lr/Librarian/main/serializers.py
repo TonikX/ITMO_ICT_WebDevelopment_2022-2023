@@ -160,10 +160,10 @@ class UserSerializer(ModelSerializer):
             "reading_room",
 
             "readingroombookuser_set",
-            # "readingroombook_set",
         ]
 
     # Overriden for handling hashing of the password and generating serial number
+
     def create(self, validated_data):
         # Put list of keys to separate variables, aka destructuring assignment
         password = itemgetter(*['password'])(validated_data)

@@ -1,3 +1,4 @@
+from django.db.models import Count
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
@@ -37,6 +38,23 @@ class User(AbstractUser):
     def generate_random_serial(self):
         return User.objects.make_random_password(
             length=12, allowed_chars='1234567890')
+
+    @classmethod
+    def group_by_degree(cls, **kwargs):
+        objects = cls.objects.filter(**kwargs)
+
+        degrees = objects.extra(
+            select={'degree': 'academic_degree'}
+        ).values('degree').annotate(available=Count('academic_degree'))
+        degrees_dict = {}
+
+        for date in degrees:
+            if date['degree'] is None:
+                continue
+            degrees_dict[date['degree']] = objects.filter(
+                academic_degree__contains=date['degree'])
+
+        return degrees_dict
 
     def __str__(self):
         if (self.first_name or self.last_name):

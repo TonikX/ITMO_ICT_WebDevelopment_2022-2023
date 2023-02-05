@@ -148,7 +148,7 @@ class UserBooksAPIView(APIView):
 
 
 # "Кто из читателей взял книгу более месяца тому назад?"
-class UserYoungAPIView(APIView):
+class UsersYoungAPIView(APIView):
     model = models.User
     modelSerializer = serializers.UserSerializer
 
@@ -177,7 +177,7 @@ class UsersBooksRareAPIView(APIView):
 
 
 # Сколько в библиотеке читателей младше 20 лет?
-class UserYoungAPIView(APIView):
+class UsersYoungAPIView(APIView):
     model = models.User
     modelSerializer = serializers.UserSerializer
 
@@ -190,6 +190,22 @@ class UserYoungAPIView(APIView):
         serializer = self.modelSerializer(objects, many=True)
 
         return Response({self.model.__name__: serializer.data})
+
+
+# Сколько читателей в процентном отношении имеют начальное образование, среднее, высшее, ученую степень?
+class UsersGroupedByDegreeAPIView(APIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def get(self, request, *args, **kwargs):
+        degrees_dict = self.model.group_by_degree()
+
+        degree_data = {}
+        for degree, user in degrees_dict.items():
+            serializer = self.modelSerializer(user, many=True)
+            degree_data[degree] = serializer.data
+
+        return Response({"Degrees": degree_data})
 
 
 class Home(TemplateView):
