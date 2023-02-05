@@ -15,6 +15,7 @@ from django.views.generic import RedirectView
 from operator import itemgetter
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from . import models, forms, serializers
 
@@ -123,6 +124,29 @@ class ReadingRoomBookUsersAPIView(ModelsAPIView):
 class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
     model = models.ReadingRoomBookUser
     modelSerializer = serializers.ReadingRoomBookUserSerializer
+
+
+class UserUnreturnedBooksAPIView(APIView):
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def get(self, request, pk, *args, **kwargs):
+        object = self.model.objects.get(pk=pk)
+        serializer = self.modelSerializer(object)
+
+        # print("all_user_books",
+        #       serializer.data['User']['readingroombookuser_set'])
+        try:
+            reading_room_book_user_set = serializer.data['readingroombookuser_set']
+            unreturned_books = []
+            for reading_room_book_user in reading_room_book_user_set:
+                is_not_returned = reading_room_book_user['returned_date'] is None
+                if is_not_returned:
+                    book = reading_room_book_user['reading_room_book']['book']
+                    unreturned_books.append(book)
+        except KeyError:
+            unreturned_books = []
+        return Response({"books": unreturned_books})
 
 
 class Home(TemplateView):

@@ -22,59 +22,6 @@ class ModelSerializer(serializers.ModelSerializer):
         return data
 
 
-class UserSerializer(ModelSerializer):
-    model = models.User
-
-    class Meta:
-        model = models.User
-
-        fields = [
-            "id",
-            "username",
-            "password",
-            "email",
-
-            "last_name",
-            "first_name",
-            "middle_name",
-
-            "serial_number",
-            "passport",
-            "address",
-            "education_level",
-            "phone_number",
-            "academic_degree",
-            "library",
-            "reading_room",
-        ]
-
-    # Overriden for handling hashing of the password and generating serial number
-    def create(self, validated_data):
-        # Put list of keys to separate variables, aka destructuring assignment
-        password = itemgetter(*['password'])(validated_data)
-        # Get dict, excluding the keys that were 'taken out'
-        rest = {key: validated_data[key]
-                for key in validated_data if key not in ['password']}
-
-        object = self.model.objects.create(
-            password=make_password(password),
-            serial_number=self.model.generate_random_serial(),
-            **rest
-        )
-
-        return object
-
-    def validate(self, data):
-
-        reading_room = data.get("reading_room")
-        if reading_room:
-            if reading_room.get_empty_slots() - 1 < 0:
-                raise serializers.ValidationError(
-                    {"error": "There is not enough slots in this reading room"})
-
-        return data
-
-
 class LibrarySerializer(ModelSerializer):
     model = models.Library
 
@@ -174,9 +121,70 @@ class ReadingRoomBookUserSerializer(ModelSerializer):
         reading_room_book_user = self.instance
         reading_room_book = reading_room_book_user.reading_room_book
 
-        if reading_room_book.get_avaliable_stock() < 1:
-            raise serializers.ValidationError({"error":
-                                               "This book is out of stock in this reading room"})
+        returned_date = data.get("returned_date")
+        is_trying_to_borrow = returned_date is not None
+
+        if reading_room_book and is_trying_to_borrow:
+            if reading_room_book.get_avaliable_stock() < 1:
+                raise serializers.ValidationError({"error":
+                                                   "This book is out of stock in this reading room"})
+        return data
+
+
+class UserSerializer(ModelSerializer):
+    model = models.User
+
+    class Meta:
+        model = models.User
+        depth = 3
+
+        fields = [
+            "id",
+            "username",
+            "password",
+            "email",
+
+            "last_name",
+            "first_name",
+            "middle_name",
+
+            "serial_number",
+            "passport",
+            "address",
+            "education_level",
+            "phone_number",
+            "academic_degree",
+            "library",
+            "reading_room",
+
+            "readingroombookuser_set",
+            # "readingroombook_set",
+        ]
+
+    # Overriden for handling hashing of the password and generating serial number
+    def create(self, validated_data):
+        # Put list of keys to separate variables, aka destructuring assignment
+        password = itemgetter(*['password'])(validated_data)
+        # Get dict, excluding the keys that were 'taken out'
+        rest = {key: validated_data[key]
+                for key in validated_data if key not in ['password']}
+
+        object = self.model.objects.create(
+            password=make_password(password),
+            serial_number=self.model.generate_random_serial(),
+            **rest
+        )
+
+        return object
+
+    def validate(self, data):
+
+        reading_room = data.get("reading_room")
+        if reading_room:
+            if reading_room.get_empty_slots() - 1 < 0:
+                raise serializers.ValidationError(
+                    {"error": "There is not enough slots in this reading room"})
+
         return data
 
 
