@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Res Page</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="hotel">
+
+        <h1>RESERVATIONS!</h1>
+
+        <table>
+            {% for i in reservations %}
+                <tr>
+                    <td><a href="{{ i.id }}">{{ i.room }} {{ i.start_at }} {{ i.end_at }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}
