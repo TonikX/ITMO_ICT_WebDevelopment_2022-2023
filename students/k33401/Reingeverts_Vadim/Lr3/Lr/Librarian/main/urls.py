@@ -34,13 +34,15 @@ urlpatterns = [
     path('user-books/<int:pk>',
          views.UserBooksAPIView.as_view(), name="user_books"),
     path('users-books-overdue/',
-         views.UsersYoungAPIView.as_view(), name="users_books_overdue"),
+         views.UsersBooksOverdueAPIView.as_view(), name="users_books_overdue"),
     path('users-books-rare/',
          views.UsersBooksRareAPIView.as_view(), name="users_books_rare"),
     path('users-young/',
          views.UsersYoungAPIView.as_view(), name="users_young"),
     path('users-degree/',
          views.UsersGroupedByDegreeAPIView.as_view(), name="users_degree"),
+
+    # Report API view
     path('library-monthly-report/<int:pk>/',
          views.LibraryMonthlyReportAPIView.as_view(), name="library_monthly_report"),
     path('library-monthly-report/<int:pk>/<int:year>/<int:month>',
