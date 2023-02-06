@@ -4,36 +4,9 @@ from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
 
-from . import models, serializers
-
-user_request_body = openapi.Schema(
-    type=openapi.TYPE_OBJECT,
-    required=['username', 'password'],
-    properties={
-        "id": openapi.Schema(type=openapi.TYPE_NUMBER),
-        "username": openapi.Schema(type=openapi.TYPE_STRING),
-        "password": openapi.Schema(type=openapi.TYPE_STRING),
-        "email": openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_EMAIL),
-
-        "last_name": openapi.Schema(type=openapi.TYPE_STRING),
-        "first_name": openapi.Schema(type=openapi.TYPE_STRING),
-        "middle_name": openapi.Schema(type=openapi.TYPE_STRING),
-
-        "serial_number": openapi.Schema(type=openapi.TYPE_STRING),
-        "passport": openapi.Schema(type=openapi.TYPE_STRING),
-        "address": openapi.Schema(type=openapi.TYPE_STRING),
-        "education_level": openapi.Schema(type=openapi.TYPE_STRING),
-        "phone_number": openapi.Schema(type=openapi.TYPE_STRING),
-        "academic_degree": openapi.Schema(type=openapi.TYPE_STRING),
-        "date_of_birth": openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_DATE),
-        "library": openapi.Schema(type=openapi.TYPE_NUMBER),
-        "reading_room": openapi.Schema(type=openapi.TYPE_NUMBER),
-
-        "readingroombookuser_set": openapi.Schema(type=openapi.TYPE_STRING),
-    },
-)
+from . import models, serializers, utils_swagger
+from .utils_swagger import user_request_body, USERS_RESPONSES_GET
 
 
 class BaseModelAPIView(APIView):
@@ -96,7 +69,8 @@ class UsersAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns users",
         operation_description="List of all user objects",
-        tags=['User']
+        tags=['User'],
+        responses=USERS_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
