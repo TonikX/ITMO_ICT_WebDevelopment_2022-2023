@@ -43,10 +43,6 @@ INSTALLED_APPS = [
     'djoser',
     "phonenumber_field",
     'main',
-    # Tailwind related apps
-    'tailwind',
-    'theme',
-    'django_browser_reload'
 ]
 
 MIDDLEWARE = [
@@ -57,8 +53,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # Tailwind related middleware
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = 'Librarian.urls'
@@ -140,25 +134,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # App specific settings
 AUTH_USER_MODEL = "main.User"
-LOGIN_URL = "log_in"
-# LOGIN_REDIRECT_URL = "profile"
-LOGIN_REDIRECT_URL = "home"
-
-# Tailwind related settings
-TAILWIND_APP_NAME = 'theme'
-
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 INTERNAL_IPS = [
     "127.0.0.1",
     "192.168.1.246"
 ]
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-
-# Rest
+# Rest related
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser'
     ),
 }
