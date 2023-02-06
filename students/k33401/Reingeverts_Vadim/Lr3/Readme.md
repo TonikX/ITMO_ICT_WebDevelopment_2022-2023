@@ -280,3 +280,5 @@ ER Diagram
 ### Requirements
 
 - django-phonenumber-field[phonenumberslite]
+- djoser
+- djangorestframework_simplejwt
