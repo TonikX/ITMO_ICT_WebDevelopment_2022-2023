@@ -144,7 +144,7 @@ class UserBooksAPIView(APIView):
                 books.append(book)
         except KeyError:
             books = []
-        return Response({"Books": books})
+        return Response({"Book": books})
 
 
 # "Кто из читателей взял книгу более месяца тому назад?"
@@ -205,7 +205,55 @@ class UsersGroupedByDegreeAPIView(APIView):
             serializer = self.modelSerializer(user, many=True)
             degree_data[degree] = serializer.data
 
-        return Response({"Degrees": degree_data})
+        return Response({"Degree": degree_data})
+
+
+# Необходимо предусмотреть возможность выдачи отчета о работе библиотеки в течение месяца.
+# Отчет должен включать в себя следующую информацию:
+# - количество книг читателей на каждый день в каждом из залов и в библиотеке в целом
+# - количество читателей, записавшихся в библиотеку в каждый зал и в библиотеку за отчетный месяц.
+class LibraryMonthlyReportAPIView(APIView):
+    model = models.Library
+    modelSerializer = serializers.LibrarySerializer
+    userSerializer = serializers.UserSerializer
+    readingRoomSerializer = serializers.ReadingRoomSerializer
+
+    def get(self, request, pk, *args, **kwargs):
+        library = self.model.objects.get(pk=pk)
+        grouped_library = library.group_new_users_by_day()
+        grouped_rooms = library.group_new_users_by_day_per_room()
+
+        grouped_library_data = {
+            "library": {},
+            "dates": {}
+        }
+        for date, users in grouped_library['dates'].items():
+            serializer = self.userSerializer(users, many=True)
+            grouped_library_data['dates'][date] = serializer.data
+
+        serializer = self.modelSerializer(grouped_library['library'])
+        grouped_library_data['library'] = serializer.data
+
+        grouped_rooms_data = []
+        for grouped_room in grouped_rooms:
+            grouped_room_data = {
+                "reading_room": {},
+                "dates": {}
+            }
+            for date, users in grouped_room['dates'].items():
+                serializer = self.userSerializer(users, many=True)
+                grouped_room_data['dates'][date] = serializer.data
+            grouped_rooms_data.append(grouped_room_data)
+
+            serializer = self.readingRoomSerializer(
+                grouped_room['reading_room'])
+            grouped_room_data['reading_room'] = serializer.data
+
+        report_data = {
+            "NewUsersLibrary": grouped_library_data,
+            "NewUsersReadingRooms": grouped_rooms_data,
+        }
+        return Response({"MonthlyReport": report_data})
 
 
 class Home(TemplateView):

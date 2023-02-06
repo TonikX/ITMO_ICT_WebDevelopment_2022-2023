@@ -27,7 +27,13 @@ class LibrarySerializer(ModelSerializer):
 
     class Meta:
         model = models.Library
-        fields = "__all__"
+        fields = [
+            "id",
+            "name",
+            "readingroom_set",
+            "user_set"
+        ]
+        depth = 10
 
 
 class ReadingRoomSerializer(ModelSerializer):
@@ -163,7 +169,6 @@ class UserSerializer(ModelSerializer):
         ]
 
     # Overriden for handling hashing of the password and generating serial number
-
     def create(self, validated_data):
         # Put list of keys to separate variables, aka destructuring assignment
         password = itemgetter(*['password'])(validated_data)

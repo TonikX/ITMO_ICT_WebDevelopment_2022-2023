@@ -8,6 +8,8 @@ urlpatterns = [
     path('signup/', views.SignUp.as_view(), name="sign_up"),
     path('login/', views.LogIn.as_view(), name="log_in"),
     path('logout/', views.LogOut.as_view(), name="log_out"),
+
+
     # Basic model API views
     path('users/', views.UsersAPIView.as_view(), name="users"),
     path('user/<int:pk>', views.UserDetailsAPIView.as_view(), name="user_details"),
@@ -32,6 +34,8 @@ urlpatterns = [
          name="reading_room_book_users"),
     path('reading-room-book-user/<int:pk>', views.ReadingRoomBookUserDetailsAPIView.as_view(),
          name="reading_room_book_user_details"),
+
+
     # Custom API views
     path('user-books/<int:pk>',
          views.UserBooksAPIView.as_view(), name="user_books"),
@@ -43,6 +47,8 @@ urlpatterns = [
          views.UsersYoungAPIView.as_view(), name="users_young"),
     path('users-degree/',
          views.UsersGroupedByDegreeAPIView.as_view(), name="users_degree"),
+    path('library-monthly-report/<int:pk>',
+         views.LibraryMonthlyReportAPIView.as_view(), name="library_monthly_report"),
 
 
 

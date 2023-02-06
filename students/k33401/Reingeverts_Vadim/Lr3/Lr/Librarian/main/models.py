@@ -66,6 +66,39 @@ class User(AbstractUser):
 class Library(models.Model):
     name = models.CharField(max_length=100)
 
+    def group_new_users_by_day(self, duration="month"):
+        if (duration == "month"):
+            now = datetime.datetime.now()
+            month_ago = now - datetime.timedelta(days=30)
+            users = self.user_set.filter(date_joined__gte=month_ago)
+        else:
+            users = self.user_set.all()
+
+        dates = users.extra(
+            select={'day': 'date( date_joined )'}
+        ).values('day').annotate(available=Count('date_joined'))
+        dates_dict = {}
+        for date in dates:
+            grouped_date = datetime.datetime.strptime(
+                date['day'], '%Y-%m-%d').date()
+            dates_dict[date['day']] = users.filter(
+                date_joined__contains=grouped_date)
+        
+        grouped_dict = {
+            'library': self,
+            'dates': dates_dict,
+        }
+        return grouped_dict
+
+    def group_new_users_by_day_per_room(self, duration=None):
+        reading_rooms = self.readingroom_set.all()
+        rooms = []
+        for reading_room in reading_rooms:
+            dates_dict = reading_room.group_new_users_by_day(duration=duration)
+            if dates_dict:
+                rooms.append(dates_dict)
+        return rooms
+
     def __str__(self):
         return self.name
 
@@ -97,6 +130,30 @@ class ReadingRoom(models.Model):
             return self.user_set.all()
         else:
             return User.objects.none()
+
+    def group_new_users_by_day(self, duration="month"):
+        if (duration == "month"):
+            now = datetime.datetime.now()
+            month_ago = now - datetime.timedelta(days=30)
+            users = self.user_set.filter(date_joined__gte=month_ago)
+        else:
+            users = self.user_set.all()
+
+        dates = users.extra(
+            select={'day': 'date( date_joined )'}
+        ).values('day').annotate(available=Count('date_joined'))
+        dates_dict = {}
+        for date in dates:
+            grouped_date = datetime.datetime.strptime(
+                date['day'], '%Y-%m-%d').date()
+            dates_dict[date['day']] = users.filter(
+                date_joined__contains=grouped_date)
+
+        grouped_dict = {
+            'reading_room': self,
+            'dates': dates_dict
+        }
+        return grouped_dict
 
     def __str__(self):
         return self.name
