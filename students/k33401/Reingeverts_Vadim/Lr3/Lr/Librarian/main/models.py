@@ -1,3 +1,4 @@
+from dateutil import relativedelta
 from django.db.models import Count
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
@@ -66,13 +67,17 @@ class User(AbstractUser):
 class Library(models.Model):
     name = models.CharField(max_length=100)
 
-    def group_new_users_by_day(self, duration="month"):
-        if (duration == "month"):
-            now = datetime.datetime.now()
-            month_ago = now - datetime.timedelta(days=30)
-            users = self.user_set.filter(date_joined__gte=month_ago)
+    def group_new_users_by_day(self, year=None, month=None):
+        # Default duration is last 30 days
+        if (not year or not month):
+            end_date = datetime.datetime.now()
+            start_date = end_date - datetime.timedelta(days=30)
         else:
-            users = self.user_set.all()
+            start_date = datetime.date(year, month, 1)
+            end_date = start_date + relativedelta.relativedelta(months=1)
+
+        users = self.user_set.filter(
+            date_joined__range=[start_date, end_date])
 
         dates = users.extra(
             select={'day': 'date( date_joined )'}
@@ -83,18 +88,19 @@ class Library(models.Model):
                 date['day'], '%Y-%m-%d').date()
             dates_dict[date['day']] = users.filter(
                 date_joined__contains=grouped_date)
-        
+
         grouped_dict = {
             'library': self,
             'dates': dates_dict,
         }
         return grouped_dict
 
-    def group_new_users_by_day_per_room(self, duration=None):
+    def group_new_users_by_day_per_room(self, year=None, month=None):
         reading_rooms = self.readingroom_set.all()
         rooms = []
         for reading_room in reading_rooms:
-            dates_dict = reading_room.group_new_users_by_day(duration=duration)
+            dates_dict = reading_room.group_new_users_by_day(
+                year=year, month=month)
             if dates_dict:
                 rooms.append(dates_dict)
         return rooms
@@ -131,13 +137,17 @@ class ReadingRoom(models.Model):
         else:
             return User.objects.none()
 
-    def group_new_users_by_day(self, duration="month"):
-        if (duration == "month"):
-            now = datetime.datetime.now()
-            month_ago = now - datetime.timedelta(days=30)
-            users = self.user_set.filter(date_joined__gte=month_ago)
+    def group_new_users_by_day(self, year=None, month=None):
+        # Default duration is last 30 days
+        if (not year or not month):
+            end_date = datetime.datetime.now()
+            start_date = end_date - datetime.timedelta(days=30)
         else:
-            users = self.user_set.all()
+            start_date = datetime.date(year, month, 1)
+            end_date = start_date + relativedelta.relativedelta(months=1)
+
+        users = self.user_set.filter(
+            date_joined__range=[start_date, end_date])
 
         dates = users.extra(
             select={'day': 'date( date_joined )'}

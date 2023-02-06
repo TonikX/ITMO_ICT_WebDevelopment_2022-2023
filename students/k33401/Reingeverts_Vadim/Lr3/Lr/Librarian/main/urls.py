@@ -47,7 +47,9 @@ urlpatterns = [
          views.UsersYoungAPIView.as_view(), name="users_young"),
     path('users-degree/',
          views.UsersGroupedByDegreeAPIView.as_view(), name="users_degree"),
-    path('library-monthly-report/<int:pk>',
+    path('library-monthly-report/<int:pk>/',
+         views.LibraryMonthlyReportAPIView.as_view(), name="library_monthly_report"),
+    path('library-monthly-report/<int:pk>/<int:year>/<int:month>',
          views.LibraryMonthlyReportAPIView.as_view(), name="library_monthly_report"),
 
 

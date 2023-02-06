@@ -218,10 +218,11 @@ class LibraryMonthlyReportAPIView(APIView):
     userSerializer = serializers.UserSerializer
     readingRoomSerializer = serializers.ReadingRoomSerializer
 
-    def get(self, request, pk, *args, **kwargs):
+    def get(self, request, pk, year=None, month=None, *args, **kwargs):
         library = self.model.objects.get(pk=pk)
-        grouped_library_users = library.group_new_users_by_day()
-        grouped_rooms_users = library.group_new_users_by_day_per_room()
+        grouped_library_users = library.group_new_users_by_day(year=year, month=month)
+        grouped_rooms_users = library.group_new_users_by_day_per_room(
+            year=year, month=month)
 
         grouped_library_serializer = serializers.GroupedLibraryUsersSerializer(
             grouped_library_users)
