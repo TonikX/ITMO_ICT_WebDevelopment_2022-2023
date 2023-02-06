@@ -220,38 +220,17 @@ class LibraryMonthlyReportAPIView(APIView):
 
     def get(self, request, pk, *args, **kwargs):
         library = self.model.objects.get(pk=pk)
-        grouped_library = library.group_new_users_by_day()
-        grouped_rooms = library.group_new_users_by_day_per_room()
+        grouped_library_users = library.group_new_users_by_day()
+        grouped_rooms_users = library.group_new_users_by_day_per_room()
 
-        grouped_library_data = {
-            "library": {},
-            "dates": {}
-        }
-        for date, users in grouped_library['dates'].items():
-            serializer = self.userSerializer(users, many=True)
-            grouped_library_data['dates'][date] = serializer.data
-
-        serializer = self.modelSerializer(grouped_library['library'])
-        grouped_library_data['library'] = serializer.data
-
-        grouped_rooms_data = []
-        for grouped_room in grouped_rooms:
-            grouped_room_data = {
-                "reading_room": {},
-                "dates": {}
-            }
-            for date, users in grouped_room['dates'].items():
-                serializer = self.userSerializer(users, many=True)
-                grouped_room_data['dates'][date] = serializer.data
-            grouped_rooms_data.append(grouped_room_data)
-
-            serializer = self.readingRoomSerializer(
-                grouped_room['reading_room'])
-            grouped_room_data['reading_room'] = serializer.data
+        grouped_library_serializer = serializers.GroupedLibraryUsersSerializer(
+            grouped_library_users)
+        grouped_rooms_serializer = serializers.GroupedReadingRoomsUsersSerializer(
+            grouped_rooms_users)
 
         report_data = {
-            "NewUsersLibrary": grouped_library_data,
-            "NewUsersReadingRooms": grouped_rooms_data,
+            "NewUsersLibrary": grouped_library_serializer.data,
+            "NewUsersReadingRooms": grouped_rooms_serializer.data,
         }
         return Response({"MonthlyReport": report_data})
 

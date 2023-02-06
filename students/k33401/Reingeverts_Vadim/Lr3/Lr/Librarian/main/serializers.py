@@ -195,6 +195,67 @@ class UserSerializer(ModelSerializer):
         return data
 
 
+class GroupedModelsSerializer():
+    primarySerializer = None
+    secondarySerializer = None
+
+    def __init__(self, initial_grouped_data):
+        self.initial_grouped_data = initial_grouped_data
+
+    @property
+    def data(self):
+        pass
+
+
+class GroupedLibraryUsersSerializer(GroupedModelsSerializer):
+    primarySerializer = LibrarySerializer
+    secondarySerializer = UserSerializer
+
+    @property
+    def data(self):
+        grouped_library = self.initial_grouped_data
+
+        grouped_library_data = {
+            "library": {},
+            "dates": {}
+        }
+        for date, users in grouped_library['dates'].items():
+            serializer = self.secondarySerializer(users, many=True)
+            grouped_library_data['dates'][date] = serializer.data
+
+        serializer = self.primarySerializer(grouped_library['library'])
+        grouped_library_data['library'] = serializer.data
+
+        return grouped_library_data
+
+
+class GroupedReadingRoomsUsersSerializer(GroupedModelsSerializer):
+    primarySerializer = ReadingRoomSerializer
+    secondarySerializer = UserSerializer
+
+    @property
+    def data(self):
+        grouped_rooms = self.initial_grouped_data
+
+        grouped_rooms_data = []
+        for grouped_room in grouped_rooms:
+            grouped_room_data = {
+                "reading_room": {},
+                "dates": {}
+            }
+            for date, users in grouped_room['dates'].items():
+                serializer = self.secondarySerializer(users, many=True)
+                grouped_room_data['dates'][date] = serializer.data
+
+            grouped_rooms_data.append(grouped_room_data)
+
+            serializer = self.primarySerializer(
+                grouped_room['reading_room'])
+            grouped_room_data['reading_room'] = serializer.data
+
+        return grouped_rooms_data
+
+
 # class ProfessionSerializer(serializers.ModelSerializer):
 
 #     class Meta:
