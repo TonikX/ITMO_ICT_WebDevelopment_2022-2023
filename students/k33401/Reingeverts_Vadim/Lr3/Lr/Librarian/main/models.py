@@ -35,6 +35,8 @@ class User(AbstractUser):
     academic_degree = models.CharField(
         max_length=20, choices=ACADEMIC_DEGREES, default=None, blank=True, null=True)
 
+    REQUIRED_FIELDS = ["serial_number"]
+
     @classmethod
     def generate_random_serial(self):
         return User.objects.make_random_password(
