@@ -20,10 +20,10 @@ user_request_body = openapi.Schema(
         "phone_number": openapi.Schema(type=openapi.TYPE_STRING),
         "academic_degree": openapi.Schema(type=openapi.TYPE_STRING),
         "date_of_birth": openapi.Schema(type=openapi.TYPE_STRING, format=openapi.FORMAT_DATE),
-        "library": openapi.Schema(type=openapi.TYPE_NUMBER),
-        "reading_room": openapi.Schema(type=openapi.TYPE_NUMBER),
+        "library": openapi.Schema(type=openapi.TYPE_OBJECT),
+        "reading_room": openapi.Schema(type=openapi.TYPE_OBJECT),
 
-        "readingroombookuser_set": openapi.Schema(type=openapi.TYPE_STRING),
+        "readingroombookuser_set": openapi.Schema(type=openapi.TYPE_ARRAY, items=openapi.Items(type=openapi.TYPE_OBJECT)),
     }
 )
 

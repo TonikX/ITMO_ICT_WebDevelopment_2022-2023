@@ -5,9 +5,13 @@ cd "$parent_path"
 
 # If there are arguments provided, pass them to the `manage.py`
 if [ -z "$1" ] # https://stackoverflow.com/a/19486205
-  then
+then
     # Migrates and runs dev server
+    source ../../../.web-dev-env/Scripts/activate && mkdocs serve -a localhost:8811 &
     source ../../../.web-dev-env/Scripts/activate && python manage.py makemigrations && python manage.py migrate && python manage.py runserver
+elif [ $1 = "docs" ]
+then
+    source ../../../.web-dev-env/Scripts/activate && mkdocs serve -a localhost:8811
 else
     source ../../../.web-dev-env/Scripts/activate && python manage.py "$@"
 fi
