@@ -6,7 +6,6 @@ from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
 from . import models, serializers, utils_swagger
-from .utils_swagger import user_request_body, USERS_RESPONSES_GET
 
 
 class BaseModelAPIView(APIView):
@@ -70,7 +69,7 @@ class UsersAPIView(ModelsAPIView):
         operation_summary="returns users",
         operation_description="List of all user objects",
         tags=['User'],
-        responses=USERS_RESPONSES_GET
+        responses=utils_swagger.USERS_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -79,8 +78,8 @@ class UsersAPIView(ModelsAPIView):
         operation_summary="adds user",
         operation_description="User to be added to the library",
 
-        request_body=user_request_body,
-        tags=['User']
+        request_body=utils_swagger.user_request_body,
+        tags=['User'],
     )
     def post(self, *args, **kwargs):
         return super().post(*args, **kwargs)
@@ -93,7 +92,8 @@ class UserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns user",
         operation_description="Single user specifed by pk",
-        tags=['User']
+        tags=['User'],
+        responses=utils_swagger.USER_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -101,7 +101,8 @@ class UserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes user",
         operation_description="Deletes user specifed by pk",
-        tags=['User']
+        tags=['User'],
+        responses=utils_swagger.USER_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -109,8 +110,9 @@ class UserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="updates user",
         operation_description="Updates user specifed by pk",
-        request_body=user_request_body,
-        tags=['User']
+        request_body=utils_swagger.user_request_body,
+        tags=['User'],
+        responses=utils_swagger.USER_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -123,7 +125,8 @@ class LibrariesAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns libraries",
         operation_description="List of all library objects",
-        tags=['Library']
+        tags=['Library'],
+        responses=utils_swagger.LIBRARIES_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -146,7 +149,8 @@ class LibraryDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns library",
         operation_description="Single library specifed by pk",
-        tags=['Library']
+        tags=['Library'],
+        responses=utils_swagger.LIBRARY_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -154,7 +158,8 @@ class LibraryDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes library",
         operation_description="Deletes library specifed by pk",
-        tags=['Library']
+        tags=['Library'],
+        responses=utils_swagger.LIBRARY_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -163,7 +168,8 @@ class LibraryDetailsAPIView(ModelDetailsAPIView):
         operation_summary="updates library",
         operation_description="Updates library specifed by pk",
         request_body=serializers.LibrarySerializer,
-        tags=['Library']
+        tags=['Library'],
+        responses=utils_swagger.LIBRARY_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -176,7 +182,8 @@ class ReadingRoomsAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading rooms",
         operation_description="List of all reading room objects",
-        tags=['Reading Room']
+        tags=['Reading Room'],
+        responses=utils_swagger.READING_ROOMS_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -199,7 +206,8 @@ class ReadingRoomDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading room",
         operation_description="Single reading room specifed by pk",
-        tags=['Reading Room']
+        tags=['Reading Room'],
+        responses=utils_swagger.READING_ROOM_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -207,7 +215,8 @@ class ReadingRoomDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes reading room",
         operation_description="Deletes reading room specifed by pk",
-        tags=['Reading Room']
+        tags=['Reading Room'],
+        responses=utils_swagger.READING_ROOM_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -216,7 +225,8 @@ class ReadingRoomDetailsAPIView(ModelDetailsAPIView):
         operation_summary="updates reading room",
         operation_description="Updates reading room specifed by pk",
         request_body=serializers.ReadingRoomSerializer,
-        tags=['Reading Room']
+        tags=['Reading Room'],
+        responses=utils_swagger.READING_ROOM_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -229,7 +239,9 @@ class BooksAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns books",
         operation_description="List of all book objects",
-        tags=['Book']
+        tags=['Book'],
+        responses=utils_swagger.BOOKS_RESPONSES_GET
+
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -252,7 +264,8 @@ class BookDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns book",
         operation_description="Single book specifed by pk",
-        tags=['Book']
+        tags=['Book'],
+        responses=utils_swagger.BOOK_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -260,7 +273,8 @@ class BookDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes book",
         operation_description="Deletes book specifed by pk",
-        tags=['Book']
+        tags=['Book'],
+        responses=utils_swagger.BOOK_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -269,7 +283,8 @@ class BookDetailsAPIView(ModelDetailsAPIView):
         operation_summary="updates book",
         operation_description="Updates book specifed by pk",
         request_body=serializers.BookSerializer,
-        tags=['Book']
+        tags=['Book'],
+        responses=utils_swagger.BOOK_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -282,7 +297,8 @@ class ReadingRoomBooksAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading room books",
         operation_description="List of all reading room book objects",
-        tags=['Reading Room Book']
+        tags=['Reading Room Book'],
+        responses=utils_swagger.READING_ROOM_BOOKS_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -305,7 +321,8 @@ class ReadingRoomBookDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading room book",
         operation_description="Single reading room book specifed by pk",
-        tags=['Reading Room Book']
+        tags=['Reading Room Book'],
+        responses=utils_swagger.READING_ROOM_BOOK_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -313,7 +330,8 @@ class ReadingRoomBookDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes reading room book",
         operation_description="Deletes reading room book specifed by pk",
-        tags=['Reading Room Book']
+        tags=['Reading Room Book'],
+        responses=utils_swagger.READING_ROOM_BOOK_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -322,7 +340,8 @@ class ReadingRoomBookDetailsAPIView(ModelDetailsAPIView):
         operation_summary="updates reading room book",
         operation_description="Updates reading room book specifed by pk",
         request_body=serializers.ReadingRoomBookSerializer,
-        tags=['Reading Room Book']
+        tags=['Reading Room Book'],
+        responses=utils_swagger.READING_ROOM_BOOK_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -335,7 +354,9 @@ class ReadingRoomBookUsersAPIView(ModelsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading room book users",
         operation_description="List of all reading room book user objects",
-        tags=['Reading Room Book User']
+        tags=['Reading Room Book User'],
+        responses=utils_swagger.READING_ROOM_BOOK_USERS_RESPONSES_GET
+
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)

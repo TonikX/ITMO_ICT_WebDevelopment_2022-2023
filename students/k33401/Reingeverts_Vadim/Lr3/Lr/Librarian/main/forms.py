@@ -1,39 +1,16 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 
-from . import models
 
-
-class UserSignUpForm(UserCreationForm):
-
-    class Meta:
-        model = models.User
-
-        fields = [
-            "username",
-            "passport",
-
-            "last_name",
-            "first_name",
-            "middle_name",
-
-            "address",
-            "education_level",
-            "phone_number",
-            "date_of_birth",
-        ]
-
+class UserValidationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
+        user.set_password(self.cleaned_data["password"])
         if commit:
             user.serial_number = user.generate_random_serial()
             user.save()
         return user
 
-
-class UserValidationForm(forms.ModelForm):
     def clean(self):
         super(UserValidationForm, self).clean()
         reading_room = self.cleaned_data.get("reading_room")
