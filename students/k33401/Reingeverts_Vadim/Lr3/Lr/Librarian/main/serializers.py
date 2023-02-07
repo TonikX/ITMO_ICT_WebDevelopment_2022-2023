@@ -142,7 +142,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = models.User
-        depth = 3
+        depth = 2
 
         fields = [
             "id",

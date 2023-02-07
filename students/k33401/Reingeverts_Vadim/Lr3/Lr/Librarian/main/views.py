@@ -379,7 +379,8 @@ class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="returns reading room book user",
         operation_description="Single reading room book user specifed by pk",
-        tags=['Reading Room Book User']
+        tags=['Reading Room Book User'],
+        responses=utils_swagger.READING_ROOM_BOOK_USER_RESPONSES_GET
     )
     def get(self, *args, **kwargs):
         return super().get(*args, **kwargs)
@@ -387,7 +388,8 @@ class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="deletes reading room book user",
         operation_description="Deletes reading room book user specifed by pk",
-        tags=['Reading Room Book User']
+        tags=['Reading Room Book User'],
+        responses=utils_swagger.READING_ROOM_BOOK_USER_RESPONSES_DELETE
     )
     def delete(self, *args, **kwargs):
         return super().delete(*args, **kwargs)
@@ -396,7 +398,8 @@ class ReadingRoomBookUserDetailsAPIView(ModelDetailsAPIView):
         operation_summary="updates reading room book user",
         operation_description="Updates reading room book user specifed by pk",
         request_body=serializers.ReadingRoomBookUserSerializer,
-        tags=['Reading Room Book User']
+        tags=['Reading Room Book User'],
+        responses=utils_swagger.READING_ROOM_BOOK_USER_RESPONSES_PATCH
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
@@ -410,7 +413,8 @@ class UserBooksAPIView(BaseModelAPIView):
     @swagger_auto_schema(
         operation_summary="returns books related to the user specifed by pk",
         operation_description="\"Какие книги закреплены за заданным читателем?\"",
-        tags=['Custom']
+        tags=['Custom'],
+        responses=utils_swagger.USER_BOOKS_RESPONSES_GET
     )
     def get(self, request, pk, *args, **kwargs):
         object = self.model.objects.get(pk=pk)
@@ -434,14 +438,16 @@ class UsersBooksOverdueAPIView(BaseModelAPIView):
     @swagger_auto_schema(
         operation_summary="returns users who have not returened the book for a month",
         operation_description="\"Кто из читателей взял книгу более месяца тому назад?\"",
-        tags=['Custom']
+        tags=['Custom'],
+        responses=utils_swagger.USERS_BOOKS_OVERDUE_RESPONSES_GET
     )
     def get(self, request, *args, **kwargs):
         now = datetime.datetime.now()
         month_ago = now - datetime.timedelta(days=30)
 
         objects = self.model.objects.filter(
-            readingroombookuser__borrow_date__lte=month_ago, readingroombookuser__returned_date__isnull=True)
+            readingroombookuser__borrow_date__lte=month_ago,
+            readingroombookuser__returned_date__isnull=True)
         serializer = self.modelSerializer(objects, many=True)
 
         return Response({self.model.__name__: serializer.data})
@@ -454,7 +460,8 @@ class UsersBooksRareAPIView(BaseModelAPIView):
     @swagger_auto_schema(
         operation_summary="returns users who have books which are low in stock (2 or less)",
         operation_description="\"За кем из читателей закреплены книги, количество экземпляров которых в библиотеке не превышает 2?\"",
-        tags=['Custom']
+        tags=['Custom'],
+        responses=utils_swagger.USERS_BOOKS_RARE_RESPONSES_GET
     )
     def get(self, request, *args, **kwargs):
         objects = self.model.objects.filter(
@@ -471,14 +478,15 @@ class UsersYoungAPIView(BaseModelAPIView):
     @swagger_auto_schema(
         operation_summary="returns users who are young (20 y.o. or younger)",
         operation_description="\"Сколько в библиотеке читателей младше 20 лет?\"",
-        tags=['Custom']
+        tags=['Custom'],
+        responses=utils_swagger.USERS_YOUNG_RESPONSES_GET
     )
     def get(self, request, *args, **kwargs):
         now = datetime.datetime.now()
         twenty_years_ago = now - datetime.timedelta(days=20 * 365)
 
         objects = self.model.objects.filter(
-            date_of_birth__lte=twenty_years_ago)
+            date_of_birth__gte=twenty_years_ago)
         serializer = self.modelSerializer(objects, many=True)
 
         return Response({self.model.__name__: serializer.data})
@@ -491,7 +499,8 @@ class UsersGroupedByDegreeAPIView(BaseModelAPIView):
     @swagger_auto_schema(
         operation_summary="returns users grouped by degree",
         operation_description="\"Сколько читателей в процентном отношении имеют начальное образование, среднее, высшее, ученую степень?\"",
-        tags=['Custom']
+        tags=['Custom'],
+        responses=utils_swagger.USERS_GROUPED_BY_DEGREE_RESPONSES_GET
     )
     def get(self, request, *args, **kwargs):
         degrees_dict = self.model.group_by_degree()
@@ -506,8 +515,6 @@ class UsersGroupedByDegreeAPIView(BaseModelAPIView):
 
 class LibraryMonthlyReportAPIView(BaseModelAPIView):
     model = models.Library
-    modelSerializer = serializers.LibrarySerializer
-    userSerializer = serializers.UserSerializer
     readingRoomSerializer = serializers.ReadingRoomSerializer
 
     @swagger_auto_schema(
@@ -518,7 +525,8 @@ class LibraryMonthlyReportAPIView(BaseModelAPIView):
             - количество книг читателей на каждый день в каждом из залов и в библиотеке в целом
             - количество читателей, записавшихся в библиотеку в каждый зал и в библиотеку за отчетный месяц.\"
         """,
-        tags=['Report']
+        tags=['Report'],
+        responses=utils_swagger.REPORT_RESPONSES_GET
     )
     def get(self, request, pk, year=None, month=None, *args, **kwargs):
         library = self.model.objects.get(pk=pk)
