@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "persist": "^0.2.7",
+    "pinia": "^2.0.30"
+  }
+}

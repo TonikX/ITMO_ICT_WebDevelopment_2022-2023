@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bfceae2a-04a0-4a8e-a7ae-d371b2221717" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Lr3/hotel_project/hotel_app/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Lr3/hotel_project/hotel_app/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Lr3/hotel_project/templates/report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,21 +35,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Study/Study_3_year/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/Kostennikov_Danil/djangoProject/Conferences/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Study/Study_3_year/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/Kostennikov_Danil/Lr3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Study\Study_3_year\ITMO_ICT_WebDevelopment_2022-2023\students\k33401\Kostennikov_Danil\djangoProject\Conferences\templates" />
@@ -165,6 +163,9 @@
       <workItem from="1671956584520" duration="2165000" />
       <workItem from="1673180671394" duration="17750000" />
       <workItem from="1673966341329" duration="6000" />
+      <workItem from="1674553856390" duration="5494000" />
+      <workItem from="1675091283591" duration="594000" />
+      <workItem from="1675096209857" duration="28000" />
     </task>
     <servers />
   </component>
@@ -187,22 +188,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Conferences/views.py</url>
-          <line>98</line>
+          <line>109</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Conferences/views.py</url>
-          <line>56</line>
+          <line>51</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Conferences/views.py</url>
-          <line>79</line>
+          <line>89</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Conferences/views.py</url>
-          <line>92</line>
+          <line>102</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
