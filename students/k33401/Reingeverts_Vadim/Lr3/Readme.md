@@ -238,7 +238,7 @@ CarOwner.objects.all().order_by('driverlicense__issue_date')
 # <QuerySet [<CarOwner: 2 - admin ( )>, <CarOwner: 10 - erin1 (Erin Solstice)>, <CarOwner: 11 - zorian1 (Zorian Kazinski)>, <CarOwner: 12 - garen1 (Garen Redfang)>, <CarOwner: 14 - ivan1 (Ivan Petrov)>, <CarOwner: 15 - garfield1 (James Garfield)>, <CarOwner: 13 - juniper1 (Juniper Smith)>]>
 ```
 
-(Примечание: чтобы не выводить несколько раз одни и те же таблицы воспользуйтесь методом [.distinct()](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.distinct)
+(Примечание: чтобы не выводить несколько раз одни и те же таблицы воспользуйтесь методом [.distinct()](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.distinct))
 
 ### 3.2.1
 > [views.py](Pr/warriors_project/warriors_app/views.py), [serializers.py](Pr/warriors_project/warriors_app/serializers.py), [urls.py](Pr/warriors_project/warriors_app/urls.py)
@@ -321,5 +321,8 @@ Swagger API Docs
 - djoser
 - djangorestframework_simplejwt
 - drf_yasg
+
+docs
 - mkdocs
 - mkdocs-material
+- mkdocs-jupyter
