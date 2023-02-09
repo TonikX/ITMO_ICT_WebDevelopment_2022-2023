@@ -122,24 +122,71 @@ const isSubsequence = (s, t) => {
 
 ### 6.
 
-![]()
+![](https://i.imgur.com/mpYqGQg.png)
 
 
 ```js
+/**
+ * @param {string} address
+ * @return {string}
+ */
+const defangIPaddr = (address) => {
+    return address.replaceAll('.', '[.]')
+};
 ```
 
 ### 7.
 
-![]()
+![](https://i.imgur.com/cEmuLEE.png)
 
 
 ```js
+/**
+ * @param {string} s
+ * @param {number[]} indices
+ * @return {string}
+ */
+const restoreString = (s, indices) => {
+    let result = Array(s.length).fill("")
+
+    indices.forEach((new_index, index) => result[new_index] = s[index])
+
+    return result.join('')
+};
 ```
 
 ### 8.
 
-![]()
+![](https://i.imgur.com/RFWwexf.png)
 
 
 ```js
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+const cellsInRange = (s) => {
+    const [cellOne, cellTwo] = s.split(":")
+
+    const cellOneCol = colLetterToNumber(cellOne[0]) // K
+    const cellOneRow = parseInt(cellOne[1])   // 1
+    const cellTwoCol = colLetterToNumber(cellTwo[0]) // L
+    const cellTwoRow = parseInt(cellTwo[1])   // 2
+    
+    const cells = []
+    for (let i = cellOneCol; i <= cellTwoCol; i++) {
+        for (let j = cellOneRow; j <= cellTwoRow; j++) {
+            cells.push(colNumberToLetter(i) + j.toString())
+        }
+    }
+
+    return cells
+};
+
+const colLetterToNumber = (letter) => {
+    return letter.toLowerCase().charCodeAt(0) - 97
+}
+const colNumberToLetter = (number) => {
+    return String.fromCharCode(97 + number).toUpperCase()
+}
 ```
