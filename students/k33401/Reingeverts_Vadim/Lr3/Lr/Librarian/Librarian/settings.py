@@ -152,3 +152,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAdminUser'
     ),
 }
+
+
+# Djoser related
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'main.serializers.UserSerializer',
+    },
+}
