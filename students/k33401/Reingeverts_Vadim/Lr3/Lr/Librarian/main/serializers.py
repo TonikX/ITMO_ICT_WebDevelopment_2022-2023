@@ -147,7 +147,7 @@ class UserSerializer(ModelSerializer):
         fields = [
             "id",
             "username",
-            # "password",
+            "password",
             "email",
 
             "last_name",
@@ -166,14 +166,19 @@ class UserSerializer(ModelSerializer):
 
             "readingroombookuser_set",
         ]
+        read_only_fields = ['serial_number']
+
+        extra_kwargs = {'password': {'write_only': True}}
 
     # Overriden for handling hashing of the password and generating serial number
     def create(self, validated_data):
+
         # Put list of keys to separate variables, aka destructuring assignment
-        password = itemgetter(*['password'])(validated_data)
+        password = itemgetter(
+            *['password'])(validated_data)
         # Get dict, excluding the keys that were 'taken out'
         rest = {key: validated_data[key]
-                for key in validated_data if key not in ['password']}
+                for key in validated_data if key not in ['password', 'serial_number']}
 
         object = self.model.objects.create(
             password=make_password(password),
