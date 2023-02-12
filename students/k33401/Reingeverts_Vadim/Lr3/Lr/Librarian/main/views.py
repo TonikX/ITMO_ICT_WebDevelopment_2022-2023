@@ -110,7 +110,7 @@ class UserDetailsAPIView(ModelDetailsAPIView):
     @swagger_auto_schema(
         operation_summary="updates user",
         operation_description="Updates user specifed by pk",
-        request_body=utils_swagger.user_request_body,
+        request_body=serializers.UserSerializer,
         tags=['User'],
         responses=utils_swagger.USER_RESPONSES_PATCH
     )
