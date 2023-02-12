@@ -141,6 +141,7 @@ class UserSerializer(ModelSerializer):
     model = models.User
 
     class Meta:
+        ref_name = "CustomUser"
         model = models.User
         depth = 2
 

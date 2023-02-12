@@ -78,7 +78,7 @@ class UsersAPIView(ModelsAPIView):
         operation_summary="adds user",
         operation_description="User to be added to the library",
 
-        request_body=utils_swagger.user_request_body,
+        request_body=serializers.UserSerializer,
         tags=['User'],
     )
     def post(self, *args, **kwargs):
