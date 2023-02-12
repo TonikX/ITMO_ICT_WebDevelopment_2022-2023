@@ -1,0 +1,23 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flight Passengers
+{% endblock tab_title %}
+{% block title %}
+    Flight Passengers
+{% endblock title %}
+{% block subtitle %}
+    Passengers of the <span class="font-bold"></span> flight:
+{% endblock subtitle %}
+{% block content %}
+    <ul class="!m-0 !mt-4 flex flex-col gap-2">
+        {% for flight_ticket in flight_tickets %}
+            <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+                <div class="flex justify-between">
+                    <span><span class="text-[var(--muted-color)]">Passenger #{{ forloop.counter }}:</span> {{ flight_ticket.user.first_name }} {{ flight_ticket.user.last_name }}</span>
+                    <span><span class="text-[var(--muted-color)]">Ticket Number:</span> {{ flight_ticket.ticket_number }}</span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

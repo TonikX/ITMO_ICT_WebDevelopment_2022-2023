@@ -1,0 +1,35 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flight Reviews – {{ object }}
+{% endblock tab_title %}
+{% block title %}
+    Flight Reviews
+{% endblock title %}
+{% block subtitle %}
+    Reviews of the <span class="font-bold">{{ flight }}</span> flight (<span class="font-bold">{{ flight.avg_rating }} stars</span>)
+{% endblock subtitle %}
+{% block content %}
+    <ul class="!m-0 !mt-4 flex flex-col gap-2">
+        {% for review in reviews %}
+            <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+                <div class="flex flex-col gap-y-4">
+                    <div class="flex justify-between">
+                        <h5 class="mb-0">{{ review.title }}</h5>
+                        <span><span class="text-[var(--muted-color)]">Rating:</span> {{ review.rating }}</span>
+                    </div>
+                    <div >{{ review.text }}</div>
+                    <div class="flex justify-between">
+                        <span><span class="text-[var(--muted-color)]">By:</span> {{ review.user.username }} ({{ review.user.first_name }} {{ review.user.last_name }})</span>
+                        <span class="text-[var(--muted-color)] italic">{{ flight.arrival|date:"Y.m.d" }}</span>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        <li class="flex w-full items-stretch gap-4">
+            <a class="flex-1"
+               href="{% url 'flight_review_create' flight.pk %}"
+               role="button">Write a review</a>
+        </li>
+    </ul>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <p>License Plate: {{ car.license_plate }}</p>
+    <p>Brand: {{ car.brand }}</p>
+    <p>Model: {{ car.model }}</p>
+    <p>
+        <label>Color:</label>
+        <input type="color" value="{{ car.color }}" disabled/>
+    </p>
+    <p>
+        <a href={% url 'car-update' car.id %}>Update</a>
+    </p>
+    <a href={% url 'car-list' %}>Back</a>
+{% endblock main %}

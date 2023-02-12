@@ -1,0 +1,46 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flight Details – {{ object }}
+{% endblock tab_title %}
+{% block title %}
+    Flight Details
+{% endblock title %}
+{% block subtitle %}
+    More info about <span class="font-bold">{{ flight }}</span> flight
+{% endblock subtitle %}
+{% block content %}
+    {% include "./sub_error.html" %}
+    <ul class="!m-0 !mt-4 flex flex-col gap-4">
+        {% include "./sub_flight.html" with expanded=True %}
+        <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+            <h5 class="m-0">Origin</h5>
+            <div>
+                <span class="text-[var(--muted-color)]">Departure date:</span> {{ flight.departure|date:"Y.m.d H:m" }}
+            </div>
+            <div>
+                <span class="text-[var(--muted-color)]">From:</span> {{ flight.source.country }}, {{ flight.source.city }} ({{ flight.source_airport_code }})
+            </div>
+            <div>
+                <span class="text-[var(--muted-color)]">Type:</span> {{ flight.flight_type }}
+            </div>
+        </li>
+        <li class="flex flex-col gap-y-4 p-4 rounded-lg backdrop-blur-lg m-w-[90%] backdrop-saturate-200 shadow-[0_0.5px_0_var(--muted-border-color)">
+            <h5 class="m-0">Destination</h5>
+            <div>
+                <span class="text-[var(--muted-color)]">Arrival date:</span> {{ flight.arrival|date:"Y.m.d H:m" }}
+            </div>
+            <div>
+                <span class="text-[var(--muted-color)]">To:</span> {{ flight.destination.country }}, {{ flight.destination.city }} ({{ flight.destination_airport_code }})
+            </div>
+        </li>
+        <li class="flex w-full items-stretch gap-4">
+            <a class="flex-1"
+               href="{% url 'flight_reviews' flight.pk %}"
+               role="button">Reviews</a>
+            <a class="flex-1"
+               href="{% url 'flight_passengers' flight.pk %}"
+               role="button">Passengers</a>
+        </li>
+    </ul>
+{% endblock content %}

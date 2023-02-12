@@ -1,0 +1,40 @@
+{% load static %}
+{% block nav %}
+    <nav class="z-10 backdrop-blur-lg m-w-[90%] backdrop-saturate-150 sticky inset-x-0 top-0 shadow-[0_0.5px_0_var(--muted-border-color)]">
+        <ul class="!ml-0">
+            <li class="py-0">
+                <a class="block p-0" href="{% url 'home' %}" aria-label="Back home">
+                    <img alt="" class="h-16" src="{% static 'logo-256.webp' %}"/>
+                </a>
+            </li>
+            <li class="text-2xl text-[var(--h1-color)]">Tracker Fly</li>
+        </ul>
+        {% if user.is_authenticated %}
+            <ul class="px-4">
+                <li>
+                    <a href="{% url 'flights' %}"
+                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]"
+                       href="#">Flights</a>
+                </li>
+            </ul>
+        {% endif %}
+        <ul class="px-4">
+            {% if user.is_authenticated %}
+                <li>
+                    <span>Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>!</span>
+                </li>
+                <li>
+                    <a href="{% url 'log_out' %}" role="button">Log Out</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'sign_up' %}"
+                       class="text-[var(--h6-color)] hover:text-[var(--h2-color)]">Sign Up</a>
+                </li>
+                <li>
+                    <a href="{% url 'log_in' %}" role="button">Log In</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock nav %}

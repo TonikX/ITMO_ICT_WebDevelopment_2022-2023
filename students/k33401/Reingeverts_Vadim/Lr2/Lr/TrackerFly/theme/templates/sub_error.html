@@ -1,0 +1,6 @@
+{% if messages or error %}
+    <ul class="text-pink-500">
+        {% for message in messages %}<li class="text-pink-500">{{ message }}</li>{% endfor %}
+        {% if error %}<li class="text-pink-500">{{ error }}</li>{% endif %}
+    </ul>
+{% endif %}

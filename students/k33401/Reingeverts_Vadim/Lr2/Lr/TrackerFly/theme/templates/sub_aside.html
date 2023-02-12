@@ -1,0 +1,6 @@
+{% load static %}
+{% if aside_image %}
+    <aside class="h-full bg-center bg-cover col-span-{{ aside_col_span }}"
+           style="background-image: url('{% static aside_image %}')">
+    </aside>
+{% endif %}

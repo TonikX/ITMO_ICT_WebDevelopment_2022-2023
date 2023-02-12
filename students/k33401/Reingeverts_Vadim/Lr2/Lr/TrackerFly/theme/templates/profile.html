@@ -1,0 +1,34 @@
+{% extends "./base_body.html" %}
+{% load static %}
+{% block tab_title %}
+    Profile
+{% endblock tab_title %}
+{% block title %}
+    Profile
+{% endblock title %}
+{% block subtitle %}
+    <p>Your account data.</p>
+{% endblock subtitle %}
+{% block aside_container %}
+    {% with aside_image="plane3.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
+{% endblock aside_container %}
+{% block content %}
+    <p>
+        <div>
+            <span class="text-[var(--muted-color)]">Username:</span> {{ user.username }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">First name:</span> {{ user.first_name }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">Last name:</span> {{ user.last_name }}
+        </div>
+        <div>
+            <span class="text-[var(--muted-color)]">Email:</span> {{ user.email }}
+        </div>
+    </p>
+    {% if dates %}
+        <h2>Your flights</h2>
+        {% include "./sub_flights.html" %}
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,13 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <p>Username: {{ car_owner.username }}</p>
+    <p>Name: {{ car_owner.first_name }} {{ car_owner.last_name }}</p>
+    <p>Date of birth: {{ car_owner.date_of_birth|date:"Y.m.d" }}</p>
+    <p>Passport: {{ car_owner.passport }}</p>
+    <p>Nationality: {{ car_owner.nationality }}</p>
+    <p>Address: {{ car_owner.address }}</p>
+    <a href={% url 'car-owner-list' %}>Back</a>
+{% endblock main %}

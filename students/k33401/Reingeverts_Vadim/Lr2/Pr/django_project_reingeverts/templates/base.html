@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link type="image/png"
+              sizes="32x32"
+              rel="icon"
+              href="https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/66/737373/external-magnifying-glass-digital-marketing-smashingstocks-glyph-smashing-stocks.png"/>
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+        <style>
+            html,
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 1.125rem;
+
+                background-color: #181e24;
+                color: #b7c5d3;
+            }
+            body > * {
+                max-width: 40rem;
+                margin: 2rem auto;
+            }
+            main {
+                min-height: 15rem;
+                padding: 1rem 2rem;
+                
+                background-color: #1d252c;
+                border-radius: 10px;
+            }
+            :any-link {
+                color: #008b94;
+                text-decoration-color: hsla(209, 13%, 50%, 0.5);
+                text-decoration-thickness: from-font;
+                text-underline-offset: 0.15em;
+            }
+            :any-link:hover {
+                filter: brightness(75%);
+            }
+            h1, h2, h3, h4, h5, h6 {
+                margin-top: 0;
+            }
+
+            nav {
+                display: flex;
+                gap: 2rem;
+                font-size: 1.5rem;
+            }
+            nav :any-link {
+                text-decoration-color: hsla(209, 13%, 50%, 1);
+            }
+
+            li{
+                margin: 1em 0;
+                display: flex;
+                justify-content: space-between;
+            }
+            button, input, select, label {
+                font-size: 1.5rem;
+
+            }
+            button, input, select {
+                color: #b7c5d3;
+                background-color: #333f4a;
+                border-radius: 4px;
+                border: 2px solid #171d23;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href={% url 'car-owner-list' %}>Car owners</a>
+            <a href={% url 'ownership-list' %}>Ownerships</a>
+            <a href={% url 'driver-license-list' %}>Driver licenses</a>
+            <a href={% url 'car-list' %}>Cars</a>
+        </nav>
+        <main>
+            <h1>{{ title }}</h1>
+            {% block main %}
+            {% endblock main %}
+        </main>
+    </body>
+</html>
