@@ -71,12 +71,15 @@ class Library(models.Model):
 
     def group_new_users_by_day(self, year=None, month=None):
         if (not year or not month):
-            users = self.user_set.all()
+            end_date = datetime.datetime.now().date()
+            start_date = end_date - relativedelta.relativedelta(months=1)
         else:
             start_date = datetime.date(year, month, 1)
             end_date = start_date + relativedelta.relativedelta(months=1)
-            users = self.user_set.filter(
-                date_joined__range=[start_date, end_date])
+        print(start_date, end_date)
+
+        users = self.user_set.filter(
+            date_joined__range=[start_date, end_date])
 
         dates = users.extra(
             select={'day': 'date( date_joined )'}
@@ -138,12 +141,14 @@ class ReadingRoom(models.Model):
 
     def group_new_users_by_day(self, year=None, month=None):
         if (not year or not month):
-            users = self.user_set.all()
+            end_date = datetime.datetime.now().date()
+            start_date = end_date - relativedelta.relativedelta(months=1)
         else:
             start_date = datetime.date(year, month, 1)
             end_date = start_date + relativedelta.relativedelta(months=1)
-            users = self.user_set.filter(
-                date_joined__range=[start_date, end_date])
+
+        users = self.user_set.filter(
+            date_joined__range=[start_date, end_date])
 
         dates = users.extra(
             select={'day': 'date( date_joined )'}

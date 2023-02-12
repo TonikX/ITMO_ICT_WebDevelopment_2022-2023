@@ -64,18 +64,19 @@ class BookSerializer(ModelSerializer):
     def validate(self, data):
         book = self.instance
 
-        prev_total_stock = book.total_stock
-        new_total_stock = data.get("total_stock")
-        if new_total_stock is not None:
+        if book:
+            prev_total_stock = book.total_stock
+            new_total_stock = data.get("total_stock")
+            if new_total_stock is not None:
 
-            stock_diff = new_total_stock - prev_total_stock
+                stock_diff = new_total_stock - prev_total_stock
 
-            prev_undesignated_stock = book.get_undesignated_stock()
-            new_undesignated_stock = prev_undesignated_stock + stock_diff
+                prev_undesignated_stock = book.get_undesignated_stock()
+                new_undesignated_stock = prev_undesignated_stock + stock_diff
 
-            if new_undesignated_stock < 0:
-                raise serializers.ValidationError({"error":
-                                                   "The amount of books designated to reading rooms cannot exceed the total stock"})
+                if new_undesignated_stock < 0:
+                    raise serializers.ValidationError({"error":
+                                                       "The amount of books designated to reading rooms cannot exceed the total stock"})
 
         return data
 

@@ -37,18 +37,18 @@ class BookValidationForm(forms.ModelForm):
     def clean(self):
         super(BookValidationForm, self).clean()
         book = self.instance
+        if book:
+            prev_total_stock = book.total_stock
+            new_total_stock = self.cleaned_data.get("total_stock")
+            if new_total_stock is not None:
+                stock_diff = new_total_stock - prev_total_stock
 
-        prev_total_stock = book.total_stock
-        new_total_stock = self.cleaned_data.get("total_stock")
-        if new_total_stock is not None:
-            stock_diff = new_total_stock - prev_total_stock
+                prev_undesignated_stock = book.get_undesignated_stock()
+                new_undesignated_stock = prev_undesignated_stock + stock_diff
 
-            prev_undesignated_stock = book.get_undesignated_stock()
-            new_undesignated_stock = prev_undesignated_stock + stock_diff
-
-            if new_undesignated_stock < 0:
-                raise ValidationError(
-                    "The amount of books designated to reading rooms cannot exceed the total stock")
+                if new_undesignated_stock < 0:
+                    raise ValidationError(
+                        "The amount of books designated to reading rooms cannot exceed the total stock")
 
 
 class ReadingRoomBookValidationForm(forms.ModelForm):
