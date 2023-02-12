@@ -322,7 +322,7 @@ Swagger API Docs
 - djangorestframework_simplejwt
 - drf_yasg
 
-docs
+##### docs
 - mkdocs
 - mkdocs-material
 - mkdocs-jupyter
