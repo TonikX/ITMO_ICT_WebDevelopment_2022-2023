@@ -2,12 +2,15 @@ import Configs
 import sys
 
 sys.path.append('..')
-from Base.BaseServer import *
+from Base.UDPServer import UDPServer
 
 
-class Server(BaseServer):
+class Server(UDPServer):
     def handle_message(self, message: str):
-        self.send_message(message=Configs.server_message, client_socket_address=self.last_client_socket_address)
+        self.send_message_by_client_socket_address(
+            message=Configs.server_message,
+            client_socket_address=self.last_client_socket_address
+        )
 
 
 if __name__ == "__main__":

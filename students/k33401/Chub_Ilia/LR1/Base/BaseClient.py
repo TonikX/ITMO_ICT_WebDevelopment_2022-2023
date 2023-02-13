@@ -41,4 +41,4 @@ class BaseClient:
 
     def close_connection(self):
         self.socket.close()
-        print("CONNECTION CLOSED")
+        print("SOCKET IS CLOSED")
