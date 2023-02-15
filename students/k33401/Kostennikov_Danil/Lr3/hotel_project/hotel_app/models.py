@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 
 class RoomType(models.Model):
     id = models.AutoField("id", primary_key=True)

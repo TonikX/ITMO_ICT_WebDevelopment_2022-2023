@@ -16,4 +16,6 @@ urlpatterns = [
     path("admin_/cr eate_employee", CreateEmployee.as_view()),
     path("admin_/delete_employee", DeleteEmployee.as_view()),
     path("admin_/update_employee", UpdateEmployee.as_view()),
+    path('register/', RegisterUserView.as_view()),
+    path('login/', LoginView.as_view()),
 ]
