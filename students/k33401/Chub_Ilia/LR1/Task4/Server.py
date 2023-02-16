@@ -9,16 +9,17 @@ from typing import Dict
 import sys
 
 sys.path.append('..')
-from Base.TCPServer import *
+from Base.AsyncTCPServer import *
 
 
-class Server(TCPServer):
+class Server(AsyncTCPServer):
     clients: Dict[socket_module.socket, Client] = {}
 
-    def handle_accept(self, client_socket: socket_module.socket):
+    def save_client(self, client_socket: socket_module.socket):
         self.clients[client_socket] = Client()
 
-        self.start_listen_client_thread(client_socket=client_socket)
+    def get_client_sockets(self) -> [socket_module.socket]:
+        return self.clients.keys()
 
     def handle_message(self, message: str, client_socket_address: SocketAddress):
         if len(message) == 0:
@@ -52,15 +53,6 @@ class Server(TCPServer):
         self.clients = {key: value for key, value in self.clients.items() if key.getpeername() != client_socket_address}
 
         client_socket.close()
-
-    def start_listen_client_thread(self, client_socket: socket_module.socket):
-        listen_client_thread = threading.Thread(target=self.listen_client, kwargs={"client_socket": client_socket})
-
-        listen_client_thread.start()
-
-    def listen_client(self, client_socket: socket_module.socket):
-        while client_socket in self.clients.keys():
-            self.get_message(client_socket=client_socket)
 
     def handle_login_request(self, id: int, username: str, client_socket_address: SocketAddress):
         status: Status

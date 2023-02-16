@@ -27,9 +27,12 @@ class TCPServer(BaseServer):
         self.handle_accept(client_socket=client_socket)
 
     def get_message(self, client_socket: socket_module.socket):
-        encoded_message = client_socket.recv(self.buffer_size)
+        try:
+            encoded_message = client_socket.recv(self.buffer_size)
 
-        self.handle_receive_message_success(data=encoded_message, client_socket_address=client_socket.getpeername())
+            self.handle_receive_message_success(data=encoded_message, client_socket_address=client_socket.getpeername())
+        except BaseException as error:
+            self.handle_client_error(error=error)
 
     def send_message(self, message: str, client_socket: socket_module.socket):
         try:
@@ -39,7 +42,14 @@ class TCPServer(BaseServer):
 
             print(f"\n---\nTHE MESSAGE ({message}) HAS BEEN SENT TO {client_socket.getpeername()}")
         except BaseException as error:
-            self.handle_error(error=error)
+            self.handle_client_error(error=error)
+
+    def handle_client_error(self, error: BaseException):
+        print(f"ERROR: {error}")
+        self.remove_client()
+
+    def remove_client(self):
+        raise Exception("Method must be override in a child class")
 
     def handle_accept(self, client_socket: socket_module.socket):
         raise Exception("Method must be override in a child class")

@@ -16,5 +16,8 @@ if __name__ == "__main__":
     second_side = input("The second side: ")
     message = f"{first_side} {second_side}"
 
+    def failure_closure():
+        print("Hehe")
+
     client.send_message(message=message)
-    client.receive_message()
+    client.receive_message(failure_closure=failure_closure)
