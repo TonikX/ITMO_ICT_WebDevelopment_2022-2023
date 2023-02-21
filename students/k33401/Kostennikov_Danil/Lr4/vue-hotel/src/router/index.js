@@ -1,7 +1,5 @@
-//import SignIn from "@/components/SignIn.vue";
-//import SignUp from "@/components/SignUp.vue";
 import FreeRoomsPage from "@/views/FreeRoomsPage.vue";
-import RegisterPage from "@/views/RegisterPage.vue";
+import clientCityPage from "@/views/clientCityPage.vue";
 import RegisterComponent from "@/components/Register.vue";
 import LoginComponent from "@/components/Login.vue";
 import Navbar from "@/components/Navbar.vue";
@@ -14,6 +12,7 @@ const routes = [
   { path: "/register", component: RegisterComponent },
   { path: "/login", component: LoginComponent },
   { path: "/navbar", component: Navbar },
+  { path: "/clientCity", component: clientCityPage },
 ];
 
 const router = createRouter({

@@ -25,17 +25,11 @@ const usersStore = defineStore("users", {
       return response;
     },
 
-    async fetchUser() {
-      if (this.token) {
-        const response = await userApi.fetchCurrentUserInfo(this.token);
-        return response.data;
-      }
-    },
-
     async logout() {
       if (this.token) {
         this.token = null;
         this.user = null;
+        this.$router.push("Navbar");
         return true;
       }
     },

@@ -28,11 +28,16 @@ export default {
   methods: {
     ...mapActions(usersStore, ["login"]),
     async loginForm() {
-      const response = await this.login({
-        username: this.username,
-        password: this.password,
-      });
-      this.$refs.registerForm.reset();
+      try {
+        const response = await this.login({
+          username: this.username,
+          password: this.password,
+        });
+        this.$refs.registerForm.reset();
+        this.$router.push("Navbar");
+      } catch (error) {
+        alert("wrong username or password");
+      }
     },
   },
 };

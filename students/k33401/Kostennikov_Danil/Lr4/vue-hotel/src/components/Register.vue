@@ -33,17 +33,22 @@ export default {
   methods: {
     ...mapActions(usersStore, ["register", "login"]),
     async registerForm() {
-      const response = await this.register({
-        username: this.username,
-        email: this.email,
-        password: this.password,
-      });
-      this.$refs.registerForm.reset();
+      try {
+        const response = await this.register({
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        });
+        this.$refs.registerForm.reset();
 
-      await this.login({
-        username: this.username,
-        password: this.password,
-      });
+        await this.login({
+          username: this.username,
+          password: this.password,
+        });
+        this.$router.push("Navbar");
+      } catch (error) {
+        alert("something went wrong");
+      }
     },
   },
 };

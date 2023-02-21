@@ -34,15 +34,6 @@ class UserApi {
       },
     });
   };
-
-  fetchCurrentUserInfo = async (token) => {
-    return this.API({
-      url: "/auth/users/me/",
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    });
-  };
 }
 
 export default UserApi;
