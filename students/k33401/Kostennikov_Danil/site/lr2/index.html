@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Lab 2 - Kostennikov documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Lab 2";
+        var mkdocs_page_input_path = "lr2.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Kostennikov documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr1/">Lab 1</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Lab 2</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../lr3/">Lab 3</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pr3.1/">Practice</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Kostennikov documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>Lab 2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="lab-2">Lab 2</h1>
+<p>Интерфейс описывает названия конференций, список тематик, место проведения,
+период проведения, описание конференций, описание место проведения, условия участия.
+Необходимо реализовать следующий функционал:
+- Регистрация новых пользователей.
+- Просмотр конференций и регистрацию авторов для выступлений.
+Пользователь должен иметь возможность редактирования и удаления своих
+регистраций.
+- Написание отзывов к конференциям. При добавлении комментариев,
+должны сохраняться даты конференции, текст комментария, рейтинг (1-10),
+информация о комментаторе.
+- Администратор должен иметь возможность указания результатов
+выступления (рекомендован к публикации или нет) средствами Django-
+admin.
+- В клиентской части должна формироваться таблица, отображающая всех
+участников по конференциям.</p>
+<ul>
+<li>models.py</li>
+</ul>
+<pre><code class="language-python">from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.shortcuts import reverse
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+class Сonference(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200)
+    place = models.CharField(max_length=300)
+    place_description = models.TextField()
+    descriptions = models.TextField()
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    conditions = models.TextField()
+
+    def get_absolute_url(self):
+        return reverse('get_conference_by_id', kwargs={'id': self.id})
+
+    def get_absolute_apply_url(self):
+        return reverse('conference_apply', kwargs={'id': self.id})
+
+    def get_absolute_comment_url(self):
+        return reverse('create_comment', kwargs={'id': self.id})
+
+class User(models.Model):
+    id = models.AutoField(primary_key=True)
+    email = models.CharField(unique=True,max_length=50)
+    password = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+
+
+class Comment(models.Model):
+    comment = models.TextField()
+    date = models.DateField(auto_now=True)
+    rank = models.IntegerField(validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1)
+        ]
+     )
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    conference_id = models.ForeignKey(Сonference, on_delete=models.CASCADE)
+
+
+class User_confirence(models.Model):
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    conference_id = models.ForeignKey(Сonference, on_delete=models.CASCADE)
+
+</code></pre>
+<ul>
+<li>view.py</li>
+</ul>
+<pre><code class="language-python">from django.core.exceptions import ValidationError
+from django.shortcuts import render,redirect
+from django.http import Http404
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
+
+from .models import *
+
+from .forms import RegistrUser, LoginUser, ConferenceApply, CreateComment
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+# Create your views here.
+
+
+class Reg_user(CreateView):
+    model = User
+    fields = [
+        'email',
+        'first_name',
+        'last_name',
+        'password'
+    ]
+    template_name = &quot;reg_user.html&quot;
+    success_url = reverse_lazy('get_all_conferences')
+
+def conference_apply(request, id):
+    form = ConferenceApply(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = User.objects.filter(email=email,password=password).first()
+        if not user:
+            message = &quot;Wrong email or password, or user is not registered&quot;
+            return render(request, 'conference_apply.html', context={&quot;form&quot;: form, &quot;message&quot;: message})
+
+        conference = Сonference.objects.get(id=id)
+        user_conf = User_confirence.objects.filter(user_id=user,conference_id=conference).exists()
+        if user_conf:
+            message = &quot;You have alreade applied&quot;
+            return render(request, 'conference_apply.html', context={&quot;form&quot;: form, &quot;message&quot;: message})
+        User_confirence.objects.create(user_id=user, conference_id=conference)
+        message = &quot;Success&quot;
+        return render(request, 'conference_apply.html', context={&quot;form&quot;: form, &quot;message&quot;: message})
+    return render(request, 'conference_apply.html', context={&quot;form&quot;: form})
+
+def get_conferences(request):
+    conferences = Сonference.objects.all()
+    return render(request, 'conferences.html', context={'conferences': conferences})
+
+
+def get_conference_by_id(request, id):
+    conference = Сonference.objects.get(id=id)
+    users_conf = User_confirence.objects.filter(conference_id=id)
+    coments = Comment.objects.filter(conference_id=id)
+    return render(request, 'conference.html', context={'conference': conference, 'users_conf': users_conf,
+                                                       'coments': coments})
+
+def applies(request):
+    try:
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = User.objects.get(email=email, password=password)
+        if not user:
+            return False
+        return redirect(f&quot;/applies/{email}&quot;)
+    except:
+        return render(request, &quot;applies.html&quot;)
+
+def user_applies(request, email):
+    user = User.objects.get(email=email)
+    user_conf = User_confirence.objects.filter(user_id=user)
+    return render(request, 'user_applies.html', context={&quot;user_conf&quot;: user_conf})
+
+def delete_apply(request, email,id):
+    try:
+        User_confirence.objects.get(id=id).delete()
+        return redirect(f&quot;/applies/{email}&quot;)
+    except:
+        return redirect(f&quot;/applies/{email}&quot;)
+
+def create_comment(request,id):
+    form = CreateComment(request.POST)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        user = User.objects.filter(email=email,password=password).first()
+        if not user:
+            message = &quot;Wrong email or password, or user is not registered&quot;
+            return render(request, 'create_comment.html', context={&quot;form&quot;: form, &quot;message&quot;: message})
+
+        conference = Сonference.objects.get(id=id)
+        comment = form.cleaned_data['comment']
+        rank = form.cleaned_data['rank']
+
+        Comment.objects.create(user_id=user,conference_id=conference, comment=comment,rank=rank)
+        return redirect(f&quot;/conference/{id}&quot;)
+
+    return render(request, 'create_comment.html', context={&quot;form&quot;: form})
+</code></pre>
+<ul>
+<li>forms.py</li>
+</ul>
+<pre><code class="language-python">from django import forms
+from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+from Conferences.models import User, Сonference, Comment
+
+
+class RegistrUser(forms.ModelForm):
+    email = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=60)
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+
+    class Meta:
+        model = User
+        fields = [&quot;email&quot;, &quot;password&quot;, &quot;first_name&quot;, &quot;last_name&quot;]
+
+
+
+class ConferenceApply(forms.ModelForm):
+    email = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=60)
+
+    class Meta:
+        model = Сonference
+        fields = [&quot;email&quot;, &quot;password&quot;]
+
+class CreateComment(forms.ModelForm):
+    email = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=60)
+
+    class Meta:
+        model = Comment
+        fields = [&quot;email&quot;, &quot;password&quot;, &quot;comment&quot;, &quot;rank&quot;]
+</code></pre>
+<ul>
+<li>ursl.py</li>
+</ul>
+<pre><code class="language-python">from django.urls import path
+from .views import *
+from . import views
+
+urlpatterns = [
+    path('conferences/', get_conferences, name='get_all_conferences'),
+    path('conference/&lt;int:id&gt;/', get_conference_by_id, name='get_conference_by_id'),
+    path(&quot;registration/&quot;, views.Reg_user.as_view(), name=&quot;register&quot;),
+    path(&quot;conference_apply/&lt;int:id&gt;/&quot;, views.conference_apply, name=&quot;conference_apply&quot;),
+    path(&quot;applies&quot;, views.applies, name='applies'),
+    path(&quot;applies/&lt;str:email&gt;/&quot;, views.user_applies, name='user_applies'),
+    path(&quot;delete_apply/&lt;str:email&gt;/&lt;int:id&gt;&quot;, views.delete_apply, name='delete_apply'),
+    path(&quot;create_comment/&lt;int:id&gt;&quot;, views.create_comment, name='create_comment')
+
+
+
+]
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../lr1/" class="btn btn-neutral float-left" title="Lab 1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../lr3/" class="btn btn-neutral float-right" title="Lab 3">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../lr1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../lr3/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

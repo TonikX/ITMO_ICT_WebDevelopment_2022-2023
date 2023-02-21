@@ -1,0 +1,27 @@
+{
+  "default": "sqlite3",
+
+  "sqlite3": {
+    "driver": "sqlite3",
+    "filename": ":memory:"
+  },
+
+  "mysql": {
+    "driver": "mysql",
+    "user": "root",
+    "password": "root",
+    "database": "test"
+  },
+
+  "postgresql": {
+    "driver": "pg",
+    "connectionString": "tcp://test:test@localhost/test"
+  },
+
+  "oracle": {
+    "driver": "oracle",
+    "hostname": "localhost",
+    "user": "test",
+    "password": "test"
+  }
+}
