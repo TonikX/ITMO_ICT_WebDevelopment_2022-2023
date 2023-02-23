@@ -1,0 +1,4 @@
+cd ITMO_ICT_WebDevelopment_2022-2023/students/k33422/practical_works/Skokova_Alina/simple_django_web_project
+cd tutorial-venv/Scripts
+. activate
+cd ../../django_project_Skokova
