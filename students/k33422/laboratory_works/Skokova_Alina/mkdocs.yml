@@ -6,6 +6,7 @@ theme:
 nav:
   - index.md
   - report_lab1.md
+  - report_lab2.md
 
 markdown_extensions:
   - pymdownx.highlight:

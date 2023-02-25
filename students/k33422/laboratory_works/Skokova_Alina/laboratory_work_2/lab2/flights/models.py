@@ -2,14 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# class Passenger(models.Model):
-#     passport = models.CharField(primary_key=True, max_length=30)
-#     first_name = models.CharField(max_length=50)
-#     last_name = models.CharField(max_length=50)
-#     phone_number = models.CharField(max_length=30)
-    
-#     def __str__(self):
-#         return self.passport
 
 class Flight(models.Model):
     id_flight = models.CharField(primary_key=True, max_length=30)
@@ -27,6 +19,7 @@ class Flight(models.Model):
 
     def __str__(self):
         return self.id_flight
+
 
 class Booking(models.Model):
     id_booking = models.AutoField(primary_key=True)
