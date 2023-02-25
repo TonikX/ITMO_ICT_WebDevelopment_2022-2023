@@ -1,0 +1,12 @@
+{% extends 'TheConference/base_conf.html' %}
+
+  {% block title %}
+    Account
+  {% endblock %}
+
+  {% block content %}
+    <h1 class="mt-4">
+      Привет, {{ request.user.first_name }}!
+    </h1>
+  {% endblock %}
+  
