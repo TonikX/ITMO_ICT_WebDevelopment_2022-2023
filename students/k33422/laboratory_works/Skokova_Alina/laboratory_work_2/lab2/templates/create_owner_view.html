@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<form method="POST" enctype="multipart/form-data">
+  
+    <!-- Security token -->
+    {% csrf_token %}
+  
+    <!-- Using the formset -->
+    {{ form.as_p }}
+      
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
