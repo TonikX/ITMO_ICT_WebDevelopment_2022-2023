@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cars list</title>
+    </head>
+    <body>
+        <div>
+            {% for car in object_list %}
+                ID: {{ car.id }} <br/>
+                State number: {{  car.state_number }} <br/>
+                Brand: {{ car.brand }} <br/>
+                Model: {{ car.model }} <br/>
+                Color: {{ car.color }}<br/>
+                ---------- <br/>
+            {% endfor %}
+        </div>
+    </body>
+</html>
