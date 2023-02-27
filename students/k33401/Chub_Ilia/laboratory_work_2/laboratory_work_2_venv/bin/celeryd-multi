@@ -1,0 +1,8 @@
+#!/Users/foggydawning/ITMO/WebDevelopment/ITMO_ICT_WebDevelopment_2022-2023/students/k33401/Chub_Ilia/laboratory_work_2/laboratory_work_2_venv/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from celery.__main__ import _compat_multi
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(_compat_multi())

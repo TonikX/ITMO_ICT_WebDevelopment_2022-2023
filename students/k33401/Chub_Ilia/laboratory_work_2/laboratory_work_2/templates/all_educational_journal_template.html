@@ -1,0 +1,25 @@
+{% extends 'base_template.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Educational journal
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Homework task UUID</th>
+                <th scope="col">Mark</th>
+            </tr>
+        </thead>
+        {% for object in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ object.submit_homework_task_uuid.uuid }}</td>
+                <td>{{ object.mark}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

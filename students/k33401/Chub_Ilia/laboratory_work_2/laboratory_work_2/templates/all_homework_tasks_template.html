@@ -1,0 +1,33 @@
+{% extends 'base_template.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Homework tasks
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Homework task UUID</th>
+                <th scope="col">Academic discipline</th>
+                <th scope="col">Description</th>
+                <th scope="col">Fine for being late</th>
+                <th scope="col">Start date</th>
+                <th scope="col">End date</th>
+            </tr>
+        </thead>
+        {% for task in object_list %}
+        <tbody>
+            <tr>
+                <td>{{ task.uuid }}</td>
+                <td>{{ task.academic_discipline.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.fine_for_being_late }}</td>
+                <td>{{ task.start_date }}</td>
+                <td>{{ task.end_date }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}
