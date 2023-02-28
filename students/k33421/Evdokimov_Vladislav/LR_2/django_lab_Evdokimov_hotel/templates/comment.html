@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'main.html' %}
+<head>
+
+    <title>Комментарий</title>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="d-flex justify-content-center">
+        <input type="submit" value="Опубликовать" class="btn btn-primary p-2 ">
+    </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

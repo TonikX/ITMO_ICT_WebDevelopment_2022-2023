@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Registrations</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="registrations">
+        <h1>Registrations</h1>
+
+        <table>
+            <tr>
+                <th>Registrations list</th>
+            </tr>
+            {% for i in regestrations %}
+                <tr>
+                    <td><a href="/registration/{{ i.id }}">{{ i }}</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}

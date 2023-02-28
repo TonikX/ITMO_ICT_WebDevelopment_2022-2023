@@ -1,0 +1,13 @@
+:root.dark_theme {
+    --bg-color: #333;
+    --text-color: #ffffff;
+    --btn-color: #d781f3;
+    --btn-text-color: #151515;
+    --placeholder-color: #aba9a9;
+    --link-color: #ffffff;
+    --card-color: #4f4c5d;
+    --filter-bg-color: #4f4c5d;
+    --filter-text-color: #ffffff;
+    --info-bg-color: #333;
+    --info-text-color: #ffffff;
+}

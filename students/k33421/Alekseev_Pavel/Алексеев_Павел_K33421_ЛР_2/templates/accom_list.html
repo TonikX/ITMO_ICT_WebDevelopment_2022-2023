@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accom list</title>
+</head>
+<body>
+<h1>Bookings</h1>
+<div class="main">
+    {% for accom in accoms %}
+        <li>Check-in date: {{ accom.check_in_date }}</li>
+        <li>Check-out date: {{ accom.check_out_date }}</li>
+        <li>Room: {{ accom.room.number }}</li>
+        <li>Guest Surname: {{ accom.guest.last_name }}</li>
+        <li>Guest name: {{ accom.guest.first_name }}</li>
+        <hr/>
+    {% empty %}
+        No guests
+    {% endfor %}
+</div>
+<br>
+<a href="/home/">Home</a>
+</body>
+</html>

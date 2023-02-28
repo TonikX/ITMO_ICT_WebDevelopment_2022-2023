@@ -1,0 +1,19 @@
+{% extends 'conferences/main.html' %} {% block content %}
+
+<div class="conference">
+  <div class="header-bar">
+    <h1 class="header">{{conference.conference.name}}</h1>
+  </div>
+  <h3 class="header">Регистрация на выступление</h3>
+
+  {% if request.user.is_authenticated %}
+  <form class="comment-form" method="post">
+    {% csrf_token %}
+    <p class="rating">Название выступления: {{ form.name }}</p>
+    {{form.user}} {{form.conference}}
+    <input class="button" type="submit" value="Добавить" />
+  </form>
+  {% endif %}
+</div>
+
+{% endblock content %}

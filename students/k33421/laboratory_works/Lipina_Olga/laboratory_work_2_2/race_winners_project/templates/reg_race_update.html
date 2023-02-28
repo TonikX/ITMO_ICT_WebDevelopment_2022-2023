@@ -1,0 +1,22 @@
+{% extends "base_django.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update reg info</title>
+</head>
+
+<body>
+  <form method="post">{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Save">
+  </form>
+  <a href="/reg_race/list/">К списку регистраций</a>
+</body>
+
+</html>
+{% endblock content %}

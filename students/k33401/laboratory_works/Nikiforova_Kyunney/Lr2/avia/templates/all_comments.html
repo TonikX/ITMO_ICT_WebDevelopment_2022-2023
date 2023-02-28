@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Отзывы{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Отзывы</h1>
+        <table class="table table-hover table-bordered mt-4">
+            <thead class="table-primary">
+                <tr>
+                    <th class="col-md-2">Номер рейса</th>
+                    <th class="col-md-4">Время вылета и прилета</th>
+                    <th class="col-md-1">Рейтинг</th>
+                    <th class="col-md-4">Комментарий</th>
+                    <th class="col-md-1">Автор</th>
+                </tr>
+            </thead>
+            {% for object in object_list %}
+            <tbody>
+                <tr>
+                    <td>{{object.flight_number}}</td>
+                    <td>{{object.flight_number.departure_time}} - {{object.flight_number.arrival_time}}</td>
+                    <td>{{object.rating}}</td>
+                    <td>{{object.comment}}</td>
+                    <td>{{object.passenger.username}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+        <a href="{% url 'create_comment' %}">
+            <button type="button" class="btn btn-dark mt-3 px-3">Написать отзыв</button>
+        </a>
+    </div>
+{% endblock %}

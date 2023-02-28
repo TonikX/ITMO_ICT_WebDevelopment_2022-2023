@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        <link rel="canonical" href="https://lr1.com/">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>Лабораторная работа №1</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">Лабораторная работа №1</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no1" class="nav-link">Задание №1</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#clientpy" class="nav-link">client.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serverpy" class="nav-link">server.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#commands" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#no2" class="nav-link">Задание №2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#clientpy_1" class="nav-link">client.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serverpy_1" class="nav-link">server.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#commands_1" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#no3" class="nav-link">Задание №3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#clientpy_2" class="nav-link">client.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serverpy_2" class="nav-link">server.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#indexhtml" class="nav-link">index.html</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#commands_2" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#no4" class="nav-link">Задание №4</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#clientpy_3" class="nav-link">client.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#serverpy_3" class="nav-link">server.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#commands_3" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#no5" class="nav-link">Задание №5</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#serverpy_4" class="nav-link">server.py</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no1">Задание №1</h1>
+<h2 id="clientpy">client.py</h2>
+<pre><code>import socket #импорт библиотеки
+
+conn = socket.socket(socket.SOCK_DGRAM) #создание сокета для сервера UDP
+conn.connect((socket.gethostname(), 1234)) #подключение к хосту (IP-адрес и порт)
+msg = 'Hello, server' #сообщение для сервера
+conn.send(msg.encode("utf-8")) #
+data = b"" #создание пустой байтовой строки
+tmp = conn.recv(16384) #отсюда все как обычно
+while tmp:
+    data += tmp
+    tmp = conn.recv(16384)
+print(data.decode("utf-8"))
+conn.close()
+</code></pre>
+<h2 id="serverpy">server.py</h2>
+<pre><code>import socket #импорт библиотеки
+sock = socket.socket(socket.SOCK_DGRAM) #создание сокета для сервера UDP
+# Для привязки используется функция bind сокета, которая принимает массив, содержащий два элемента: хост и порт.
+sock.bind((socket.gethostname(), 1234))
+sock.listen(1) #максимальное число соединений
+while True:
+    try: #пока верно, выполняется блок инструкицй
+    #Ф-ция ждёт появление входящего соединения и возвращает связанный с ним сокет и адрес подключившегося.
+    #Адрес — массив, состоящий из IP-адреса и порта.
+        conn, addr = sock.accept()
+        data = conn.recv(16384) #чтение данных с определенным кол-м байт
+        udata = data.decode("utf-8") #декодирование данных из bytes в строку
+        print(udata)
+        msg = "Hello, client" #строка для клиента
+        conn.send(msg.encode("utf-8")) #отправка данных в закодированном виде, т.к. ф-ция send принимает тип bytes
+        conn.close() #закрытие сокета
+    except KeyboardInterrupt: #в случае ошибки, выполняется блок инструкицй
+        sock.close() #закрытие сокета
+    break
+</code></pre>
+<h2 id="commands">Commands</h2>
+<ul>
+<li><code>py -3.8 server.py</code> - Запуск в первом терминале.</li>
+<li><code>py -3.8 client.py</code> - Запуск во втором терминале.</li>
+<li><code>&gt;&gt;Hello, server</code> - Вывод в первом терминале.</li>
+<li><code>&gt;&gt;Hello, client</code> - Вывод во втором терминале.</li>
+</ul>
+<h1 id="no2">Задание №2</h1>
+<h2 id="clientpy_1">client.py</h2>
+<pre><code>import socket
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect((socket.gethostname(), 1234))
+while True:
+    data = sock.recv(1024)
+    print(f"server: {data.decode()}")
+    msg = input("Client: ")
+    sock.send(str.encode(msg))
+</code></pre>
+<h2 id="serverpy_1">server.py</h2>
+<pre><code>import socket
+
+
+def pifagor(a, b): #функия, которая возвращает гипотенузу
+    return a**2 + b**2
+
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) #создание сокета для сервера TCP
+sock.bind((socket.gethostname(), 1234))
+# Для привязки используется функция bind сокета, которая принимает массив, содержащий два элемента: хост и порт.
+sock.listen(1) #максимальное число соединений
+#Ф-ция ждёт появление входящего соединения и возвращает связанный с ним сокет и адрес подключившегося.
+#Адрес — массив, состоящий из IP-адреса и порта.
+conn, addr = sock.accept()
+#отправка данных в закодированном виде, т.к. ф-ция send принимает тип bytes
+conn.send(str.encode(f"Hello, client\n"
+                    f"I solve Pythagorean theorem\n"
+                    f"Enter A as a number\n"))
+a = "" #катет
+b = "" #катет
+c = "" #гипотенуза
+
+while not c:
+    while not a: #первый катет
+        data = conn.recv(1024).decode() #чтение данных с определенным кол-м байт
+        if data.isdigit(): #если данные числовые
+            a = int(data) #перевод в тип данных integer
+            conn.send(b"Enter B as a number\n") #сообщение появляется в терминале
+        else:
+            conn.send(b"Not a number\n" 
+                    b"Enter A as a number\n") #сообщение появляется в терминале, если данные не числовые
+
+    while not b: #второй катет
+        data = conn.recv(1024).decode()
+        if data.isdigit():
+            b = int(data)
+        else:
+            conn.send(b"Not a number\n"
+                    b"Enter B as a number\n")
+
+    c = pifagor(a, b) #функция принимает два введенных числа и считает гипотенузу
+    conn.send(str.encode(f"Ответ: {c}")) #отправка ответа
+
+conn.close() #закрытие сокета
+</code></pre>
+<h2 id="commands_1">Commands</h2>
+<ul>
+<li><code>py -3.8 server.py</code> - Запуск в первом терминале.</li>
+<li><code>py -3.8 client.py</code> - Запуск во втором терминале.</li>
+<li><code>&gt;&gt;server: Hello, client</code></li>
+<li><code>&gt;&gt;I solve Pythagorean theorem</code> </li>
+<li><code>&gt;&gt;Enter A as a number</code>  </li>
+<li><code>2</code> </li>
+<li><code>&gt;&gt;Client: 2</code> </li>
+<li><code>&gt;&gt;server: Enter B as a number</code>  </li>
+<li><code>3</code> </li>
+<li><code>&gt;&gt;server: Ответ: 13</code> - Вывод во втором терминале.</li>
+</ul>
+<h1 id="no3">Задание №3</h1>
+<h2 id="clientpy_2">client.py</h2>
+<pre><code>import socket
+
+with socket.socket() as sock:
+    sock.connect((socket.gethostname(), 1234))
+    sock.settimeout(5)
+    sock.send(b"GET / HTTP/1.1\n")
+    data = sock.recv(16384)
+    udata = data.decode('utf-8')
+    print(udata)
+</code></pre>
+<h2 id="serverpy_2">server.py</h2>
+<pre><code>import socket
+with socket.socket() as sock:
+    sock.bind((socket.gethostname(), 1234))
+    sock.listen(1)
+    conn, addr = sock.accept()
+    with conn:
+        with open('C:/Users/work11pro1/.virtualenvs/ITMO_ICT_WebDevelopment_2022-2023/students/k33421/laboratory_works/Bobrova_Maria/laboratory_work_1/task_3/index.html') as f:
+            msg = f.read()
+        print(conn.recv(16348).decode('utf-8'))
+        response = 'HTTP/1.0 200 OK\n\n' + msg
+        conn.sendall(response.encode('utf-8'))
+</code></pre>
+<h2 id="indexhtml">index.html</h2>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;CandyShop&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;center&gt;
+        &lt;h1&gt;CandyShop&lt;/h1&gt;
+    &lt;/center&gt;
+    &lt;p&gt;Hi there! Please, buy candies&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="commands_2">Commands</h2>
+<ul>
+<li><code>py -3.8 server.py</code> - Запуск в первом терминале.</li>
+<li><code>&gt;&gt;GET / HTTP/1.1</code> - Вывод в первом терминале.</li>
+<li><code>py -3.8 client.py</code> - Запуск во втором терминале.</li>
+<li><code>&gt;&gt;HTTP/1.0 200 OK</code> - Вывод во втором терминале. </li>
+<li><code>&gt;&gt;</code>  - Вывод во втором терминале:</li>
+<li><code>&lt;!DOCTYPE html&gt;</code></li>
+<li><code>&lt;html&gt;</code></li>
+<li><code>&lt;head&gt;</code></li>
+<li><code>&lt;meta charset="UTF-8"&gt;</code></li>
+<li><code>&lt;title&gt;CandyShop&lt;/title&gt;</code></li>
+<li>
+<p><code>&lt;/head&gt;</code>  </p>
+</li>
+<li>
+<p><code>&lt;body&gt;</code></p>
+</li>
+<li><code>&lt;center&gt;</code></li>
+<li><code>&lt;h1&gt;CandyShop&lt;/h1&gt;</code></li>
+<li><code>&lt;/center&gt;</code></li>
+<li><code>&lt;p&gt;Hi there! Please, buy candies&lt;/p&gt;</code></li>
+<li><code>&lt;/body&gt;</code></li>
+<li><code>&lt;/html&gt;</code> </li>
+</ul>
+<h1 id="no4">Задание №4</h1>
+<h2 id="clientpy_3">client.py</h2>
+<pre><code>import socket, threading
+
+# Создать клиентский объект
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+while True:
+    name = input('Пожалуйста, введите личный ник, не более десяти символов, не менее одного символа: ')
+    if 1 &lt; len(name) &lt; 10:
+        break
+
+# Подключить клиента
+client.connect((socket.gethostname(), 1234))
+print('-' * 5 + 'подключился к серверу' + '-' * 5)
+print('-' * 5 + 'Enter, чтобы закрыть соединение с сервером' + '-' * 5)
+
+
+def outdatas():
+    while True:
+
+        # Введите информацию, которая будет отправлена на сервер
+        outdata = input('')
+        print()
+        if outdata == 'enter':
+            break
+            # Отправить на сервер
+        client.send(f'{name}:{outdata}'.encode('utf-8'))
+        print('%s:%s' % (name, outdata))
+
+
+def indatas():
+    while True:
+        # Принимаем информацию с сервера
+        indata = client.recv(1024)
+
+        # Закодировать полученную информацию
+        print(indata.decode('utf-8'))
+
+
+# Создать многопоточность
+# Установить получение информации, объект потока
+t1 = threading.Thread(target=indatas, name='input')
+
+# Создание выходной информации, объект потока
+t2 = threading.Thread(target=outdatas, name='out')
+
+# Начать многопоточность
+t1.start()
+t2.start()
+
+# Заблокировать поток, основной поток не может завершиться, пока не завершится выполнение дочернего потока.
+# t1.join()
+t2.join()
+
+# Закрыть соединение
+print('-' * 5 + 'сервер отключен' + '-' * 5)
+client.close()
+</code></pre>
+<h2 id="serverpy_3">server.py</h2>
+<pre><code>import socket, threading
+
+# Создаем объект сокета
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Укажите IP и порт сервера
+server.bind((socket.gethostname(), 1234))
+# Максимальное количество подключений
+server.listen(5)
+print('Enter Enter для выхода с сервера')
+# Создайте список клиентов
+clients = list()
+# Хранить клиентов, которые создали потоки
+end = list()
+# Блокировка ожидания подключения клиента, возврата объекта подключения и адреса косвенного объекта
+def accept():
+    while True:
+        client, addr = server.accept()
+        clients.append(client)
+        print("\ r" + '-' * 5 + f'сервер подключен через {addr}: текущее количество подключений: ----- {len (clients)}' + '-' * 5, end = '') #Взаимодействие с другими людьми
+def recv_data(client):
+    while True:
+        # Принимаем информацию от клиента
+        try:
+            indata = client.recv(1024)
+        except Exception as e:
+            clients.remove(client)
+            end.remove(client)
+            print("\ r" + '-' * 5 + f'Сервер отключен: текущее количество подключений: ----- {len (clients)}' + '-' * 5, end = '')
+            break
+        print(indata.decode('utf-8'))
+        for clien in clients:
+            # Перенаправить информацию от клиента и отправить ее другим клиентам
+            if clien != client:
+                clien.send(indata)
+
+
+def outdatas():
+    while True:
+        # Введите информацию, которая будет предоставлена клиенту
+        print('')
+        outdata = input('')
+        print()
+        if outdata == 'enter':
+            break
+        print('Отправить всем:% s' % outdata)
+            # Отправлять информацию каждому клиенту
+    for client in clients:
+        client.send(f"Сервер: {outdata}".encode('utf-8'))
+
+def indatas():
+    while True:
+        # Выполните цикл подключенных клиентов и создайте соответствующий поток
+        for clien in clients:
+            # Если поток уже существует, пропустить
+            if clien in end:
+                continue
+            index = threading.Thread(target=recv_data, args=(clien,))
+            index.start()
+            end.append(clien)
+
+# Создать многопоточность
+# Создать получающую информацию, объект потока
+t1 = threading.Thread(target=indatas, name='input')
+t1.start()
+
+# Создать отправляемое сообщение, объект потока
+
+t2 = threading.Thread(target=outdatas, name='out')
+t2.start()
+
+# Ожидание подключения клиента, объект потока
+
+t3 = threading.Thread(target=accept(), name='accept')
+t3.start()
+
+# Блокировать округ, пока подпоток не будет завершен, и основной поток не может закончиться
+# t1.join()
+t2.join()
+
+# Выключите все серверы
+for client in clients:
+    client.close()
+print('-' * 5 + 'сервер отключен' + '-' * 5)
+</code></pre>
+<h2 id="commands_3">Commands</h2>
+<ul>
+<li><code>py -3.8 server.py</code> - Запуск в первом терминале.</li>
+<li><code>Enter Enter для выхода с сервера</code> - Вывод в первом терминале.</li>
+<li><code>py -3.8 client.py</code> - Запуск во втором терминале.</li>
+<li><code>Пожалуйста, введите личный ник, не более десяти символов, не менее одного символа:</code> - Вывод во втором терминале.      </li>
+<li><code>&gt;&gt;Maria</code> - Вводим во втором терминале.</li>
+<li><code>-----подключился к серверу-----</code></li>
+<li><code>-----Enter, чтобы закрыть соединение с сервером-----</code> - Вывод во втором терминале</li>
+<li><code>&gt;&gt;Hi!</code> - Вводим сообщение.</li>
+<li><code>Maria:Hi!</code> - Вывод во втором терминале.</li>
+<li><code>\ r-----сервер подключен через ('192.168.56.1', 49653): текущее количество подключений: ----- 1-----Maria:Hi!</code> - Вывод в первом терминале.</li>
+<li><code>py -3.8 client.py</code> - Запуск в третьем терминале.</li>
+<li><code>Пожалуйста, введите личный ник, не более десяти символов, не менее одного символа:</code> - Вывод во втором терминале.      </li>
+<li><code>&gt;&gt;Sofia</code> - Вводим во втором терминале.</li>
+<li><code>-----подключился к серверу-----</code></li>
+<li><code>-----Enter, чтобы закрыть соединение с сервером-----</code> - Вывод во втором терминале</li>
+<li><code>&gt;&gt;Hello, Mary)</code> - Вводим сообщение.</li>
+<li><code>Sofia:Hello, Mary)</code> - Вывод в третьем и втором терминалах.</li>
+<li><code>\ r-----сервер подключен через ('192.168.56.1', 49766): текущее количество подключений: ----- 2-----Sofia:Hello, Mary)</code> - Вывод в первом терминале.</li>
+</ul>
+<p>И так далее.</p>
+<h1 id="no5">Задание №5</h1>
+<h2 id="serverpy_4">server.py</h2>
+<pre><code>import socket
+from urllib.parse import parse_qs, urlparse
+#from request import Request
+#from response import Response
+#from subject import Subject
+
+class Request:
+    def __init__(self, method, target, headers, version, data):
+        self.method = method
+        self.target = target
+        self.version = version
+        self.url = urlparse(self.target)
+        self.query = parse_qs(self.url.query)
+        self.path = self.url.path
+        self.headers = headers
+        self.data = data
+
+class Response:
+    def __init__(self, status, reason, headers=None, body=None):
+        self.status = status
+        self.reason = reason
+        self.headers = headers
+        self.body = body
+
+class Subject:
+    def __init__(self, name, marks):
+        self.name = name
+        self.marks = marks
+
+    def add_mark(self, mark):
+        self.marks.append(mark)
+
+
+class MyHTTPServer:
+    def __init__(self, host, port, name):
+        self.host = host
+        self.port = port
+        self.name = name
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.subjects = [Subject("Test Subject", [5, 4, 3])]
+
+    def serve_forever(self):
+        try:
+            self.server.bind((self.host, self.port))
+            self.server.listen()
+            while True:
+                client, address = self.server.accept()
+                self.serve_client(client)
+                print(f"Сервер запущен на порту &gt; {self.host}:{self.port}")
+        except KeyboardInterrupt:
+            self.server.close()
+
+    def serve_client(self, client):
+        try:
+            data = client.recv(1024).decode()
+            req = self.parse_request(data)
+            res = self.handle_request(req)
+            self.send_response(client, res)
+            print(f'Клиент подключился')
+        except Exception:
+            print(f'Клиент неожиданно отключился')
+        client.close()
+
+    def parse_request(self, data):
+        req = data.split("\r\n")
+        method, target, ver = req[0].split(" ")
+        headers = self.parse_headers(req)
+        return Request(
+            method=method, target=target, version=ver, headers=headers, data=data
+        )
+
+    def parse_headers(self, req):
+        headers = [h for h in req[1 : req[1:].index("") + 1]]
+        header_dict = {}
+        for header in headers:
+            key, value = header.split(":", 1)
+            header_dict[key] = value
+        return header_dict
+
+    def handle_request(self, req):
+        try:
+            if req.method == "GET" and req.path == "/":
+                return self.handle_root()
+
+            elif req.method == "POST" and req.path.startswith("/api"):
+                name = str(req.query["name"][0])
+                value = int(req.query["mark"][0])
+                for subject in self.subjects:
+                    if subject.name == name:
+                        subject.add_mark(value)
+                        return self.handle_root()
+                self.subjects.append(Subject(name, [value]))
+                return self.handle_root()
+
+            return self.get_error(404, "Error 404: Not Found")
+        except Exception as e:
+            print(f"ERROR: {e}")
+            return self.get_error(500, e)
+
+    def send_response(self, client, res):
+        client.sendall(
+            f"HTTP/1.1 {res.status} OK\r\n{res.headers}\r\n\r\n{res.body}".encode()
+        )
+
+    def handle_root(self):
+        body = """&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;"""
+        body += (
+            """&lt;meta charset="UTF-8"&gt;&lt;title&gt;Super Cool Page&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;table&gt;"""
+        )
+        body += f"&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Subject&lt;/th&gt;&lt;th&gt;Marks&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;"
+        for subject in self.subjects:
+            body += f"&lt;tr&gt;&lt;td&gt;{subject.name}&lt;/td&gt;&lt;td&gt;{', '.join(str(x) for x in subject.marks)}&lt;/td&gt;&lt;/tr&gt;"
+        body += """&lt;/tbody&gt;&lt;/table&gt;"""
+        body += """&lt;/body&gt;&lt;/html&gt;"""
+        return Response(200, "OK", "Content-Type: text/html; charset=utf-8", body)
+
+    def get_error(self, code, text):
+        return Response(code, "OK", "Content-Type: text/html; charset=utf-8", text)
+
+
+if __name__ == "__main__":
+    MyHTTPServer("localhost", 9095, "example.com").serve_forever()
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.4.0
+Build Date UTC : 2022-10-01 11:53:10.983773+00:00
+-->
