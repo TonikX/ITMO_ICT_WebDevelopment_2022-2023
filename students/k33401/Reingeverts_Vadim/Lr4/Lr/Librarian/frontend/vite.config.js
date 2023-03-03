@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
+const { backend_port } = process.env ?? 8000;
+
 // https://vitejs.dev/config/
 // https://github.com/MrBin99/django-vite-example/blob/master/vite.config.js
 export default defineConfig({
@@ -17,6 +19,7 @@ export default defineConfig({
             usePolling: true,
             disableGlobbing: false,
         },
+        origin: `localhost:${backend_port}`,
     },
     resolve: {
         extensions: [".js", ".jsx", ".json"],

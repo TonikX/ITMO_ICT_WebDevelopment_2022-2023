@@ -1,20 +1,26 @@
 import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// import Routes from "./Routes";
-// import Library from "../components/Library";
+import Library from "../components/Library";
+import User from "../components/User";
 
-function App() {
-    return <p>test</p>;
-}
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Library />,
+    },
+    {
+        path: "user",
+        element: <User />,
+    },
+]);
 
-// const App = () => {
-//     return (
-//         <>
-//             APP
-//             {/* <Routes /> */}
-//             <Library />
-//         </>
-//     );
-// };
+const App = () => {
+    return (
+        <>
+            <RouterProvider router={router} />
+        </>
+    );
+};
 
 export default App;

@@ -27,6 +27,16 @@ E.g.
 bash run.sh createsuperuser
 ```
 
+Passes any command to the npm
+```bash
+bash run.sh npm <any npm command>
+```
+
+E.g.
+```bash
+bash run.sh npm install react
+```
+
 #### Reference
 - [Getting Started | Vite](https://vitejs.dev/guide/#index-html-and-project-root)
 - [Backend Integration | Vite](https://vitejs.dev/guide/backend-integration.html) 

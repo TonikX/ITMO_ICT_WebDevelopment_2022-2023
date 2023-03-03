@@ -6,10 +6,7 @@ import App from "./App";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
-    <p>what</p>
-    // <React.StrictMode>
-    //     <App />
-    // </React.StrictMode>
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
-
-alert("App loaded!");
