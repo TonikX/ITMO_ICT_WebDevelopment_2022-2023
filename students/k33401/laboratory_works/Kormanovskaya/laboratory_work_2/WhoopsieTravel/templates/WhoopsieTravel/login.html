@@ -1,0 +1,39 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> Login to see more! </h1>
+<div class="w-75 mx-auto container mt-5 px-5">
+    <form method="POST" action="" class="row g-3 justify-content-center">
+        {% csrf_token %}
+        <div class="text-center">
+            <p class="text-danger">
+                {% for m in messages %}
+                {{ m }}<br>
+                {% endfor %}
+            </p>
+        </div>
+        <div class="col-md-8">
+            <p class="form-label">Username</p>
+            <div class="input-group">
+                <span class="input-group-text" id="inp-span">@</span>
+                <input type="text" class="form-control" name="username" placeholder="Enter username..." required>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <p class="form-label">Password</p>
+            <input type="password" class="form-control" name="password" placeholder="Enter password..." required>
+        </div>
+        <div class="col-8">
+            <button class="btn btn-primary" type="submit">Log in</button>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center">
+        <p> Do not have an account? <a href="{% url 'registration_url' %}">Sign Up</a></p>
+    </div>
+</div>
+
+{% endblock %}

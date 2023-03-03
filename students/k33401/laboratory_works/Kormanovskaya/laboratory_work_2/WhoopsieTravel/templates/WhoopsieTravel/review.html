@@ -1,0 +1,29 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Update
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> Review on <span class="text-primary">{{ object.tour }}</span></h1>
+<div class="w-75 mx-auto container mt-5 px-5 form-floating">
+    <form method="POST" action="" class="row g-3 justify-content-center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('id_review_text').className += " form-control "
+    document.getElementById('id_review_text').required = true
+    document.getElementById('id_rate').className += " form-control "
+    document.getElementById('id_rate').min = 1
+    document.getElementById('id_rate').max = 10
+    document.getElementById('id_rate').value = 1
+    document.getElementById('id_rate').required = true
+
+</script>
+{% endblock %}

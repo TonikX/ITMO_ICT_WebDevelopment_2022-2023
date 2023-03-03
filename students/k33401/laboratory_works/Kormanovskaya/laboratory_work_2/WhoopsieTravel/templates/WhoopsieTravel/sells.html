@@ -1,0 +1,33 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Tours
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5 my-5"> Tours sold: </h1>
+<div class="mx-auto container-fluid">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Tour</th>
+            <th scope="col">Country</th>
+            <th scope="col">Date start</th>
+            <th scope="col">Number of tourists</th>
+            <th scope="col">Nights count</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for t in tc %}
+        <tr>
+            <th scope="row">{{ t.tour }}</th>
+            <td>{{ t.tour.country }}</td>
+            <td>{{ t.date_start }}</td>
+            <td>{{ t.tourists }}</td>
+            <td>{{ t.tour.nights_count }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+</div>
+{% endblock %}

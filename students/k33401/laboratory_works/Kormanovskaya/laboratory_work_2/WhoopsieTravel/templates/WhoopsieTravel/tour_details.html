@@ -1,0 +1,130 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+{{ tour }} | {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container w-75 mb-5 mx-auto">
+    <div class="row">
+        <div class="col col-7 px-4">
+            <h1> {{ tour }} </h1>
+            <h3 class="card-subtitle text-secondary mb-4">{{ tour.country }}</h3>
+            <p>{{ tour.description }}</p>
+            <p class="card-text">
+                <i class="bi bi-coin"></i> {{ tour.price_per_person }}<br>
+                <i class="bi bi-moon-stars-fill"></i> {{ tour.nights_count }}
+            </p>
+        </div>
+        <div class="col col-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    {% for i in tour.images %}
+                    <div class="col col-5 m-2">
+                        <img src="{{ i.image.url}}" class="img-fluid img-thumbnail">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container w-75 mb-5 mx-auto mt-5 border border-1 py-5 bg-light">
+    <h1 class="text-center"> Reserve </h1>
+    {% if ordered %}
+    <div class="text-center mt-5">
+        <p> You already have a reservation for this tour! Edit or delete it in your <a class="text-decoration-none"
+                                                                                       href="{% url 'profile_url' %}">profile
+            page </a></p>
+    </div>
+    {% else %}
+    <form class="row justify-content-center" method="POST" action="">
+        {% csrf_token %}
+
+        <div class="mb-3 col col-10">
+            <label for="email" class="col-form-label">Email</label>
+            <input type="text" readonly class="form-control-plaintext" name="email" id="email"
+                   value="{{ request.user.email }}">
+        </div>
+        <div class="mb-3 col col-10">
+            <label for="tour" class="col-form-label">Tour</label>
+            <input type="text" readonly class="form-control-plaintext" id="tour" name="tour"
+                   value="{{ tour }}">
+        </div>
+        <div class="mb-3 col col-10 d-none" disabled="true">
+            {{ form.customer }}{{ form.tour }}{{ form.contact_info }}
+        </div>
+        <div class="mb-3 col col-5">
+            <span class="form-label">{{ form.date_start.label }}</span>
+            {{ form.date_start }}
+        </div>
+        <div class="mb-3 col col-5">
+            <span class="form-label">{{ form.tourists.label }}</span>
+            {{ form.tourists }}
+        </div>
+        <div class="mb-3 col col-10">
+            <label for="textarea" class="form-label">{{ form.contact_info.label }}</label>
+
+            <textarea class="form-control" id="textarea" rows="3"
+                      placeholder="Phone number, allowed time to call, etc..."></textarea>
+        </div>
+        <div class="col col-10 mb-5">
+            <button type="submit" class="btn btn-primary">Order</button>
+        </div>
+    </form>
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    {{ error }}<br>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+</div>
+
+<div class="container w-75 mx-auto p-4 my-5">
+    <h2>Comments:</h2>
+    {% if not rates %}
+    <p>No comments yet </p>
+    {% endif %}
+    <div class="row">
+        {% for r in rates %}
+        <div class="col col-10 bg-light p-3 m-3">
+            <h6>{{ r.customer }} <span class="text-muted">{{ r.date_start }}</span></h6>
+            <span class="h4 text-primary">{{ r.rate }} <bi class="bi bi-star"></bi></span>
+            <p>{{ r.review_text }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+
+</div>
+<script>
+    const fields = document.getElementsByTagName('input')
+    fields[5].className += ' form-control'
+    fields[5].type = 'date'
+    fields[5].min = fields[3].value
+    fields[6].className += ' form-control'
+    fields[6].min = 1
+    fields[6].max = 50
+
+    const options = document.getElementsByTagName('option')
+    for (let o of options) {
+        if (o.text === '{{ tour }}' || o.text === '{{ user }}') {
+            o.selected = true
+        } else {
+            o.selected = false
+        }
+    }
+    var input = document.getElementById('textarea')
+
+    input.oninput = function () {
+        document.getElementById('id_contact_info').value = input.value;
+    }
+
+
+</script>
+
+{% endblock %}
