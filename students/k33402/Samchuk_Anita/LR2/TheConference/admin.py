@@ -7,3 +7,6 @@ from .models import *
 admin.site.register(Conference)
 admin.site.register(Tag)
 admin.site.register(Participant)
+admin.site.register(Performance)
+admin.site.register(Comment)
+

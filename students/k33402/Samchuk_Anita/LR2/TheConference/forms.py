@@ -20,3 +20,32 @@ class RegisterForm(forms.ModelForm):
 			'first_name': 'Имя',
 			'password': 'Пароль'
 		}
+
+
+class ConferenceRegisterForm(forms.ModelForm):
+	class Meta:
+		model = Performance
+		fields = [
+			'title',
+			'description',
+		]
+		labels = {
+			'title': 'Тема',
+			'description': 'Описание'
+		}
+
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = [
+			'body',
+			'rating'
+		]
+		widgets = {
+			'body': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+		}
+		labels = {
+			'rating': 'Оценка',
+			'body': 'Текст комментария'
+		}

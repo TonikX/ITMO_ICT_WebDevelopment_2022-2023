@@ -1,0 +1,23 @@
+{% extends 'TheConference/base_conf.html' %}
+
+ {% block title %}
+    Registration
+  {% endblock %}
+
+{% block content %}
+	<div>
+		<div>
+			<h1 class="mb-4">Редактирование регистрации на {{ conf.name }}</h1>
+
+			<form method="post">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ next }}">
+
+				{{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary btn-block mt-3">Подтвердить</button>
+				<a href="{% url 'performance_delete_url' pk %}" class="btn btn-danger btn-block mt-3">Удалить</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}

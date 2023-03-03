@@ -7,7 +7,7 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
         {% for tag in conf.topics.all %}
-          <a type="button" class="btn btn-outline-dark" href="{{ tag.get_absolute_url }}"
+          <a type="button" class="btn btn-outline-dark mt-.5 mb-.5" href="{{ tag.get_absolute_url }}"
             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .65rem; border-radius: 50px;">
             {{ tag.title|lower }}
           </a>

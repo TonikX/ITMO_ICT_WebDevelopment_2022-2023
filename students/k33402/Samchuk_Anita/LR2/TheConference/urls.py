@@ -11,5 +11,8 @@ urlpatterns = [
     path('conf/<str:name>/', conf_registration, name='conf_registration_url'),
     path('tags/', tags_list, name='tags_list_url'),
     path('tag/<str:title>', tags_detail, name='tags_detail_url'),
-    path('account', account, name='account_url')
+    path('account', account, name='account_url'),
+    path('conf/<str:name>/registration', registration, name='registration_url'),
+    path('<str:pk>/editing', performance_edit, name='performance_edit_url'),
+    path('<str:pk>/delete', performance_delete, name='performance_delete_url'),
 ]
