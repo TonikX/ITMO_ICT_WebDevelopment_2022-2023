@@ -1,0 +1,10 @@
+{
+    "LIBRARY": "/library",
+    "READ": "/read",
+    "SETTINGS": "/settings",
+    "ABOUT": "/about",
+    "MOTD": "/motd",
+    "LOCALIZATION": "/localization",
+    "UNDOREDO": "/undoredo",
+    "CONTEXTMENU": "/contextmenu"
+}

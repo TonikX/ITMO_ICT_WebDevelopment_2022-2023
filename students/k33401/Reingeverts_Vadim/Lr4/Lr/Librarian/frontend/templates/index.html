@@ -1,0 +1,31 @@
+{% load static %}
+{% load env_utils %}
+{% load django_vite %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Librarian</title>
+        {% comment %} https://vitejs.dev/guide/backend-integration.html {% endcomment %}
+        <script type="module">
+            import RefreshRuntime from 'http://localhost:{{ "frontend_port"|get_env }}/@react-refresh'
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {}
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+        {% comment %} https://github.com/MrBin99/django-vite#template-tags {% endcomment %}
+        {% vite_hmr_client %}
+        {% vite_asset 'core/index.jsx' %}
+    </head>
+    <body>
+        Here is react:
+        {{ "frontend_port"|get_env }}
+        {{ "backend_port"|get_env }}
+        <div id="main">
+            <div id="root"></div>
+        </div>
+    </body>
+</html>

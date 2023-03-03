@@ -3,6 +3,38 @@
 
 ## Lab work part
 
+
+### *Django backend* + *React frontend* integration
+> Build tool used: [Vite](https://vitejs.dev/)
+
+#### Running
+
+Makes migrations, migrates, runs django backend server and react frontend server
+```bash
+bash run.sh
+```
+- Default backend port: 8000 (can be changed in `run.sh`)
+- Default frontend port: 3000 (can be changed in `run.sh`)
+
+
+Passes any command to the django's `manage.py`
+```bash
+bash run.sh <any django manage.py command>
+```
+
+E.g.
+```bash
+bash run.sh createsuperuser
+```
+
+#### Reference
+- [Getting Started | Vite](https://vitejs.dev/guide/#index-html-and-project-root)
+- [Backend Integration | Vite](https://vitejs.dev/guide/backend-integration.html) 
+- [Django Vite](https://github.com/MrBin99/django-vite) 
+- [Django Vite Example](https://github.com/MrBin99/django-vite-example)
+
+
+
 ### Screenshots
 
 ER Diagram

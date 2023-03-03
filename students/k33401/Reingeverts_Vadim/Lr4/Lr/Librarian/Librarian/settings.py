@@ -38,12 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
     'drf_yasg',
     "phonenumber_field",
+    'django_vite',
+
     'backend',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +74,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                'env_utils': 'frontend.templatetags.env_utils',
+            }
         },
     },
 ]
@@ -119,15 +126,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_ROOT = ''
-
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS = ['static']
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -160,3 +158,27 @@ DJOSER = {
         'user': 'backend.serializers.UserSerializer',
     },
 }
+
+
+# Vite related
+
+# Where ViteJS assets are built.
+DJANGO_VITE_ASSETS_PATH = BASE_DIR / "frontend" / "static" / "dist"
+# Whether to use HMR or not.
+DJANGO_VITE_DEV_MODE = DEBUG
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+# Name of static files folder (named after `python manage.py collectstatic``)
+STATIC_ROOT = BASE_DIR / "collectedstatic"
+
+STATIC_URL = '/static/'
+
+# Includes DJANGO_VITE_ASSETS_PATH into STATICFILES_DIRS to be copied
+# when `python manage.py collectstatic` command is executed
+STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
+
+# Enviroment variable `frontend_port` is set by `run.sh`
+DJANGO_VITE_DEV_SERVER_PORT = os.environ.get("frontend_port", 3000)
