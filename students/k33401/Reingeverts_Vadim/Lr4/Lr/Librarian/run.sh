@@ -31,7 +31,7 @@ then
 # If first argument is npm, then following arguments to the npm of the frontend
 elif [ $1 == "npm" ]
 then
-    cd frontend && "$@"
+    cd frontend && echo "$PWD" && "$@"
 # If there are non-npm arguments provided, pass them to the `manage.py`
 else
     python manage.py "$@"

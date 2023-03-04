@@ -9,6 +9,13 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emotion/react": "^11.10.6",
+        "@mantine/core": "^6.0.0",
+        "@mantine/dates": "^6.0.0",
+        "@mantine/form": "^6.0.0",
+        "@mantine/hooks": "^6.0.0",
+        "@mantine/modals": "^6.0.0",
+        "dayjs": "^1.11.7",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.8.2"
