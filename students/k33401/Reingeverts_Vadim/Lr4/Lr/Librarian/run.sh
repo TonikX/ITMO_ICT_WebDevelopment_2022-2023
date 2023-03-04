@@ -28,8 +28,13 @@ if [ -z "$1" ] # https://stackoverflow.com/a/19486205
 then
     python manage.py makemigrations && python manage.py migrate && python manage.py runserver $backend_port &
     cd frontend && npm run dev -- --port $frontend_port
-# If first argument is npm, then following arguments to the npm of the frontend
+# If first argument is npm, then pass following arguments to the npm of the frontend
 elif [ $1 == "npm" ]
+then
+    cd frontend && echo "$PWD" && "$@"
+# If first argument is pip, then pass following arguments to the pip of the backend
+elif [ $1 == "pip" ]
+    echo "$PWD" && "$@"
 then
     cd frontend && echo "$PWD" && "$@"
 # If there are non-npm arguments provided, pass them to the `manage.py`

@@ -110,4 +110,5 @@ Nice-to-haves:
 - djoser
 - djangorestframework_simplejwt
 - drf_yasg
+- django-cors-headers
 

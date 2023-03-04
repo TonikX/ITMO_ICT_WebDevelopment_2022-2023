@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
@@ -51,6 +52,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -135,6 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "backend.User"
 
 INTERNAL_IPS = [
+    "localhost"
     "127.0.0.1",
     "192.168.1.246"
 ]
@@ -181,4 +186,15 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
 
 # Enviroment variable `frontend_port` is set by `run.sh`
-DJANGO_VITE_DEV_SERVER_PORT = os.environ.get("frontend_port", 3000)
+FRONTEND_PORT = os.environ.get("frontend_port", 3000)
+
+DJANGO_VITE_DEV_SERVER_PORT = FRONTEND_PORT
+
+
+# CORS related
+
+CORS_ORIGIN_WHITELIST = [
+    f'http://localhost:{FRONTEND_PORT}',
+    f'http://127.0.0.1:{FRONTEND_PORT}',
+    f'http://192.168.1.246:{FRONTEND_PORT}'
+]

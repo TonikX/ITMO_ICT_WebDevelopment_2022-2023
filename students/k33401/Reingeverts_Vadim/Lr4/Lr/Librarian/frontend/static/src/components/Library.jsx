@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Image, Text, Group } from "@mantine/core";
 
-import imgUrl from "../../images/favicon-96.png";
+import imgUrl from "~/images/favicon-96.png";
 
 const Library = () => {
     return (
