@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 export const backendPort = process.env.backend_port ?? 8000;
+const host = process.env.host ?? "localhost";
 
 // https://vitejs.dev/config/
 // https://github.com/MrBin99/django-vite-example/blob/master/vite.config.js
@@ -11,14 +12,14 @@ export default defineConfig({
     root: resolve("./static"),
     base: "/static/",
     server: {
-        host: "localhost",
+        // host: "localhost",
         strictPort: true,
         open: false,
         watch: {
             usePolling: true,
             disableGlobbing: false,
         },
-        origin: `http://localhost:${backendPort}`,
+        origin: `http://${host}:${backendPort}`,
     },
     resolve: {
         extensions: [".js", ".jsx", ".json"],

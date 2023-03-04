@@ -9,25 +9,18 @@ source ../../../.web-dev-env/Scripts/activate
 # Server ports
 backend_port=8000
 frontend_port=3000
+host="192.168.1.246"
 
 # Exported as an environment variable
-# Can be accessed in django template like this:
-#
-#   {% load env_utils %}
-#
-#   {{ "backend_port"|get_env }}
-#   {{ "frontend_port"|get_env }}
-#
 export backend_port=$backend_port
 export frontend_port=$frontend_port
-
-
+export host=$host
 
 # Migrates, and then runs dev backend server in parrallel to runs frontend server
 if [ -z "$1" ] # https://stackoverflow.com/a/19486205
 then
-    python manage.py makemigrations && python manage.py migrate && python manage.py runserver $backend_port &
-    cd frontend && npm run dev -- --port $frontend_port
+    python manage.py makemigrations && python manage.py migrate && python manage.py runserver $host:$backend_port &
+    cd frontend && npm run dev -- --host $host --port $frontend_port
 # If first argument is npm, then pass following arguments to the npm of the frontend
 elif [ $1 == "npm" ]
 then
@@ -41,5 +34,3 @@ then
 else
     python manage.py "$@"
 fi
-
-# python manage.py collectstatic

@@ -11,7 +11,7 @@ const User = ({ queryClient }) => {
     const { data, status } = useQuery(["users"], () => backendApi.fetchUsers({ token }), {
         onError: (error) =>
             notifications.show({
-                title: "Oops, it seems to that something went wrong",
+                title: "Oops, it seems that something went wrong",
                 message: error.statusText || error.message,
                 color: "red",
                 icon: <IconX />,
@@ -26,8 +26,10 @@ const User = ({ queryClient }) => {
         },
         onError: (error) => {
             notifications.show({
-                title: "Oops, it seems to that something went wrong",
+                title: "Oops, it seems that something went wrong",
                 message: error.statusText || error.message,
+                color: "red",
+                icon: <IconX />,
             });
         },
     });
@@ -39,8 +41,10 @@ const User = ({ queryClient }) => {
         },
         onError: (error) =>
             notifications.show({
-                title: "Oops, it seems to that something went wrong",
+                title: "Oops, it seems that something went wrong",
                 message: error.statusText || error.message,
+                color: "red",
+                icon: <IconX />,
             }),
     });
     const deleteUserDetails = useMutation(backendApi.deleteUserDetails, {
@@ -51,8 +55,10 @@ const User = ({ queryClient }) => {
         },
         onError: (error) =>
             notifications.show({
-                title: "Oops, it seems to that something went wrong",
+                title: "Oops, it seems that something went wrong",
                 message: error.statusText || error.message,
+                color: "red",
+                icon: <IconX />,
             }),
     });
 
@@ -82,7 +88,7 @@ const User = ({ queryClient }) => {
                     postUsers.mutate({
                         token,
                         body: {
-                            User: { username: "cool4", password: "cool as well" },
+                            User: { username: "MRA", password: "cool as well" },
                         },
                     })
                 }
