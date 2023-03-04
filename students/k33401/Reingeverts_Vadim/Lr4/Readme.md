@@ -50,7 +50,7 @@ bash run.sh npm install react
 ER Diagram
 ![](https://i.imgur.com/X3vlFdG.png)
 
-Urls
+Backend urls
 ![](https://i.imgur.com/nEVRsl4.png)
 
 ### Требования к представлениям

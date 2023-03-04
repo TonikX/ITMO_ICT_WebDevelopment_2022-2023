@@ -38,17 +38,28 @@ class ModelDetailsAPIView(BaseModelAPIView):
     modelSerializer = None
 
     def get(self, request, pk, *args, **kwargs):
-        object = self.model.objects.get(pk=pk)
+        try:
+            object = self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
+            return Response({"Error": f"{self.model.__name__} with id {pk} does not exist."}, 400)
+
         serializer = self.modelSerializer(object)
         return Response({self.model.__name__: serializer.data})
 
     def delete(self, request, pk, *args, **kwargs):
-        object = self.model.objects.get(pk=pk)
+        try:
+            object = self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
+            return Response({"Error": f"{self.model.__name__} with id {pk} does not exist."}, 400)
+
         object.delete()
         return Response({"Success": f"{self.model.__name__} '{object}' deleted succesfully."})
 
     def patch(self, request, pk, *args, **kwargs):
-        prev_object = self.model.objects.get(pk=pk)
+        try:
+            prev_object = self.model.objects.get(pk=pk)
+        except self.model.DoesNotExist:
+            return Response({"Error": f"{self.model.__name__} with id {pk} does not exist."}, 400)
 
         object_data = request.data.get(self.model.__name__)
         serializer = self.modelSerializer(
