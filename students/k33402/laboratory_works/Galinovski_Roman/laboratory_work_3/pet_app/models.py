@@ -63,7 +63,7 @@ class Dog(models.Model):
         return "{} {} // ID {}".format(self.breed, self.name, self.id)
 
 
-class Show(models.Model):
+class Exhibition(models.Model):
     types = (
         ("Mono", "Monobreed exhibition"),
         ("Poly", "Polybreed exhibition")
@@ -79,7 +79,7 @@ class Show(models.Model):
     def __str__(self):
         return "Show {}, begins: {}".format(self.name, self.dateof_begin)
 
-class DogParticipation(models.Model):
+class DogRegistered(models.Model):
     status_choices = (
         ("Participated", "Participated"),
         ("Suspended", "Suspended"),
@@ -107,7 +107,7 @@ class DogParticipation(models.Model):
     checkup = models.CharField(max_length=100, choices=checkup_choices)
     dateof_checkup = models.DateField(null=True, blank=True)
     participant_dog = models.ForeignKey(Dog, on_delete=models.CASCADE, related_name="dog_reg_participation", related_query_name="dog_reg", verbose_name="Participant-dog")
-    show_dog = models.ForeignKey(Show, on_delete=models.CASCADE, related_name="show_reg_dog_participation", related_query_name="show_dog_reg", verbose_name="Exhibition")
+    show_dog = models.ForeignKey(Exhibition, on_delete=models.CASCADE, related_name="show_reg_dog_participation", related_query_name="show_dog_reg", verbose_name="Exhibition")
     show_medal = models.CharField(max_length=250, choices=medals, null=True, blank=False)
 
     class Meta:
@@ -130,7 +130,7 @@ class Expert(models.Model):
         return "Expert name is {} {} {}//ID {}".format(self.surname, self.name, self.patronymic, self.id)
 
 
-class ExpertParticipation(models.Model):
+class ExpertRegistered(models.Model):
     status_choices = (
         ("Participated", "Participated"),
         ("Suspended", "Suspended"),
@@ -141,7 +141,7 @@ class ExpertParticipation(models.Model):
     status = models.CharField(max_length=250, choices=status_choices)
     dateof_reg_exp = models.DateField()
     participant_exp = models.ForeignKey(Expert, on_delete=models.CASCADE, related_name="exp_reg_participation", related_query_name="exp_reg", verbose_name="Participant-expert")
-    show_exp = models.ForeignKey(Show, on_delete=models.CASCADE, related_name="show_exp_reg_participation", related_query_name="show_exp_reg", verbose_name="Exhibition")
+    show_exp = models.ForeignKey(Exhibition, on_delete=models.CASCADE, related_name="show_exp_reg_participation", related_query_name="show_exp_reg", verbose_name="Exhibition")
 
     class Meta:
         unique_together = ("show_exp", "participant_exp")
@@ -164,13 +164,13 @@ class Sponsorship(models.Model):
     contract_number = models.IntegerField(null=False, blank=False, unique=True)
     dateof_sign = models.DateField(null=False, blank=False)
     sponsor = models.ForeignKey(Sponsor, on_delete=models.CASCADE, related_name="sponsor", related_query_name="sponsor", verbose_name="Sponsor")
-    sponsor_show = models.ForeignKey(Show, on_delete=models.CASCADE, related_name="sponsor_show", related_query_name="sponsor_show", verbose_name="Exhibition")
+    sponsor_show = models.ForeignKey(Exhibition, on_delete=models.CASCADE, related_name="sponsor_show", related_query_name="sponsor_show", verbose_name="Exhibition")
 
     def __str__(self):
         return "{} - {}".format(self.sponsor, self.sponsor_show)
 
 
-class ShowSchedule(models.Model):
+class Schedule(models.Model):
     breeds = (
         ('Achihuahua', 'Achihuahua'),
         ('Apchihuahua', 'Apchihuahua'),
@@ -192,16 +192,16 @@ class ShowSchedule(models.Model):
     timeof_show = models.DateTimeField(null=False, blank=False)
     numberof_ring = models.IntegerField(null=False, blank=False)
     show_class = models.CharField(max_length=200, choices=class_types, null=False, blank=False)
-    show_schedule = models.ForeignKey(Show, on_delete=models.CASCADE, related_name="show_schedule", related_query_name="show_schedule", verbose_name="Exhibition")
+    show_schedule = models.ForeignKey(Exhibition, on_delete=models.CASCADE, related_name="show_schedule", related_query_name="show_schedule", verbose_name="Exhibition")
 
     def __str__(self):
         return "{}, {}, ring {}".format(self.show_schedule, self.breedof_show, self.numberof_ring)
 
 
 class Grading(models.Model):
-    schedule = models.ForeignKey(ShowSchedule, on_delete=models.CASCADE, related_name="schedule", related_query_name="schedule", verbose_name="Schedulle")
-    dog = models.ForeignKey(DogParticipation, on_delete=models.CASCADE, related_name="dog", related_query_name="dog", verbose_name="Dog")
-    expert = models.ForeignKey(ExpertParticipation, on_delete=models.CASCADE, related_name="expert", related_query_name="expert", verbose_name="Expert")
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="schedule", related_query_name="schedule", verbose_name="Schedulle")
+    dog = models.ForeignKey(DogRegistered, on_delete=models.CASCADE, related_name="dog", related_query_name="dog", verbose_name="Dog")
+    expert = models.ForeignKey(ExpertRegistered, on_delete=models.CASCADE, related_name="expert", related_query_name="expert", verbose_name="Expert")
     first = models.IntegerField(null=False, blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     second = models.IntegerField(null=False, blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])
     third = models.IntegerField(null=False, blank=True, validators=[MinValueValidator(0), MaxValueValidator(10)])

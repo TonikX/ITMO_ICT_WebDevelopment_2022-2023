@@ -42,28 +42,28 @@ class DogRetrieveSerializer(serializers.ModelSerializer):
                   "last_vaccination", "owner", "club"]
 
 
-class ShowSerializer(serializers.ModelSerializer):
+class ExhibitionSerializer(serializers.ModelSerializer):
     host = OrganizerSerializer
 
     class Meta:
-        model = Show
+        model = Exhibition
         fields = "__all__"
 
 
-class DogParticipationSerializer(serializers.ModelSerializer):
+class DogRegisteredSerializer(serializers.ModelSerializer):
     participant_dog = DogSerializer()
-    show_dog = ShowSerializer()
+    show_dog = ExhibitionSerializer()
 
     class Meta:
-        model = DogParticipation
+        model = DogRegistered
         fields = ["id", "show_dog_number", "status", "dateof_reg_dog", "bill", "checkup", "dateof_checkup",
                   "participant_dog", "show_dog", "show_medal"]
 
 
-class DogParticipationRetrieveSerializer(serializers.ModelSerializer):
+class DogRegisteredRetrieveSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = DogParticipation
+        model = DogRegistered
         fields = ["id", "show_dog_number", "status", "dateof_reg_dog", "bill", "checkup", "dateof_checkup",
                   "participant_dog", "show_dog", "show_medal"]
 
@@ -76,12 +76,12 @@ class ExpertSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class ExpertParticipationSerializer(serializers.ModelSerializer):
+class ExpertRegisteredSerializer(serializers.ModelSerializer):
     participant_exp = ExpertSerializer
-    show_exp = ShowSerializer
+    show_exp = ExhibitionSerializer
 
     class Meta:
-        model = ExpertParticipation
+        model = ExpertRegistered
         fields = "__all__"
 
 
@@ -94,25 +94,25 @@ class SponsorSerializer(serializers.ModelSerializer):
 
 class SponsorshipSerializer(serializers.ModelSerializer):
     sponsor = SponsorSerializer
-    sponsor_show = ShowSerializer
+    sponsor_show = ExhibitionSerializer
 
     class Meta:
         model = Sponsorship
         fields = "__all__"
 
 
-class ShowScheduleSerializer(serializers.ModelSerializer):
-    show_schedule = ShowSerializer
+class ScheduleSerializer(serializers.ModelSerializer):
+    show_schedule = ExhibitionSerializer
 
     class Meta:
-        model = ShowSchedule
+        model = Schedule
         fields = "__all__"
 
 
 class GradingSerializer(serializers.ModelSerializer):
-    dog = DogParticipationSerializer
-    expert = ExpertParticipationSerializer
-    schedule = ShowScheduleSerializer
+    dog = DogRegisteredSerializer
+    expert = ExpertRegisteredSerializer
+    schedule = ScheduleSerializer
 
     class Meta:
         model = Grading
@@ -122,11 +122,11 @@ class GradingSerializer(serializers.ModelSerializer):
 class DogRingSerializer(serializers.ModelSerializer):
     owner = OwnerSerializer(many=True)
     dog = DogSerializer(many=True)
-    show = ShowSerializer(many=True)
-    dog_reg = DogParticipationSerializer(many=True)
+    show = ExhibitionSerializer(many=True)
+    dog_reg = DogRegisteredSerializer(many=True)
 
     class Meta:
-        model = ShowSchedule
+        model = Schedule
         fields = ["__all__"]
 
 
@@ -149,7 +149,7 @@ class DogNotAllowedOrSuspendedCountSerializer(serializers.ModelSerializer):
     miss_count = serializers.SerializerMethodField()
 
     class Meta:
-        model = Show
+        model = Exhibition
         fields = ["dateof_begin", "miss_count"]
 
     def get_count(self, obj):
@@ -157,8 +157,8 @@ class DogNotAllowedOrSuspendedCountSerializer(serializers.ModelSerializer):
 
 
 class BreedExpertsSerializer(serializers.ModelSerializer):
-    show_schedule = ShowScheduleSerializer(many=True)
-    experts_reg = ExpertParticipationSerializer(many=True)
+    show_schedule = ScheduleSerializer(many=True)
+    experts_reg = ExpertRegisteredSerializer(many=True)
     experts = ExpertSerializer(many=True)
 
     class Meta:

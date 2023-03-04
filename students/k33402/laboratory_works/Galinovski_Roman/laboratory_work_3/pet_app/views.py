@@ -52,33 +52,33 @@ class DogCreateAPIView(generics.CreateAPIView):
 
 
 class ShowListAPIView(generics.ListAPIView):
-    serializer_class = ShowSerializer
-    queryset = Show.objects.all()
+    serializer_class = ExhibitionSerializer
+    queryset = Exhibition.objects.all()
 
 
-class ShowAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ShowSerializer
-    queryset = Show.objects.all()
+class ExhibitionAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExhibitionSerializer
+    queryset = Exhibition.objects.all()
 
 
-class ShowCreateAPIView(generics.CreateAPIView):
-    serializer_class = ShowSerializer
-    queryset = Show.objects.all()
+class ExhibitionCreateAPIView(generics.CreateAPIView):
+    serializer_class = ExhibitionSerializer
+    queryset = Exhibition.objects.all()
 
 
-class DogParticipationListAPIView(generics.ListAPIView):
-    serializer_class = DogParticipationSerializer
-    queryset = DogParticipation.objects.all()
+class DogRegisteredListAPIView(generics.ListAPIView):
+    serializer_class = DogRegisteredSerializer
+    queryset = DogRegistered.objects.all()
 
 
-class DogParticipationAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = DogParticipationRetrieveSerializer
-    queryset = DogParticipation.objects.all()
+class DogRegisteredAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = DogRegisteredRetrieveSerializer
+    queryset = DogRegistered.objects.all()
 
 
 class DogParticipantCreateAPIView(generics.CreateAPIView):
-    serializer_class = DogParticipationRetrieveSerializer
-    queryset = DogParticipation.objects.all()
+    serializer_class = DogRegisteredRetrieveSerializer
+    queryset = DogRegistered.objects.all()
 
 
 class ExpertListAPIView(generics.ListAPIView):
@@ -96,19 +96,19 @@ class ExpertCreateAPIView(generics.CreateAPIView):
     queryset = Expert.objects.all()
 
 
-class ExpertParticipationListAPIView(generics.ListAPIView):
-    serializer_class = ExpertParticipationSerializer
-    queryset = ExpertParticipation.objects.all()
+class ExpertRegisteredListAPIView(generics.ListAPIView):
+    serializer_class = ExpertRegisteredSerializer
+    queryset = ExpertRegistered.objects.all()
 
 
-class ExpertParticipationAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ExpertParticipationSerializer
-    queryset = ExpertParticipation.objects.all()
+class ExpertRegisteredAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ExpertRegisteredSerializer
+    queryset = ExpertRegistered.objects.all()
 
 
-class ExpertParticipationCreateAPIView(generics.CreateAPIView):
-    serializer_class = ExpertParticipationSerializer
-    queryset = ExpertParticipation.objects.all()
+class ExpertRegisteredCreateAPIView(generics.CreateAPIView):
+    serializer_class = ExpertRegisteredSerializer
+    queryset = ExpertRegistered.objects.all()
 
 
 class SponsorListAPIView(generics.ListAPIView):
@@ -141,19 +141,19 @@ class SponsorshipCreateAPIView(generics.CreateAPIView):
     queryset = Sponsorship.objects.all()
 
 
-class ShowScheduleListAPIView(generics.ListAPIView):
-    serializer_class = ShowScheduleSerializer
-    queryset = ShowSchedule.objects.all()
+class ScheduleListAPIView(generics.ListAPIView):
+    serializer_class = ScheduleSerializer
+    queryset = Schedule.objects.all()
 
 
-class ShowScheduleAPIView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = ShowScheduleSerializer
-    queryset = ShowSchedule.objects.all()
+class ScheduleAPIView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ScheduleSerializer
+    queryset = Schedule.objects.all()
 
 
-class ShowScheduleCreateAPIView(generics.CreateAPIView):
-    serializer_class = ShowScheduleSerializer
-    queryset = ShowSchedule.objects.all()
+class ScheduleCreateAPIView(generics.CreateAPIView):
+    serializer_class = ScheduleSerializer
+    queryset = Schedule.objects.all()
 
 
 class GradingListAPIView(generics.ListAPIView):
@@ -186,7 +186,7 @@ class ClubBreedAPIView(APIView):
 
 class DogNotAllowedOrSuspendedCountAPIView(APIView):
     def get(self, request, id):
-        participants = DogParticipation.objects.filter(show_dog__id=id).filter(Q(status="Not allowed") | Q(status="Suspended"))
+        participants = DogRegistered.objects.filter(show_dog__id=id).filter(Q(status="Not allowed") | Q(status="Suspended"))
         counter = participants.count()
         dogs = participants.values("show_dog__name", "show_dog__dateof_begin", "participant_dog__breed", "participant_dog__name")
         content = {"counter": counter, "dogs": dogs}
@@ -212,16 +212,16 @@ class BreedCountAPIView(APIView):
 
 class ReportAPIView(APIView):
     def get(self, request, id):
-        show = Show.objects.get(id=id)
-        show_title = show.name
-        year = show.dateof_begin.year
-        participants = DogParticipation.objects.filter(show_dog__id=id)
+        exhibition = Exhibition.objects.get(id=id)
+        show_title = exhibition.name
+        year = exhibition.dateof_begin.year
+        participants = DogRegistered.objects.filter(show_dog__id=id)
         counter = participants.count()
         breed_counter = participants.values("participant_dog__breed").annotate(count=Count("participant_dog__breed"))
         best_grades = Grading.objects.filter(schedule__show_schedule__id=id).values(
                                              "dog__participant_dog__name", "dog__participant_dog__breed",
                                              "dog__id", "first", "second", "third", "sum").order_by("dog__participant_dog__breed", "sum")
-        medals = DogParticipation.objects.filter(show_dog__id=id).values(
+        medals = DogRegistered.objects.filter(show_dog__id=id).values(
                                              "participant_dog__dog_name", "participant_dog__breed",
                                              "show_medal").annotate(medals_count=Count("show_medal")).order_by(
                                              "participant_dog__breed", "dog__sum")
