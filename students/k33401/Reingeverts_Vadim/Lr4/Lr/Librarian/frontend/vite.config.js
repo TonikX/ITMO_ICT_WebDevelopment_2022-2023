@@ -12,8 +12,8 @@ export default defineConfig({
     root: resolve("./static"),
     base: "/static/",
     server: {
-        // host: "localhost",
         strictPort: true,
+        port: 3000,
         open: false,
         watch: {
             usePolling: true,

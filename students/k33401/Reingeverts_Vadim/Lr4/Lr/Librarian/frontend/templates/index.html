@@ -10,7 +10,7 @@
         <title>Librarian</title>
         {% comment %} https://vitejs.dev/guide/backend-integration.html {% endcomment %}
         <script type="module">
-            import RefreshRuntime from 'http://{% get_env "host" localhost %}:{% get_env "frontend_port" 3000 %}/@react-refresh'
+            import RefreshRuntime from 'http://{% get_env "host" "localhost" %}:{% get_env "frontend_port" 3000 %}/@react-refresh'
             RefreshRuntime.injectIntoGlobalHook(window)
             window.$RefreshReg$ = () => {}
             window.$RefreshSig$ = () => (type) => type
