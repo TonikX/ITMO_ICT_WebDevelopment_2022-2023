@@ -1,21 +1,12 @@
 import React from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { notifications } from "@mantine/notifications";
-import { IconX } from "@tabler/icons-react";
 
+import notification from "~/components/Notification";
 import backendApi from "~/utils/BackendApi";
 
-const token = "4ed1fe7242281538e75beeaa9d139e2cd9f3c1b4";
-
 const User = ({ queryClient }) => {
-    const { data, status } = useQuery(["users"], () => backendApi.fetchUsers({ token }), {
-        onError: (error) =>
-            notifications.show({
-                title: "Oops, it seems that something went wrong",
-                message: error.statusText || error.message,
-                color: "red",
-                icon: <IconX />,
-            }),
+    const { data, status } = useQuery(["users"], () => backendApi.fetchUsers(), {
+        onError: notification.showError,
     });
 
     const postUsers = useMutation(backendApi.postUsers, {
@@ -24,14 +15,8 @@ const User = ({ queryClient }) => {
             console.log("Users are invalidated");
             queryClient.invalidateQueries("users");
         },
-        onError: (error) => {
-            notifications.show({
-                title: "Oops, it seems that something went wrong",
-                message: error.statusText || error.message,
-                color: "red",
-                icon: <IconX />,
-            });
-        },
+        onError: notification.showError,
+        retry: 0,
     });
     const patchUserDetails = useMutation(backendApi.patchUserDetails, {
         onSuccess: (res) => {
@@ -39,13 +24,8 @@ const User = ({ queryClient }) => {
             console.log("Users are invalidated");
             queryClient.invalidateQueries("users");
         },
-        onError: (error) =>
-            notifications.show({
-                title: "Oops, it seems that something went wrong",
-                message: error.statusText || error.message,
-                color: "red",
-                icon: <IconX />,
-            }),
+        onError: notification.showError,
+        retry: 0,
     });
     const deleteUserDetails = useMutation(backendApi.deleteUserDetails, {
         onSuccess: (res) => {
@@ -53,13 +33,8 @@ const User = ({ queryClient }) => {
             console.log("Users are invalidated");
             queryClient.invalidateQueries("users");
         },
-        onError: (error) =>
-            notifications.show({
-                title: "Oops, it seems that something went wrong",
-                message: error.statusText || error.message,
-                color: "red",
-                icon: <IconX />,
-            }),
+        onError: notification.showError,
+        retry: 0,
     });
 
     if (status === "loading") {
@@ -68,7 +43,7 @@ const User = ({ queryClient }) => {
     return (
         <>
             <ul>
-                {data["User"] &&
+                {data?.["User"] &&
                     data["User"].map((user) => (
                         <li key={user.id}>
                             <p>User</p>
@@ -86,7 +61,6 @@ const User = ({ queryClient }) => {
             <button
                 onClick={() =>
                     postUsers.mutate({
-                        token,
                         body: {
                             User: { username: "MRA", password: "cool as well" },
                         },
@@ -99,7 +73,6 @@ const User = ({ queryClient }) => {
                 onClick={() =>
                     patchUserDetails.mutate({
                         userId: 5,
-                        token,
                         body: {
                             User: { first_name: "brand new name" },
                         },
@@ -111,8 +84,7 @@ const User = ({ queryClient }) => {
             <button
                 onClick={() =>
                     deleteUserDetails.mutate({
-                        userId: 5,
-                        token,
+                        userId: 7,
                     })
                 }
             >

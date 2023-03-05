@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
-export const backendPort = process.env.backend_port ?? 8000;
+const backendPort = process.env.backend_port ?? 8000;
 const host = process.env.host ?? "localhost";
 
 // https://vitejs.dev/config/
