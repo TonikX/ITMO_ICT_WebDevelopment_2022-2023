@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пассажиры рейса - Авиатабло</title>
+</head>
+<body>
+    <h1>Пассажиры рейса {{flight.flight_number}}</h1>
+    <table border="2" cellspacing="0" bordercolor="black">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Дата рождения</th>
+                <th>Номер паспорта</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for passenger in passengers %}.
+            <tr>
+                <td>{{passenger.id}}</td>
+                <td>{{passenger.last_name}}</td>
+                <td>{{passenger.first_name}}</td>
+                <td>{{passenger.middle_name}}</td>
+                <td>{{passenger.date_of_birth}}</td>
+                <td>{{passenger.passport_number}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/table">Назад</a>
+</body>
+</html>
