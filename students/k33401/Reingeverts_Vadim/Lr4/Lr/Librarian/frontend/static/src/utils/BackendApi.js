@@ -16,7 +16,7 @@ const getCookie = (name) => {
 };
 
 const getToken = () => {
-    return JSON.parse(sessionStorage.getItem("token"));
+    return JSON.parse(localStorage.getItem("token"));
 };
 
 export const fetchFromBackendApi = async (pathSegments = [], dropToken = false) => {
@@ -80,7 +80,10 @@ export const postLogin = async ({ username, password }) =>
 export const postLogout = async () => await pushToBackendApi(["auth", "token", "logout"], "POST");
 
 // Models API
-export const fetchUsers = async () => await fetchFromBackendApi(["api", "users"]);
+export const fetchUsers = async () => {
+    console.log("getToken", getToken());
+    return await fetchFromBackendApi(["api", "users"]);
+};
 export const fetchUserDetails = async ({ userId }) =>
     await fetchFromBackendApi(["api", "user", userId]);
 
