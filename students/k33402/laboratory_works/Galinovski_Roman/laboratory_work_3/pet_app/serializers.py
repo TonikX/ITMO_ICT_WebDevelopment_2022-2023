@@ -25,8 +25,8 @@ class ClubSerializer(serializers.ModelSerializer):
 
 
 class DogSerializer(serializers.ModelSerializer):
-    dog_owner = OwnerSerializer()
-    dog_club = ClubSerializer()
+    owner = OwnerSerializer()
+    club = ClubSerializer()
 
     class Meta:
         model = Dog
