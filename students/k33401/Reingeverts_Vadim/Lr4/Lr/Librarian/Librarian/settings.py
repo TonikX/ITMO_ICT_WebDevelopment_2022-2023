@@ -172,6 +172,19 @@ DJANGO_VITE_ASSETS_PATH = BASE_DIR / "frontend" / "static" / "dist"
 DJANGO_VITE_DEV_MODE = DEBUG
 
 
+# Enviroment variable `frontend_port` is set by `run.sh`
+FRONTEND_PORT = os.environ.get("frontend_port", 3000)
+
+# CORS related
+CORS_ORIGIN_WHITELIST = [
+    f'http://localhost:{FRONTEND_PORT}',
+    f'http://127.0.0.1:{FRONTEND_PORT}',
+    f'http://192.168.1.246:{FRONTEND_PORT}',
+]
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -184,20 +197,13 @@ STATIC_URL = '/static/'
 # when `python manage.py collectstatic` command is executed
 STATICFILES_DIRS = [DJANGO_VITE_ASSETS_PATH]
 
+
 # Enviroment variable `host` is set by `run.sh`
 HOST = os.environ.get("host", "localhost")
-# Enviroment variable `frontend_port` is set by `run.sh`
-FRONTEND_PORT = os.environ.get("frontend_port", 3000)
+INTERNAL_IPS.append(HOST)
+ALLOWED_HOSTS.append(HOST)
+CORS_ORIGIN_WHITELIST.append(f'htttp://{HOST}:{FRONTEND_PORT}')
+
 
 DJANGO_VITE_DEV_SERVER_HOST = HOST
 DJANGO_VITE_DEV_SERVER_PORT = FRONTEND_PORT
-
-
-# CORS related
-CORS_ORIGIN_WHITELIST = [
-    f'http://localhost:{FRONTEND_PORT}',
-    f'http://127.0.0.1:{FRONTEND_PORT}',
-    f'http://192.168.1.246:{FRONTEND_PORT}',
-]
-
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None

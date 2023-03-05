@@ -38,8 +38,7 @@ export const fetchFromBackendApi = async (pathSegments = [], dropToken = false) 
         },
     });
     if (!res.ok) throw new Error(res.statusText);
-
-    return await res.json();
+    return { json: await res.json(), ok: res.ok };
 };
 
 export const pushToBackendApi = async (
@@ -67,10 +66,12 @@ export const pushToBackendApi = async (
         credentials: "same-origin",
         body: JSON.stringify(body),
     });
-    if (!res.ok) throw new Error(res.statusText);
+
+    console.log("backend push response", res);
 
     // Handle empty responses
-    return (await res.json().catch(() => {})) ?? {};
+    if (res.status === 204) return { json: {}, ok: res.ok };
+    return { json: await res.json(), ok: res.ok };
 };
 
 // Auth API
