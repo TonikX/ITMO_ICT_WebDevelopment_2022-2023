@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container py-5">
+        <h1>Задания</h1>
+        <article>
+          {% for answer in answers %}
+          <ul>
+            <li>
+
+              Ученик: {{ answer.student.username }}
+            </li>
+            <li>
+              Предмет: {{ answer.task.subject }}
+            </li>
+            <li>
+              Дата публикации: {{ answer.date|date:"d E Y" }}
+            </li>
+            <li>
+              {% if answer.assessment %}
+              Оценка: {{ answer.assessment }}
+              {% else %}
+              На проверке
+              {% endif %}
+            </li>
+          </ul>
+          <p>
+            Ответ: {{ answer.answer }}
+          </p>
+
+            <hr>
+        </article>
+        {% endfor %}
+</div>
+{% endblock %}

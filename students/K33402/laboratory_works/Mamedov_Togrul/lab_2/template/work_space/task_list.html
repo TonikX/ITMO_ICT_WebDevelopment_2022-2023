@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container py-5">
+        <h1>Задания</h1>
+        <article>
+          {% for task in tasks %}
+          <ul>
+            <li>
+
+              Учитель: {{ task.teacher.user.first_name }}
+            </li>
+            <li>
+              Предмет: {{ task.subject }}
+            </li>
+            <li>
+              Дата публикации: {{ task.date_create|date:"d E Y" }}
+            </li>
+              <li>
+              Дата сдачи: {{ task.data_finish|date:"d E Y" }}
+            </li>
+          </ul>
+          <p>
+            Задание: {{ task.task }}
+          </p>
+          <p>
+            Если не сдали заданеи в срок: {{ task.sanctions }}
+          </p>
+            <hr>
+        </article>
+        {% endfor %}
+</div>
+{% endblock %}
