@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Library from "~/components/Library";
-import User from "~/components/User";
+import User from "~/components/UserOld";
 import Error from "~/components/Error";
 import Login from "~/pages/Login";
 

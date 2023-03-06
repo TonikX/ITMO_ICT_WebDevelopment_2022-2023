@@ -1,54 +1,48 @@
 import React, { useState } from "react";
-import {
-    AppShell,
-    Navbar,
-    Header,
-    Footer,
-    Aside,
-    Text,
-    MediaQuery,
-    Burger,
-    useMantineTheme,
-} from "@mantine/core";
+import { MantineProvider, ColorSchemeProvider, AppShell, useMantineTheme } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 import Routes from "~/core/Routes";
+import Sidebar from "~/components/Sidebar";
+import Header from "~/components/Header";
 
 const App = ({ queryClient }) => {
     const theme = useMantineTheme();
-    const [opened, setOpened] = useState(false);
+    const [colorScheme, setColorScheme] = useState("dark");
+    const toggleColorScheme = (value) =>
+        setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
+
+    const [sidebarOpened, setSidebarOpened] = useState(false);
 
     return (
         <>
-            <AppShell
-                styles={{
-                    main: {
-                        background:
-                            theme.colorScheme === "dark"
-                                ? theme.colors.dark[8]
-                                : theme.colors.gray[0],
-                    },
-                }}
-                navbarOffsetBreakpoint="sm"
-                navbar={
-                    <Navbar
-                        p="md"
-                        hiddenBreakpoint="sm"
-                        hidden={!opened}
-                        width={{ sm: 200, lg: 300 }}
+            <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+                <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+                    <Notifications />
+                    <AppShell
+                        layout="alt"
+                        styles={{
+                            main: {
+                                background:
+                                    colorScheme === "dark"
+                                        ? theme.colors.dark[8]
+                                        : theme.colors.gray[0],
+                            },
+                        }}
+                        navbarOffsetBreakpoint="sm"
+                        asideOffsetBreakpoint="sm"
+                        navbar={<Sidebar opened={sidebarOpened} setOpened={setSidebarOpened} />}
+                        header={
+                            <Header
+                                sidebarOpened={sidebarOpened}
+                                setSidebarOpened={setSidebarOpened}
+                            />
+                        }
                     >
-                        {/* First section with normal height (depends on section content) */}
-                        <Navbar.Section>First section</Navbar.Section>
-
-                        {/* Grow section will take all available space that is not taken by first and last sections */}
-                        <Navbar.Section grow>Grow section</Navbar.Section>
-
-                        {/* Last section with normal height (depends on section content) */}
-                        <Navbar.Section>Last section</Navbar.Section>
-                    </Navbar>
-                }
-            >
-                <Routes queryClient={queryClient} />
-            </AppShell>
+                        <Routes queryClient={queryClient} />
+                    </AppShell>
+                </MantineProvider>
+            </ColorSchemeProvider>
         </>
     );
 };

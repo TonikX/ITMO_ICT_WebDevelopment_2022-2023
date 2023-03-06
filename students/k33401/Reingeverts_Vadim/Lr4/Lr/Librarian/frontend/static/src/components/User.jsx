@@ -1,96 +1,57 @@
 import React from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react";
+import { UnstyledButton, Group, Avatar, Text, Box, useMantineTheme, rem } from "@mantine/core";
 
-import notification from "~/components/Notification";
-import backendApi from "~/utils/BackendApi";
+const User = () => {
+    const theme = useMantineTheme();
 
-const User = ({ queryClient }) => {
-    const { data, status } = useQuery(["users"], () => backendApi.fetchUsers(), {
-        onError: notification.showError,
-    });
-
-    const postUsers = useMutation(backendApi.postUsers, {
-        onSuccess: (res) => {
-            console.log(res);
-            console.log("Users are invalidated");
-            queryClient.invalidateQueries("users");
-        },
-        onError: notification.showError,
-        retry: 0,
-    });
-    const patchUserDetails = useMutation(backendApi.patchUserDetails, {
-        onSuccess: (res) => {
-            console.log(res);
-            console.log("Users are invalidated");
-            queryClient.invalidateQueries("users");
-        },
-        onError: notification.showError,
-        retry: 0,
-    });
-    const deleteUserDetails = useMutation(backendApi.deleteUserDetails, {
-        onSuccess: (res) => {
-            console.log(res);
-            console.log("Users are invalidated");
-            queryClient.invalidateQueries("users");
-        },
-        onError: notification.showError,
-        retry: 0,
-    });
-
-    if (status === "loading") {
-        return <>Loading users...</>;
-    }
     return (
-        <>
-            <ul>
-                {data?.["User"] &&
-                    data["User"].map((user) => (
-                        <li key={user.id}>
-                            <p>User</p>
-                            <ul>
-                                <li>id: {user.id}</li>
-                                <li>username: {user.username}</li>
-                                <li>first_name: {user.first_name}</li>
-                                <li>serial_number: {user.serial_number}</li>
-                                <li>password: {user.password}</li>
-                            </ul>
-                        </li>
-                    ))}
-            </ul>
+        <Box
+            sx={{
+                paddingTop: theme.spacing.sm,
+                borderTop: `${rem(1)} solid ${
+                    theme.colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+                }`,
+            }}
+        >
+            <UnstyledButton
+                sx={{
+                    display: "block",
+                    width: "100%",
+                    padding: theme.spacing.xs,
+                    borderRadius: theme.radius.sm,
+                    color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
 
-            <button
-                onClick={() =>
-                    postUsers.mutate({
-                        body: {
-                            User: { username: "MRA", password: "cool as well" },
-                        },
-                    })
-                }
+                    "&:hover": {
+                        backgroundColor:
+                            theme.colorScheme === "dark"
+                                ? theme.colors.dark[6]
+                                : theme.colors.gray[0],
+                    },
+                }}
             >
-                Add user
-            </button>
-            <button
-                onClick={() =>
-                    patchUserDetails.mutate({
-                        userId: 5,
-                        body: {
-                            User: { first_name: "brand new name" },
-                        },
-                    })
-                }
-            >
-                Update user 2 name
-            </button>
-            <button
-                onClick={() =>
-                    deleteUserDetails.mutate({
-                        userId: 7,
-                    })
-                }
-            >
-                Delete user 2
-            </button>
-        </>
+                <Group>
+                    <Avatar
+                        src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+                        radius="xl"
+                    />
+                    <Box sx={{ flex: 1 }}>
+                        <Text size="sm" weight={500}>
+                            Amy Horsefighter
+                        </Text>
+                        <Text color="dimmed" size="xs">
+                            ahorsefighter
+                        </Text>
+                    </Box>
+
+                    {theme.dir === "ltr" ? (
+                        <IconChevronRight size={rem(18)} />
+                    ) : (
+                        <IconChevronLeft size={rem(18)} />
+                    )}
+                </Group>
+            </UnstyledButton>
+        </Box>
     );
 };
 
