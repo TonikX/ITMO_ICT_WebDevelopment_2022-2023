@@ -6,13 +6,15 @@ import { Text, TextInput, PasswordInput, Group, Button, Box } from "@mantine/cor
 
 import notification from "~/components/Notification";
 import backendApi from "~/utils/BackendApi";
-
-const sessionStorageToken = JSON.parse(sessionStorage.getItem("token"));
+import { getSessionStorageToken } from "~/utils/Token";
 
 const Login = ({ queryClient }) => {
-    const [token, setToken] = useLocalStorage({ key: "token", defaultValue: sessionStorageToken });
+    const [token, setToken] = useLocalStorage({
+        key: "token",
+        defaultValue: getSessionStorageToken(),
+    });
     const isLoggedIn = !!token;
-    const isProfileMutating = useIsMutating("profile");
+    const isProfileMutating = useIsMutating("user");
     const [nonFieldErrors, setNonFieldErrors] = useState([]);
 
     const form = useForm({
@@ -27,7 +29,7 @@ const Login = ({ queryClient }) => {
         validateInputOnBlur: true,
     });
 
-    const { data, status } = useQuery(["profile"], () => backendApi.fetchLogin(), {
+    const { data, status } = useQuery(["user"], () => backendApi.fetchLogin(), {
         onError: () => {
             console.log("token is invalid");
             setToken(null);
@@ -38,7 +40,7 @@ const Login = ({ queryClient }) => {
     });
 
     const postLogin = useMutation(backendApi.postLogin, {
-        mutationKey: "profile",
+        mutationKey: "user",
         onSuccess: ({ json, ok }) => {
             if (ok) {
                 setToken(json["auth_token"]);
@@ -55,7 +57,7 @@ const Login = ({ queryClient }) => {
         retry: 0,
     });
     const postLogout = useMutation(backendApi.postLogout, {
-        mutationKey: "profile",
+        mutationKey: "user",
         onSuccess: ({ json, ok }) => {
             console.log("LOGOUT");
             console.log("json", json, "ok", ok);
@@ -72,7 +74,7 @@ const Login = ({ queryClient }) => {
 
     useEffect(() => {
         sessionStorage.setItem("token", JSON.stringify(token));
-        queryClient.invalidateQueries("profile");
+        queryClient.invalidateQueries("user");
     }, [isLoggedIn]);
 
     const handleLogin = ({ username, password }) => {

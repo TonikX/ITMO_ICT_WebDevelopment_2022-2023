@@ -1,27 +1,8 @@
-// https://stackoverflow.com/a/43943556
-const getCookie = (name) => {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-        const cookies = document.cookie.split(";");
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === name + "=") {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-};
-
-const getToken = () => {
-    return JSON.parse(localStorage.getItem("token"));
-};
+import { getCookie, getSessionStorageToken } from "~/utils/Token";
 
 export const fetchFromBackendApi = async (pathSegments = [], dropToken = false) => {
     const path = pathSegments.join("/");
-    const token = dropToken ? null : getToken();
+    const token = dropToken ? null : getSessionStorageToken();
 
     const res = await fetch(`${window.location.origin}/${path}`, {
         method: "GET",
@@ -49,7 +30,7 @@ export const pushToBackendApi = async (
 ) => {
     let path = pathSegments.join("/");
     if (method === "POST") path += "/";
-    const token = dropToken ? null : getToken();
+    const token = dropToken ? null : getSessionStorageToken();
 
     const res = await fetch(`${window.location.origin}/${path}`, {
         method,
@@ -81,10 +62,7 @@ export const postLogin = async ({ username, password }) =>
 export const postLogout = async () => await pushToBackendApi(["auth", "token", "logout"], "POST");
 
 // Models API
-export const fetchUsers = async () => {
-    console.log("getToken", getToken());
-    return await fetchFromBackendApi(["api", "users"]);
-};
+export const fetchUsers = async () => await fetchFromBackendApi(["api", "users"]);
 export const fetchUserDetails = async ({ userId }) =>
     await fetchFromBackendApi(["api", "user", userId]);
 

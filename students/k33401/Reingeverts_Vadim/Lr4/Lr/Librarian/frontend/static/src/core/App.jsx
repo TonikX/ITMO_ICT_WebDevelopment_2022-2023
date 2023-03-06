@@ -31,7 +31,13 @@ const App = ({ queryClient }) => {
                         }}
                         navbarOffsetBreakpoint="sm"
                         asideOffsetBreakpoint="sm"
-                        navbar={<Sidebar opened={sidebarOpened} setOpened={setSidebarOpened} />}
+                        navbar={
+                            <Sidebar
+                                queryClient={queryClient}
+                                opened={sidebarOpened}
+                                setOpened={setSidebarOpened}
+                            />
+                        }
                         header={
                             <Header
                                 sidebarOpened={sidebarOpened}

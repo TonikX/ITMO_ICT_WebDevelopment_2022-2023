@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     UnstyledButton,
     Group,
@@ -12,8 +12,15 @@ import {
     MediaQuery,
 } from "@mantine/core";
 import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react";
+import { useLocalStorage } from "@mantine/hooks";
+import { useQuery, useMutation, useIsMutating } from "@tanstack/react-query";
 
-const LogoutButton = () => <Button color="red">Log Out</Button>;
+import UserContent from "~/components/UserContent";
+import LogoutButton from "~/components/LogoutButton";
+import notification from "~/components/Notification";
+import backendApi from "~/utils/BackendApi";
+import { getSessionStorageToken } from "~/utils/Token";
+import AdmissionModals from "~/components/AdmissionModals";
 
 const getUserContainerSx = (theme) => {
     return {
@@ -30,30 +37,31 @@ const getUserContainerSx = (theme) => {
     };
 };
 
-const UserContent = ({ right }) => {
+const User = ({ queryClient }) => {
     const theme = useMantineTheme();
 
-    return (
-        <Group spacing="xs">
-            <Avatar
-                src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
-                radius="xl"
-            />
-            <Box sx={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                    Amy Horsefighter
-                </Text>
-                <Text color="dimmed" size="xs">
-                    ahorsefighter
-                </Text>
-            </Box>
-            {right}
-        </Group>
-    );
-};
+    const [token, setToken] = useLocalStorage({
+        key: "token",
+        defaultValue: getSessionStorageToken(),
+    });
+    const isLoggedIn = !!token;
+    const isUserMutating = useIsMutating("user");
 
-const User = () => {
-    const theme = useMantineTheme();
+    const { data, status } = useQuery(["user"], () => backendApi.fetchLogin(), {
+        onError: () => {
+            console.log("token is invalid");
+            setToken(null);
+            notification.showSuccess("Logged Out");
+        },
+        retry: 0,
+        enabled: isLoggedIn,
+    });
+    const showUser = isLoggedIn && status === "success";
+
+    useEffect(() => {
+        sessionStorage.setItem("token", JSON.stringify(token));
+        queryClient.invalidateQueries("user");
+    }, [isLoggedIn]);
 
     return (
         <Box
@@ -64,23 +72,50 @@ const User = () => {
                 }`,
             }}
         >
-            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-                <Popover position="right" shadow="md" radius="sm" offset={8}>
-                    <Popover.Target>
-                        <UnstyledButton sx={getUserContainerSx(theme)}>
-                            <UserContent right={<IconChevronRight size={rem(18)} />} />
-                        </UnstyledButton>
-                    </Popover.Target>
-                    <Popover.Dropdown>
-                        <LogoutButton />
-                    </Popover.Dropdown>
-                </Popover>
-            </MediaQuery>
-            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                <Box sx={getUserContainerSx(theme)}>
-                    <UserContent right={<LogoutButton />} />
-                </Box>
-            </MediaQuery>
+            {showUser && (
+                <>
+                    <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                        <Popover position="right" shadow="md" radius="sm" offset={8}>
+                            <Popover.Target>
+                                <UnstyledButton sx={getUserContainerSx(theme)}>
+                                    <UserContent
+                                        data={data}
+                                        right={<IconChevronRight size={rem(18)} />}
+                                    />
+                                </UnstyledButton>
+                            </Popover.Target>
+                            <Popover.Dropdown>
+                                <LogoutButton
+                                    isLoggedIn={isLoggedIn}
+                                    isUserMutating={isUserMutating}
+                                    setToken={setToken}
+                                />
+                            </Popover.Dropdown>
+                        </Popover>
+                    </MediaQuery>
+                    <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                        <Box sx={getUserContainerSx(theme)}>
+                            <UserContent
+                                data={data}
+                                right={
+                                    <LogoutButton
+                                        isLoggedIn={isLoggedIn}
+                                        isUserMutating={isUserMutating}
+                                        setToken={setToken}
+                                    />
+                                }
+                            />
+                        </Box>
+                    </MediaQuery>
+                </>
+            )}
+            {!showUser && (
+                <AdmissionModals
+                    isLoggedIn={isLoggedIn}
+                    isUserMutating={isUserMutating}
+                    setToken={setToken}
+                />
+            )}
         </Box>
     );
 };
