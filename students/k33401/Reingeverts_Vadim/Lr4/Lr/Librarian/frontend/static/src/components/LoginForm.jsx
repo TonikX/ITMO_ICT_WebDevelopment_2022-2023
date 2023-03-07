@@ -5,6 +5,7 @@ import { useForm } from "@mantine/form";
 import { Text, TextInput, PasswordInput, Group, Button, Box } from "@mantine/core";
 
 import notification from "~/components/Notification";
+import NonFieldErrors from "~/components/NonFieldErrors";
 import backendApi from "~/utils/BackendApi";
 
 const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
@@ -22,6 +23,14 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
         validateInputOnBlur: true,
     });
 
+    const handleFieldErrors = (json) => {
+        const { non_field_errors, ...fieldErrors } = json;
+        if (non_field_errors) {
+            setNonFieldErrors(json["non_field_errors"]);
+        }
+        form.setErrors(fieldErrors);
+    };
+
     const postLogin = useMutation(backendApi.postLogin, {
         mutationKey: "user",
         onSuccess: ({ json, ok }) => {
@@ -29,11 +38,7 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
                 setToken(json["auth_token"]);
                 notification.showSuccess("Logged In.");
             } else {
-                const { non_field_errors, ...fieldErrors } = json;
-                if (non_field_errors) {
-                    setNonFieldErrors(json["non_field_errors"]);
-                }
-                form.setErrors(fieldErrors);
+                handleFieldErrors(json);
             }
         },
         onError: notification.showError,
@@ -50,12 +55,7 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
     };
     return (
         <Box maw={340} mx="auto" mb="xs">
-            {nonFieldErrors &&
-                nonFieldErrors.map((nonFieldError, index) => (
-                    <Text key={index} color="red">
-                        {nonFieldError}
-                    </Text>
-                ))}
+            <NonFieldErrors errors={nonFieldErrors} />
             <form onSubmit={form.onSubmit(handleLoginSubmit)}>
                 <TextInput
                     mt="sm"

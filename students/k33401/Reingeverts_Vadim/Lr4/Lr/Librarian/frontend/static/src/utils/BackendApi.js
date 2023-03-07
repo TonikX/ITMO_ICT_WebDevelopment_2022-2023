@@ -1,8 +1,8 @@
-import { getCookie, getSessionStorageToken } from "~/utils/Token";
+import { getCookie, getToken } from "~/utils/Token";
 
 export const fetchFromBackendApi = async (pathSegments = [], dropToken = false) => {
     const path = pathSegments.join("/");
-    const token = dropToken ? null : getSessionStorageToken();
+    const token = dropToken ? null : getToken();
 
     const res = await fetch(`${window.location.origin}/${path}`, {
         method: "GET",
@@ -29,8 +29,11 @@ export const pushToBackendApi = async (
     dropToken = false
 ) => {
     let path = pathSegments.join("/");
-    if (method === "POST") path += "/";
-    const token = dropToken ? null : getSessionStorageToken();
+
+    // Account for a bug in django backend's urls.py
+    if (method === "POST" && pathSegments.length <= 2) path += "/";
+
+    const token = dropToken ? null : getToken();
 
     const res = await fetch(`${window.location.origin}/${path}`, {
         method,
@@ -54,10 +57,15 @@ export const pushToBackendApi = async (
 };
 
 // Auth API
-export const fetchLogin = async () => await fetchFromBackendApi(["auth", "users", "me"]);
+export const fetchLogin = async () => {
+    const me = await fetchFromBackendApi(["auth", "users", "me"]);
+    return await fetchUserDetails({ userId: me.json.id });
+};
 export const postLogin = async ({ username, password }) =>
     await pushToBackendApi(["auth", "token", "login"], "POST", { username, password }, true);
 export const postLogout = async () => await pushToBackendApi(["auth", "token", "logout"], "POST");
+export const postCheckField = async ({ body }) =>
+    await pushToBackendApi(["api", "user", "check"], "POST", body);
 
 // Models API
 export const fetchUsers = async () => await fetchFromBackendApi(["api", "users"]);
@@ -150,6 +158,7 @@ const backendApi = {
     fetchLogin,
     postLogin,
     postLogout,
+    postCheckField,
 
     fetchUsers,
     fetchUserDetails,

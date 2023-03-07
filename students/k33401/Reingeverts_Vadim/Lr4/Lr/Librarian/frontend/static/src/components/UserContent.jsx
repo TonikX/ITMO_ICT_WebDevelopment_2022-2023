@@ -2,7 +2,7 @@ import React from "react";
 import { Group, Avatar, Box, Text } from "@mantine/core";
 
 const UserContent = ({ data, right }) => {
-    const user = data.json;
+    const user = data.json["User"];
     let name = [user?.first_name, user?.last_name].join(" ");
     name = name === " " ? "Anonymous User" : name;
 

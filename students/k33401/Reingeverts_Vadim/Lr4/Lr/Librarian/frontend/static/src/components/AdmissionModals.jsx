@@ -11,9 +11,9 @@ import { getSessionStorageToken } from "~/utils/Token";
 
 const AdmissionModals = ({ queryClient, isLoggedIn, isUserMutating, setToken }) => {
     const [opened, { open, close }] = useDisclosure(false);
-    const [value, setValue] = useToggle(["Sign Up", "Log In"]);
+    const [admissionType, setAdmissionType] = useToggle(["Sign Up", "Log In"]);
     const admissionForm =
-        value === "Log In" ? (
+        admissionType === "Log In" ? (
             <LoginForm
                 isLoggedIn={isLoggedIn}
                 isUserMutating={isUserMutating}
@@ -30,21 +30,22 @@ const AdmissionModals = ({ queryClient, isLoggedIn, isUserMutating, setToken }) 
 
     const handleLogin = () => {
         open();
-        setValue("Sign Up");
+        setAdmissionType("Sign Up");
     };
     const handleSignup = () => {
         open();
-        setValue("Log In");
+        setAdmissionType("Log In");
     };
 
     return (
         <>
             <Modal
+                size={admissionType === "Sign Up" ? "xl" : null}
                 opened={opened}
                 onClose={close}
                 title={
                     <Text fz="xl" fw={500}>
-                        {value}
+                        {admissionType}
                     </Text>
                 }
             >

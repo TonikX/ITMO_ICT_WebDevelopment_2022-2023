@@ -21,3 +21,7 @@ export const getLocalStorageToken = () => {
 export const getSessionStorageToken = () => {
     return JSON.parse(sessionStorage.getItem("token"));
 };
+
+export const getToken = () => {
+    return getSessionStorageToken() ?? getLocalStorageToken();
+};

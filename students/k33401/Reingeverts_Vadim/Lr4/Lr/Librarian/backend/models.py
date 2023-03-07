@@ -23,7 +23,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=250, blank=True)
     education_level = models.CharField(max_length=250, blank=True)
     phone_number = PhoneNumberField(region="RU", blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_birth = models.DateTimeField(null=True, blank=True)
 
     ACADEMIC_DEGREES = (
         ('', None),
@@ -174,7 +174,7 @@ class Book(models.Model):
     title = models.CharField(max_length=250)
     authors = models.CharField(max_length=250, blank=True)
     publisher = models.CharField(max_length=250, blank=True)
-    pub_date = models.DateField("Publication date", blank=True, null=True)
+    pub_date = models.DateTimeField("Publication date", blank=True, null=True)
     # "раздел"
     series = models.CharField(max_length=250, blank=True)
     total_stock = models.IntegerField(
@@ -217,8 +217,8 @@ class ReadingRoomBookUser(models.Model):
         'ReadingRoomBook', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    borrow_date = models.DateField(default=datetime.date.today)
-    returned_date = models.DateField(blank=True, null=True)
+    borrow_date = models.DateTimeField(default=datetime.date.today)
+    returned_date = models.DateTimeField(blank=True, null=True)
 
     def is_returned(self):
         return self.returned_date is not None

@@ -1,9 +1,10 @@
 import datetime
+from django.core.exceptions import FieldError
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.exceptions import ValidationError
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import authentication_classes, permission_classes
 from drf_yasg.utils import swagger_auto_schema
 
 from . import models, serializers, utils_swagger
@@ -100,6 +101,43 @@ class UsersAPIView(ModelsAPIView):
         if request.method == 'POST':
             return
         super().check_permissions(request)
+
+
+class UsersCheckFieldAvailabilityAPIView(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    model = models.User
+    modelSerializer = serializers.UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        fields_to_check = request.data.get(self.model.__name__)
+        response = {}
+
+        # raise ValidationError({"detail": "Bad request"}, 400)
+        if "date_of_birth" in fields_to_check:
+            print("BIRTH", fields_to_check['date_of_birth'])
+        serializer = serializers.UserSerializer(data=fields_to_check)
+        serializer.is_valid()
+        print("failed")
+        for field_name, field_error in serializer.errors.items():
+            if field_name in fields_to_check:
+                response[field_name] = field_error
+
+        for field_name, field_value in fields_to_check.items():
+            try:
+                isValueInModelObjects = len(
+                    self.model.objects.filter(**{field_name: field_value})) > 0
+                if isValueInModelObjects:
+                    response[field_name] = f"{field_value} is already taken."
+            except FieldError:
+                raise ValidationError(
+                    {"detail": f"Field {field_name} is not present in the {self.model.__name__} model"}, 404)
+
+        if len(response) != 0:
+            raise ValidationError(response, 409)
+
+        return Response(response)
 
 
 class UserDetailsAPIView(ModelDetailsAPIView):
