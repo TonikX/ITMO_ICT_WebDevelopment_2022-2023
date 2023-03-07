@@ -1,34 +1,35 @@
 import React, { useState } from "react";
-import { Image, Text, Group } from "@mantine/core";
+import { TextInput, Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { useDebouncedState } from "@mantine/hooks";
+import { useQuery, useMutation, useIsMutating } from "@tanstack/react-query";
 
 import imgUrl from "~/images/favicon-96.png";
+import notification from "~/components/Notification";
+import BookCard from "~/components/BookCard";
+import backendApi from "~/utils/BackendApi";
+
+const useGetReadingRoomBook = (filters) => {
+    return useQuery(["readingRoomBook", filters], () => backendApi.fetchReadingRoomBooks(filters), {
+        select: (data) => {
+            const readingRoomBook = data.json["ReadingRoomBook"];
+            return readingRoomBook.filter(({ book }) => book.title.includes(filters.title));
+        },
+    });
+};
 
 const Library = () => {
+    const [filters, setFilters] = useDebouncedState({ title: "" }, 200);
+    const { data: readingRoomBooks, status } = useGetReadingRoomBook(filters);
+
     return (
         <>
-            <Group position="center">
-                <h1>hello world</h1>
-                <Image width={200} height={120} src={imgUrl} />
-
-                <Image
-                    width={200}
-                    height={120}
-                    src={null}
-                    alt="With default placeholder"
-                    withPlaceholder
-                />
-
-                <Image
-                    height={120}
-                    width={200}
-                    src="42.png"
-                    alt="With custom placeholder"
-                    withPlaceholder
-                    placeholder={
-                        <Text align="center">This image contained the meaning of life</Text>
-                    }
-                />
-            </Group>
+            <TextInput
+                label="Enter value to see debounce effect"
+                defaultValue={filters.title}
+                onChange={(event) => setFilters({ title: event.currentTarget.value })}
+            />
+            {status === "success" &&
+                readingRoomBooks.map((readingRoomBook) => <BookCard book={readingRoomBook.book} />)}
         </>
     );
 };

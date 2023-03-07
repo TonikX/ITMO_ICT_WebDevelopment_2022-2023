@@ -5,14 +5,14 @@ import { useMutation } from "@tanstack/react-query";
 import notification from "~/components/Notification";
 import backendApi from "~/utils/BackendApi";
 
-const LogoutButton = ({ isLoggedIn, isUserMutating, setToken }) => {
+const LogoutButton = ({ isLoggedIn, isUserMutating, logout }) => {
     const postLogout = useMutation(backendApi.postLogout, {
         mutationKey: "user",
         onSuccess: ({ json, ok }) => {
             console.log("LOGOUT");
             console.log("json", json, "ok", ok);
             if (ok) {
-                setToken(null);
+                logout();
                 notification.showSuccess("Logged Out.");
             } else {
                 notification.showError(json);

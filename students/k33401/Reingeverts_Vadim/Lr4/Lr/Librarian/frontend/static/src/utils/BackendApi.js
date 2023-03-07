@@ -58,6 +58,7 @@ export const pushToBackendApi = async (
 
 // Auth API
 export const fetchLogin = async () => {
+    console.log("call");
     const me = await fetchFromBackendApi(["auth", "users", "me"]);
     return await fetchUserDetails({ userId: me.json.id });
 };

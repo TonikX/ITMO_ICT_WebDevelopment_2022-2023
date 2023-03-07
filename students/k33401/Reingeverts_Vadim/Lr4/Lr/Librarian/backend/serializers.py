@@ -87,6 +87,7 @@ class ReadingRoomBookSerializer(ModelSerializer):
     class Meta:
         model = models.ReadingRoomBook
         fields = "__all__"
+        depth = 2
 
     def validate(self, data):
         reading_room_book = self.instance
