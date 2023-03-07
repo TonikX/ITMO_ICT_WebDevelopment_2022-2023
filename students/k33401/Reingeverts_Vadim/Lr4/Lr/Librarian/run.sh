@@ -9,8 +9,7 @@ source ../../../.web-dev-env/Scripts/activate
 # Server ports
 backend_port=8000
 frontend_port=3000
-# host="192.168.1.246"
-host="localhost"
+host="192.168.1.246"
 
 # Exported as an environment variable
 export backend_port=$backend_port

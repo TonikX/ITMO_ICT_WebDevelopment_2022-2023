@@ -13,7 +13,7 @@ const LogoutButton = ({ isLoggedIn, isUserMutating, setToken }) => {
             console.log("json", json, "ok", ok);
             if (ok) {
                 setToken(null);
-                notification.showSuccess("Logged Out");
+                notification.showSuccess("Logged Out.");
             } else {
                 notification.showError(json);
             }

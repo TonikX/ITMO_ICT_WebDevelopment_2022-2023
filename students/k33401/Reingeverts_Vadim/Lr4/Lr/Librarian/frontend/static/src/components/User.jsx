@@ -49,9 +49,8 @@ const User = ({ queryClient }) => {
 
     const { data, status } = useQuery(["user"], () => backendApi.fetchLogin(), {
         onError: () => {
-            console.log("token is invalid");
             setToken(null);
-            notification.showSuccess("Logged Out");
+            notification.showSuccess("Logged Out.");
         },
         retry: 0,
         enabled: isLoggedIn,
@@ -111,6 +110,7 @@ const User = ({ queryClient }) => {
             )}
             {!showUser && (
                 <AdmissionModals
+                    queryClient={queryClient}
                     isLoggedIn={isLoggedIn}
                     isUserMutating={isUserMutating}
                     setToken={setToken}

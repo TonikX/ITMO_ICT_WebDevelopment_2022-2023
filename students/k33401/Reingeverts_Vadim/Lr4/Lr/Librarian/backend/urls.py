@@ -7,6 +7,7 @@ urlpatterns = [
     # Basic model API views
     path('users/', views.UsersAPIView.as_view(), name="users"),
     path('user/<int:pk>', views.UserDetailsAPIView.as_view(), name="user_details"),
+    # path('user/signup', views.SignupWithSerialAPIView.as_view(), name="user_signup"),
 
     path('libraries/', views.LibrariesAPIView.as_view(), name="libraries"),
     path('library/<int:pk>', views.LibraryDetailsAPIView.as_view(),

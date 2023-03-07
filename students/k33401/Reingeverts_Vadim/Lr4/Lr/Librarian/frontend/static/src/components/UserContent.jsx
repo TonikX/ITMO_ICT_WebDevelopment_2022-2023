@@ -5,7 +5,7 @@ const UserContent = ({ data, right }) => {
     const user = data.json;
     let name = [user?.first_name, user?.last_name].join(" ");
     name = name === " " ? "Anonymous User" : name;
-    console.log(user.username);
+
     return (
         <Group spacing="xs">
             <Avatar

@@ -27,7 +27,7 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
         onSuccess: ({ json, ok }) => {
             if (ok) {
                 setToken(json["auth_token"]);
-                notification.showSuccess("Logged In");
+                notification.showSuccess("Logged In.");
             } else {
                 const { non_field_errors, ...fieldErrors } = json;
                 if (non_field_errors) {
@@ -49,7 +49,7 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
         }
     };
     return (
-        <Box maw={340} mx="auto" mb="md">
+        <Box maw={340} mx="auto" mb="xs">
             {nonFieldErrors &&
                 nonFieldErrors.map((nonFieldError, index) => (
                     <Text key={index} color="red">
@@ -70,7 +70,7 @@ const LoginForm = ({ isLoggedIn, isUserMutating, setToken }) => {
                     {...form.getInputProps("password")}
                 />
 
-                <Group position="right" mt="md">
+                <Group position="right" mt="xl">
                     <Button variant="light" type="submit">
                         Log In
                     </Button>

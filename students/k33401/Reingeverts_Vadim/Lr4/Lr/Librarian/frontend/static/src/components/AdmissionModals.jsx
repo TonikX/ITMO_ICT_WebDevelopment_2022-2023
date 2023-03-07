@@ -4,11 +4,12 @@ import { useQuery, useMutation, useIsMutating } from "@tanstack/react-query";
 import { Text, TextInput, PasswordInput, Group, Box, Modal, Button } from "@mantine/core";
 
 import LoginForm from "~/components/LoginForm";
+import SignupForm from "~/components/SignupForm";
 import notification from "~/components/Notification";
 import backendApi from "~/utils/BackendApi";
 import { getSessionStorageToken } from "~/utils/Token";
 
-const AdmissionModals = ({ isLoggedIn, isUserMutating, setToken }) => {
+const AdmissionModals = ({ queryClient, isLoggedIn, isUserMutating, setToken }) => {
     const [opened, { open, close }] = useDisclosure(false);
     const [value, setValue] = useToggle(["Sign Up", "Log In"]);
     const admissionForm =
@@ -19,7 +20,12 @@ const AdmissionModals = ({ isLoggedIn, isUserMutating, setToken }) => {
                 setToken={setToken}
             />
         ) : (
-            "SIGN UP FORM"
+            <SignupForm
+                queryClient={queryClient}
+                isLoggedIn={isLoggedIn}
+                isUserMutating={isUserMutating}
+                closeModal={close}
+            />
         );
 
     const handleLogin = () => {

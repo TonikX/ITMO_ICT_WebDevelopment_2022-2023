@@ -48,8 +48,6 @@ export const pushToBackendApi = async (
         body: JSON.stringify(body),
     });
 
-    console.log("backend push response", res);
-
     // Handle empty responses
     if (res.status === 204) return { json: {}, ok: res.ok };
     return { json: await res.json(), ok: res.ok };

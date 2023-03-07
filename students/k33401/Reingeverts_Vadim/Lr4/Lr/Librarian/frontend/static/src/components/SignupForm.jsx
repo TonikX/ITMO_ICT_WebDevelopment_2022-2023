@@ -9,7 +9,25 @@ import backendApi from "~/utils/BackendApi";
 
 const sessionStorageToken = JSON.parse(sessionStorage.getItem("token"));
 
-const Signup = () => {
+const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
+    const postUsers = useMutation(backendApi.postUsers, {
+        onSuccess: ({ json, ok }) => {
+            if (ok) {
+                queryClient.invalidateQueries("users");
+                notification.showSuccess("Sign Up complete. You can login now.");
+                closeModal();
+            } else {
+                const { non_field_errors, ...fieldErrors } = json;
+                if (non_field_errors) {
+                    setNonFieldErrors(json["non_field_errors"]);
+                }
+                form.setErrors(fieldErrors);
+            }
+        },
+        onError: notification.showError,
+        retry: 0,
+    });
+
     const form = useForm({
         initialValues: {
             username: "",
@@ -18,15 +36,26 @@ const Signup = () => {
         },
 
         validate: {
+            username: (value) => (value.length === 0 ? "Please, enter your username" : null),
+            password: (value) => (value.length === 0 ? "Please, enter your password" : null),
             confirmPassword: (value, values) =>
                 value !== values.password ? "Passwords did not match" : null,
         },
     });
 
-    // https://mantine.dev/form/recipes/#form-with-multiple-steps
+    const handleSignupSubmit = ({ username, password }) => {
+        if (!isLoggedIn && !isUserMutating) {
+            postUsers.mutate({
+                body: {
+                    User: { username, password },
+                },
+            });
+        }
+    };
+
     return (
-        <Box maw={340} mx="auto">
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <Box maw={340} mx="auto" mb="xs">
+            <form onSubmit={form.onSubmit(handleSignupSubmit)}>
                 <TextInput
                     mt="sm"
                     label="Username"
@@ -47,8 +76,10 @@ const Signup = () => {
                     {...form.getInputProps("confirmPassword")}
                 />
 
-                <Group position="right" mt="md">
-                    <Button type="submit">Submit</Button>
+                <Group position="right" mt="xl">
+                    <Button variant="light" type="submit">
+                        Submit
+                    </Button>
                 </Group>
             </form>
         </Box>

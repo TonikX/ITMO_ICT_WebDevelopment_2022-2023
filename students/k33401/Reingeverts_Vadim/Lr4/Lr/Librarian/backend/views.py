@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import authentication_classes, permission_classes
 from drf_yasg.utils import swagger_auto_schema
 
 from . import models, serializers, utils_swagger
@@ -94,6 +95,11 @@ class UsersAPIView(ModelsAPIView):
     )
     def post(self, *args, **kwargs):
         return super().post(*args, **kwargs)
+
+    def check_permissions(self, request):
+        if request.method == 'POST':
+            return
+        super().check_permissions(request)
 
 
 class UserDetailsAPIView(ModelDetailsAPIView):
@@ -556,3 +562,27 @@ class LibraryMonthlyReportAPIView(BaseModelAPIView):
             "NewUsersReadingRooms": grouped_rooms_serializer.data,
         }
         return Response({"MonthlyReport": report_data})
+
+
+# class SignupWithSerialAPIView(APIView):
+#     authentication_classes = []
+#     permission_classes = []
+
+#     model = models.User
+#     modelSerializer = serializers.UserSerializer
+
+#     @swagger_auto_schema(
+#         operation_summary="creates a new user with serial number prefilled",
+#         operation_description="User to be added to the library",
+
+#         request_body=serializers.UserSerializer,
+#         tags=['User']
+#     )
+#     def post(self, request, *args, **kwargs):
+#         object_data = request.data.get(self.model.__name__)
+#         serializer = self.modelSerializer(data=object_data)
+
+#         if serializer.is_valid(raise_exception=True):
+#             new_object = serializer.save()
+
+#         return Response({"Success": f"{self.model.__name__} '{new_object}' created succesfully."})
