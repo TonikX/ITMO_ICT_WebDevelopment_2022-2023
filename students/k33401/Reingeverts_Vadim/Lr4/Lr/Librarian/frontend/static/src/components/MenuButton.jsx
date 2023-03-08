@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import { ThemeIcon, UnstyledButton, Group, Text } from "@mantine/core";
 
-const MenuButton = ({ icon, color, label }) => {
+const MenuButton = ({ icon, color, label, to }) => {
+    const navigate = useNavigate();
     return (
         <UnstyledButton
             sx={(theme) => ({
@@ -17,6 +19,7 @@ const MenuButton = ({ icon, color, label }) => {
                         theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
                 },
             })}
+            onClick={() => navigate(to)}
         >
             <Group>
                 <ThemeIcon color={color} variant="light">

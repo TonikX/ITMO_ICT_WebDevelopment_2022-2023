@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Stepper, TextInput, NativeSelect, PasswordInput, Group, Button } from "@mantine/core";
+import {
+    Stepper,
+    TextInput,
+    NativeSelect,
+    PasswordInput,
+    Group,
+    Button,
+    Loader,
+} from "@mantine/core";
 import { useToggle, useDidUpdate, useSetState } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
@@ -12,7 +20,7 @@ import backendApi from "~/utils/BackendApi";
 const fieldsToCheckAtStep = {
     0: ["username", "email"],
     1: ["date_of_birth", "phone_number"],
-    2: ["academic_degree"],
+    2: [],
 };
 
 const filedsWithChoices = ["academic_degree"];
@@ -215,6 +223,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
             return current > 0 ? current - 1 : current;
         });
 
+    const conditionalLoader = currentStepStatus === "checking" ? <Loader size="xs" /> : null;
     return (
         <>
             <Stepper mx="xl" active={step} breakpoint="sm">
@@ -229,6 +238,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="Username"
                             {...form.getInputProps("username")}
                             withAsterisk
+                            rightSection={conditionalLoader}
                         />
                         <TextInput
                             mt="sm"
@@ -236,6 +246,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="Email"
                             {...form.getInputProps("email")}
                             withAsterisk
+                            rightSection={conditionalLoader}
                         />
                         <PasswordInput
                             mt="md"
@@ -285,12 +296,14 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="30.12.1990"
                             valueFormat="DD.MM.YYYY"
                             {...form.getInputProps("date_of_birth")}
+                            rightSection={conditionalLoader}
                         />
                         <TextInput
                             mt="sm"
                             label="Phone number"
                             placeholder="+7 (900) 111 22-33"
                             {...form.getInputProps("phone_number")}
+                            rightSection={conditionalLoader}
                         />
                     </InputGroup>
                 </Stepper.Step>

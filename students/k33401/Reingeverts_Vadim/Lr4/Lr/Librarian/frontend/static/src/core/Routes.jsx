@@ -1,20 +1,24 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
 import Library from "~/pages/Library";
+import Profile from "~/pages/Profile";
+import Error from "~/pages/Error";
 
 const Routes = ({ queryClient, isCompactViewActive }) => {
-    const router = createBrowserRouter([
+    const router = useRoutes([
         {
             path: "/",
             element: <Library isCompactViewActive={isCompactViewActive} />,
+            errorElement: <Error />,
+        },
+        {
+            path: "/profile",
+            element: <Profile isCompactViewActive={isCompactViewActive} />,
+            errorElement: <Error />,
         },
     ]);
-    return (
-        <>
-            <RouterProvider router={router} />
-        </>
-    );
+    return <>{router}</>;
 };
 
 export default Routes;

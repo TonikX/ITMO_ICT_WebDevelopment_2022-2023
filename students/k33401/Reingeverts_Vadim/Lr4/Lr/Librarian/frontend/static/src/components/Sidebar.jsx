@@ -1,23 +1,15 @@
 import React from "react";
 
 import { Navbar } from "@mantine/core";
-
-import {
-    IconGitPullRequest,
-    IconAlertCircle,
-    IconMessages,
-    IconDatabase,
-} from "@tabler/icons-react";
+import { IconBook, IconUser } from "@tabler/icons-react";
 
 import Brand from "~/components/Brand";
 import MenuButton from "~/components/MenuButton";
 import User from "~/components/User";
 
 const data = [
-    { icon: <IconGitPullRequest size="1rem" />, color: "blue", label: "Pull Requests" },
-    { icon: <IconAlertCircle size="1rem" />, color: "teal", label: "Open Issues" },
-    { icon: <IconMessages size="1rem" />, color: "violet", label: "Discussions" },
-    { icon: <IconDatabase size="1rem" />, color: "grape", label: "Databases" },
+    { icon: <IconBook size="1rem" />, color: "blue", label: "Library", to: "/" },
+    { icon: <IconUser size="1rem" />, color: "teal", label: "Profile", to: "/profile" },
 ];
 
 const Sidebar = ({ queryClient, opened, setOpened }) => {

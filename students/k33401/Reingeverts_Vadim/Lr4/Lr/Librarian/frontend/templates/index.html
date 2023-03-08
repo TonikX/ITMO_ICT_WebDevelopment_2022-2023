@@ -20,10 +20,13 @@
         {% comment %} https://github.com/MrBin99/django-vite#template-tags {% endcomment %}
         {% vite_hmr_client %}
         {% vite_asset 'src/core/index.jsx' %}
+        <style type="text/css">
+            #root {
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
-        <div id="main">
-            <div id="root"></div>
-        </div>
+        <div id="root"></div>
     </body>
 </html>

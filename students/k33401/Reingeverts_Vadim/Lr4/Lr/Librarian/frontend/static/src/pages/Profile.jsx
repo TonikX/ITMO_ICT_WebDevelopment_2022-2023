@@ -17,13 +17,13 @@ const useGetReadingRoomBook = (filters) => {
     });
 };
 
-const Library = ({ isCompactViewActive }) => {
+const Profile = ({ isCompactViewActive }) => {
     const [filters, setFilters] = useDebouncedState({ title: "" }, 200);
     const { data: readingRoomBooks, status } = useGetReadingRoomBook(filters);
 
     return (
         <BookGrid
-            title="Library"
+            title="Profile"
             status={status}
             readingRoomBooks={readingRoomBooks}
             filters={filters}
@@ -33,4 +33,4 @@ const Library = ({ isCompactViewActive }) => {
     );
 };
 
-export default Library;
+export default Profile;

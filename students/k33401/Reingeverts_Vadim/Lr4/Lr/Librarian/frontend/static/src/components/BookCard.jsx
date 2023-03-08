@@ -42,7 +42,7 @@ const BookCard = ({ book, stock }) => {
             </Group>
 
             <Text size="xs" color="dimmed">
-                {book.authors}
+                By {book.authors || "Unkown"}
             </Text>
 
             <Group position="apart" spacing="xs">
