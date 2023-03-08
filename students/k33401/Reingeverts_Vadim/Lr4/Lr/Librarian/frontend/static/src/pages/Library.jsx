@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { TextInput, Container, Grid, Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import React from "react";
+import { TextInput, Container, Grid } from "@mantine/core";
 import { useDebouncedState } from "@mantine/hooks";
-import { useQuery, useMutation, useIsMutating } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-import notification from "~/components/Notification";
 import BookCard from "~/components/BookCard";
 import backendApi from "~/utils/BackendApi";
 import InputGroup from "~/components/InputGroup";
@@ -22,7 +21,6 @@ const useGetReadingRoomBook = (filters) => {
 const Library = () => {
     const [filters, setFilters] = useDebouncedState({ title: "" }, 200);
     const { data: readingRoomBooks, status } = useGetReadingRoomBook(filters);
-    console.log("readingRoomBooks", readingRoomBooks);
     return (
         <Container fluid>
             <InputGroup>

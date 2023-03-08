@@ -112,29 +112,37 @@ class UsersCheckFieldAvailabilityAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         fields_to_check = request.data.get(self.model.__name__)
-        response = {}
+        response = {
+            "field_errors": {},
+            "field_choices": {}
+        }
 
-        # raise ValidationError({"detail": "Bad request"}, 400)
-        if "date_of_birth" in fields_to_check:
-            print("BIRTH", fields_to_check['date_of_birth'])
         serializer = serializers.UserSerializer(data=fields_to_check)
         serializer.is_valid()
-        print("failed")
+
         for field_name, field_error in serializer.errors.items():
             if field_name in fields_to_check:
-                response[field_name] = field_error
+                response["field_errors"][field_name] = field_error
 
         for field_name, field_value in fields_to_check.items():
             try:
                 isValueInModelObjects = len(
                     self.model.objects.filter(**{field_name: field_value})) > 0
                 if isValueInModelObjects:
-                    response[field_name] = f"{field_value} is already taken."
+                    response["field_errors"][field_name] = f"{field_value} is already taken."
             except FieldError:
                 raise ValidationError(
                     {"detail": f"Field {field_name} is not present in the {self.model.__name__} model"}, 404)
 
-        if len(response) != 0:
+            try:
+                field_choices = self.model._meta.get_field(
+                    field_name).get_choices()
+                if field_choices:
+                    response["field_choices"][field_name] = field_choices
+            except AttributeError:
+                pass
+
+        if len(response["field_errors"]) != 0:
             raise ValidationError(response, 409)
 
         return Response(response)

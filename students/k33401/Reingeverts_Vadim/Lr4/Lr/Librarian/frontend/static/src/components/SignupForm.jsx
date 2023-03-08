@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useToggle, useDidUpdate } from "@mantine/hooks";
+import React, { useEffect, useState } from "react";
+import { Stepper, TextInput, NativeSelect, PasswordInput, Group, Button } from "@mantine/core";
+import { useToggle, useDidUpdate, useSetState } from "@mantine/hooks";
 import { DateInput } from "@mantine/dates";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "@mantine/form";
-import { Stepper, TextInput, PasswordInput, Group, Button, Box, Code } from "@mantine/core";
+import { useMutation } from "@tanstack/react-query";
 
 import InputGroup from "~/components/InputGroup";
 import notification from "~/components/Notification";
@@ -12,11 +12,20 @@ import backendApi from "~/utils/BackendApi";
 const fieldsToCheckAtStep = {
     0: ["username", "email"],
     1: ["date_of_birth", "phone_number"],
-    2: [],
+    2: ["academic_degree"],
+};
+
+const filedsWithChoices = ["academic_degree"];
+const filedsWithForeignKeys = ["library"];
+
+const listToObject = (keys = [], value = "") => {
+    // https://stackoverflow.com/a/36388401
+    return keys.reduce((a, v) => ({ ...a, [v]: value }), {});
 };
 
 const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
     const [nonFieldErrors, setNonFieldErrors] = useState([]);
+    const [fieldChoices, setFieldChoices] = useSetState({});
 
     const [step, setStep] = useState(0);
     const [currentStepStatus, toggleCurrentStepStatus] = useToggle([
@@ -25,10 +34,10 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
         "checking",
     ]);
 
-    const handleFieldErrors = (json) => {
-        const { non_field_errors, ...fieldErrors } = json;
+    const handleFieldErrors = (errors) => {
+        const { non_field_errors, ...fieldErrors } = errors;
         if (non_field_errors) {
-            setNonFieldErrors(json["non_field_errors"]);
+            setNonFieldErrors(errors["non_field_errors"]);
         }
         form.setErrors(fieldErrors);
     };
@@ -40,7 +49,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                 notification.showSuccess("Sign Up complete. You can login now.");
                 closeModal();
             } else {
-                handleFieldErrors(json);
+                handleFieldErrors(json["field_errors"]);
             }
         },
         onError: notification.showError,
@@ -49,18 +58,57 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
 
     const postCheckField = useMutation(backendApi.postCheckField, {
         onSuccess: ({ json, ok }) => {
-            console.log("response", json, ok);
-            if (ok) {
-                setNonFieldErrors([]);
-                toggleCurrentStepStatus("checked");
+            const didReturnChoices = Object.keys(json["field_choices"]).length !== 0;
+            if (!didReturnChoices) {
+                if (ok) {
+                    setNonFieldErrors([]);
+                    toggleCurrentStepStatus("checked");
+                } else {
+                    handleFieldErrors(json["field_errors"]);
+                    toggleCurrentStepStatus("unchecked");
+                }
             } else {
-                handleFieldErrors(json);
-                toggleCurrentStepStatus("unchecked");
+                handleFieldChoices(json["field_choices"]);
             }
         },
         onError: notification.showError,
         retry: 0,
     });
+
+    const handleFieldChoices = (fields) => {
+        let fieldChoices = {};
+        for (const [field, choices] of Object.entries(fields)) {
+            fieldChoices[field] = choices.map((choiceTuple) => choiceTuple[0]);
+        }
+        setFieldChoices(fieldChoices);
+    };
+
+    const getFormChoices = () => {
+        const fields = listToObject(filedsWithChoices, "");
+        postCheckField.mutate({
+            body: {
+                User: fields,
+            },
+        });
+    };
+
+    useEffect(() => {
+        getFormChoices();
+        // getFormForeignKeys;
+    }, []);
+
+    const fetchLibraries = useMutation(backendApi.fetchLibraries, {
+        onSuccess: ({ json, ok }) => {
+            console.log("json", ok, json);
+        },
+        onError: notification.showError,
+        retry: 0,
+    });
+
+    const getFormForeignKeys = () => {
+        // const fields = listToObject(filedsWithForeignKeys, "");
+        // fetchLibraries.mutate();
+    };
 
     const form = useForm({
         initialValues: {
@@ -117,12 +165,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
             Object.entries(fields).filter(([_, v]) => v !== "")
         );
         delete cleanedFields["confirmPassword"];
-        console.log(cleanedFields["date_of_birth"]);
 
-        console.log("can submit?", !isLoggedIn && !isUserMutating);
-        console.log("submitting body...", {
-            User: cleanedFields,
-        });
         if (!isLoggedIn && !isUserMutating) {
             postUsers.mutate({
                 body: {
@@ -133,9 +176,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
     };
 
     const nextStep = () => {
-        if (form.validate().hasErrors || currentStepStatus === "checking") {
-            return;
-        }
+        if (form.validate().hasErrors || currentStepStatus === "checking") return;
 
         const doesStepRequiresChecking = fieldsToCheckAtStep[step].length !== 0;
         if (currentStepStatus === "unchecked" && doesStepRequiresChecking) {
@@ -146,14 +187,9 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
             );
 
             const areFieldValuesNonEmpty = fieldsToCheck.length !== 0;
-            console.log("areFieldValuesNonEmpty", areFieldValuesNonEmpty, fieldsToCheck);
             if (areFieldValuesNonEmpty) {
-                toggleCurrentStepStatus((curr) => {
-                    console.log(curr, "curr, but checking");
-                    return "checking";
-                });
+                toggleCurrentStepStatus(() => "checking");
 
-                console.log("checking those", fieldsToCheck);
                 postCheckField.mutate({
                     body: {
                         User: fieldsToCheck,
@@ -169,7 +205,6 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
 
     useDidUpdate(() => {
         if (currentStepStatus === "checked") {
-            console.log("autosteppping", currentStepStatus);
             nextStep();
         }
     }, [currentStepStatus]);
@@ -193,24 +228,28 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             label="Username"
                             placeholder="Username"
                             {...form.getInputProps("username")}
+                            withAsterisk
                         />
                         <TextInput
-                            mt="md"
+                            mt="sm"
                             label="Email"
                             placeholder="Email"
                             {...form.getInputProps("email")}
+                            withAsterisk
                         />
                         <PasswordInput
                             mt="md"
                             label="Password"
                             placeholder="Password"
                             {...form.getInputProps("password")}
+                            withAsterisk
                         />
                         <PasswordInput
                             mt="sm"
                             label="Confirm password"
                             placeholder="Confirm password"
                             {...form.getInputProps("confirmPassword")}
+                            withAsterisk
                         />
                     </InputGroup>
                 </Stepper.Step>
@@ -225,25 +264,30 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             label="Last name"
                             placeholder="Last name"
                             {...form.getInputProps("last_name")}
+                            withAsterisk
                         />
                         <TextInput
+                            mt="sm"
                             label="First name"
                             placeholder="First name"
                             {...form.getInputProps("first_name")}
+                            withAsterisk
                         />
                         <TextInput
+                            mt="sm"
                             label="Middle name"
                             placeholder="Middle name"
                             {...form.getInputProps("middle_name")}
                         />
                         <DateInput
+                            mt="md"
                             label="Date of birth"
                             placeholder="30.12.1990"
-                            // valueFormat="YYYY-MM-DD"
                             valueFormat="DD.MM.YYYY"
                             {...form.getInputProps("date_of_birth")}
                         />
                         <TextInput
+                            mt="sm"
                             label="Phone number"
                             placeholder="+7 (900) 111 22-33"
                             {...form.getInputProps("phone_number")}
@@ -257,34 +301,42 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     loading={step === 2 && currentStepStatus === "checking"}
                 >
                     <InputGroup nonFieldErrors={nonFieldErrors}>
-                        <TextInput
-                            label="Address"
-                            placeholder="Address"
-                            {...form.getInputProps("address")}
+                        <NativeSelect
+                            mt="sm"
+                            label="Library"
+                            placeholder="Library"
+                            {...form.getInputProps("library")}
+                            data={fieldChoices?.library ?? []}
+                            withAsterisk
+                        />
+                        <NativeSelect
+                            mt="md"
+                            label="Academic degree"
+                            placeholder="Academic degree"
+                            {...form.getInputProps("academic_degree")}
+                            data={fieldChoices?.academic_degree ?? []}
                         />
                         <TextInput
+                            mt="sm"
+                            label="Education level"
+                            placeholder="Education level"
+                            {...form.getInputProps("education_level")}
+                        />
+
+                        <TextInput
+                            mt="md"
                             label="Passport"
                             placeholder="Passport"
                             {...form.getInputProps("passport")}
                         />
                         <TextInput
-                            label="Education level"
-                            placeholder="Education level"
-                            {...form.getInputProps("education_level")}
-                        />
-                        <TextInput
-                            label="Academic degree"
-                            placeholder="Academic degree"
-                            {...form.getInputProps("academic_degree")}
+                            mt="sm"
+                            label="Address"
+                            placeholder="Address"
+                            {...form.getInputProps("address")}
                         />
                     </InputGroup>
                 </Stepper.Step>
-                {/* <Stepper.Completed>
-                    Completed! Form values:
-                    <Code block mt="xl">
-                        {JSON.stringify(form.values, null, 2)}
-                    </Code>
-                </Stepper.Completed> */}
             </Stepper>
 
             <Group position="right" mt="xl">

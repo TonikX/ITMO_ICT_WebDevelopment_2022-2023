@@ -3,9 +3,8 @@ from django.db.models import Count
 import datetime
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
-from django.db.models.functions import Coalesce
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 
 
 class User(AbstractUser):
