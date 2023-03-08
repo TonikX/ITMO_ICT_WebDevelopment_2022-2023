@@ -1,7 +1,8 @@
 import React from "react";
 import { Group, Image, Title } from "@mantine/core";
 
-import logo from "~/images/favicon-96.png";
+import logo from "~/images/logo-256.webp";
+
 const BrandLogo = () => {
     return (
         <Group spacing="xs">

@@ -3,7 +3,7 @@ import { Box } from "@mantine/core";
 
 import NonFieldErrors from "~/components/NonFieldErrors";
 
-const FormStep = ({ nonFieldErrors, children }) => {
+const InputGroup = ({ children, nonFieldErrors = null }) => {
     return (
         <Box maw={340} mx="auto" mb="xs">
             <NonFieldErrors errors={nonFieldErrors} />
@@ -12,4 +12,4 @@ const FormStep = ({ nonFieldErrors, children }) => {
     );
 };
 
-export default FormStep;
+export default InputGroup;

@@ -1,31 +1,55 @@
 import React from "react";
-import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
+import { Card, Text, Badge, Button, Group, useMantineTheme } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
-const BookCard = ({ book }) => {
+import RandomImage from "~/components/RandomImage";
+import cover1 from "~/images/book-cover-1.webp";
+import cover2 from "~/images/book-cover-2.webp";
+import cover3 from "~/images/book-cover-3.webp";
+import cover4 from "~/images/book-cover-4.webp";
+import cover5 from "~/images/book-cover-5.webp";
+
+const coverSrcSet = [cover1, cover2, cover3, cover4, cover5];
+
+const BookCard = ({ book, stock }) => {
+    const theme = useMantineTheme();
+
+    const largerThanSm = `(max-width: ${theme.breakpoints.sm})`;
+    const isSmallerThanSm = useMediaQuery(largerThanSm);
+
     return (
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Card.Section component="a" href="https://mantine.dev/">
-                <Image
-                    src="https://images.unsplash.com/photo-1527004013197-933c4bb611b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=720&q=80"
-                    height={160}
-                    alt="Norway"
-                />
+        <Card shadow="sm" padding={isSmallerThanSm ? "xs" : "md"} radius="md" withBorder>
+            <Card.Section
+                component="a"
+                href="https://mantine.dev/"
+                style={{ position: "relative" }}
+            >
+                <Badge
+                    color="light-blue-filled"
+                    variant="filled"
+                    m={2}
+                    style={{ position: "absolute", right: 0, zIndex: 2 }}
+                >
+                    {stock < 99 ? stock : "99+"}
+                </Badge>
+                <RandomImage srcSet={coverSrcSet} seed={book.title} alt="book cover" />
             </Card.Section>
 
-            <Group position="apart" mt="md" mb="xs">
-                <Text weight={500}>{book.title}</Text>
-                <Badge color="pink" variant="light">
-                    {book.authors}
-                </Badge>
+            <Group position="apart" my="xs">
+                <Text fz={isSmallerThanSm ? "md" : "lg"} weight={500} inline>
+                    {book.title}
+                </Text>
             </Group>
 
-            <Text size="sm" color="dimmed">
-                Published by {book.publisher}
+            <Text size="xs" color="dimmed">
+                {book.authors}
             </Text>
 
-            <Button variant="light" color="blue" fullWidth mt="md" radius="md">
-                Borrow
-            </Button>
+            <Group position="apart" spacing="xs">
+                <Button variant="light" color="blue" fullWidth mt="sm" radius="md">
+                    Borrow
+                </Button>
+            </Group>
         </Card>
     );
 };

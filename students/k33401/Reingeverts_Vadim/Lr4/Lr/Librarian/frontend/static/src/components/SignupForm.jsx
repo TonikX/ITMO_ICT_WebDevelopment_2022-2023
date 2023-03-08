@@ -5,7 +5,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useForm } from "@mantine/form";
 import { Stepper, TextInput, PasswordInput, Group, Button, Box, Code } from "@mantine/core";
 
-import FormStep from "~/components/FormStep";
+import InputGroup from "~/components/InputGroup";
 import notification from "~/components/Notification";
 import backendApi from "~/utils/BackendApi";
 
@@ -188,7 +188,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     description="Account information"
                     loading={step === 0 && currentStepStatus === "checking"}
                 >
-                    <FormStep nonFieldErrors={nonFieldErrors}>
+                    <InputGroup nonFieldErrors={nonFieldErrors}>
                         <TextInput
                             label="Username"
                             placeholder="Username"
@@ -212,7 +212,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="Confirm password"
                             {...form.getInputProps("confirmPassword")}
                         />
-                    </FormStep>
+                    </InputGroup>
                 </Stepper.Step>
 
                 <Stepper.Step
@@ -220,7 +220,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     description="Personal information"
                     loading={step === 1 && currentStepStatus === "checking"}
                 >
-                    <FormStep nonFieldErrors={nonFieldErrors}>
+                    <InputGroup nonFieldErrors={nonFieldErrors}>
                         <TextInput
                             label="Last name"
                             placeholder="Last name"
@@ -248,7 +248,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="+7 (900) 111 22-33"
                             {...form.getInputProps("phone_number")}
                         />
-                    </FormStep>
+                    </InputGroup>
                 </Stepper.Step>
 
                 <Stepper.Step
@@ -256,7 +256,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     description="Additional information"
                     loading={step === 2 && currentStepStatus === "checking"}
                 >
-                    <FormStep nonFieldErrors={nonFieldErrors}>
+                    <InputGroup nonFieldErrors={nonFieldErrors}>
                         <TextInput
                             label="Address"
                             placeholder="Address"
@@ -277,7 +277,7 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                             placeholder="Academic degree"
                             {...form.getInputProps("academic_degree")}
                         />
-                    </FormStep>
+                    </InputGroup>
                 </Stepper.Step>
                 {/* <Stepper.Completed>
                     Completed! Form values:
