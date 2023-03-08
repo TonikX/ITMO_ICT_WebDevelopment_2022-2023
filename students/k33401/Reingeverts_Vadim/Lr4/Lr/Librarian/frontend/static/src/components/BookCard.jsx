@@ -47,7 +47,7 @@ const BookCard = ({ book, stock }) => {
 
             <Group position="apart" spacing="xs">
                 <Button variant="light" color="blue" fullWidth mt="sm" radius="md">
-                    Borrow
+                    Get
                 </Button>
             </Group>
         </Card>

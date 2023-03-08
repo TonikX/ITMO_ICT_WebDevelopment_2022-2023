@@ -37,6 +37,7 @@ const App = ({ queryClient }) => {
                 >
                     <Notifications />
                     <AppShell
+                        padding={32}
                         layout="alt"
                         styles={{
                             main: {
@@ -64,7 +65,10 @@ const App = ({ queryClient }) => {
                             ) : null
                         }
                     >
-                        <Routes queryClient={queryClient} />
+                        <Routes
+                            queryClient={queryClient}
+                            isCompactViewActive={isCompactViewActive}
+                        />
                     </AppShell>
                 </MantineProvider>
             </ColorSchemeProvider>
