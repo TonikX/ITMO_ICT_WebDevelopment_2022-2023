@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://fokkely.github.io/LR2/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>LR2 - Web-programming</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "LR2";
+        var mkdocs_page_input_path = "LR2.md";
+        var mkdocs_page_url = "/LR2/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Web-programming
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">About me</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR1/">LR1</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">LR2</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Список научных конференций</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">Главная страница:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">Список тегов:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">Список конференций по тегу:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_5">Карточка конференции:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_6">Таблица участников:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_7">Регистрация на мероприятие:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_8">Обновленная таблица участников:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_9">Комментарии:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_10">Регистрация:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_11">Логин:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_12">Личный кабинет (с регистрациями на конференции):</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_13">Редактирование выступления:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_14">Список выступлений после редактирования:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_15">Модели</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_16">Конференция</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_17">Пользователь (участник)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_18">Выступление участника на конференции</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_19">Темы конференции</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_20">Отзыв</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_21">Ссылки</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_22">Формы</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#_23">Форма регистрации пользователя</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_24">Форма регистрации на конференцию</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#_25">Форма отзыва</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#views">Views</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR3/">LR3</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR4/">LR4</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Web-programming</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>LR2</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no2">Лабораторная №2</h1>
+<h2 id="_1">Список научных конференций</h2>
+<h3 id="_2">Главная страница:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.12.39.png" /></p>
+<h3 id="_3">Список тегов:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.31.42.png" /></p>
+<h3 id="_4">Список конференций по тегу:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.32.20.png" /></p>
+<h3 id="_5">Карточка конференции:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.32.41.png" /></p>
+<h3 id="_6">Таблица участников:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.34.53.png" /></p>
+<h3 id="_7">Регистрация на мероприятие:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.37.13.png" /></p>
+<h3 id="_8">Обновленная таблица участников:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.37.59.png" /></p>
+<h3 id="_9">Комментарии:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.38.38.png" /></p>
+<h3 id="_10">Регистрация:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.42.45.png" /></p>
+<h3 id="_11">Логин:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.43.19.png" /></p>
+<h3 id="_12">Личный кабинет (с регистрациями на конференции):</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.39.53.png" /></p>
+<h3 id="_13">Редактирование выступления:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.41.33.png" /></p>
+<h3 id="_14">Список выступлений после редактирования:</h3>
+<p><img alt="" src="../img/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-07%20%D0%B2%2000.42.03.png" /></p>
+<h3 id="_15">Модели</h3>
+<h4 id="_16">Конференция</h4>
+<pre><code>class Conference(models.Model):
+    name = models.CharField(max_length=300)
+    topics = models.ManyToManyField('Tag', blank=True, related_name='confs')
+    place = models.CharField(max_length=50)
+    date = models.DateTimeField(blank=True)
+    participants = models.ManyToManyField('Participant', through='Performance')
+    conf_description = models.CharField(max_length=1000)
+    place_description = models.CharField(max_length=150)
+    terms_of_participation = models.CharField(max_length=500)
+
+    def get_absolute_url(self):
+        return reverse('conf_registration_url', kwargs={'name': self.name})
+
+    def get_absolute_reg_url(self):
+        return reverse('registration_url', kwargs={'name': self.name})
+
+    def __str__(self):
+        return self.name
+</code></pre>
+<h4 id="_17">Пользователь (участник)</h4>
+<pre><code>class Participant(AbstractUser):
+    username = models.CharField(max_length=30, unique=True)
+    password = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    is_superuser = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f&quot;{self.first_name} {self.last_name}&quot;
+</code></pre>
+<h4 id="_18">Выступление участника на конференции</h4>
+<pre><code>class Performance(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField()
+    is_recommended = models.BooleanField(default=False)
+    author = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    conference = models.ForeignKey(Conference, on_delete=models.CASCADE)
+
+    def __str__(self) -&gt; str:
+        return f&quot;{self.title} by {self.author.first_name} {self.author.last_name} at {self.conference.name}&quot;
+</code></pre>
+<h4 id="_19">Темы конференции</h4>
+<pre><code>class Tag(models.Model):
+    title = models.CharField(max_length=50)
+
+    def get_absolute_url(self):
+        return reverse('tags_detail_url', kwargs={'title': self.title})
+
+    def __str__(self):
+        return self.title
+</code></pre>
+<h4 id="_20">Отзыв</h4>
+<pre><code>class Comment(models.Model):
+    post = models.ForeignKey(Conference, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    rating = models.IntegerField(
+        default=1,
+        validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1)
+        ]
+    )
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f&quot;Comment {self.body} by {self.author.username}&quot;
+</code></pre>
+<h3 id="_21">Ссылки</h3>
+<pre><code>urlpatterns = [
+    path('login', views.LoginView.as_view(), name='login_url'),
+    path('logout', views.LogoutView.as_view(), name='logout_url'),
+    path('registration', user_registration, name='user_registration_url'),
+    path('', conf_list, name='conf_list_url'),
+    path('conf/&lt;str:name&gt;/', conf_registration, name='conf_registration_url'),
+    path('tags/', tags_list, name='tags_list_url'),
+    path('tag/&lt;str:title&gt;', tags_detail, name='tags_detail_url'),
+    path('account', account, name='account_url'),
+    path('conf/&lt;str:name&gt;/registration', registration, name='registration_url'),
+    path('&lt;str:pk&gt;/editing', performance_edit, name='performance_edit_url'),
+    path('&lt;str:pk&gt;/delete', performance_delete, name='performance_delete_url'),
+]
+</code></pre>
+<h3 id="_22">Формы</h3>
+<h4 id="_23">Форма регистрации пользователя</h4>
+<pre><code>class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = Participant
+        help_texts = {
+            'username': None,
+        }
+        fields = [
+            'username',
+            'last_name',
+            'first_name',
+            'password',
+        ]
+        labels = {
+            'username': 'Логин',
+            'last_name': 'Фамилия',
+            'first_name': 'Имя',
+            'password': 'Пароль'
+        }
+</code></pre>
+<h4 id="_24">Форма регистрации на конференцию</h4>
+<pre><code>class ConferenceRegisterForm(forms.ModelForm):
+    class Meta:
+        model = Performance
+        fields = [
+            'title',
+            'description',
+        ]
+        labels = {
+            'title': 'Тема',
+            'description': 'Описание'
+        }
+</code></pre>
+<h4 id="_25">Форма отзыва</h4>
+<pre><code>class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = [
+            'body',
+            'rating'
+        ]
+        widgets = {
+            'body': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+        }
+        labels = {
+            'rating': 'Оценка',
+            'body': 'Текст комментария'
+        }
+</code></pre>
+<h3 id="views">Views</h3>
+<pre><code>def conf_list(request):
+    confs = Conference.objects.all()
+    return render(request, 'TheConference/index.html', context={'confs': confs})
+
+
+def conf_registration(request, name):
+    try:
+        conf = get_object_or_404(Conference, name__iexact=name)
+        perfs = Performance.objects.filter(conference=conf)
+        comments = Comment.objects.filter(post=conf)
+        context = {
+            'conf': conf,
+            'perfs': perfs,
+            'comments': comments
+        }
+
+        form = CommentForm(request.POST or None)
+        context['form'] = form
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = Participant.objects.get(pk=request.user.id)
+            comment.post = conf
+            comment.save()
+
+    except Conference.DoesNotExist:
+        raise Http404(&quot;Conference does not exist&quot;)
+    return render(request, 'TheConference/registration.html', context)
+
+
+def registration(request, name):
+    conf = get_object_or_404(Conference, name__iexact=name)
+    context = {'conf': conf}
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    form = ConferenceRegisterForm(request.POST or None)
+
+    if form.is_valid():
+        performance = form.save(commit=False)
+        performance.author = Participant.objects.get(id=request.user.id)
+        performance.conference = Conference.objects.get(name=name)
+        performance.save()
+        return redirect(f'/conf/{name}')
+    context['form'] = form
+    return render(request, 'TheConference/conf_registration.html', context)
+
+
+def user_registration(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = form.save()
+            # user = authenticate(username=username, password=raw_password)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/')
+    else:
+        form = RegisterForm()
+    return render(request, 'TheConference/registration/user_registration.html', {'form': form})
+
+
+@login_required
+def profile(request):
+    return render(request, 'TheConference/registration/login.html')
+
+
+def account(request):
+    perfs = Performance.objects.filter(author=request.user)
+    return render(request, 'TheConference/account.html', context={'perfs': perfs})
+
+
+def performance_edit(request, pk):
+    context = {}
+    instance = get_object_or_404(Performance, id=pk, author=request.user.id)
+    form = ConferenceRegisterForm(request.POST or None, instance=instance)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/account')
+    context['form'] = form
+    context['pk'] = pk
+    return render(request, 'TheConference/edit_performance.html', context)
+
+
+def performance_delete(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+
+    instance = get_object_or_404(Performance, id=pk, author=request.user.id)
+    print(instance)
+    instance.delete()
+    return redirect('/account')
+
+
+def tags_list(request):
+    tags = Tag.objects.all()
+    return render(request, 'TheConference/tags_list.html', context={'tags': tags})
+
+
+def tags_detail(request, title):
+    tag = get_object_or_404(Tag, title__iexact=title)
+    return render(request, 'TheConference/tags_detail.html', context={'tag': tag})
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../LR1/" class="btn btn-neutral float-left" title="LR1"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../LR3/" class="btn btn-neutral float-right" title="LR3">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../LR1/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../LR3/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
