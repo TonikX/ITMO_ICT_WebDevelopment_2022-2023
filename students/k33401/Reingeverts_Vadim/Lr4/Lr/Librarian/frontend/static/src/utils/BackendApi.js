@@ -129,8 +129,10 @@ export const fetchReadingRoomBookUsers = async () =>
 export const fetchReadingRoomBookUserDetails = async ({ readingRoomBookUserId }) =>
     await fetchFromBackendApi(["api", "reading-room-book-user", readingRoomBookUserId]);
 
-export const postReadingRoomBookUsers = async ({ body }) =>
-    await pushToBackendApi(["api", "reading-room-book-users"], "POST", body);
+export const postReadingRoomBookUsers = async ({ body }) => {
+    console.log("body", body);
+    return await pushToBackendApi(["api", "reading-room-book-users"], "POST", body);
+};
 export const patchReadingRoomBookUserDetails = async ({ readingRoomBookUserId, body }) =>
     await pushToBackendApi(["api", "reading-room-book-user", readingRoomBookUserId], "PATCH", body);
 export const deleteReadingRoomBookUserDetails = async ({ readingRoomBookUserId }) =>

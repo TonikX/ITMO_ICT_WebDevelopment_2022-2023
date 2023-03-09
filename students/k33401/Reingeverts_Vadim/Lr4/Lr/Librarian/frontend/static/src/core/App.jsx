@@ -73,6 +73,8 @@ const App = ({ queryClient }) => {
                         <Routes
                             queryClient={queryClient}
                             isCompactViewActive={isCompactViewActive}
+                            libraries={libraries}
+                            librariesStatus={librariesStatus}
                         />
                     </AppShell>
                 </MantineProvider>

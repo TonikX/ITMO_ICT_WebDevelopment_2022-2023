@@ -1,15 +1,27 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 
-import Library from "~/pages/Library";
+import BookCollection from "~/pages/BookCollection";
 import Profile from "~/pages/Profile";
 import Error from "~/pages/Error";
 
-const Routes = ({ queryClient, isCompactViewActive }) => {
+const Routes = ({ queryClient, isCompactViewActive, libraries, librariesStatus }) => {
     const router = useRoutes([
         {
             path: "/",
-            element: <Library isCompactViewActive={isCompactViewActive} />,
+            element: <h1>empty so far</h1>,
+            errorElement: <Error />,
+        },
+        {
+            path: "/:id",
+            element: (
+                <BookCollection
+                    queryClient={queryClient}
+                    isCompactViewActive={isCompactViewActive}
+                    libraries={libraries}
+                    librariesStatus={librariesStatus}
+                />
+            ),
             errorElement: <Error />,
         },
         {

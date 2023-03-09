@@ -1,7 +1,10 @@
 import React from "react";
 import { Card, Text, Badge, Button, Group, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import notification from "~/components/Notification";
 
+import { useMutation } from "@tanstack/react-query";
+import backendApi from "~/utils/BackendApi";
 import RandomImage from "~/components/RandomImage";
 import cover1 from "~/images/book-cover-1.webp";
 import cover2 from "~/images/book-cover-2.webp";
@@ -11,12 +14,40 @@ import cover5 from "~/images/book-cover-5.webp";
 
 const coverSrcSet = [cover1, cover2, cover3, cover4, cover5];
 
-const BookCard = ({ book, stock }) => {
+const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, userData }) => {
     const theme = useMantineTheme();
 
     const largerThanSm = `(max-width: ${theme.breakpoints.sm})`;
     const isSmallerThanSm = useMediaQuery(largerThanSm);
 
+    const postReadingRoomBookUsers = useMutation(backendApi.postReadingRoomBookUsers, {
+        onSuccess: ({ json, ok }) => {
+            console.log("res", json, ok);
+            if (ok) {
+                queryClient.invalidateQueries("readingRoomBook");
+                notification.showSuccess("Book was reserved");
+            } else {
+                notification.showAlert(json["error"][0]);
+            }
+        },
+        onError: notification.showError,
+        retry: 0,
+    });
+
+    const handleGetBook = () => {
+        postReadingRoomBookUsers.mutate({
+            body: {
+                ReadingRoomBookUser: {
+                    reading_room_book: readingRoomBookId,
+                    user: userData.id,
+                },
+            },
+        });
+    };
+
+    const handleReturnBook = () => {
+        console.log("ha");
+    };
     return (
         <Card shadow="sm" padding={isSmallerThanSm ? "xs" : "md"} radius="md" withBorder>
             <Card.Section
@@ -46,9 +77,29 @@ const BookCard = ({ book, stock }) => {
             </Text>
 
             <Group position="apart" spacing="xs">
-                <Button variant="light" color="blue" fullWidth mt="sm" radius="md">
-                    Get
-                </Button>
+                {isReserved ? (
+                    <Button
+                        variant="light"
+                        color="teal"
+                        fullWidth
+                        mt="sm"
+                        radius="md"
+                        onClick={handleReturnBook}
+                    >
+                        Return
+                    </Button>
+                ) : (
+                    <Button
+                        variant="light"
+                        color="blue"
+                        fullWidth
+                        mt="sm"
+                        radius="md"
+                        onClick={handleGetBook}
+                    >
+                        Get
+                    </Button>
+                )}
             </Group>
         </Card>
     );

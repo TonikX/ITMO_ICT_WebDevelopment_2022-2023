@@ -56,7 +56,10 @@ const User = ({ queryClient, libraries, librariesStatus }) => {
                         <Popover position="right" shadow="md" radius="sm" offset={8}>
                             <Popover.Target>
                                 <UnstyledButton sx={getUserContainerSx(theme)}>
-                                    <UserContent right={<IconChevronRight size={rem(18)} />} />
+                                    <UserContent
+                                        right={<IconChevronRight size={rem(18)} />}
+                                        logout={logout}
+                                    />
                                 </UnstyledButton>
                             </Popover.Target>
                             <Popover.Dropdown>
@@ -76,8 +79,10 @@ const User = ({ queryClient, libraries, librariesStatus }) => {
                                         isLoggedIn={isLoggedIn}
                                         isUserMutating={isUserMutating}
                                         setToken={setToken}
+                                        logout={logout}
                                     />
                                 }
+                                logout={logout}
                             />
                         </Box>
                     </MediaQuery>

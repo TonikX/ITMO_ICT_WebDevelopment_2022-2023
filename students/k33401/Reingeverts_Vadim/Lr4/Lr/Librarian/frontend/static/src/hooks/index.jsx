@@ -15,19 +15,29 @@ export const useGetLibrariesPublic = () => {
 export const useGetReadingRoomBook = (filters) => {
     return useQuery(["readingRoomBook", filters], () => backendApi.fetchReadingRoomBooks(filters), {
         select: (data) => {
-            const readingRoomBook = data.json["ReadingRoomBook"];
-            return readingRoomBook.filter(({ book }) =>
-                book.title.toLowerCase().includes(filters.title.toLowerCase())
-            );
+            const readingRoomBooks = data.json["ReadingRoomBook"];
+            return readingRoomBooks
+                .filter((readingRoomBook) => {
+                    const readingRoomId = parseInt(filters.readingRoomId);
+                    return (
+                        readingRoomBook.reading_room.id === readingRoomId || isNaN(readingRoomId)
+                    );
+                })
+                .filter(({ book }) =>
+                    book.title.toLowerCase().includes(filters.title.toLowerCase())
+                );
         },
         keepPreviousData: true,
     });
 };
 
-export const useGetUserData = () => {
+export const useGetUserData = (logout = null) => {
     return useQuery(["user"], backendApi.fetchLogin, {
         select: (data) => {
             return data.json["User"];
+        },
+        onError: () => {
+            if (logout) logout();
         },
         retry: 0,
     });

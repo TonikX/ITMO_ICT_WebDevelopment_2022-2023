@@ -142,16 +142,23 @@ class ReadingRoomBookUserSerializer(ModelSerializer):
 
     def validate(self, data):
         reading_room_book_user = self.instance
-        prev_returned_date = reading_room_book_user.returned_date
-        reading_room_book = reading_room_book_user.reading_room_book
+        print("reading_room_book_userreading_room_book_user",
+              reading_room_book_user)
 
-        new_returned_date = data.get("returned_date")
-        is_trying_to_borrow = new_returned_date is None and prev_returned_date is not None
+        if reading_room_book_user:
+            prev_returned_date = reading_room_book_user.returned_date
+            reading_room_book = reading_room_book_user.reading_room_book
+        else:
+            prev_returned_date = None
+            reading_room_book = data.get("reading_room_book")
 
-        if reading_room_book and is_trying_to_borrow:
-            if reading_room_book.get_avaliable_stock() < 1:
-                raise serializers.ValidationError({"error":
-                                                   "This book is out of stock in this reading room"})
+        # new_returned_date = data.get("returned_date")
+        # is_trying_to_borrow = new_returned_date is None and prev_returned_date is not None
+
+        # if reading_room_book and is_trying_to_borrow:
+        if reading_room_book.get_avaliable_stock() < 1:
+            raise serializers.ValidationError({"error":
+                                               "This book is out of stock in this reading room"})
         return data
 
 

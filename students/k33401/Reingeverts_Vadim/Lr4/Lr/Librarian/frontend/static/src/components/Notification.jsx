@@ -1,6 +1,6 @@
 import { notifications } from "@mantine/notifications";
 // https://tabler-icons.io/
-import { IconX, IconCheck } from "@tabler/icons-react";
+import { IconX, IconCheck, IconExclamationMark } from "@tabler/icons-react";
 
 const showError = (error) => {
     const message = error?.statusText ?? error?.message ?? error?.detail ?? JSON.stringify(error);
@@ -10,6 +10,14 @@ const showError = (error) => {
         message,
         color: "red",
         icon: <IconX />,
+    });
+};
+const showAlert = (message) => {
+    notifications.show({
+        title: "Note that",
+        message,
+        color: "orange",
+        icon: <IconExclamationMark />,
     });
 };
 
@@ -24,6 +32,7 @@ const showSuccess = (message) => {
 
 const notification = {
     showError,
+    showAlert,
     showSuccess,
 };
 
