@@ -81,6 +81,8 @@ export const deleteUserDetails = async ({ userId }) =>
 export const fetchLibraries = async () => await fetchFromBackendApi(["api", "libraries"]);
 export const fetchLibraryDetails = async ({ libraryId }) =>
     await fetchFromBackendApi(["api", "library", libraryId]);
+export const fetchLibrariesPublic = async () =>
+    await fetchFromBackendApi(["api", "libraries-public"], true);
 
 export const postLibraries = async ({ body }) =>
     await pushToBackendApi(["api", "libraries"], "POST", body);
@@ -171,6 +173,8 @@ const backendApi = {
     postLibraries,
     patchLibraryDetails,
     deleteLibraryDetails,
+
+    fetchLibrariesPublic,
 
     fetchReadingRooms,
     fetchReadingRoomDetails,

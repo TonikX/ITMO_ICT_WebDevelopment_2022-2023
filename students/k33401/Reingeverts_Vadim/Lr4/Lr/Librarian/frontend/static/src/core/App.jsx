@@ -7,6 +7,7 @@ import favicon from "~/images/favicon-96.png";
 import Routes from "~/core/Routes";
 import Sidebar from "~/components/Sidebar";
 import Header from "~/components/Header";
+import { useGetLibrariesPublic } from "~/hooks";
 
 const App = ({ queryClient }) => {
     const theme = useMantineTheme();
@@ -21,6 +22,8 @@ const App = ({ queryClient }) => {
         setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"));
 
     const [sidebarOpened, setSidebarOpened] = useState(false);
+
+    const { data: libraries, status: librariesStatus } = useGetLibrariesPublic();
 
     return (
         <>
@@ -52,6 +55,8 @@ const App = ({ queryClient }) => {
                         navbar={
                             <Sidebar
                                 queryClient={queryClient}
+                                libraries={libraries}
+                                librariesStatus={librariesStatus}
                                 opened={sidebarOpened}
                                 setOpened={setSidebarOpened}
                             />

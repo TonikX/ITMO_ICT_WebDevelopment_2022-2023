@@ -12,6 +12,19 @@ class ModelSerializer(serializers.ModelSerializer):
         model = None
         depth = 1
 
+    # https://stackoverflow.com/questions/37445248/how-to-dynamically-change-depth-in-django-rest-framework-nested-serializers
+    def __init__(self, *args, **kwargs):
+        depth = kwargs.pop("meta_depth", None)
+        drop_fields = kwargs.pop("drop_fields", None)
+        super(ModelSerializer, self).__init__(*args, **kwargs)
+
+        if depth is not None:
+            self.Meta.depth = depth
+
+        if drop_fields is not None:
+            for field_name in drop_fields:
+                self.fields.pop(field_name)
+
     def create(self, validated_data):
         object = self.model(**validated_data)
         object.save()
@@ -23,6 +36,9 @@ class ModelSerializer(serializers.ModelSerializer):
 
 class LibrarySerializer(ModelSerializer):
     model = models.Library
+
+    def __init__(self, depth, *args, **kwargs):
+        super(LibrarySerializer, self).__init__(*args, **kwargs)
 
     class Meta:
         model = models.Library
@@ -182,6 +198,9 @@ class UserSerializer(ModelSerializer):
         # Get dict, excluding the keys that were 'taken out'
         rest = {key: validated_data[key]
                 for key in validated_data if key not in ['password', 'serial_number']}
+
+        print("validated_data", validated_data)
+        print("REST", rest)
 
         object = self.model.objects.create(
             password=make_password(password),

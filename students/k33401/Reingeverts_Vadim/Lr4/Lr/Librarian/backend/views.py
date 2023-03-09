@@ -94,8 +94,15 @@ class UsersAPIView(ModelsAPIView):
         request_body=serializers.UserSerializer,
         tags=['User'],
     )
-    def post(self, *args, **kwargs):
-        return super().post(*args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        object_data = request.data.get(self.model.__name__)
+        serializer = self.modelSerializer(data=object_data, meta_depth=0, drop_fields=[
+                                          "readingroombookuser_set"])
+
+        if serializer.is_valid(raise_exception=True):
+            new_object = serializer.save()
+
+        return Response({"Success": f"{self.model.__name__} '{new_object}' created succesfully."})
 
     def check_permissions(self, request):
         if request.method == 'POST':
@@ -179,6 +186,26 @@ class UserDetailsAPIView(ModelDetailsAPIView):
     )
     def patch(self, *args, **kwargs):
         return super().patch(*args, **kwargs)
+
+
+class LibrariesPublicAPIView(ModelsAPIView):
+    authentication_classes = []
+    permission_classes = []
+
+    model = models.Library
+    modelSerializer = serializers.LibrarySerializer
+
+    @swagger_auto_schema(
+        operation_summary="returns libraries",
+        operation_description="List of all library objects",
+        tags=['Library'],
+        responses=utils_swagger.LIBRARIES_RESPONSES_GET
+    )
+    def get(self, request, *args, **kwargs):
+        objects = self.model.objects.all()
+        serializer = self.modelSerializer(
+            objects, many=True, meta_depth=1, drop_fields=["user_set"])
+        return Response({self.model.__name__: serializer.data})
 
 
 class LibrariesAPIView(ModelsAPIView):
@@ -608,27 +635,3 @@ class LibraryMonthlyReportAPIView(BaseModelAPIView):
             "NewUsersReadingRooms": grouped_rooms_serializer.data,
         }
         return Response({"MonthlyReport": report_data})
-
-
-# class SignupWithSerialAPIView(APIView):
-#     authentication_classes = []
-#     permission_classes = []
-
-#     model = models.User
-#     modelSerializer = serializers.UserSerializer
-
-#     @swagger_auto_schema(
-#         operation_summary="creates a new user with serial number prefilled",
-#         operation_description="User to be added to the library",
-
-#         request_body=serializers.UserSerializer,
-#         tags=['User']
-#     )
-#     def post(self, request, *args, **kwargs):
-#         object_data = request.data.get(self.model.__name__)
-#         serializer = self.modelSerializer(data=object_data)
-
-#         if serializer.is_valid(raise_exception=True):
-#             new_object = serializer.save()
-
-#         return Response({"Success": f"{self.model.__name__} '{new_object}' created succesfully."})

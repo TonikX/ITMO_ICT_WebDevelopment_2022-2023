@@ -73,7 +73,7 @@ class Library(models.Model):
             end_date = datetime.datetime.now().date()
             start_date = end_date - relativedelta.relativedelta(months=1)
         else:
-            start_date = datetime.date(year, month, 1)
+            start_date = datetime.datetime(year, month, 1)
             end_date = start_date + relativedelta.relativedelta(months=1)
         print(start_date, end_date)
 
@@ -143,7 +143,7 @@ class ReadingRoom(models.Model):
             end_date = datetime.datetime.now().date()
             start_date = end_date - relativedelta.relativedelta(months=1)
         else:
-            start_date = datetime.date(year, month, 1)
+            start_date = datetime.datetime(year, month, 1)
             end_date = start_date + relativedelta.relativedelta(months=1)
 
         users = self.user_set.filter(
@@ -216,14 +216,14 @@ class ReadingRoomBookUser(models.Model):
         'ReadingRoomBook', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    borrow_date = models.DateTimeField(default=datetime.date.today)
+    borrow_date = models.DateTimeField(default=datetime.datetime.today)
     returned_date = models.DateTimeField(blank=True, null=True)
 
     def is_returned(self):
         return self.returned_date is not None
 
     def return_book(self):
-        self.returned_date = datetime.date.today
+        self.returned_date = datetime.datetime.today
 
     def __str__(self):
         return self.user.__str__() + " | " + self.reading_room_book.__str__()

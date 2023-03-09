@@ -24,7 +24,7 @@ const getUserContainerSx = (theme) => {
     };
 };
 
-const User = ({ queryClient }) => {
+const User = ({ queryClient, libraries, librariesStatus }) => {
     const theme = useMantineTheme();
 
     const [token, setToken] = useLocalStorage({
@@ -89,6 +89,8 @@ const User = ({ queryClient }) => {
                     isLoggedIn={isLoggedIn}
                     isUserMutating={isUserMutating}
                     setToken={setToken}
+                    libraries={libraries}
+                    librariesStatus={librariesStatus}
                 />
             )}
         </Box>

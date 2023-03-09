@@ -13,6 +13,8 @@ urlpatterns = [
     path('libraries/', views.LibrariesAPIView.as_view(), name="libraries"),
     path('library/<int:pk>', views.LibraryDetailsAPIView.as_view(),
          name="library_details"),
+    path('libraries-public/', views.LibrariesPublicAPIView.as_view(),
+         name="libraries_public"),
 
     path('reading-rooms/', views.ReadingRoomsAPIView.as_view(), name="reading_rooms"),
     path('reading-room/<int:pk>', views.ReadingRoomDetailsAPIView.as_view(),

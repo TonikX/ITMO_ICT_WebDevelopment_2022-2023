@@ -12,7 +12,7 @@ const data = [
     { icon: <IconUser size="1rem" />, color: "teal", label: "Profile", to: "/profile" },
 ];
 
-const Sidebar = ({ queryClient, opened, setOpened }) => {
+const Sidebar = ({ queryClient, libraries, librariesStatus, opened, setOpened }) => {
     return (
         <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 240, lg: 300 }}>
             <Navbar.Section mt="xs">
@@ -28,7 +28,11 @@ const Sidebar = ({ queryClient, opened, setOpened }) => {
             </Navbar.Section>
 
             <Navbar.Section>
-                <User queryClient={queryClient} />
+                <User
+                    queryClient={queryClient}
+                    libraries={libraries}
+                    librariesStatus={librariesStatus}
+                />
             </Navbar.Section>
         </Navbar>
     );

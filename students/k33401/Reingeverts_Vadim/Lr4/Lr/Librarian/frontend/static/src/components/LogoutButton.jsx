@@ -9,8 +9,6 @@ const LogoutButton = ({ isLoggedIn, isUserMutating, logout }) => {
     const postLogout = useMutation(backendApi.postLogout, {
         mutationKey: "user",
         onSuccess: ({ json, ok }) => {
-            console.log("LOGOUT");
-            console.log("json", json, "ok", ok);
             if (ok) {
                 logout();
                 notification.showSuccess("Logged Out.");

@@ -7,7 +7,7 @@ const MenuButton = ({ icon, color, label, to }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isActive = location.pathname === to;
+    const isActive = location.pathname.replaceAll("/", "") === to.replaceAll("/", "");
 
     return (
         <UnstyledButton

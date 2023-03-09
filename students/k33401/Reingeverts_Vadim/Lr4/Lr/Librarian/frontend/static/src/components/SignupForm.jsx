@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
     Stepper,
     TextInput,
+    Select,
     NativeSelect,
     PasswordInput,
     Group,
@@ -24,14 +25,20 @@ const fieldsToCheckAtStep = {
 };
 
 const filedsWithChoices = ["academic_degree"];
-const filedsWithForeignKeys = ["library"];
 
 const listToObject = (keys = [], value = "") => {
     // https://stackoverflow.com/a/36388401
     return keys.reduce((a, v) => ({ ...a, [v]: value }), {});
 };
 
-const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
+const Signup = ({
+    queryClient,
+    isLoggedIn,
+    isUserMutating,
+    closeModal,
+    libraries,
+    librariesStatus,
+}) => {
     const [nonFieldErrors, setNonFieldErrors] = useState([]);
     const [fieldChoices, setFieldChoices] = useSetState({});
 
@@ -76,19 +83,29 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     toggleCurrentStepStatus("unchecked");
                 }
             } else {
-                handleFieldChoices(json["field_choices"]);
+                const inputChoices = convertDjangoChoices(json["field_choices"]);
+                setFieldChoices(inputChoices);
             }
         },
         onError: notification.showError,
         retry: 0,
     });
 
-    const handleFieldChoices = (fields) => {
-        let fieldChoices = {};
-        for (const [field, choices] of Object.entries(fields)) {
-            fieldChoices[field] = choices.map((choiceTuple) => choiceTuple[0]);
+    const convertDjangoChoices = (djangoChoices) => {
+        let inputChoiceList = {};
+        for (const [field, choices] of Object.entries(djangoChoices)) {
+            inputChoiceList[field] = choices.map((choiceTuple) => choiceTuple[0]);
         }
-        setFieldChoices(fieldChoices);
+        return inputChoiceList;
+    };
+    const convertModelForeignKeys = (djangoModelObjects) => {
+        const inputChoiceObject = {
+            library: djangoModelObjects.map((object) => ({
+                label: object.name,
+                value: object.id.toString(),
+            })),
+        };
+        return inputChoiceObject;
     };
 
     const getFormChoices = () => {
@@ -102,21 +119,14 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
 
     useEffect(() => {
         getFormChoices();
-        // getFormForeignKeys;
     }, []);
 
-    const fetchLibraries = useMutation(backendApi.fetchLibraries, {
-        onSuccess: ({ json, ok }) => {
-            console.log("json", ok, json);
-        },
-        onError: notification.showError,
-        retry: 0,
-    });
-
-    const getFormForeignKeys = () => {
-        // const fields = listToObject(filedsWithForeignKeys, "");
-        // fetchLibraries.mutate();
-    };
+    useEffect(() => {
+        if (librariesStatus === "success") {
+            const inputChoiceObject = convertModelForeignKeys(libraries);
+            setFieldChoices(inputChoiceObject);
+        }
+    }, [librariesStatus]);
 
     const form = useForm({
         initialValues: {
@@ -131,10 +141,11 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
             date_of_birth: "",
             phone_number: "",
 
-            address: "",
-            passport: "",
-            education_level: "",
+            library: "",
             academic_degree: "",
+            education_level: "",
+            passport: "",
+            address: "",
         },
 
         validate: (fields) => {
@@ -169,10 +180,16 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
     });
 
     const handleSignupSubmit = (fields) => {
+        // Exclude empty
         const cleanedFields = Object.fromEntries(
             Object.entries(fields).filter(([_, v]) => v !== "")
         );
         delete cleanedFields["confirmPassword"];
+
+        if (cleanedFields?.library) {
+            cleanedFields.library = parseInt(cleanedFields.library);
+            console.log("cleanedFields!", cleanedFields);
+        }
 
         if (!isLoggedIn && !isUserMutating) {
             postUsers.mutate({
@@ -314,13 +331,12 @@ const Signup = ({ queryClient, isLoggedIn, isUserMutating, closeModal }) => {
                     loading={step === 2 && currentStepStatus === "checking"}
                 >
                     <InputGroup nonFieldErrors={nonFieldErrors}>
-                        <NativeSelect
+                        <Select
                             mt="sm"
                             label="Library"
                             placeholder="Library"
                             {...form.getInputProps("library")}
-                            data={fieldChoices?.library ?? []}
-                            withAsterisk
+                            data={fieldChoices.library ?? []}
                         />
                         <NativeSelect
                             mt="md"
