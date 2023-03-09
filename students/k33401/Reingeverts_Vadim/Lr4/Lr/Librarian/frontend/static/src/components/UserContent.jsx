@@ -12,7 +12,7 @@ const UserContent = ({ right }) => {
         name = [user?.first_name, user?.last_name].join(" ");
         name = name === " " ? "Anonymous User" : name;
     }
-
+    console.log("user", user);
     return (
         <>
             <ContentPane

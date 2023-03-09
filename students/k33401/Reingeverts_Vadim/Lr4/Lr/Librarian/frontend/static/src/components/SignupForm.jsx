@@ -188,7 +188,6 @@ const Signup = ({
 
         if (cleanedFields?.library) {
             cleanedFields.library = parseInt(cleanedFields.library);
-            console.log("cleanedFields!", cleanedFields);
         }
 
         if (!isLoggedIn && !isUserMutating) {

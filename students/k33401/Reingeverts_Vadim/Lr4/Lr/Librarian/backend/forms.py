@@ -5,7 +5,8 @@ from django.core.exceptions import ValidationError
 class UserValidationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        if ("password" in self.changed_data):
+            user.set_password(self.cleaned_data["password"])
         if commit:
             user.serial_number = user.generate_random_serial()
             user.save()
