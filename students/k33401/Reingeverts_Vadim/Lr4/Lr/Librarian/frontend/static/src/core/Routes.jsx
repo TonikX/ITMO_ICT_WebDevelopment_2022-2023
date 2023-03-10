@@ -1,15 +1,16 @@
 import React from "react";
 import { useRoutes } from "react-router-dom";
 
+import Home from "~/pages/Home";
 import BookCollection from "~/pages/BookCollection";
 import ProfileBookCollection from "~/pages/ProfileBookCollection";
 import Error from "~/pages/Error";
 
-const Routes = ({ queryClient, isCompactViewActive, libraries, librariesStatus }) => {
+const Routes = ({ queryClient, isCompactViewActive }) => {
     const router = useRoutes([
         {
             path: "/",
-            element: <h1>empty so far</h1>,
+            element: <Home title="Home" isCompactViewActive={isCompactViewActive} />,
             errorElement: <Error />,
         },
         {
@@ -18,8 +19,6 @@ const Routes = ({ queryClient, isCompactViewActive, libraries, librariesStatus }
                 <BookCollection
                     queryClient={queryClient}
                     isCompactViewActive={isCompactViewActive}
-                    libraries={libraries}
-                    librariesStatus={librariesStatus}
                 />
             ),
             errorElement: <Error />,

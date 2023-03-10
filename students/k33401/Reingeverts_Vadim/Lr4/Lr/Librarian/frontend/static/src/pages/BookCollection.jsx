@@ -6,9 +6,12 @@ import { useParams } from "react-router-dom";
 import BookGrid from "~/components/BookGrid";
 import { useGetReadingRoomBook } from "~/hooks";
 
-const BookCollection = ({ queryClient, isCompactViewActive, libraries, librariesStatus }) => {
+const BookCollection = ({ queryClient, isCompactViewActive }) => {
     let { id } = useParams();
-    const [filters, setFilters] = useDebouncedState({ title: "", readingRoomId: id }, 200);
+    const [filters, setFilters] = useDebouncedState(
+        { title: "", readingRoomId: id, userId: "" },
+        200
+    );
     useDidUpdate(() => setFilters((filters) => ({ ...filters, readingRoomId: id })), [id]);
 
     const { data: readingRoomBooks, status: readingRoomBooksStatus } =

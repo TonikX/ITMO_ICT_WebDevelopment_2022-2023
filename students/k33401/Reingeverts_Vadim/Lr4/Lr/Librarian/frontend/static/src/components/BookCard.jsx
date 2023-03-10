@@ -1,11 +1,11 @@
 import React from "react";
 import { Card, Text, Badge, Button, Group, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import notification from "~/components/Notification";
 import { useMutation } from "@tanstack/react-query";
 
 import { toISOStringLocal } from "~/utils";
 import backendApi from "~/utils/BackendApi";
+import notification from "~/components/Notification";
 import RandomImage from "~/components/RandomImage";
 import cover1 from "~/images/book-cover-1.webp";
 import cover2 from "~/images/book-cover-2.webp";
@@ -80,11 +80,7 @@ const BookCard = ({
     };
     return (
         <Card shadow="sm" padding={isSmallerThanSm ? "xs" : "md"} radius="md" withBorder>
-            <Card.Section
-                component="a"
-                href="https://mantine.dev/"
-                style={{ position: "relative" }}
-            >
+            <Card.Section component="a" style={{ position: "relative" }}>
                 <Badge
                     color="light-blue-filled"
                     variant="filled"

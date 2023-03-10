@@ -18,7 +18,18 @@ export const useGetReadingRoomBook = (filters) => {
             const readingRoomBooks = data.json["ReadingRoomBook"];
             return readingRoomBooks
                 .filter((readingRoomBook) => {
-                    const readingRoomId = parseInt(filters.readingRoomId);
+                    const userId = parseInt(filters?.userId);
+                    return (
+                        isNaN(userId) ||
+                        readingRoomBook.readingroombookuser_set.some(
+                            (readingRoomBookUser) =>
+                                readingRoomBookUser.user.id === userId &&
+                                readingRoomBookUser.returned_date === null
+                        )
+                    );
+                })
+                .filter((readingRoomBook) => {
+                    const readingRoomId = parseInt(filters?.readingRoomId);
                     return (
                         readingRoomBook.reading_room.id === readingRoomId || isNaN(readingRoomId)
                     );
@@ -43,8 +54,11 @@ export const useGetUserData = (logout = null) => {
     });
 };
 
-export const useGetUserBooks = (userId, filters) => {
+export const useGetUserBooks = (filters, userId) => {
     return useQuery(["readingRoomBookUser", filters], () => backendApi.fetchUserBooks(userId), {
+        onSuccess: () => {
+            console.log("Ok?");
+        },
         select: (data) => {
             console.log("data to filter", data);
             // const readingRoomBooks = data.json["ReadingRoomBook"];

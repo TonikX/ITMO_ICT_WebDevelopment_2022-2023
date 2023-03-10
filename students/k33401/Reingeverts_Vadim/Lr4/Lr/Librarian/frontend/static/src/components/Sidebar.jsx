@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Navbar } from "@mantine/core";
+import { Navbar, Divider } from "@mantine/core";
 import { IconBook, IconUser } from "@tabler/icons-react";
 import { MANTINE_COLORS } from "@mantine/styles";
 
@@ -10,10 +10,9 @@ import User from "~/components/User";
 import chooseWeightedIndex from "~/utils/ChooseRandom";
 import { useGetUserData } from "~/hooks";
 
-// const data = [
-//     { icon: <IconBook size="1rem" />, color: "blue", label: "Library", to: "/" },
-//     { icon: <IconUser size="1rem" />, color: "teal", label: "Profile", to: "/profile" },
-// ];
+const initData = [
+    { icon: <IconUser size="1rem" />, color: "teal", label: "Profile", to: "/profile" },
+];
 
 const Sidebar = ({ queryClient, libraries, librariesStatus, opened, setOpened }) => {
     const { data: user, status: userStatus } = useGetUserData();
@@ -40,6 +39,13 @@ const Sidebar = ({ queryClient, libraries, librariesStatus, opened, setOpened })
             </Navbar.Section>
 
             <Navbar.Section grow mt="md">
+                {initData &&
+                    initData.map((link) => (
+                        <div key={link.label}>
+                            <MenuButton {...link} />
+                        </div>
+                    ))}
+                <Divider my="sm" label="Reading rooms" labelPosition="center" />
                 {data &&
                     data.map((link) => (
                         <div key={link.label}>

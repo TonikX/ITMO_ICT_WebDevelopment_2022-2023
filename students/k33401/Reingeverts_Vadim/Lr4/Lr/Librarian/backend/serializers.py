@@ -149,8 +149,23 @@ class ReadingRoomBookUserSerializer(ModelSerializer):
         fields = "__all__"
 
     def validate(self, data):
-        reading_room_book_user = self.instance
+        # reading_room_book_user = self.instance
+        # print("reading_room_book_user", reading_room_book_user)
+
+        # is_a_new_entry = reading_room_book_user is None
+
+        # if is_a_new_entry:
+        #     print("need to check if there are enough books")
+        # else:
+        #     is_trying_to_borrow = not not reading_room_book_user.returned_date
+        #     if is_trying_to_borrow:
+        #         print("need to check if there are enough books")
+        #     else:
+        #         print("dont need to check")
+        #         return data
+
         return data
+
         # print("reading_room_book_userreading_room_book_user",
         #       reading_room_book_user)
 

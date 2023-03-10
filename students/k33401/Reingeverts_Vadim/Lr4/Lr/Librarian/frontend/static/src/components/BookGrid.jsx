@@ -63,16 +63,8 @@ const BookGrid = ({
 
                         const userBook = userReservedBook ?? userReturnedBook;
                         const isReserved = !(userBook?.returned_date !== null);
-
                         return (
-                            <Grid.Col
-                                key={readingRoomBook.book.id}
-                                span={6}
-                                xs={6}
-                                sm={4}
-                                md={3}
-                                lg={3}
-                            >
+                            <Grid.Col key={readingRoomBook.id} span={6} xs={6} sm={4} md={3} lg={3}>
                                 <BookCard
                                     isReserved={isReserved}
                                     reservationId={userBook?.id}

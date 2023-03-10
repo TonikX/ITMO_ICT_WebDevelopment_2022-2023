@@ -137,8 +137,10 @@ export const deleteReadingRoomBookUserDetails = async ({ readingRoomBookUserId }
     await pushToBackendApi(["api", "reading-room-book-user", readingRoomBookUserId], "DELETE");
 
 // Custom API
-export const fetchUserBooks = async ({ userId }) =>
-    await fetchFromBackendApi(["api", "user-books", userId]);
+export const fetchUserBooks = async ({ userId }) => {
+    if (!userId) return {};
+    return await fetchFromBackendApi(["api", "user-books", userId]);
+};
 export const fetchUsersBooksOverdue = async () =>
     await fetchFromBackendApi(["api", "users-books-overdue"]);
 export const fetchUsersBooksRare = async () =>
