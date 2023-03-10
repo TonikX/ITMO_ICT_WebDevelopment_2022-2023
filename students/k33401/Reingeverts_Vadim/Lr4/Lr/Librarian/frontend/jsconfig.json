@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        // Auto imports https://code.visualstudio.com/docs/languages/jsconfig
+        // "module": "ES6",
+        "jsx": "preserve",
+        "checkJs": false,
+        "baseUrl": ".",
+        // Import aliases from Vite 
+        "paths": {
+            "~/*": ["./static/src/*"],
+        },
+
+        "target": "es6",
+        "module": "commonjs",
+        "lib": [
+            "es5",
+            "es6",
+            "dom",
+            "dom.iterable"
+        ],
+        "sourceMap": true,
+        "outDir": "./script",
+        "strict": false,
+        "strictNullChecks": false,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+    },
+    "exclude": [
+        // "node_modules",
+        // "**/node_modules/*",
+        "dist"
+    ]
+}

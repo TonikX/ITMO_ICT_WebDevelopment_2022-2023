@@ -1,0 +1,11 @@
+{% extends "./base.html" %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
+{% block main %}
+    <p>Name: {{ driver_license.car_owner_id }}</p>
+    <p>Serial number: {{ driver_license.serial_number }}</p>
+    <p>License type: {{ driver_license.license_type }} ({{ driver_license.get_license_type_display }})</p>
+    <p>Issue date: {{ driver_license.issue_date|date:"Y.m.d" }}</p>
+    <a href={% url 'driver-license-list' %}>Back</a>
+{% endblock main %}

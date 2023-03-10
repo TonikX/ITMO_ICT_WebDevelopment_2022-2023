@@ -1,0 +1,38 @@
+{% extends "./base_body.html" %}
+{% load static %}
+{% block tab_title %}
+    Tracker Fly: Sign Up
+{% endblock tab_title %}
+{% block title %}
+    Sign Up
+{% endblock title %}
+{% block subtitle %}
+    <p>Let's setup your personal Tracker Fly account</p>
+{% endblock subtitle %}
+{% block aside_container %}
+    {% with hide_nav=True aside_image="plane.webp" aside_col_span=1 %}{{ block.super }}{% endwith %}
+{% endblock aside_container %}
+{% block content %}
+    <form action="" method="post" class="!grid grid-cols-2 gap-6">
+        {% csrf_token %}
+        <div class="col-span-full">
+            {% if form.errors %}
+                <ul class="text-pink-500">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<li>{{ error|title }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% for field in form %}
+            <p class="text-md m-0 {% if field.errors %}text-pink-500{% endif %}">{{ field.label_tag }} {{ field }}</p>
+        {% endfor %}
+        <div class="col-span-full !grid grid-cols-2 gap-6">
+            <div>
+                <input class="max-w-xs" type="submit" value="Create Account"/>
+                Alerady have an account? <a class="text-[var(--h1-color)]" href="{% url 'log_in' %}">Log In</a>
+            </div>
+            <span/>
+        </div>
+    </form>
+{% endblock content %}

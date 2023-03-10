@@ -1,0 +1,36 @@
+{% extends "./base_body.html" %}
+{% load static %}
+{% block tab_title %}
+    Writing Review
+{% endblock tab_title %}
+{% block title %}
+    Writing Review
+{% endblock title %}
+{% block subtitle %}
+    <p>Here you can share your impressions about the flight</p>
+{% endblock subtitle %}
+{% block content %}
+    <form action="" method="post" class="!grid grid-cols-2 gap-6">
+        {% csrf_token %}
+        <div class="col-span-full">
+            {% if form.errors %}
+                <ul class="text-pink-500">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<li>{{ error|title }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% for field in form %}
+            <p class="col-span-full text-md m-0 {% if field.errors %}text-pink-500{% endif %}">
+                {{ field.label_tag }} {{ field }}
+            </p>
+        {% endfor %}
+        <div class="col-span-full !grid grid-cols-2 gap-6">
+            <div>
+                <input class="max-w-xs" type="submit" value="Submit"/>
+            </div>
+            <span/>
+        </div>
+    </form>
+{% endblock content %}

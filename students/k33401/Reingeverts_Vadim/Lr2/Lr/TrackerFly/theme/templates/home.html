@@ -1,0 +1,22 @@
+{% extends "./base_body.html" %}
+{% block tab_title %}
+    Tracker Fly
+{% endblock tab_title %}
+{% block title %}
+    Tracker Fly is available!
+{% endblock title %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <p>
+            <span>Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>!</span>
+        </p>
+        <p>You can reserve a flight now</p>
+    {% else %}
+        <p>You can make an account now</p>
+        <div class="flex gap-8 items-center">
+            <a href="{% url 'log_in' %}" role="button">Log In</a>
+            <a href="{% url 'sign_up' %}"
+               class="text-[var(--h6-color)] hover:text-[var(--h2-color)]">Sign Up</a>
+        </div>
+    {% endif %}
+{% endblock content %}

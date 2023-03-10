@@ -1,0 +1,15 @@
+{% extends "./base_body.html" %}
+{% load tags %}
+{% block tab_title %}
+    Flights
+{% endblock tab_title %}
+{% block title %}
+    Flights
+{% endblock title %}
+{% block subtitle %}
+    <p>All flights</p>
+{% endblock subtitle %}
+{% block content %}
+    {% include "./sub_error.html" %}
+    {% include "./sub_flights.html" %}
+{% endblock content %}

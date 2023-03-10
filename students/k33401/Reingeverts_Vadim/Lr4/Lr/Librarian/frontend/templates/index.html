@@ -1,0 +1,32 @@
+{% load static %}
+{% load env_utils %}
+{% load django_vite %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+        <title>Librarian</title>
+        {% comment %} https://vitejs.dev/guide/backend-integration.html {% endcomment %}
+        <script type="module">
+            import RefreshRuntime from 'http://{% get_env "host" "localhost" %}:{% get_env "frontend_port" 3000 %}/@react-refresh'
+            RefreshRuntime.injectIntoGlobalHook(window)
+            window.$RefreshReg$ = () => {}
+            window.$RefreshSig$ = () => (type) => type
+            window.__vite_plugin_react_preamble_installed__ = true
+        </script>
+        {% comment %} https://github.com/MrBin99/django-vite#template-tags {% endcomment %}
+        {% vite_hmr_client %}
+        {% vite_asset 'src/core/index.jsx' %}
+        <style type="text/css">
+            #root {
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
+</html>
