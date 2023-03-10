@@ -19,7 +19,7 @@ const Header = ({ sidebarOpened, setSidebarOpened }) => {
                     />
                 </MediaQuery>
 
-                <BrandLogo />
+                <BrandLogo setSidebarOpened={setSidebarOpened} />
             </div>
         </MantineHeader>
     );

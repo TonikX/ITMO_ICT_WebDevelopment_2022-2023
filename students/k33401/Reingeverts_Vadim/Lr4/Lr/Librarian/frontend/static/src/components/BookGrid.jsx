@@ -29,7 +29,13 @@ const BookGrid = ({
                         defaultValue={filters.title}
                         icon={<IconSearch size="0.8rem" />}
                         rightSection={conditionalLoader}
-                        onChange={(event) => setFilters({ title: event.currentTarget.value })}
+                        onChange={(event) => {
+                            const value = event.currentTarget.value;
+                            setFilters((filters) => ({
+                                ...filters,
+                                title: value,
+                            }));
+                        }}
                     />
                 </>
             ) : (
@@ -43,7 +49,13 @@ const BookGrid = ({
                         defaultValue={filters.title}
                         icon={<IconSearch size="0.8rem" />}
                         rightSection={conditionalLoader}
-                        onChange={(event) => setFilters({ title: event.currentTarget.value })}
+                        onChange={(event) => {
+                            const value = event.currentTarget.value;
+                            setFilters((filters) => ({
+                                ...filters,
+                                title: value,
+                            }));
+                        }}
                     />
                 </Group>
             )}

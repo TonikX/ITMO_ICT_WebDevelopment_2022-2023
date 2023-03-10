@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDebouncedState } from "@mantine/hooks";
 
 import BookGrid from "~/components/BookGrid";
-import { useGetReadingRoomBook } from "~/hooks";
+import { useGetReadingRoomBook, useGetUserData } from "~/hooks";
 
-const BookCollection = ({ queryClient, isCompactViewActive }) => {
+const ProfileBookCollection = ({ queryClient, isCompactViewActive }) => {
     const [filters, setFilters] = useDebouncedState(
-        { title: "", readingRoomId: "", userId: "50" },
+        { title: "", readingRoomId: "", userId: "-1" },
         200
+    );
+    const { data: userData, status: userStatus } = useGetUserData();
+    const isUserLoaded = userStatus === "success";
+    useEffect(
+        () => setFilters((filters) => ({ ...filters, userId: userData?.id?.toString() ?? "-1" })),
+        [isUserLoaded]
     );
 
     const { data: readingRoomBooks, status: readingRoomBooksStatus } =
@@ -16,7 +22,7 @@ const BookCollection = ({ queryClient, isCompactViewActive }) => {
     return (
         <BookGrid
             queryClient={queryClient}
-            title="profile"
+            title="Profile"
             status={readingRoomBooksStatus}
             readingRoomBooks={readingRoomBooks}
             filters={filters}
@@ -26,4 +32,4 @@ const BookCollection = ({ queryClient, isCompactViewActive }) => {
     );
 };
 
-export default BookCollection;
+export default ProfileBookCollection;

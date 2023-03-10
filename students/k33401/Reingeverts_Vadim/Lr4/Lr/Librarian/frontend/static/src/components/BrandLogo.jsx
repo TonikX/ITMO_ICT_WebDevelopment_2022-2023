@@ -4,11 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 import logo from "~/images/logo-256.webp";
 
-const BrandLogo = () => {
+const BrandLogo = ({ setSidebarOpened }) => {
     const navigate = useNavigate();
 
+    const handleHomeClick = () => {
+        setSidebarOpened(false);
+        navigate("/");
+    };
+
     return (
-        <UnstyledButton onClick={() => navigate("/")}>
+        <UnstyledButton onClick={handleHomeClick}>
             <Group spacing="xs">
                 <Image maw={30} mx="auto" radius="xs" src={logo} />
                 <Title size="h3">Librarian</Title>

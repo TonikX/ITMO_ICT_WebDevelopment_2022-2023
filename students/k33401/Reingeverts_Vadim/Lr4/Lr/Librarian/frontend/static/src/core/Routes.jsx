@@ -25,7 +25,12 @@ const Routes = ({ queryClient, isCompactViewActive }) => {
         },
         {
             path: "/profile",
-            element: <ProfileBookCollection isCompactViewActive={isCompactViewActive} />,
+            element: (
+                <ProfileBookCollection
+                    queryClient={queryClient}
+                    isCompactViewActive={isCompactViewActive}
+                />
+            ),
             errorElement: <Error />,
         },
     ]);

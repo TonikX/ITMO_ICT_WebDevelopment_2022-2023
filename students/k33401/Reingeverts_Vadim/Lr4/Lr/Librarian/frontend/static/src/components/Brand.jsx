@@ -37,7 +37,7 @@ const Brand = ({ sidebarOpened, setSidebarOpened }) => {
                         color={theme.colors.gray[6]}
                     />
                 </MediaQuery>
-                <BrandLogo />
+                <BrandLogo setSidebarOpened={setSidebarOpened} />
 
                 <ActionIcon variant="default" onClick={() => toggleColorScheme()} size={30}>
                     {colorScheme === "dark" ? (

@@ -19,17 +19,21 @@ const Sidebar = ({ queryClient, libraries, librariesStatus, opened, setOpened })
 
     let data = [];
     if (userStatus === "success" && librariesStatus === "success") {
-        const userLibrary = libraries.find((library) => library.id === user.library.id);
-        data = userLibrary.readingroom_set.map(({ id, name }) => {
-            const choice = chooseWeightedIndex(MANTINE_COLORS, name);
-            const randomColor = MANTINE_COLORS[choice];
-            return {
-                icon: <IconBook size="1rem" />,
-                color: randomColor,
-                label: name,
-                to: "/" + id,
-            };
-        });
+        const userLibrary = libraries.find(
+            (library) => library.id === user.library || library.id === user.library?.id
+        );
+        if (userLibrary) {
+            data = userLibrary.readingroom_set.map(({ id, name }) => {
+                const choice = chooseWeightedIndex(MANTINE_COLORS, name);
+                const randomColor = MANTINE_COLORS[choice];
+                return {
+                    icon: <IconBook size="1rem" />,
+                    color: randomColor,
+                    label: name,
+                    to: "/" + id,
+                };
+            });
+        }
     }
 
     return (
@@ -42,14 +46,14 @@ const Sidebar = ({ queryClient, libraries, librariesStatus, opened, setOpened })
                 {initData &&
                     initData.map((link) => (
                         <div key={link.label}>
-                            <MenuButton {...link} />
+                            <MenuButton {...link} setSidebarOpened={setOpened} />
                         </div>
                     ))}
                 <Divider my="sm" label="Reading rooms" labelPosition="center" />
                 {data &&
                     data.map((link) => (
                         <div key={link.label}>
-                            <MenuButton {...link} />
+                            <MenuButton {...link} setSidebarOpened={setOpened} />
                         </div>
                     ))}
             </Navbar.Section>

@@ -8,7 +8,6 @@ export const useGetLibrariesPublic = () => {
             const libraries = data.json["Library"];
             return libraries;
         },
-        // keepPreviousData: true,
     });
 };
 
@@ -34,8 +33,10 @@ export const useGetReadingRoomBook = (filters) => {
                         readingRoomBook.reading_room.id === readingRoomId || isNaN(readingRoomId)
                     );
                 })
-                .filter(({ book }) =>
-                    book.title.toLowerCase().includes(filters.title.toLowerCase())
+                .filter(
+                    ({ book }) =>
+                        book.title.toLowerCase().includes(filters.title.toLowerCase()) ||
+                        book.authors.toLowerCase().includes(filters.title.toLowerCase())
                 );
         },
         keepPreviousData: true,
@@ -54,28 +55,14 @@ export const useGetUserData = (logout = null) => {
     });
 };
 
-export const useGetUserBooks = (filters, userId) => {
-    return useQuery(["readingRoomBookUser", filters], () => backendApi.fetchUserBooks(userId), {
-        onSuccess: () => {
-            console.log("Ok?");
-        },
-        select: (data) => {
-            console.log("data to filter", data);
-            // const readingRoomBooks = data.json["ReadingRoomBook"];
-            // return readingRoomBooks
-            //     .filter((readingRoomBook) => {
-            //         const readingRoomId = parseInt(filters.readingRoomId);
-            //         return (
-            //             readingRoomBook.reading_room.id === readingRoomId || isNaN(readingRoomId)
-            //         );
-            //     })
-            //     .filter(({ book }) =>
-            //         book.title.toLowerCase().includes(filters.title.toLowerCase())
-            //     );
-        },
-        onError: (err) => {
-            console.log("error", err);
-        },
-        enabled: !!userId,
-    });
-};
+// export const useGetUserBooks = (filters, userId) => {
+//     return useQuery(["readingRoomBookUser", filters], () => backendApi.fetchUserBooks(userId), {
+//         onSuccess: () => {
+//         },
+//         select: (data) => {
+//         },
+//         onError: (err) => {
+//         },
+//         enabled: !!userId,
+//     });
+// };

@@ -3,11 +3,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { ThemeIcon, UnstyledButton, Group, Text } from "@mantine/core";
 
-const MenuButton = ({ icon, color, label, to }) => {
+const MenuButton = ({ icon, color, label, to, setSidebarOpened }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
     const isActive = location.pathname.replaceAll("/", "") === to.replaceAll("/", "");
+
+    const handleMenuButtonClick = () => {
+        navigate(to);
+        setSidebarOpened(false);
+    };
 
     return (
         <UnstyledButton
@@ -27,7 +32,7 @@ const MenuButton = ({ icon, color, label, to }) => {
                         theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.blue[0],
                 }),
             })}
-            onClick={() => navigate(to)}
+            onClick={handleMenuButtonClick}
             mt="xs"
         >
             <Group>
