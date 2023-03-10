@@ -1,0 +1,36 @@
+input{
+	width: 100px;
+}
+
+button{
+	margin-top: 20px;
+}
+
+table {
+	width: 300px;
+	margin-bottom: 20px;
+	outline: 3px solid #111111;
+	font-size: 15px;
+}
+
+th {
+	font-weight: bold;
+	padding: 7px;
+	border: 1px solid #111111;
+	text-align: left;
+	font-size: 20px;
+}
+
+td {
+	padding: 7px;
+	border: 1px solid #111111;
+	border-top: 3px dot-dash #fff;
+	font-size: 20px;
+}
+
+button{
+    width: 120px;
+    height: 50px;
+    color: #ffffff;
+    background: #111111;
+}
