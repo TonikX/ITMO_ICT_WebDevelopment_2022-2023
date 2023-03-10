@@ -2,7 +2,7 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 
 import BookCollection from "~/pages/BookCollection";
-import Profile from "~/pages/Profile";
+import ProfileBookCollection from "~/pages/ProfileBookCollection";
 import Error from "~/pages/Error";
 
 const Routes = ({ queryClient, isCompactViewActive, libraries, librariesStatus }) => {
@@ -26,7 +26,7 @@ const Routes = ({ queryClient, isCompactViewActive, libraries, librariesStatus }
         },
         {
             path: "/profile",
-            element: <Profile isCompactViewActive={isCompactViewActive} />,
+            element: <ProfileBookCollection isCompactViewActive={isCompactViewActive} />,
             errorElement: <Error />,
         },
     ]);

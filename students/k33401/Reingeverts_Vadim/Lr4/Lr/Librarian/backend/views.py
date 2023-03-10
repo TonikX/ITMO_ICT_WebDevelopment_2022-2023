@@ -509,17 +509,24 @@ class UserBooksAPIView(BaseModelAPIView):
     )
     def get(self, request, pk, *args, **kwargs):
         object = self.model.objects.get(pk=pk)
-        serializer = self.modelSerializer(object)
+        serializer = self.modelSerializer(
+            object, meta_depth=2, drop_fields=["password"])
 
-        try:
-            reading_room_book_user_set = serializer.data['readingroombookuser_set']
-            books = []
-            for reading_room_book_user in reading_room_book_user_set:
-                book = reading_room_book_user['reading_room_book']['book']
-                books.append(book)
-        except KeyError:
-            books = []
-        return Response({"Book": books})
+        data = serializer.data['readingroombookuser_set']
+        for item in data:
+            del item['user']
+
+        return Response({"ReadingRoomBookUser": data})
+
+        # try:
+        #     reading_room_book_user_set = serializer.data['readingroombookuser_set']
+        #     books = []
+        #     for reading_room_book_user in reading_room_book_user_set:
+        #         book = reading_room_book_user['reading_room_book']['book']
+        #         books.append(book)
+        # except KeyError:
+        #     books = []
+        # return Response({"Book": books})
 
 
 class UsersBooksOverdueAPIView(BaseModelAPIView):

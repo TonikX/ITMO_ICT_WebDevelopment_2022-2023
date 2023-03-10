@@ -13,7 +13,7 @@ export const useGetLibrariesPublic = () => {
 };
 
 export const useGetReadingRoomBook = (filters) => {
-    return useQuery(["readingRoomBook", filters], () => backendApi.fetchReadingRoomBooks(filters), {
+    return useQuery(["readingRoomBook", filters], () => backendApi.fetchReadingRoomBooks(), {
         select: (data) => {
             const readingRoomBooks = data.json["ReadingRoomBook"];
             return readingRoomBooks
@@ -40,5 +40,28 @@ export const useGetUserData = (logout = null) => {
             if (logout) logout();
         },
         retry: 0,
+    });
+};
+
+export const useGetUserBooks = (userId, filters) => {
+    return useQuery(["readingRoomBookUser", filters], () => backendApi.fetchUserBooks(userId), {
+        select: (data) => {
+            console.log("data to filter", data);
+            // const readingRoomBooks = data.json["ReadingRoomBook"];
+            // return readingRoomBooks
+            //     .filter((readingRoomBook) => {
+            //         const readingRoomId = parseInt(filters.readingRoomId);
+            //         return (
+            //             readingRoomBook.reading_room.id === readingRoomId || isNaN(readingRoomId)
+            //         );
+            //     })
+            //     .filter(({ book }) =>
+            //         book.title.toLowerCase().includes(filters.title.toLowerCase())
+            //     );
+        },
+        onError: (err) => {
+            console.log("error", err);
+        },
+        enabled: !!userId,
     });
 };

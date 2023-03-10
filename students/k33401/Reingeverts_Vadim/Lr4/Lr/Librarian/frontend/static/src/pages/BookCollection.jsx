@@ -14,8 +14,6 @@ const BookCollection = ({ queryClient, isCompactViewActive, libraries, libraries
     const { data: readingRoomBooks, status: readingRoomBooksStatus } =
         useGetReadingRoomBook(filters);
 
-    console.log("readingRoomBooks", readingRoomBooks);
-
     return (
         <BookGrid
             queryClient={queryClient}

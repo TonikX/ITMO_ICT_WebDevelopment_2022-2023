@@ -75,7 +75,6 @@ class Library(models.Model):
         else:
             start_date = datetime.datetime(year, month, 1)
             end_date = start_date + relativedelta.relativedelta(months=1)
-        print(start_date, end_date)
 
         users = self.user_set.filter(
             date_joined__range=[start_date, end_date])
@@ -216,14 +215,14 @@ class ReadingRoomBookUser(models.Model):
         'ReadingRoomBook', on_delete=models.CASCADE)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    borrow_date = models.DateTimeField(default=datetime.datetime.today)
+    borrow_date = models.DateTimeField(default=datetime.datetime.now())
     returned_date = models.DateTimeField(blank=True, null=True)
 
     def is_returned(self):
         return self.returned_date is not None
 
     def return_book(self):
-        self.returned_date = datetime.datetime.today
+        self.returned_date = datetime.datetime.now()
 
     def __str__(self):
         return self.user.__str__() + " | " + self.reading_room_book.__str__()
@@ -251,11 +250,9 @@ class ReadingRoomBook(models.Model):
         try:
             borrowed = self.borrowers.filter(
                 readingroombookuser__returned_date__isnull=True)
-            print(borrowed)
         except ValueError:
             return self.stock
 
-        print(self.stock, '-', borrowed.count())
         return self.stock - borrowed.count()
 
     def __str__(self):

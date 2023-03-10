@@ -1,12 +1,13 @@
 import React from "react";
 import { useDebouncedState } from "@mantine/hooks";
 
-import { useGetReadingRoomBook } from "~/hooks";
+import { useGetUserData, useGetUserBooks } from "~/hooks";
 import BookGrid from "~/components/BookGrid";
 
-const Profile = ({ isCompactViewActive }) => {
+const ProfileBookCollection = ({ isCompactViewActive }) => {
     const [filters, setFilters] = useDebouncedState({ title: "" }, 200);
-    const { data: readingRoomBooks, status } = useGetReadingRoomBook(filters);
+
+    const { data: bookData, status: bookStatus } = useGetUserBooks(userData?.id);
 
     return (
         <BookGrid
@@ -20,4 +21,4 @@ const Profile = ({ isCompactViewActive }) => {
     );
 };
 
-export default Profile;
+export default ProfileBookCollection;

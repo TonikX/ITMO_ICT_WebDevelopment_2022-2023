@@ -2,8 +2,9 @@ import React from "react";
 import { Card, Text, Badge, Button, Group, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import notification from "~/components/Notification";
-
 import { useMutation } from "@tanstack/react-query";
+
+import { toISOStringLocal } from "~/utils";
 import backendApi from "~/utils/BackendApi";
 import RandomImage from "~/components/RandomImage";
 import cover1 from "~/images/book-cover-1.webp";
@@ -14,7 +15,15 @@ import cover5 from "~/images/book-cover-5.webp";
 
 const coverSrcSet = [cover1, cover2, cover3, cover4, cover5];
 
-const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, userData }) => {
+const BookCard = ({
+    isReserved,
+    reservationId,
+    queryClient,
+    book,
+    stock,
+    readingRoomBookId,
+    userData,
+}) => {
     const theme = useMantineTheme();
 
     const largerThanSm = `(max-width: ${theme.breakpoints.sm})`;
@@ -22,7 +31,6 @@ const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, use
 
     const postReadingRoomBookUsers = useMutation(backendApi.postReadingRoomBookUsers, {
         onSuccess: ({ json, ok }) => {
-            console.log("res", json, ok);
             if (ok) {
                 queryClient.invalidateQueries("readingRoomBook");
                 notification.showSuccess("Book was reserved");
@@ -33,8 +41,23 @@ const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, use
         onError: notification.showError,
         retry: 0,
     });
+    const patchReadingRoomBookUserDetails = useMutation(
+        backendApi.patchReadingRoomBookUserDetails,
+        {
+            onSuccess: ({ json, ok }) => {
+                if (ok) {
+                    queryClient.invalidateQueries("readingRoomBookUser");
+                    notification.showSuccess("Book was returned");
+                } else {
+                    notification.showAlert(json["error"][0]);
+                }
+            },
+            onError: notification.showError,
+            retry: 0,
+        }
+    );
 
-    const handleGetBook = () => {
+    const handleReserveBook = () => {
         postReadingRoomBookUsers.mutate({
             body: {
                 ReadingRoomBookUser: {
@@ -46,7 +69,14 @@ const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, use
     };
 
     const handleReturnBook = () => {
-        console.log("ha");
+        patchReadingRoomBookUserDetails.mutate({
+            readingRoomBookUserId: reservationId,
+            body: {
+                ReadingRoomBookUser: {
+                    returned_date: toISOStringLocal(),
+                },
+            },
+        });
     };
     return (
         <Card shadow="sm" padding={isSmallerThanSm ? "xs" : "md"} radius="md" withBorder>
@@ -95,7 +125,7 @@ const BookCard = ({ isReserved, queryClient, book, stock, readingRoomBookId, use
                         fullWidth
                         mt="sm"
                         radius="md"
-                        onClick={handleGetBook}
+                        onClick={handleReserveBook}
                     >
                         Get
                     </Button>
