@@ -3,11 +3,14 @@
 
 ## Lab work part
 
+### Django backend + React frontend integration
+#### Reference
+- [Getting Started | Vite](https://vitejs.dev/guide/#index-html-and-project-root)
+- [Backend Integration | Vite](https://vitejs.dev/guide/backend-integration.html) 
+- [Django Vite](https://github.com/MrBin99/django-vite) 
+- [Django Vite Example](https://github.com/MrBin99/django-vite-example)
 
-### *Django backend* + *React frontend* integration
-> Build tool used: [Vite](https://vitejs.dev/)
-
-#### Running
+### Running
 
 Makes migrations, migrates, runs django backend server and react frontend server
 ```bash
@@ -37,11 +40,15 @@ E.g.
 bash run.sh npm install react
 ```
 
-#### Reference
-- [Getting Started | Vite](https://vitejs.dev/guide/#index-html-and-project-root)
-- [Backend Integration | Vite](https://vitejs.dev/guide/backend-integration.html) 
-- [Django Vite](https://github.com/MrBin99/django-vite) 
-- [Django Vite Example](https://github.com/MrBin99/django-vite-example)
+Passes any command to the pip
+```bash
+bash run.sh npm <any npm command>
+```
+
+E.g.
+```bash
+bash run.sh pip install pandas
+```
 
 
 
