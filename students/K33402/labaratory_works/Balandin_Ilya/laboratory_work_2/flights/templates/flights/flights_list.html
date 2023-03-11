@@ -1,0 +1,37 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<div class="w-75 mx-auto container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Airline</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for f in flights %}
+        {% if f.can_buy %}
+        <tr>
+            {% else %}
+        <tr class="text-muted">
+            {% endif %}
+            <th scope="row"><a class="text-decoration-none" href="{{ f.get_absolute_url }}">
+                {{ f.number }}
+            </a></th>
+            <td>{{ f.airline }}</td>
+            <td>{{ f.departure }}</td>
+            <td>{{ f.arrival }}</td>
+            <td>{{ f.city_from }}</td>
+            <td>{{ f.city_to }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+site_name: Описание сервиса "Войны"
+nav:
+  - Home: index.md
+  - War:
+      - "war/warriors": warriors.md
+      - "war/skill": skill.md
+      - "war/profession": profession.md
+
+theme:
+  name: material

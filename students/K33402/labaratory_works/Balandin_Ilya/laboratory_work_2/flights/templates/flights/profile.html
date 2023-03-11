@@ -1,0 +1,64 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+
+<div class="container w-75 my-5 mx-auto p-5">
+    <h1 class="col col-8"> Profile</h1>
+    <h4 class="col col-4 text-secondary">{{ request.user.username }}</h4>
+</div>
+
+
+<div class="container w-75 mx-auto mt-5">
+    <h1 class="text-center mt-5"> Bought Flights </h1>
+    <div class="row">
+        {% if tickets %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Airline</th>
+                <th scope="col">Departure - Arrival</th>
+                <th scope="col">From-To</th>
+                <th scope="col">Passenger</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for t in tickets %}
+            {% if t.flight.can_buy %}
+            <tr>
+                {% else %}
+            <tr class="text-muted">
+                {% endif %}
+                <th scope="row"><a class="text-decoration-none" href="{{ t.flight.get_absolute_url }}">
+                    {{ t.flight.number }}
+                </a></th>
+                <td>{{ t.flight.airline }}</td>
+                <td>{{ t.flight.departure }}<br>{{ t.flight.arrival }}</td>
+                <td>{{ t.flight.city_from }}<br>{{ t.flight.city_to }}</td>
+                <td>{{ t.passenger_surname }} {{ t.passenger_name }}<br>
+                passport: {{ t.passenger_passport }}</td>
+                <td>{% if t.seat %}
+                    <a href="/profile/ticket/{{ t.id }}/review/update" class="text-decoration-none text-success"><i class="bi bi-pencil"></i></a>
+                    {% else %}
+                    <a href="/profile/ticket/{{ t.id }}/update" class="text-decoration-none text-success"><i class="bi bi-pencil"></i></a>
+                    {% endif %}
+                    {% if t.flight.can_buy %}
+                    <a href="/profile/ticket/{{ t.id }}/delete/" class="text-decoration-none text-danger"><i class="bi bi-trash3"></i></a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center">
+            No books.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
