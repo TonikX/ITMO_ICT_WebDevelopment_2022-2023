@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owners</title>
+</head>
+<body>
+    <div class="main">
+        {% for owner in owners %}
+            <li> First name: {{ owner.first_name }}</li>
+            <li> Last name: {{ owner.last_name }}</li>
+            <li> Birthday: {{ owner.birthday }}</li>
+            <li> Passport: {{ owner.passport }}</li>
+            <li> Address: {{ owner.address }}</li>
+            <li> Nationality: {{ owner.nationality }}</li>
+            <hr/>
+        {% endfor %}
+    </div>
+</body>
+</html>

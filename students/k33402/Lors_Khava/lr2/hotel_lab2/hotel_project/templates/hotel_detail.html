@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Hotel
+{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container mt-5">
+        <h1>Hotel {{ hotel.name }}</h1>
+        <div class="mt-4">
+            <p><strong>Name:</strong> {{ hotel.hotel_name }}</p>
+            <p><strong>Owner:</strong> {{ hotel.owner }}</p>
+            <p><strong>Address:</strong> {{ hotel.address }} </p>
+            <h2><strong>Comments </strong></h2>
+            {% for comment in comments %}
+            <p><strong>Client:</strong> {{ comment.author }} </p>
+            <p><strong>Rating:</strong> {{ comment.rating  }}</p>
+            <p><strong>Comment:</strong> {{ comment.review_comment }}</p>
+            <br>
+            {% empty %}
+                No comments
+            {% endfor %}
+            <br>
+        </div>
+    </div>
+</main>
+{% endblock %}
