@@ -1,68 +1,75 @@
 <template>
-      <h1>Edit dog data with ID {{ $route.params.id }}</h1>
-      <v-form @submit.prevent class="my-0">
-        <v-row>
-          <v-col class="mx-auto">
-            <v-text-field
-                v-model="dog.dog_name"
-                label="Dog name"
-                class="input"
-                type="text"
-                placeholder="Name"/>
-            <v-select
-                v-model="dog.breed"
-                label="Dog breed"
-                :items="breed_selector"
-                placeholder="Breed"/>
-            <v-text-field
-                v-model="dog.full_age"
-                label="Full age"
-                class="input"
-                type="number"
-                placeholder="Full age"/>
-            <v-text-field
-                v-model="dog.month_age"
-                label="Age in Month"
-                class="input"
-                type="number"
-                placeholder="Age in Month"/>
-            <v-text-field
-                v-model="dog.document"
-                label="Document"
-                class="input"
-                type="number"
-                placeholder="Document"/>
-            <v-text-field
-                v-model="dog.last_vaccination"
-                label="Vaccination date"
-                class="input"
-                type="date"
-                placeholder="Date"/>
-            <v-text-field
-                v-model="dog.dog_owner"
-                label="ID Owner"
-                class="input"
-                type="number"
-                placeholder="Owner"/>
-            <v-text-field
-                v-model="dog.dog_club"
-                label="Club ID"
-                class="input"
-                type="number"
-                placeholder="Club"/>
-            <div class="d-flex align-center flex-column flex-md-row">
-              <v-btn variant="tonal" rounded="pill" @click="changeDog">Edit</v-btn></div><br>
-            <div class="d-flex align-center flex-column flex-md-row">
-              <v-btn variant="tonal" color="error" rounded="pill" @click="goBack">Back</v-btn></div>
-          </v-col>
-        </v-row>
-      </v-form>
-    </template>
-    
-    <script>
-    import axios from "axios"
-    export default {
-      name: "DogChangeForm",
+    <main>
+      <hr class="opacity-100 m-0 hr-jopa"/>
+      <section class="form-signin">
+      <b-form  @submit.prevent @submit="changeDog" class="my-2">
+        <centered-heading text="Редактирование собаки" />
+  
+        <b-form-input
+          v-model="dog.name"
+          labelText="Dog name"
+          class="input"
+          type="text"
+          placeholder="Dog name"/>
+        <b-form-select 
+          v-model="dog.breed" :options="breeds"
+          labelText="Breed"/>
+        <b-form-input
+        v-model="dog.full_age"
+        labelText="Full age"
+        class="input"
+        type="text"
+        placeholder="Full age"/>
+        <b-form-input
+        v-model="dog.month_age"
+        labelText="Age in month"
+        class="input"
+        type="text"
+        placeholder="Age in month"/>
+        <b-form-input
+        v-model="dog.document"
+        labelText="Document"
+        class="input"
+        type="text"
+        placeholder="Document"/>
+        <b-form-input
+        v-model="dog.last_vaccination"
+        labelText="Vaccination date"
+        class="input"
+        type="date"
+        placeholder="Vaccination date"/>
+        <b-form-input
+        v-model="dog.owner"
+        labelText="Owner ID"
+        class="input"
+        type="number"
+        placeholder="Owner ID"/>
+        <b-form-input
+        v-model="dog.club"
+        labelText="Club ID"
+        class="input"
+        type="number"
+        placeholder="Club ID"/>
+        <big-button text="Добавить собаку" />
+      </b-form>
+      </section>
+    </main>
+  </template>
+  
+  <script>
+  import axios from "axios"
+  import CenteredHeading from "./CenteredHeading.vue"
+  import CenteredFormInput from "./CenteredFormInput.vue"
+  import Checkbox from "./Checkbox.vue"
+  import BigButton from "./BigButton.vue"
+  export default {
+    name: "DogChangeForm",
+    components: {
+      CenteredHeading,
+      CenteredFormInput,
+      Checkbox,
+      BigButton
+    },
       props: {
         dog_id: {
           type: Number,
@@ -72,19 +79,16 @@
       data () {
         return {
           dog: {
-            dog_name: '',
+            name: '',
             breed: '',
             full_age: '',
             month_age: '',
             document: '',
-            dad_name: '',
-            mom_name: '',
             last_vaccination: '',
-            dog_info: null,
-            dog_owner: '',
-            dog_club: ''
+            owner: '',
+            club: ''
           },
-          breed_selector: ['Achihuahua',
+          breeds: ['Achihuahua',
           'Apchihuahua',
           'Pudel',
           'Sobaka',
@@ -97,42 +101,54 @@
         async getDog() {
           const response = await axios.get(`http://127.0.0.1:8000/dog/${this.dog_id}/`)
           console.log(response.data)
-          this.dog.dog_name = response.data.dog_name
+          this.dog.name = response.data.name
           this.dog.breed = response.data.breed
           this.dog.full_age = response.data.full_age
           this.dog.month_age = response.data.month_age
           this.dog.document = response.data.document
-          this.dog.dad_name = response.data.dad_name
-          this.dog.mom_name = response.data.mom_name
           this.dog.last_vaccination = response.data.last_vaccination
-          this.dog.dog_info = response.data.dog_info
-          this.dog.dog_owner = response.data.dog_owner
-          this.dog.dog_club = response.data.dog_club
+          this.dog.owner = response.data.owner
+          this.dog.club = response.data.club
         },
         changeDog() {
           axios.patch(`http://127.0.0.1:8000/dog/${this.dog_id}/`, {
-            dog_name: this.dog.dog_name,
+            name: this.dog.name,
             breed: this.dog.breed,
             full_age: this.dog.full_age,
             month_age: this.dog.month_age,
             document: this.dog.document,
-            dad_name: this.dog.dad_name,
-            mom_name: this.dog.mom_name,
             last_vaccination: this.dog.last_vaccination,
-            dog_info: this.dog.dog_info,
-            dog_owner: this.dog.dog_owner,
-            dog_club: this.dog.dog_club,
+            owner: this.dog.owner,
+            club: this.dog.club,
           })
-        },
-        goBack() {
-          this.$router.push({ name: 'dogs'})
         }
       },
       mounted() {
         this.getDog()
       }
     }
-    </script>
-    
-    <style scoped>
-    </style>
+  </script>
+  
+  <style>
+  .form-signin {
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  #registerPasswordInput {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  #rePasswordInput {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  </style>
+  

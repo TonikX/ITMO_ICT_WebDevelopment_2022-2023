@@ -1,19 +1,24 @@
 <template>
     <section class="page-content text-center">
       <app-header />
-      <registration-main />
+      <register-change-form v-bind:dog_id="dog_id"/>
     </section>
   </template>
-  
   <script>
   import AppHeader from "../components/AppHeader"
-  import RegistrationMain from "../components/RegistrationMain.vue"
+  import RegisterChangeForm from "../components/RegisterChangeForm.vue"
   export default {
-    name: "Registration",
+    name: "ChangeRegister",
     components: {
       AppHeader,
-      RegistrationMain,
+      RegisterChangeForm,
+    },
+    data() {
+    return {
+      dog: [],
+      dog_id: this.$route.params.id,
     }
+  }
   }
   </script>
   
@@ -25,8 +30,15 @@
   body {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding-top: 40px;
-    padding-bottom: 40px;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+  .page-content {
+    width: 100%;
   }
   header {
     top: 0;

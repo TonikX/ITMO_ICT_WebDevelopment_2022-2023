@@ -1,19 +1,18 @@
 <template>
-    <div class="app">
-      <h1>Info about Registered Dog</h1>
-      <div class="d-flex align-center flex-column flex-md-row">
-        <v-btn variant="tonal" color="error" rounded="pill" @click="goBack">Back</v-btn></div>
-      <dog-registered-list v-bind:dog_registered="dog_registered"/>
-    </div>
+    <section class="page-content">
+      <app-header />
+      <register-main :dog_registered = "dog_registered"/>
+    </section>
   </template>
   <script>
-  import DogRegisteredList from "@/components/DogRegisteredList.vue";
-  import DogList from "@/components/DogList.vue"
+  import AppHeader from "../components/AppHeader"
+  import RegisterMain from "../components/RegisterMain.vue"
   import axios from "axios";
   export default {
+    name: "Dogs",
     components: {
-      DogRegisteredList,
-      DogList
+      AppHeader,
+      RegisterMain
     },
     data() {
       return {
@@ -38,4 +37,8 @@
       this.fetchRegDogs()
     }
   }
+
   </script>
+  
+  <style>
+  </style>

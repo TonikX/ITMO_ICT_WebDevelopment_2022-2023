@@ -1,18 +1,18 @@
 <template>
-    <div class="app">
-      <h1>About dog's</h1>
-      <div class="d-flex align-center flex-column flex-md-row">
-        <v-btn variant="tonal" color="error" rounded="pill" @click="goBack">Back</v-btn></div>
-      <dog-list v-bind:dog="dog"/>
-    </div>
-  
+    <section class="page-content">
+      <app-header />
+      <dogs-main :dog = "dog"/>
+    </section>
   </template>
   <script>
-  import DogList from "@/components/DogList.vue";
+  import AppHeader from "../components/AppHeader"
+  import DogsMain from "../components/DogsMain.vue"
   import axios from "axios";
   export default {
+    name: "Dogs",
     components: {
-      DogList,
+      AppHeader,
+      DogsMain
     },
     data() {
       return {
@@ -28,13 +28,14 @@
         } catch (e) {
           alert('Error')
         }
-      },
-      goBack() {
-        this.$router.push({ name: 'home'})
       }
     },
     mounted() {
       this.fetchDogs()
     }
   }
+  
   </script>
+  
+  <style>
+  </style>

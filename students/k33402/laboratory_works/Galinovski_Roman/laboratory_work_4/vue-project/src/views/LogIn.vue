@@ -1,67 +1,42 @@
 <template>
-    <div class="app">
-      <h1>Authorisation</h1>
-
-      <v-form @submit.prevent="Login" ref="LoginForm" class="my-2">
-        <v-row>
-          <v-col class="mx-auto">
-            <v-text-field
-                v-model="LoginForm.username"
-                label="Login"
-                class="input"
-                type="text"
-                placeholder="Login"/>
-            <v-text-field
-              v-model="LoginForm.password"
-              class="input"
-              label="Password"
-              type="password"
-              placeholder="Password"/>
-            <v-btn variant="tonal" color="warning" rounded="pill" @click="setLogin">Log in</v-btn>
-          </v-col>
-        </v-row>
-      </v-form>
-      <br>
-      <p class="mt-0">No account yet?<br>
-        <router-link to="/registration/">Sign in</router-link></p>
-    </div>
+    <section class="page-content text-center">
+      <app-header />
+      <login-main />
+    </section>
   </template>
-  
   <script>
-    import $ from "jquery"
-    export default {
-      name: 'Login',
-      data: () => ({
-        LoginForm: {
-          username: '',
-          password: ''
-        }
-      }),
-      methods: {
-        setLogin() {
-            $.ajax({
-              url: "http://127.0.0.1:8000/auth/token/login/",
-              type: "POST",
-              data: {
-                username: this.LoginForm.username,
-                password: this.LoginForm.password,
-              },
-              success: (response) => {
-                console.log(response.auth_token)
-                sessionStorage.setItem("auth_token", response.auth_token)
-                this.$router.push({name: 'home'})
-                alert("You are logged in")
-              },
-              error: (response) => {
-                if (response.status === 400) {
-                  alert("Unable to authenticate with such data, please try again")
-                }
-              }
-            })
-          }
+  import AppHeader from "../components/AppHeader"
+  import LoginMain from "../components/LoginMain.vue"
+  export default {
+    name: "Login",
+    components: {
+      AppHeader,
+      LoginMain,
     }
   }
   </script>
   
   <style>
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+  .page-content {
+    width: 100%;
+  }
+  header {
+    top: 0;
+    position: absolute;
+    width: 100%;
+  }
   </style>

@@ -1,18 +1,17 @@
 <template>
     <section class="page-content text-center">
       <app-header />
-      <registration-main />
+      <dog-form />
     </section>
   </template>
-  
   <script>
   import AppHeader from "../components/AppHeader"
-  import RegistrationMain from "../components/RegistrationMain.vue"
+  import DogForm from "../components/DogForm.vue"
   export default {
-    name: "Registration",
+    name: "CreateDog",
     components: {
       AppHeader,
-      RegistrationMain,
+      DogForm,
     }
   }
   </script>
@@ -25,8 +24,15 @@
   body {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding-top: 40px;
-    padding-bottom: 40px;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+  .page-content {
+    width: 100%;
   }
   header {
     top: 0;

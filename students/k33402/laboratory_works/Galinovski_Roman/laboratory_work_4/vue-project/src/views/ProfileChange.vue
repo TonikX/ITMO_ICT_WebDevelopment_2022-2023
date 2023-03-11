@@ -1,52 +1,106 @@
 <template>
-    <div class="app">
-      <h1>Editing user data</h1>
-      <v-form @submit.prevent class="my-0">
-        <v-row>
-          <v-col class="mx-auto">
-            <v-text-field
-              label="Surname"
-              class="input"
-              type="text"
-              v-model="profileChangeForm.surname"/>
-            <v-text-field
-              label="Name"
-              class="input"
-              type="text"
-              v-model="profileChangeForm.name"/>
-            <v-text-field
-              label="Patronymic"
-              class="input"
-              type="text"
-              v-model="profileChangeForm.patronymic"/>
-            <v-text-field
-              label="Phone"
-              class="input"
-              v-model="profileChangeForm.phone_number"
-              type="tel"/>
-            <v-text-field
-              label="Passport"
-              class="input"
-              v-model="profileChangeForm.passport"
-              type="number"/>
-            <v-text-field
-              label="E-mail"
-              class="input"
-              v-model="profileChangeForm.mail"
-              type="email"/>
-            <div class="d-flex align-center flex-column flex-md-row">
-              <v-btn variant="tonal" rounded="pill" @click="changeProfile">Edit</v-btn></div><br>
-            <div class="d-flex align-center flex-column flex-md-row">
-              <v-btn variant="tonal" color="error" rounded="pill" @click="goBack">Back</v-btn></div>
-          </v-col>
-        </v-row>
-      </v-form>
-    </div>
-  </template>
+<main>
+    <section class="page-content">
+    <app-header />
+      <hr class="opacity-100 m-0 hr-jopa"/>
+<section class="form-signin">
+    <b-form  @submit.prevent @submit="changeProfile" class="my-2">
+      <centered-heading text="Изменить Организатора" />
+
+      <b-form-input
+        v-model="profileChangeForm.surname"
+        labelText="Surname"
+        class="input"
+        type="text"
+        placeholder="Surname"/>
+      <b-form-input
+      v-model="profileChangeForm.name"
+      labelText="Name"
+      class="input"
+      type="text"
+      placeholder="Name"/>
+      <b-form-input
+      v-model="profileChangeForm.patronymic"
+      labelText="Patronymic"
+      class="input"
+      type="text"
+      placeholder="Patronymic"/>
+      <b-form-input
+      v-model="profileChangeForm.phone_number"
+      labelText="Phone"
+      class="input"
+      type="text"
+      placeholder="Phone"/>
+      <b-form-input
+      v-model="profileChangeForm.passport"
+      labelText="Passport"
+      class="input"
+      type="number"
+      placeholder="Passport"/>
+      <b-form-input
+      v-model="profileChangeForm.mail"
+      labelText="E-mail"
+      class="input"
+      type="email"
+      placeholder="E-mail"/>
+
+      <big-button text="Добавить участника" />
+    </b-form>
+    </section>
+</section>
+</main>
+</template>
+
+<style>
+  html,
+  body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 40px;
+  }
+  #app {
+    width: 100%;
+    height: 100%;
+  }
+  .page-content {
+    width: 100%;
+  }
+  header {
+    top: 0;
+    position: absolute;
+    width: 100%;
+  }
+  .form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  </style>
+
   <script>
-  import axios from "axios";
+    import axios from "axios";
+    import AppHeader from "../components/AppHeader"
+    import BigButton from "../components/BigButton.vue"
   export default {
     name: 'ProfileChange',
+    components: {
+      AppHeader,
+      BigButton,
+    },
     data: () => ({
       profileChangeForm: {
         surname: '',
@@ -87,12 +141,9 @@
         })
         this.$router.push({ name: 'profile' })
       },
-      goBack() {
-        this.$router.push({ name: 'profile'})
-      }
     },
     mounted() {
       this.loadOrganizerData()
     }
   }
-  </script>
+</script>

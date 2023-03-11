@@ -1,21 +1,27 @@
 <template>
-    <h1>Information about user</h1>
-    <div><strong>Surname: </strong> {{ this.organizer.surname }}</div>
-    <div><strong>Name: </strong> {{ this.organizer.name }}</div>
-    <div><strong>Patronymic: </strong> {{ this.organizer.patronymic }}</div>
-    <div><strong>Phone: </strong> {{ this.organizer.phone_number }}</div>
-    <div><strong>Passport data: </strong> {{ this.organizer.passport }}</div>
-    <div><strong>E-mail: </strong> {{ this.organizer.mail }}</div>
-    <div class="d-flex align-center flex-column flex-md-row">
-      <v-btn variant="tonal" rounded="pill" @click="$router.push(`/profile/change/`)">Edit</v-btn></div><br>
-    <div class="d-flex align-center flex-column flex-md-row">
-      <v-btn variant="tonal" color="error"  rounded="pill" @click="goBack">Back</v-btn></div>
+    <section class="page-content">
+      <app-header />
+      <hr class="opacity-100 m-0 hr-jopa"/>
+      <profile-card 
+      v-bind:surname = "this.organizer.surname"
+      v-bind:name = "this.organizer.name"
+      v-bind:patronymic = "this.organizer.patronymic"
+      v-bind:phone = "this.organizer.phone_number"
+      v-bind:passport = "this.organizer.passport"
+      v-bind:email = "this.organizer.mail"/>
+    </section>
   </template>
 
-  <script>
-  import axios from "axios";
+<script>
+import AppHeader from "../components/AppHeader"
+import ProfileCard from "../components/ProfileCard.vue"
+import axios from "axios";
   export default {
     name: 'Profile',
+    components: {
+      AppHeader,
+      ProfileCard,
+    },
     data () {
       return {
         organizer: Object

@@ -1,29 +1,38 @@
 {
-  "name": "vue-project",
-  "version": "0.0.0",
+  "name": "lr_3",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vite --port 8080",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    "serve": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "lint": "export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service lint"
   },
   "dependencies": {
-    "axios": "^1.2.1",
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.6.3",
-    "pinia-persists": "^1.2.0",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6",
-    "vuetify": "^3.1.7"
+    "bootstrap-vue": "^2.21.2",
+    "bootstrap4": "^0.0.1-security",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.3",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "eslint": "^8.22.0",
-    "eslint-plugin-vue": "^9.3.0",
-    "vite": "^4.0.0",
-    "vue-cli-plugin-vuetify": "~2.5.8"
-  }
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "axios": "^0.24.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-axios": "^3.4.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "description": "## Project setup ``` npm install ```",
+  "main": ".eslintrc.js",
+  "author": "",
+  "license": "ISC"
 }

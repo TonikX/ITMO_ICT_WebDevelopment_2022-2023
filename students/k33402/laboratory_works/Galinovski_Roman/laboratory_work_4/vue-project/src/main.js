@@ -1,21 +1,20 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router';
+import Vue from "vue"
+import { BootstrapVue, BootstrapVueIcons } from "bootstrap-vue"
+import axios from "axios"
+import VueAxios from "vue-axios"
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
 
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import App from "./App.vue"
+import router from "./router"
 
-import './assets/main.css'
+Vue.config.productionTip = false
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
+Vue.use(VueAxios, axios)
 
-const vuetify = createVuetify({
-    components,
-    directives
-})
-
-const app = createApp(App).use(vuetify)
-
-app.use(router)
-
-app.mount('#app')
+new Vue({
+  router,
+  axios,
+  render: h => h(App)
+}).$mount("#app")

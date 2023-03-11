@@ -1,75 +1,80 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Dog from "@/views/Dog.vue";
-import DogCreate from "@/views/DogCreate.vue"
-import DogRegistered from "@/views/DogRegistered.vue";
-import DogRegisteredCreate from "@/views/DogRegisteredCreate.vue";
-import DogRegisteredChange from "@/views/DogRegisteredChange.vue";
-import Home from "@/views/Home.vue";
-import Registration from "@/views/Registration.vue";
-import Login from "@/views/Login.vue";
-import Profile from "@/views/Profile.vue";
-import ProfileChange from "@/views/ProfileChange.vue";
-import DogChange from "@/views/DogChange.vue";
+import Index from "@/views/Index.vue"
+import Login from "@/views/Login.vue"
+import Dog from "@/views/Dogs.vue"
+import Register from "@/views/Register.vue"
+import Profile from "@/views/Profile.vue"
+import Registration from "@/views/Registration.vue"
+import CreateDog from "@/views/CreateDog.vue"
+import ChangeDog from "@/views/ChangeDog.vue"
+import CreateRegister from "@/views/CreateRegister.vue"
+import ChangeRegister from "@/views/ChangeRegister.vue"
+import ProfileChange from "@/views/ProfileChange.vue"
+import Vue from "vue"
+import VueRouter from "vue-router"
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/registration/',
-      name: 'registration',
-      component: Registration,
-    },
-    {
-      path: '/login/',
-      name: 'login',
-      component: Login,
-    },
-    {
-      path: '/profile/',
-      name: 'profile',
-      component: Profile
-    },
-    {
-      path: '/profile/change/',
-      name: 'profile_change',
-      component: ProfileChange
-    },
-    {
-      path: '/dog/',
-      name: 'dogs',
-      component: Dog
-    },
-    {
-      path: '/dog/create/',
-      name: 'dogs_create',
-      component: DogCreate
-    },
-    {
-      path: '/dog/:id/',
-      name: 'dog_change',
-      component: DogChange
-    },
-    {
-      path: '/dog_reg/',
-      name: 'dog_registered',
-      component: DogRegistered
-    },
-    {
-      path: '/dog_reg/create/',
-      name: 'dog_registered_create',
-      component: DogRegisteredCreate
-    },
-    {
-      path: '/dog_reg/:id/',
-      name: 'dog_registered_change',
-      component: DogRegisteredChange
-    }
-  ]
+Vue.use(VueRouter)
+const routes = [
+  {
+    path: "/",
+    name: "Index",
+    component: Index
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/register",
+    name: "Registration",
+    component: Registration
+  },
+  {
+    path: "/dog",
+    name: "dogs",
+    component: Dog
+  },
+  {
+    path: "/dog_reg",
+    name: "Register",
+    component: Register
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile
+  },
+  {
+    path: "/dog/create/",
+    name: "CreateDog",
+    component: CreateDog
+  },
+  {
+    path: "/dog/:id/",
+    name: "ChangeDog",
+    component: ChangeDog
+  },
+  {
+    path: "/dog_reg/create/",
+    name: "CreateRegister",
+    component: CreateRegister
+  },
+  {
+    path: "/dog_reg/:id/",
+    name: "ChangeRegister",
+    component: ChangeRegister
+  },
+  {
+    path: "/profile/change",
+    name: "ProfileChange",
+    component: ProfileChange
+  }
+]
+
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes
 })
 
 export default router
