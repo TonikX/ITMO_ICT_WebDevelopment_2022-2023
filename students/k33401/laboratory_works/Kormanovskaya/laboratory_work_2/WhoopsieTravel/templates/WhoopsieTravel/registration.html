@@ -1,0 +1,72 @@
+{% extends 'WhoopsieTravel/base_travel.html' %}
+
+{% block title %}
+Registration
+{% endblock %}
+
+{% block content %}
+<h1 class="mx-5"> Registration </h1>
+<div class="w-75 mx-auto container mt-5 px-5">
+    <form method="post" action="" class="row g-3">
+        {% csrf_token %}
+
+        <div class="col-md-8">
+            <p class="form-label">{{ form.email.label }}</p>
+            {{ form.email }}
+        </div>
+        <div class="col-md-4">
+            <p class="form-label">{{ form.username.label }}</p>
+            <div class="input-group">
+                <span class="input-group-text" id="inp-span">@</span>
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="form-label">{{ form.password1.label }}</p>
+            {{ form.password1 }}
+        </div>
+        <div class="col-md-6">
+            <p class="form-label">{{ form.password2.label }}</p>
+            {{ form.password2 }}
+        </div>
+        <p class="text-danger">
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        {{ error }}<br>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </p>
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                <label class="form-check-label" for="invalidCheck2">
+                    Agree to terms and conditions
+                </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit">Register</button>
+        </div>
+    </form>
+</div>
+</form>
+
+<script>
+    const form_fields = document.getElementsByTagName('input');
+    form_fields[2].placeholder = 'example@example.com'
+    form_fields[3].placeholder = 'Enter username...'
+    form_fields[4].placeholder = 'Enter password...'
+    form_fields[5].placeholder = 'Re-enter password...'
+
+    form_fields[2].className += ' form-control'
+    form_fields[2].required = true
+    form_fields[3].className += ' form-control'
+    form_fields[3].required = true
+    form_fields[4].className += ' form-control'
+    form_fields[4].required = true
+    form_fields[5].className += ' form-control'
+    form_fields[5].required = true
+</script>
+{% endblock %}
