@@ -1,0 +1,18 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<div class="mx-5 w-75">
+    <h4 > Update ticket info</h4>
+    <h6>{{ object }}</h6>
+</div>
+
+<div class="w-75 mx-auto container mt-5 px-5 form-floating">
+    <form method="POST" action="" class="row g-3 justify-content-center">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+}
+
+.body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.bg-main-own {
+    background-color: var(--bg-color);
+}
+
+.bg-secondary-own{
+    background-color: var(--bg-secondary);
+}
+
+.text-main-own {
+    color: var(--text-color);
+}
+
+.text-secondary-own {
+    color: var(--text-color-secondary);
+}
+

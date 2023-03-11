@@ -1,0 +1,116 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+
+<div class="container w-75 mb-5 mx-auto">
+    <div class="row">
+        <div class="col col-7 px-4">
+            <h1> {{ flight.number }} by <b class="text-primary">{{ flight.airline }}</b></h1>
+        </div>
+        <div class="col col-4 text-end">
+            <h2 class="text-primary"> {{ flight.city_from }} - {{ flight.city_to }}</h2>
+            <p>Departure <b>{{ flight.departure }}</b><br>
+                Arrival at <b>{{ flight.arrival }}</b></p>
+        </div>
+    </div>
+
+
+    {% if flight.can_buy %}
+    <div class="mb-5 mx-auto mt-5 border border-1 p-5 bg-light">
+        <h3> Reserve </h3>
+        <form class="row justify-content-center" method="POST" action="">
+            {% csrf_token %}
+            <div class="col col-12" readonly>
+                <label for="flight" class="col-form-label"><b>Flight</b></label>
+                <input type="text" readonly class="form-control-plaintext" id="flight" name="flight"
+                       value="{{ flight }}">
+            </div>
+            <div class="col col-12">
+                <label for="user" class="col-form-label"><b>User</b></label>
+                <input type="text" readonly class="form-control-plaintext" id="user" name="user"
+                       value="{{ user }}">
+            </div>
+            <div class="col col-4">
+                <label class="col-form-label"><b>{{ form.passenger_name.label}}</b></label>
+                {{ form.passenger_name }}
+            </div>
+            <div class="col col-4">
+                <label class="col-form-label"><b>{{ form.passenger_surname.label}}</b></label>
+                {{ form.passenger_surname }}
+            </div>
+            <div class="col col-4">
+                <label class="col-form-label"><b>{{ form.passenger_passport.label}}</b></label>
+                {{ form.passenger_passport }}
+            </div>
+            <div class="col col-12 mt-3 text-center">
+                <button type="submit" class="btn btn-primary">Buy</button>
+            </div>
+        </form>
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <b>{{ field.label }}:</b>
+        <bi class="text-danger">{{ error }}</bi>
+        <br>
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="mt-5">
+        {% if not rates %}
+        <p>No comments yet </p>
+        {% endif %}
+        <div class="row">
+            {% for r in rates %}
+            <div class="col col-10 bg-light p-3">
+                <h5>{{ r.user }} </h5>
+                <span class="text-muted">seat #{{ r.seat }}</span>
+                <p>{{ r.review_text }}</p>
+            </div>
+            <div class="col col-2 text-end">
+                <span class="h4 text-primary">{{ r.rate }} <bi class="bi bi-star-fill"></bi></span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<div class="mx-5 container mb-5">
+    <h3><i class="bi bi-airplane-engines"></i> Passengers</h3>
+    <div class="row">
+        {% for p in passengers %}
+        <div class="card m-3 col col-2">
+            <div class="card-body">
+                <h5 class="card-title">{{ p.passenger_name }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">booked by {{ p.user }}</h6>
+                {% if p.seat %}
+                <p class="card-text">Seat #{{ p.seat }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const fields = document.getElementsByTagName('input')
+    fields[4].className += ' form-control'
+    fields[5].className += ' form-control'
+    fields[6].className += ' form-control'
+
+    const options = document.getElementsByTagName('option')
+    console.log(options)
+    for (let o of options) {
+        if (o.text === '{{ user }}' || o.text === '{{ flight }}') {
+            o.selected = true
+        } else {
+            o.selected = false
+        }
+    }
+
+
+</script>
+
+{% endblock %}
