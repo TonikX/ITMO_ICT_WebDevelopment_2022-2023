@@ -1,0 +1,10 @@
+site_name: UpaffyWeb
+
+nav:
+    - Home: index.md
+    - Практические работы: practicalWorks.md
+    - Lab №1: labs/lr1.md
+    - Lab №2: labs/lr2.md
+
+theme:
+  name: lux
