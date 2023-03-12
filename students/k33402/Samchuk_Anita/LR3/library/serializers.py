@@ -30,7 +30,7 @@ class ReaderBookSerializer(serializers.ModelSerializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    books = serializers.SlugRelatedField(read_only=True, many=True, slug_field='name')
+    books = serializers.SlugRelatedField(read_only=True, many=True, slug_field='id_instance')
 
     class Meta:
         model = Room
