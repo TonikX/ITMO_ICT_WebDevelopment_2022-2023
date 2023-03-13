@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>ADD NEW OWNER</h1>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+        {{ form.first_name }}
+        {{ form.last_name }}
+        {{ form.birthdate }}
+        {{ form.passport_num }}
+        {{ form.addres }}
+        {{ form.nationality }}
+        <button type="submit">Create Owner</button>
+    </form>
+</div>
+</body>
+</html>
