@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comment</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #ffffff;
+        }
+        input[type=text], input[type=password] {
+            width: 90%;
+            padding: 12px 20px;
+            margin: 10px 0;
+            display: inline-block;
+            border: 3px solid #333333;
+        }
+        button {
+            background-color: #333333;
+            color: white;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 5px black;
+        }
+        .container {
+            padding: 70px;
+            background-color: #dcdcdc;
+            width: 26%;
+            box-shadow: 0 0 5px black;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #messages{
+            color:  #000000;
+            padding: 45px;
+            margin-top: 10px;
+        }
+        .one {
+            background: #ffff;
+            padding: 10px 10px;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .one h2 {
+            font-family: 'Times New Roman', cursive;
+            position: relative;
+            color: #333333;
+            display: inline-block;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            font-size: 3em;
+            padding: 11px 60px;
+            margin: 0;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="one">
+        <h2>Login</h2>
+    </div>
+    <form method="POST" action="login">
+        {% csrf_token %}
+        <div class="container">
+            <label><b style="color:#333333">Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username"/>
+
+            <label><b style="color:#333333" >Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password"/>
+
+            <button type="submit">Login</button>
+        </div>
+        {% for message in messages %}
+            <p id="messages">{{message}}</p>
+        {% endfor %}
+    </form>
+</body>
+</html>

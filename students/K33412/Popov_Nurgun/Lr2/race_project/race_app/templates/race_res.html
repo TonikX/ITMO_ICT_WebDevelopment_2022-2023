@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Comment</title>
+    <style>
+        body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #ffffff  ;
+		}
+        .container {
+            padding: 40px;
+            width: 22%;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #dcdcdc;
+            box-shadow: 0 0 5px black;
+		}
+		h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 150%;
+            text-align: center;
+            color:#ffffff;
+   		}
+        .subtitle {
+            font-family: 'Times New Roman', serif;
+            font-size: 130%;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333333;
+        }
+        .joiner {
+            font-family: 'Times New Roman', serif;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        .button {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 100%;
+            background-color: #333333;
+            color: white;
+            padding: 10px 45px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 5px black;
+        }
+        .button2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 100%;
+            background-color: #333333;
+            color: white;
+            padding: 10px 110px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 5px black;
+        }
+        .one {
+            background: #ffff;
+            padding: 10px 10px;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .one h1 {
+            font-family: 'Times New Roman', cursive;
+            position: relative;
+            color:#333333;
+            display: inline-block;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            font-size: 3em;
+            padding: 11px 30px;
+            margin: 0;
+            line-height: 1;
+        }
+	</style>
+</head>
+
+<div>
+	<div class="one">
+		<h1>Race results</h1>
+    </div>
+    <div class="container">
+        {% if regs == 0 %}
+            <div class="subtitle">There are no registrations </div>
+        {% endif %}
+        {% if request.user.is_staff %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    <hr>
+                    {{ form }}
+                {% endfor %}
+                <div>
+                    {% if regs > 0 %}
+                        <input  class="button" type="submit" value="Confirm">
+                    {% endif %}
+                    <input  class="button" type="submit" value="Go to races list">
+                </div>
+            </form>
+        {% endif %}
+        {% if not request.user.is_staff %}
+            <div>
+                {% for regis in registrations %}
+                    <div class="joiner">
+                        <p>Racer: {{regis.racer}}</p>
+                        <p>Place: {{regis.place}}</p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{% url 'races' %}" class="button2" type="submit">Go to races list</a>
+        {% endif %}
+    </div>
+</div>
+</html>

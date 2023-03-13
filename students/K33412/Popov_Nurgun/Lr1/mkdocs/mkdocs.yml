@@ -1,0 +1,15 @@
+site_name: nurgun
+site_url: https://mylab1.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Лабораторная работа №1: index.md

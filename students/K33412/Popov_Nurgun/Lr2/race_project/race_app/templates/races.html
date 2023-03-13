@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Comment</title>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        html {
+            margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #ffffff;
+		}
+        .container {
+            padding: 40px;
+            width: 28%;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #dcdcdc;
+            box-shadow: 0 0 5px black;
+        }
+        .card {
+            padding: 10px;
+            border-width: 3px;
+            border-style: solid;
+            border-color: #333333;
+        }
+        h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            margin-left: 15px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 200%;
+            color:#ffffff
+        }
+        p {
+            font-family: 'Times New Roman', serif;
+            font-size: 16px;
+
+            text-indent: 0.5ch;
+            color: #333333;
+        }
+        #messages{
+            font-family: 'Times New Roman', serif;
+            font-size: 125%;
+            color: #b9bed0;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center
+        }
+        .s13 {
+            line-height: 1.8;
+            position: relative;
+            padding: 0 10px;
+            text-transform: uppercase;
+            font-size: 18px;
+            color: #333333;
+        }
+        .s13:after {
+            content: "";
+            height: 100%;
+            min-width: 2px;
+            background: #383838;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            transition: .5s;
+        }
+        .s13:hover:after {
+            min-width: 100%;
+            background: #9a9a9a;
+            opacity: .35;
+        }
+        .one {
+            background: #ffff;
+            padding: 10px 10px;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .one h1 {
+            font-family: 'Times New Roman', cursive;
+            position: relative;
+            color: #333333;
+            display: inline-block;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            font-size: 3em;
+            padding: 11px 60px;
+            margin: 0;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+{% for message in messages %}
+    <p id="messages">{{message}}</p>
+{% endfor %}
+<div>
+    <div class="one">
+        <h1>Races</h1>
+    </div>
+    {% for race in races %}
+        <div id="race" class = "container">
+            <div class="card">
+                <h2>{{race.name}}</h2>
+                <p>DATE: {{race.race_date}}</p>
+                <p>LENGTH: {{race.length}}</p>
+                <p>TYPE: {{race.race_type}}</p>
+            </div>
+            <br>
+            {% if not request.user.is_staff %}
+                <a href="{% url 'comment' race.id %}" type="button" class="s13">Add your comment</a>
+                <br>
+                <a href="{% url 'race_reg' race.id %}" type="button" class="s13">Registration for the race</a>
+                <br>
+                <a href="{% url 'delete' race.id %}" type="button" class="s13">Delete my registration</a>
+                <br>
+                <a href="{% url 'registration_ch' race.id %}" type="button" class="s13">Edit my registration</a>
+            {% endif %}
+            {% if request.user.is_staff %}
+                <a href="{% url 'race_edit' race.id %}" type="button" class="s13">Edit</a>
+            {% endif %}
+            <br>
+            <a href="{% url 'results' race.id %}" type="button" class="s13">Results</a>
+        </div>
+        <p></p>
+    {% endfor %}
+</div>
+</html>
