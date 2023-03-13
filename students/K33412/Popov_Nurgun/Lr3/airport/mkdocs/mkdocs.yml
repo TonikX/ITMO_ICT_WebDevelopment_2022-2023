@@ -1,0 +1,21 @@
+site_name: Yor name
+site_url: https://mylab3.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Лабораторная работа №3: index.md
+ - Airline_admin: api/airline_admin.md
+ - Airplanes: api/airplanes.md
+ - Flights: api/flights.md
+ - Schedule: api/schedule.md
+ - Transit: api/transit.md
+ - Employee: user/employee.md

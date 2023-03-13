@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Comment</title>
+	<style>
+		body,
+		html {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			background: #ffffff  ;
+		}
+		.container {
+            padding: 40px;
+            width: 22%;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #dcdcdc;
+            box-shadow: 0 0 5px black;
+		}
+		h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 150%;
+            text-align: center;
+            color:#ffffff;
+   		}
+	    .subtitle {
+			font-family: 'Times New Roman', serif;
+            text-transform: uppercase;
+	        color: #333333;
+        }
+	    .button {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 100%;
+            background-color: #333333;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 8px;
+            margin-bottom: -10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 5px black;
+        }
+        .one {
+            background: #ffff;
+            padding: 10px 10px;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .one h1 {
+            font-family: 'Times New Roman', cursive;
+            position: relative;
+            color:#333333;
+            display: inline-block;
+            border-top: 2px solid;
+            border-bottom: 2px solid;
+            font-size: 2em;
+            padding: 11px 30px;
+            margin: 0;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<div>
+    <div class="one">
+        <h1>Edit the registration</h1>
+    </div>
+    <div class="container">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div>
+                <div>
+                    <span class="subtitle">Race name:</span>
+                </div>
+                {{form.race}}
+            </div>
+            <br>
+            <div>
+                <div>
+                    <span class="subtitle">Car name:</span>
+                </div>
+                {{form.car}}
+            </div>
+			<br>
+            <input  class="button" type="submit" value="Submit">
+            <p></p>
+        </form>
+    </div>
+</div>
+</html>

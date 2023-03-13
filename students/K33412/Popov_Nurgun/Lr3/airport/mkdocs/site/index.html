@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>My Docs</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem active">
+                                <a href="." class="nav-link">ЛАБОРАТОРНАЯ РАБОТА №3</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Api <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="api/airline_admin/" class="dropdown-item">Airline admin</a>
+</li>
+                                    
+<li>
+    <a href="api/airplanes/" class="dropdown-item">Airplanes</a>
+</li>
+                                    
+<li>
+    <a href="api/flights/" class="dropdown-item">Flights</a>
+</li>
+                                    
+<li>
+    <a href="api/schedule/" class="dropdown-item">Schedule</a>
+</li>
+                                    
+<li>
+    <a href="api/transit/" class="dropdown-item">Transit</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="user/employee/" class="dropdown-item">Employee</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" class="nav-link disabled">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="api/airline_admin/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no3" class="nav-link">ЛАБОРАТОРНАЯ РАБОТА №3</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Описание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">Основные файлы проекта</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#welcome-to-mkdocs" class="nav-link">Welcome to MkDocs</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#commands" class="nav-link">Commands</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#project-layout" class="nav-link">Project layout</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no3">ЛАБОРАТОРНАЯ РАБОТА №3</h1>
+<h2 id="_1">Описание</h2>
+<blockquote>
+<p>Аэропорт</p>
+</blockquote>
+<p>Создать программную систему, предназначенную для администрации аэропорта
+некоторой компании-авиаперевозчика.</p>
+<p>Рейсы обслуживаются бортами, принадлежащими разным авиаперевозчикам. О
+каждом самолете необходима следующая минимальная информация: номер самолета, тип,
+число мест, скорость полета, компания-авиаперевозчик. Один тип самолета может летать
+на разных маршрутах и по одному маршруту могут летать разные типы самолетов.</p>
+<p>О каждом рейсе необходима следующая информация: номер рейса, расстояние до
+пункта назначения, пункт вылета, пункт назначения; дата и время вылета, дата и время
+прилета, транзитные посадки (если есть), пункты посадки, дата и время транзитных
+посадок и дат и время их вылета, количество проданных билетов. Каждый рейс
+обслуживается определенным экипажем, в состав которого входят командир корабля,
+второй пилот, штурман и стюардессы или стюарды. Каждый экипаж может обслуживать
+разные рейсы на разных самолетах. Необходимо предусмотреть наличие информации о
+допуске члена экипажа к рейсу.</p>
+<p>Администрация компании-владельца аэропорта должна иметь возможность
+принять работника на работу или уволить. При этом необходима следующая информация:
+ФИО, возраст, образование, стаж работы, паспортные данные. Эта же информация
+необходима для сотрудников сторонних компаний.</p>
+<hr>
+
+<h2 id="_2">Основные файлы проекта</h2>
+<ul>
+<li>models.py</li>
+</ul>
+<pre><code class="language-python">from django.db import models
+
+# Create your models here.
+from django.contrib.auth.models import AbstractUser
+
+
+class Employee(AbstractUser):
+    id = models.AutoField(unique=True, primary_key=True)
+    passport = models.CharField(max_length=10, verbose_name='Паспортные данные', unique=True)
+    full_name = models.CharField(max_length=120, null=False, verbose_name='ФИО')
+    age = models.IntegerField(verbose_name='Возраст', default=18)
+    education = models.CharField(choices=[('СПО', 'среднее профессиональное'), ('ВО', 'высшее')], max_length=3,
+                                 verbose_name='Образование')
+    experience = models.IntegerField(verbose_name='Стаж работы в годах')
+    in_crew = models.IntegerField(verbose_name='Состоит в экипаже под номером', default=0)
+
+    REQUIRED_FIELDS = ['email', 'passport', 'full_name', 'experience']
+
+    def __str__(self):
+        return &quot;{}&quot;.format(self.full_name)
+
+
+class Airplane(models.Model):
+    id = models.AutoField(unique=True, primary_key=True)
+    tail_number = models.CharField(max_length=8, verbose_name=&quot;Номер самолета&quot;, unique=True)
+    type = models.CharField(max_length=20, verbose_name=&quot;Тип&quot;)
+    seats = models.IntegerField(verbose_name=&quot;Число мест&quot;)
+    velocity = models.IntegerField(verbose_name=&quot;Скорость полёта (км/ч)&quot;)
+    airline = models.CharField(max_length=30, verbose_name=&quot;Авиакомпания&quot;)
+    under_maintenance = models.BooleanField(default=False, verbose_name=&quot;В ремонте&quot;)
+
+    def __str__(self):
+        return &quot;{}&quot;.format(self.tail_number)
+
+
+class FlightAsScheduled(models.Model):
+    number = models.IntegerField(unique=True, primary_key=True, verbose_name=&quot;Номер рейса&quot;)
+    distance = models.IntegerField(verbose_name=&quot;Расстояние до пункта назначения в км&quot;)
+    departure = models.CharField(max_length=25, verbose_name=&quot;Пункт вылета&quot;)
+    arrival = models.CharField(max_length=25, verbose_name=&quot;Пункт назначения&quot;)
+    transit = models.ForeignKey('Transit', verbose_name=&quot;Транзит&quot;, null=True, blank=True, on_delete=models.CASCADE)
+    completed = models.IntegerField(verbose_name=&quot;Количество совершённых рейсов&quot;)
+
+    def __str__(self):
+        return &quot;{}, {} -&gt; {}&quot;.format(self.number, self.departure, self.arrival)
+
+
+class Transit(models.Model):
+    id = models.AutoField(unique=True, primary_key=True)
+    destination = models.CharField(max_length=25, verbose_name=&quot;Пункт пересадки&quot;)
+
+    def __str__(self):
+        return &quot;{}&quot;.format(self.destination)
+
+
+class Flight(models.Model):
+    id = models.AutoField(unique=True, primary_key=True)
+    number = models.ForeignKey('FlightAsScheduled', verbose_name=&quot;Номер рейса&quot;, on_delete=models.CASCADE)
+    plane_id = models.ForeignKey('Airplane', verbose_name=&quot;Самолёт&quot;, on_delete=models.CASCADE)
+    crew = models.IntegerField(verbose_name=&quot;Экипаж на борту&quot;)
+    tickets_sold = models.IntegerField(verbose_name=&quot;Количество проданных билетов&quot;)
+    departure_date = models.DateField(verbose_name=&quot;Дата вылета&quot;)
+    departure_time = models.TimeField(verbose_name=&quot;Время вылета&quot;)
+    arrival_date = models.DateField(verbose_name=&quot;Дата прилета&quot;)
+    arrival_time = models.TimeField(verbose_name=&quot;Время прилета&quot;)
+    transit_arrival_date = models.DateField(verbose_name=&quot;Дата транзитной посадки&quot;, blank=True, null=True)
+    transit_arrival_time = models.TimeField(verbose_name=&quot;Время транзитной посадки&quot;, blank=True, null=True)
+    transit_departure_date = models.DateField(verbose_name=&quot;Дата вылета из транзита&quot;, blank=True, null=True)
+    transit_departure_time = models.TimeField(verbose_name=&quot;Время вылета из транзита&quot;, blank=True, null=True)
+
+    def __str__(self):
+        return &quot;{}-{}&quot;.format(self.number, self.plane_id)
+
+
+class AirlineAdministration(models.Model):
+    employee = models.ForeignKey('Employee', verbose_name=&quot;ФИО сотрудника&quot;, on_delete=models.CASCADE)
+    job = models.CharField(max_length=30, verbose_name=&quot;Должность&quot;)
+    clearance = models.BooleanField(default=True, verbose_name=&quot;Допуск&quot;)
+</code></pre>
+<ul>
+<li>views.py</li>
+</ul>
+<pre><code class="language-py">from rest_framework import generics
+
+from airport_app.serializers import *
+
+
+class EmployeeListView(generics.ListAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+class EmployeeCreateView(generics.CreateAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+class EmployeeModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerializer
+
+
+class AirplaneListView(generics.ListAPIView):
+    serializer_class = AirplaneSerializer
+
+    def get_queryset(self):
+        queryset = Airplane.objects.all()
+        maintenance_param = self.request.query_params.get('under_maintenance')
+
+        if maintenance_param:
+            queryset = queryset.filter(under_maintenance=maintenance_param)
+
+        return queryset
+
+
+class AirplaneCreateView(generics.CreateAPIView):
+    queryset = Airplane.objects.all()
+    serializer_class = AirplaneSerializer
+
+
+class AirplaneModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Airplane.objects.all()
+    serializer_class = AirplaneSerializer
+
+
+class ScheduleListView(generics.ListAPIView):
+    queryset = FlightAsScheduled.objects.all()
+    serializer_class = ScheduleSerializer
+
+
+class ScheduleCreateView(generics.CreateAPIView):
+    queryset = FlightAsScheduled.objects.all()
+    serializer_class = ScheduleSerializer
+
+
+class ScheduleModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FlightAsScheduled.objects.all()
+    serializer_class = ScheduleSerializer
+
+
+class FlightListView(generics.ListAPIView):
+    serializer_class = FlightSerializer
+
+    def get_queryset(self):
+        queryset = Flight.objects.all()
+        number = self.request.query_params.get('number', None)
+
+        if number:
+            queryset = queryset.filter(number=number)
+
+        return queryset
+
+
+class FlightCreateView(generics.CreateAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+
+
+class FlightModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer
+
+
+class AirlineAdministrationListView(generics.ListAPIView):
+    queryset = AirlineAdministration.objects.all()
+    serializer_class = AirlineAdministrationSerializer
+
+
+class AirlineAdministrationCreateView(generics.CreateAPIView):
+    queryset = AirlineAdministration.objects.all()
+    serializer_class = AirlineAdministrationSerializer
+
+
+class AirlineAdministrationModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = AirlineAdministration.objects.all()
+    serializer_class = AirlineAdministrationSerializer
+
+
+class TransitListView(generics.ListAPIView):
+    queryset = Transit.objects.all()
+    serializer_class = TransitSerializer
+
+
+class TransitCreateView(generics.CreateAPIView):
+    queryset = Transit.objects.all()
+    serializer_class = TransitSerializer
+
+
+class TransitModifyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transit.objects.all()
+    serializer_class = TransitSerializer
+</code></pre>
+<ul>
+<li>serializers.py</li>
+</ul>
+<pre><code class="language-python">from rest_framework import serializers
+from .models import *
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ['passport', 'full_name', 'age', 'education', 'experience', 'in_crew']
+
+
+class AirplaneSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Airplane
+        fields = '__all__'
+
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FlightAsScheduled
+        fields = '__all__'
+
+
+class FlightSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Flight
+        fields = '__all__'
+
+
+class AirlineAdministrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AirlineAdministration
+        fields = '__all__'
+
+
+class TransitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transit
+        fields = '__all__'
+</code></pre>
+<ul>
+<li>urls.py</li>
+</ul>
+<pre><code class="language-python">from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('employees/', EmployeeListView.as_view()),
+    path('employees/create/', EmployeeCreateView.as_view()),
+    path('employees/&lt;int:pk&gt;/', EmployeeModifyView.as_view()),
+    path('airplanes/', AirplaneListView.as_view()),
+    path('airplanes/create/', AirplaneCreateView.as_view()),
+    path('airplanes/&lt;int:pk&gt;/', AirplaneModifyView.as_view()),
+    path('schedule/', ScheduleListView.as_view()),
+    path('schedule/create/', ScheduleCreateView.as_view()),
+    path('schedule/&lt;int:pk&gt;/', ScheduleModifyView.as_view()),
+    path('flights/', FlightListView.as_view()),
+    path('flights/create/', FlightCreateView.as_view()),
+    path('flights/&lt;int:pk&gt;/', FlightModifyView.as_view()),
+    path('airline_admin/', AirlineAdministrationListView.as_view()),
+    path('airline_admin/create/', AirlineAdministrationCreateView.as_view()),
+    path('airline_admin/&lt;int:pk&gt;/', AirlineAdministrationModifyView.as_view()),
+    path('transit/', TransitListView.as_view()),
+    path('transit/create/', TransitCreateView.as_view()),
+    path('transit/&lt;int:pk&gt;/', TransitModifyView.as_view())
+]
+</code></pre>
+<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
+<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
+<h2 id="commands">Commands</h2>
+<ul>
+<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
+<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
+<li><code>mkdocs build</code> - Build the documentation site.</li>
+<li><code>mkdocs -h</code> - Print help message and exit.</li>
+</ul>
+<h2 id="project-layout">Project layout</h2>
+<pre><code>mkdocs.yml    # The configuration file.
+docs/
+    index.md  # The documentation homepage.
+    ...       # Other markdown pages, images and other files.
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-03-12 22:06:55.014573+00:00
+-->

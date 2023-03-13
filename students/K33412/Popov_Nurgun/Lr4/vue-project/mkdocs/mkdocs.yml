@@ -1,0 +1,15 @@
+site_name: Yor name 
+site_url: https://mylab4.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Лабораторная работа №4: index.md
