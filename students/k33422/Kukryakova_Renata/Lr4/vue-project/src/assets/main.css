@@ -1,0 +1,42 @@
+.nav-logo {
+  width: 40%;
+}
+
+.nav-link {
+  font-family: Tahoma, sans-serif;
+  font-weight: bold;
+  color: var(--link-color);
+}
+
+.nav-link:hover {
+  color: var(--link-hover);
+}
+
+html, body {
+  height: 100%;
+}
+
+section {
+  background-color: var(--bg-color);
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logout-button {
+    filter: invert(88.5%);
+  }
+
+  .nav-logo {
+    filter: invert(10%);
+  }
+}
+
+
+
+
