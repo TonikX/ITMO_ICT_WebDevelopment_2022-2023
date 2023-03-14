@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send task</title>
+</head>
+<body>
+    <h1>Отправка задания {{task_id}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Отправить">
+</form>
+
+<a href="/report_card/">Табель</a>
+</body>
+</html>

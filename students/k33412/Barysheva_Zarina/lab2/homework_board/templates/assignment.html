@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment</title>
+</head>
+<body>
+    <h1>Задание {{task.pk}}</h1>
+    <div>
+            <li>Предмет: {{ task.subject_id.subject_name }}</li>
+            <li>Преподаватель: {{ task.teacher_id.surname }} {{ task.teacher_id.name }}</li>
+            <li>Текст задания: {{ task.text }}</li>
+            <li>Дата выдачи: {{ task.start_date }}</li>
+            <li>Дедлайн: {{ task.end_date }}</li>
+            <li>Система штрафов: {{ task.fine }}</li>
+            <a href="/assignments/{{task.pk}}/send/">Отправить задание</a>
+            <br>
+            <br>
+            <br>
+    </div>
+    <a href="/assignments/">Список заданий</a>
+    <a href="/report_card/">Табель</a>
+
+</body>
+</html>

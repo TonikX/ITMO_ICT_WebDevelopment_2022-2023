@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment list</title>
+</head>
+<body>
+    <h1>Список заданий</h1>
+    <div>
+        {% for task in tasks_list %}
+            <li>ID Задания: {{ task.pk }}</li>
+            <li>Предмет: {{ task.subject_id.subject_name }}</li>
+            <li>Преподаватель: {{ task.teacher_id.surname }} {{ task.teacher_id.name }}</li>
+            <a href="/assignments/{{ task.pk }}/">Перейти к заданию</a>
+            <!-- <li>Текст задания: {{ task.text }}</li>
+            <li>Дата выдачи: {{ task.start_date }}</li>
+            <li>Дедлайн: {{ task.end_date }}</li>
+            <li>Система штрафов: {{ task.fine }}</li> -->
+            <br>
+            <br>
+            <br>
+        {% empty %}
+            Заданий нет
+        {% endfor %}
+    </div>
+    <a href="/report_card/">Табель</a>
+    {% if check %}
+    <a href="/assignments/create/">Создать задание</a>
+    {% else %}
+    <a href="/assignments/send/">Отправить задание</a>
+    {% endif %}
+
+</body>
+</html>
