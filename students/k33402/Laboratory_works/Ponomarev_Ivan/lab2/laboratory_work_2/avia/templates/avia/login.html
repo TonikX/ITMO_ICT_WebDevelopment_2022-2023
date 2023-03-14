@@ -1,0 +1,28 @@
+{% extends 'avia/base_html.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for f in form %}
+                <div class="form-group" style="margin-top: 10px">
+                {% if f.errors %}
+                    <div class="alert alert-danger">
+                        {{ f.errors }}
+                    </div>
+                {% endif %}
+                {{ f.label }}
+                {{ f }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-dark" style="margin-top: 20px">Login</button>
+            {% if err %}
+                <h2 color="red">{{ err }}</h2>
+            {% endif %}
+    </form>
+    </form>
+{% endblock %}

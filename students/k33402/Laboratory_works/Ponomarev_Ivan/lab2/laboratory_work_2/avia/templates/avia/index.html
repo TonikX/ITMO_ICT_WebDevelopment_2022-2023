@@ -1,0 +1,39 @@
+{% extends 'avia/base_html.html' %}
+
+{% block title %}
+    Posts Lists
+{% endblock %}
+
+{% block content %}
+    {% for flight in flights %}
+        <div class="card text-bg-white border-light mb-3">
+            <h5 class="card-header">
+                <p class="fs-7 text fw-bold justify-content-end">
+                    {{ flight.type_of_flight }}
+                </p>
+                {{ flight.out_place }} ---> {{ flight.arrival_place }}
+            </h5>
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ flight.airline }}
+                </h5>
+                <p class="card-text">
+                    Gate: {{ flight.gate_number }}
+                </p>
+                <p class="card-text">
+                    {% if flight.type_of_flight == "Arrival" %}
+                    Arrival: {{ flight.arrival_date }}
+                    {% endif %}
+                    {% if flight.type_of_flight == "Departure" %}
+                    Departure : {{ flight.departure_date }}
+                    {% endif %}
+                </p>
+                <p class="card-text">
+                    Count of reserved seats: {{ flight.ticket_set.count }}/{{ flight.plane.seats_count }}
+                </p>
+                <a href="{{ flight.get_absolute_url }}" class="btn btn-dark">Перейти к перелету</a>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}

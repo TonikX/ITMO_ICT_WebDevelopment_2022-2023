@@ -1,0 +1,41 @@
+{% extends 'avia/base_html.html' %}
+
+{% block title %}
+    Reviews
+{% endblock %}
+
+{% block content %}
+    <h2 style="text-align: center;">Reviews</h2>
+    <div class="list-group">
+        {% for review in reviews %}
+            <a class="list-group-item list-group-item-action" aria-current="true" style="margin-top: 30px" data-bs-toggle="modal" data-bs-target="#{{ review.flight }}Modal">
+                <div class="d-flex w-100 justify-content-between" style="margin-bottom: 15px">
+                    <h5 class="mb-1">{{ review.author.first_name }} {{ review.author.second_name }}</h5>
+                    <small>Rate: {{ review.rating }}</small>
+                </div>
+                <p class="mb-1" style="font-size: 20px">{{ review.text }}</p>
+                <small>Flight number: {{ review.flight }}</small>
+            </a>
+            <div class="modal fade" id="{{ review.flight }}Modal" tabindex="-1" aria-labelledby="{{ review.flight }}ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                         <div class="modal-header">
+                             <h1 class="modal-title fs-5" id="exampleModalLabel">{{ review.author.first_name }} {{ review.author.second_name }}</h1>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+            <div class="modal-body">
+                <br>Name: {{ review.author.first_name }}
+                <br>Second Name: {{ review.author.second_name }}
+                <br>Flight number: {{ review.flight }}
+                <br>Flight: {{ review.flight.out_place }} -----> {{ review.flight.arrival_place }}
+                <br>Flight date: {{ review.flight.arrival_date.date }}
+                <br>Airline: {{ review.flight.airline }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div></div>
+        {% endfor %}
+    </div>
+{% endblock %}
