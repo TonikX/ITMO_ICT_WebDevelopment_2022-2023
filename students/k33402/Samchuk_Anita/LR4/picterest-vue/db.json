@@ -1,0 +1,150 @@
+{
+  "users": [
+    {
+      "email": "12412@gmail.com",
+      "password": "$2a$10$vd8af9XA9lqEuNjwQTVN0.pPV1Cjmcf/wBl5qy801vzbNEcsCR4WG",
+      "username": "henk",
+      "id": 1
+    },
+    {
+      "email": "123@gmail.ru",
+      "password": "$2a$10$9ai3sYOgOcSssO8kel7wPO4mnJEvaK7cy/eAwnyFxglYrzstWo7oK",
+      "username": "123",
+      "id": 2
+    },
+    {
+      "email": "123@ikv.ru",
+      "password": "$2a$10$JYH.T0X2UPWpMACBrGTa7OH7LcFhikbyAd97pCZoTgApGdjWLQky6",
+      "username": "1234",
+      "id": 3
+    },
+    {
+      "email": "fokkely@gmail.com",
+      "password": "$2a$10$wh52fAWHuWOZF6VfilnxGu861IjUHJbPdnm6ZGIU1MqW5nyl7Zc4K",
+      "username": "fokkely",
+      "id": 4
+    },
+    {
+      "email": "fokkely@mal.ru",
+      "password": "$2a$10$oFQehA2yN8NXa.lyfonkTuMLdS7yvZXH5HF7L5FMCrQoOQzHYenUG",
+      "username": "1234",
+      "id": 5
+    },
+    {
+      "email": "fokkely@mail.ru",
+      "password": "$2a$10$fPbLFkPZYtce2/hU4PVXfezEryItRRygHKQDSBGR.xJVDaIdh4vT2",
+      "username": "fk",
+      "id": 6
+    },
+    {
+      "email": "1234@gmail.com",
+      "password": "$2a$10$w2jH/iiFafIEcvfCNp9S0.dHY5m.9k5c3sYedzEa.hDR4KZ4FI1iq",
+      "username": "1234",
+      "id": 7
+    },
+    {
+      "email": "anita.samchuk@kupibilet.ru",
+      "password": "$2a$10$YdlJIEvQlP7qRNKJXqAMCeardXt5WP9n5tYqYAyWOUiDWXuN2ILI6",
+      "username": "Анита",
+      "id": 8
+    },
+    {
+      "email": "313264@niuitmo.ru",
+      "password": "$2a$10$unOGgWJLrUPIqGoNAVv08e7fh2iZHjTiP6F8CSFAGXdazVJRkXlS2",
+      "username": "Анита",
+      "id": 9
+    },
+    {
+      "email": "nikolai.solonenko@kupibilet.ru",
+      "password": "$2a$10$ylJVNCopwCJqmDRkn7U44evim0LBhRL30qXjhqdhI3wX29xb.V3va",
+      "username": "Nikolai Solonenko",
+      "id": 10
+    },
+    {
+      "email": "samchuk.anita@gmail.com",
+      "password": "$2a$10$r3eDQUrux2kqNJqkt5ic2OXGCNDsl1OwjIE/q2VMz72ppi.gKEt5.",
+      "username": "Анита",
+      "id": 11
+    }
+  ],
+  "likedPhotos": [
+    {
+      "photo": "XFmznQhx9lM",
+      "url": "https://images.unsplash.com/photo-1563473213013-de2a0133c100?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTE5NTg&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 6,
+      "id": 1
+    },
+    {
+      "photo": "GRLN5FC4cLg",
+      "url": "https://images.unsplash.com/photo-1552300977-cbc8b08d95e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTU1MjM&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "photo": "YDNvydD1jAY",
+      "url": "https://images.unsplash.com/photo-1490349368154-73de9c9bc37c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTYxNzc&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "photo": "XFmznQhx9lM",
+      "url": "https://images.unsplash.com/photo-1563473213013-de2a0133c100?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTYxODI&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "photo": "V_Q25mLo6c8",
+      "url": "https://images.unsplash.com/photo-1495379572396-5f27a279ee91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTUxMTY&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "photo": "_xN7UbcZ33I",
+      "url": "https://images.unsplash.com/photo-1520236060906-9c5ed525b025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTYyMjg&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "photo": "_xN7UbcZ33I",
+      "url": "https://images.unsplash.com/photo-1520236060906-9c5ed525b025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg3OTk4OTQ&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 7,
+      "id": 7
+    },
+    {
+      "photo": "YDNvydD1jAY",
+      "url": "https://images.unsplash.com/photo-1490349368154-73de9c9bc37c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MTk2Mjc&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 8,
+      "id": 8
+    },
+    {
+      "photo": "N6nnIx4C-Fo",
+      "url": "https://images.unsplash.com/photo-1516613835066-91cb1a42dda5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MTk2ODU&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 8,
+      "id": 9
+    },
+    {
+      "photo": "Ovn1hyBge38",
+      "url": "https://images.unsplash.com/photo-1475518845976-0fd87b7e4e5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MjA2ODQ&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 9,
+      "id": 10
+    },
+    {
+      "photo": "_xN7UbcZ33I",
+      "url": "https://images.unsplash.com/photo-1520236060906-9c5ed525b025?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MjA3MTg&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 9,
+      "id": 11
+    },
+    {
+      "photo": "Ovn1hyBge38",
+      "url": "https://images.unsplash.com/photo-1475518845976-0fd87b7e4e5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MjA2ODQ&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 11,
+      "id": 12
+    },
+    {
+      "photo": "V_Q25mLo6c8",
+      "url": "https://images.unsplash.com/photo-1495379572396-5f27a279ee91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw0MTI0MTR8MHwxfGFsbHx8fHx8fHx8fDE2Nzg4MjM0Mjg&ixlib=rb-4.0.3&q=80&w=400",
+      "userId": 11,
+      "id": 13
+    }
+  ]
+}
