@@ -1,0 +1,102 @@
+<body bgcolor="#ffffff">
+ <p align="right"><a href="/accounts/logout">Log out</a></p>
+ <h1 align="center"><a href="/tour/registered">Tours</a></h1>
+   <h1 align="center"><a href="/home/{{ user.id }}/reservation">My reservations</a></h1>
+</body>
+
+
+<style>
+    BUTTON{
+      width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+  BUTTON {
+    background: rgb(247,150,192);
+  background: radial-gradient(circle, rgba(247,150,192,1) 0%, rgba(118,174,241,1) 100%);
+    line-height: 42px;
+    padding: 0;
+    border: none;
+  }
+  BUTTON {
+    position: relative;
+    display: block;
+  }
+  BUTTON:before,
+  BUTTON:after {
+    position: absolute;
+    content: "";
+    height: 0%;
+    width: 1px;
+   box-shadow:
+     -1px -1px 20px 0px rgba(255,255,255,1),
+     -4px -4px 5px 0px rgba(255,255,255,1),
+     7px 7px 20px 0px rgba(0,0,0,.4),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+  }
+  BUTTON:before {
+    right: 0;
+    top: 0;
+    transition: all 500ms ease;
+  }
+  BUTTON:after {
+    left: 0;
+    bottom: 0;
+    transition: all 500ms ease;
+  }
+  BUTTON:hover{
+    background: transparent;
+    color: #76aef1;
+    box-shadow: none;
+  }
+  BUTTON:hover:before {
+    transition: all 500ms ease;
+  }
+  .BUTTON:hover:after {
+    transition: all 500ms ease;
+  }
+  BUTTON span:before,
+  BUTTON span:after {
+    position: absolute;
+    content: "";
+    box-shadow:
+     -1px -1px 20px 0px rgba(255,255,255,1),
+     -4px -4px 5px 0px rgba(255,255,255,1),
+     7px 7px 20px 0px rgba(0,0,0,.4),
+     4px 4px 5px 0px rgba(0,0,0,.3);
+  }
+  BUTTON span:before {
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: .5px;
+    transition: all 500ms ease;
+  }
+  BUTTON span:after {
+    right: 0;
+    bottom: 0;
+    width: 0%;
+    height: .5px;
+    transition: all 500ms ease;
+  }
+  BUTTON span:hover:before {
+    width: 100%;
+  }
+  BUTTON span:hover:after {
+    width: 100%;
+  }
+
+</style>
