@@ -1,0 +1,43 @@
+{% extends "header.html" %}
+{% block content %}
+{% load static %}
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Borsov Hotel</h1>
+            <p class="lead text-muted">Здесь вы можете просматривать и бронировать номера, писать отзывы и просматривать постояльцев за последний месяц</p>
+            <p>
+                  <a href="/login" class="btn btn-primary my-2">Авторизация</a>
+                  <a href="/register" class="btn btn-primary my-2">Регистрация</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <dic class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for room in rooms %}
+        <div class="col">
+              <div class="card shadow-sm">
+                <img class="card-img-top" src="{% static 'images/room_preview.jpg' %}" alt="">
+                <div class="card-body">
+                    <p class="card-text">Апартаменты №{{room.pk}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                          <a class="btn btn-sm btn-outline-secondary" href="room/{{ room.pk }}">Узнать больше</a>
+                        </div>
+                        {% if room.resident %}
+                            <small class="text-muted alert alert-danger"> Занят </small>
+                        {% else %}
+                            <small class="text-muted alert alert-success" > Свободен </small>
+                        {% endif %}
+                    </div>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+    </dic>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "header.html" %}
+{% block content %}
+{% load static %}
+
+<div class="px-4 pt-5 my-5">
+    <h1 class="display-4 fw-bold text-center">{{ booking.room.title}}</h1>
+    <div class="col-lg-6 mx-auto">
+    <p class="lead mb-5 text-center">{{ booking.room.description}}</p>
+    <div class="col-lg-10 mx-auto">
+
+    <form role="form" class="form-inline" method="post">
+        {% csrf_token %}
+        <div class="form-group justify-content-sm-center mb-5" id="data_5">
+          <div class="input-group input-group-sm my-3" id="datepicker">
+            <input type="hidden" class="form-control" name="room_pk" value="{{ booking.room.pk }}">
+            <input type="date" class="form-control" name="start_date" value="{{ booking.checkin_date|date:"Y-m-d"}}">
+            <div class="input-group-prepend input-group-append">
+              <span class="input-group-text">to</span>
+            </div>
+            <input type="date" class="form-control" name="end_date" value="{{ booking.checkout_date|date:"Y-m-d" }}">
+          </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-4">Изменить даты</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div>
+        <div class="container px-5">
+            <img src="{% static 'images/room_preview.jpg' %}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" loading="lazy">
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

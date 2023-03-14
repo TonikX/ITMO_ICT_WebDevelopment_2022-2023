@@ -1,0 +1,106 @@
+{% extends "header.html" %}
+{% block content %}
+{% load static %}
+
+<div class="px-4 pt-5 my-5">
+    <h1 class="display-4 fw-bold text-center">{{ room_obj.title}}</h1>
+    <div class="col-lg-6 mx-auto">
+    <p class="lead mb-5 text-center">{{ room_obj.description }}</p>
+    <div class="col-lg-10 mx-auto">
+
+    <form role="form" class="form-inline" method="post">
+        {% csrf_token %}
+        <div class="form-group justify-content-sm-center mb-5" id="data_5">
+          <div class="input-group input-group-sm my-3" id="datepicker">
+            <input type="hidden" class="form-control" name="room_pk" value="{{ room_obj.pk }}">
+            <input type="date" class="form-control" name="start_date" value="2019-01-03">
+            <div class="input-group-prepend input-group-append">
+              <span class="input-group-text">to</span>
+            </div>
+            <input type="date" class="form-control" name="end_date" value="2019-01-03">
+          </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-4">Забронировать</button>
+            </div>
+        </div>
+    </form>
+    </div>
+    <div>
+        <div class="container px-5">
+            <img src="{% static 'images/room_preview.jpg' %}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+        </div>
+    </div>
+    </div>
+
+<div class="container px-4 py-5">
+    <h2 class="pb-2 border-bottom">Информация о номере</h2>
+
+    <div class="row row-cols-1 row-cols-md-1">
+      <div class="row row-cols-1 row-cols-sm-2 g-4">
+        <div class="d-flex flex-column gap-2">
+          <h4 class="fw-semibold mb-0">Тип</h4>
+          <p class="text-muted">{{ room_obj.prestigue }}</p>
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+          <h4 class="fw-semibold mb-0">Размер</h4>
+          <p class="text-muted">{{ room_obj.capacity }}</p>
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+          <h4 class="fw-semibold mb-0">Стоимость</h4>
+          <p class="text-muted">{{ room_obj.cost }} RUB</p>
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+          <h4 class="fw-semibold mb-0">Удобства</h4>
+          <p class="text-muted">{{ room_obj.facilities}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container px-4 py-5">
+    <h2 class="pb-2 border-bottom">Отзывы</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-2">
+            <input type="hidden" class="form-control" name="room_pk" value="{{ room_obj.pk }}">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" name="comment_text" placeholder="Оставьте свой комментарий и поставьте оценку от 1 до 10"></textarea>
+        </div>
+        <div class="mb-2">
+        <select class="form-control" name="rating">
+            <option>10</option>
+            <option>9</option>
+            <option>8</option>
+            <option>7</option>
+            <option>6</option>
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+        </select>
+        </div>
+        <div class="text-center mb-5">
+            <button type="submit" class="btn btn-primary btn-lg px-4">Отправить комментарий</button>
+        </div>
+    </form>
+
+    {% for comment in comments %}
+    <div class="card text-left">
+      <div class="card-header">
+        {{ comment.author.name}} {{ comment.author.surname}} <i><b>{{ comment.rating }}/10 🌟</b></i>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ comment.text}}</h5>
+      </div>
+      <div class="card-footer text-muted">
+          <!--2019-01-02 -> 2019-02-02-->
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
