@@ -58,6 +58,48 @@
               </ul>
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">LR4</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#picterest">Picterest</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#views">Views</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#dashboardviewvue">DashboardView.vue</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#postviewvue">PostView.vue</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#loginviewview">LoginView.view</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#signupviewvue">SignUpView.vue</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#profileviewvue">ProfileView.vue</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#components">Components</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#navbarminimalvue">NavbarMinimal.vue</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#navbarwithfiltersvue">NavbarWithFilters.vue</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#profileblockvue">ProfileBlock.vue</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#store">Store</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#indexjs">index.js</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#router">Router</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#indexjs_1">index.js</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
                 </li>
               </ul>
       </div>
@@ -83,7 +125,742 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="no4">Лабораторная №4</h1>
+<h2 id="picterest">Picterest</h2>
+<p>Альтернатива популярного сайта Pinterest, где пользователи могут просматривать различные фотографии и сохранять их
+<img alt="" src="../img/LR4/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202023-03-14%20%D0%B2%2023.12.59.png" /></p>
+<h3 id="views">Views</h3>
+<h4 id="dashboardviewvue">DashboardView.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;NavbarWithFilters&gt;&lt;/NavbarWithFilters&gt;
+
+    &lt;section class=&quot;photos mt-4&quot;&gt;
+      &lt;div class=&quot;pinterest-grid&quot;&gt;
+        &lt;router-link
+          v-for=&quot;photo in photos&quot;
+          :key=&quot;photo.id&quot;
+          :to=&quot;'/post/' + photo.id&quot;&gt;
+          &lt;img
+            class=&quot;main-image&quot;
+            alt=&quot;dashboard-photo-1&quot;
+            :src=&quot;photo.urls.small&quot;
+          /&gt;
+        &lt;/router-link&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import NavbarWithFilters from '@/components/NavbarWithFilters'
+
+export default {
+  name: 'DashboardView',
+
+  components: {
+    NavbarWithFilters
+  },
+
+  beforeMount () {
+    this.loadPhotos()
+  },
+
+  computed: {
+    photos () {
+      return this.$store.getters.photos
+    }
+  },
+
+  methods: {
+    loadPhotos () {
+      this.$store.dispatch('getPhotos')
+    }
+  },
+
+  head: {
+    title: 'Picterest- Home'
+  }
+}
+&lt;/script&gt;
+</code></pre>
+<h4 id="postviewvue">PostView.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;NavbarMinimal&gt;&lt;/NavbarMinimal&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;section class=&quot;d-flex post-wrap mt-3&quot;&gt;
+        &lt;img class=&quot;w-50 post-image&quot; :src=&quot;photo ? photo.urls.regular : ''&quot; /&gt;
+        &lt;div class=&quot;w-50 p-4 post-wrap&quot;&gt;
+          &lt;div class=&quot;d-flex align-items-center justify-content-between&quot;&gt;
+            &lt;h5 class=&quot;mb-1&quot;&gt;{{ photo ? photo.user.name : '' }}&lt;/h5&gt;
+            &lt;button @click=&quot;like&quot; class=&quot;btn btn-primary btn-sm&quot;&gt;Like&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div&gt;{{ date }}&lt;/div&gt;
+          &lt;div class=&quot;mb-3&quot;&gt;{{ photo ? photo.location.name : '' }}&lt;/div&gt;
+          &lt;div&gt;{{ photo ? photo.description : '' }}&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import NavbarMinimal from '@/components/NavbarMinimal'
+import axios from 'axios'
+
+export default {
+  name: 'PostView',
+
+  components: {
+    NavbarMinimal
+  },
+
+  beforeMount () {
+    this.$store.dispatch('loadPhoto', this.$route.params.id)
+  },
+
+  computed: {
+    photo () {
+      return this.$store.getters.postPhoto
+    },
+
+    date () {
+      const photo = this.photo
+
+      return new Date(photo.created_at).toDateString()
+    }
+  },
+
+  methods: {
+    async like () {
+      try {
+        const userId = JSON.parse(localStorage.getItem('user')).id
+
+        const response = await axios.post(
+          'http://localhost:3000/600/likedPhotos',
+          {
+            photo: this.photo.id,
+            url: this.photo.urls.small,
+            userId
+          },
+          {
+            headers: {
+              Authorization: 'Bearer ' + localStorage.accessToken
+            }
+          }
+        )
+
+        if (response.status === 201) {
+          console.log('liked')
+        }
+      } catch (e) {
+        alert(e.response.data)
+      }
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h4 id="loginviewview">LoginView.view</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row justify-content-center mt-5 p-5&quot;&gt;
+      &lt;div class=&quot;col-12&quot;&gt;
+        &lt;div class=&quot;login-wrap d-flex&quot;&gt;
+          &lt;div
+            class=&quot;login-img w-50&quot;
+          &gt;&lt;/div&gt;
+
+          &lt;div class=&quot;w-50 p-5&quot;&gt;
+            &lt;h3 class=&quot;mb-4&quot;&gt;Sign In&lt;/h3&gt;
+
+              &lt;div class=&quot;form-group mb-3&quot;&gt;
+                &lt;label class=&quot;label&quot; for=&quot;name&quot;&gt;Email&lt;/label&gt;
+                &lt;input
+                  id=&quot;name&quot;
+                  type=&quot;text&quot;
+                  class=&quot;form-control&quot;
+                  placeholder=&quot;Email&quot;
+                  v-model=&quot;form.email&quot;
+                  required
+                /&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;form-group mb-3&quot;&gt;
+                &lt;label class=&quot;label&quot; for=&quot;password&quot;&gt;Password&lt;/label&gt;
+                &lt;input
+                  id=&quot;password&quot;
+                  type=&quot;password&quot;
+                  class=&quot;form-control&quot;
+                  placeholder=&quot;Password&quot;
+                  v-model=&quot;form.password&quot;
+                  required
+                /&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;form-group&quot;&gt;
+                &lt;button
+                  @click=&quot;login()&quot;
+                  class=&quot;form-control btn btn-primary submit px-3&quot;
+                &gt;
+                  Sign In
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;form-group d-flex&quot;&gt;
+                &lt;div class=&quot;w-50&quot;&gt;
+                  &lt;label class=&quot;checkbox-wrap checkbox-primary mb-0&quot;&gt;Remember Me
+                    &lt;input type=&quot;checkbox&quot; checked=&quot;&quot; /&gt;
+                    &lt;span class=&quot;checkmark&quot;&gt;&lt;/span&gt;
+                  &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;w-50 text-right&quot;&gt;
+                  &lt;a href=&quot;#&quot;&gt;Forgot Password&lt;/a&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+            &lt;p class=&quot;text-center&quot;&gt;
+              Not a member? &lt;router-link to=&quot;/signup&quot;&gt;Sign Up&lt;/router-link&gt;
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import axios from 'axios'
+
+export default {
+  name: 'LoginView',
+
+  data () {
+    return {
+      form: {
+        email: null,
+        password: null
+      }
+    }
+  },
+
+  beforeMount () {
+    if (localStorage.getItem('accessToken')) {
+      this.$router.push('/')
+    }
+  },
+
+  methods: {
+    async login () {
+      try {
+        const response = await axios.post('http://localhost:3000/login', this.form)
+
+        if (response.status === 200) {
+          localStorage.setItem('accessToken', response.data.accessToken)
+          localStorage.setItem('user', JSON.stringify(response.data.user))
+          this.$router.push('/')
+        }
+      } catch (e) {
+        alert(e.response.data)
+      }
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+.text-right  {
+  text-align: right;
+}
+
+.login-img {
+  background-image: url(&quot;@/assets/img/logo-photo.jpeg&quot;);
+}
+&lt;/style&gt;
+</code></pre>
+<h4 id="signupviewvue">SignUpView.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;row justify-content-center mt-5 p-5&quot;&gt;
+      &lt;div class=&quot;col-12&quot;&gt;
+        &lt;div class=&quot;login-wrap d-flex&quot;&gt;
+          &lt;div class=&quot;w-100 p-5&quot;&gt;
+            &lt;div class=&quot;d-flex&quot;&gt;
+              &lt;div class=&quot;w-100&quot;&gt;
+                &lt;h3 class=&quot;mb-4&quot;&gt;Sign Up&lt;/h3&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+              &lt;input
+                id=&quot;email&quot;
+                type=&quot;text&quot;
+                class=&quot;form-control&quot;
+                placeholder=&quot;Username&quot;
+                v-model=&quot;form.email&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;name&quot;&gt;Username&lt;/label&gt;
+              &lt;input
+                id=&quot;name&quot;
+                type=&quot;text&quot;
+                class=&quot;form-control&quot;
+                placeholder=&quot;Username&quot;
+                v-model=&quot;form.username&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;password&quot;&gt;Password&lt;/label&gt;
+              &lt;input
+                id=&quot;password&quot;
+                type=&quot;password&quot;
+                class=&quot;form-control&quot;
+                placeholder=&quot;Password&quot;
+                v-model=&quot;form.password&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;password-confirm&quot;&gt;
+                Confirm Password
+              &lt;/label&gt;
+              &lt;input
+                v-model=&quot;form.password2&quot;
+                id=&quot;password-confirm&quot;
+                type=&quot;password&quot;
+                class=&quot;form-control&quot;
+                placeholder=&quot;Password&quot;
+                required
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;form-group&quot;&gt;
+              &lt;button
+                @click=&quot;signup()&quot;
+                class=&quot;form-control btn btn-primary submit px-3 mt-3&quot;
+              &gt;
+                Sign Up
+              &lt;/button&gt;
+            &lt;/div&gt;
+
+            &lt;p class=&quot;text-center mt-2&quot;&gt;
+              Already Singed up?
+              &lt;router-link to=&quot;/login&quot; data-toggle=&quot;tab&quot;&gt; Sign In &lt;/router-link&gt;
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import axios from 'axios'
+
+export default {
+  name: 'SignUpView',
+
+  data () {
+    return {
+      form: {
+        username: null,
+        password: null,
+        password2: null,
+        email: null
+      }
+    }
+  },
+
+  beforeCreate () {
+    if (localStorage.getItem('accessToken')) {
+      this.$router.push('/')
+    }
+  },
+
+  methods: {
+    async signup () {
+      if (this.form.password === this.form.password2 &amp;&amp; this.form.password !== null) {
+        try {
+          const response = await axios.post(
+            'http://localhost:3000/signup',
+            {
+              email: this.form.email,
+              password: this.form.password,
+              username: this.form.username
+            })
+
+          if (response.status === 201) {
+            this.$router.push('/login')
+          }
+        } catch (e) {
+          alert(e.response.data)
+        }
+      } else {
+        alert('Пароли не совпадают')
+      }
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h4 id="profileviewvue">ProfileView.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container-fluid&quot;&gt;
+    &lt;NavbarMinimal&gt;&lt;/NavbarMinimal&gt;
+    &lt;div class=&quot;container&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;
+        &lt;div class=&quot;col-6&quot;&gt;
+          &lt;section class=&quot;settings mt-4&quot;&gt;
+            &lt;h4 class=&quot;mb-4&quot;&gt;Profile&lt;/h4&gt;
+            &lt;div class=&quot;form-group row mb-3&quot;&gt;
+              &lt;div class=&quot;col-6&quot;&gt;
+                &lt;label class=&quot;label&quot; for=&quot;first-name&quot;&gt;First Name&lt;/label&gt;
+                &lt;input id=&quot;first-name&quot; type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;First Name&quot; required&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;col-6&quot;&gt;
+                &lt;label class=&quot;label&quot; for=&quot;last-name&quot;&gt;Last Name&lt;/label&gt;
+                &lt;input id=&quot;last-name&quot; type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Last Name&quot; required&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;name&quot;&gt;Username&lt;/label&gt;
+              &lt;input id=&quot;name&quot; type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Username&quot; required&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;email&quot;&gt;Email&lt;/label&gt;
+              &lt;input id=&quot;email&quot; type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Email&quot; required=&quot;&quot;&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group mb-3&quot;&gt;
+              &lt;label class=&quot;label&quot; for=&quot;description&quot;&gt;Bio&lt;/label&gt;
+              &lt;textarea id=&quot;description&quot; type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Enter a Bio&quot;&gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;form-group d-flex justify-content-end&quot;&gt;
+              &lt;button type=&quot;submit&quot; class=&quot;btn btn-secondary px-3 mx-2&quot;&gt;Cancel&lt;/button&gt;
+              &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary px-3&quot;&gt;Save&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/section&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-6&quot;&gt;
+          &lt;h4 class=&quot;mt-4&quot;&gt;Liked pictures&lt;/h4&gt;
+          &lt;div class=&quot;pinterest-grid-profile&quot;&gt;
+            &lt;img v-for=&quot;photo in likedPhotos&quot; :key=&quot;photo.photo&quot; class=&quot;main-image&quot; :src=&quot;photo.url&quot;/&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import NavbarMinimal from '@/components/NavbarMinimal'
+
+export default {
+  name: 'ProfileView',
+
+  computed: {
+    likedPhotos () {
+      return this.$store.getters.likedPhotos
+    }
+  },
+
+  beforeMount () {
+    if (!localStorage.getItem('accessToken')) {
+      this.$router.push('/login')
+    }
+
+    this.$store.dispatch('getLikedPhotos', { accessToken: localStorage.accessToken, userId: JSON.parse(localStorage.user).id })
+  },
+
+  components: {
+    NavbarMinimal
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h3 id="components">Components</h3>
+<h4 id="navbarminimalvue">NavbarMinimal.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container-fluid my-navbar sticky-top&quot;&gt;
+    &lt;nav class=&quot;navbar navbar-light&quot;&gt;
+      &lt;router-link to=&quot;/&quot; class=&quot;navbar-brand&quot;&gt;
+        &lt;img
+          src=&quot;@/assets/logo.png&quot;
+          width=&quot;30&quot;
+          height=&quot;30&quot;
+          class=&quot;d-inline-block align-top&quot;
+          alt=&quot;&quot;
+        /&gt;
+        Picterest
+      &lt;/router-link&gt;
+      &lt;ProfileBlock&gt;&lt;/ProfileBlock&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import ProfileBlock from '@/components/ProfileBlock'
+
+export default {
+  name: 'TheNavbarMinimal',
+
+  components: {
+    ProfileBlock
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+</code></pre>
+<h4 id="navbarwithfiltersvue">NavbarWithFilters.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;container-fluid my-navbar sticky-top&quot;&gt;
+    &lt;nav class=&quot;navbar navbar-light&quot;&gt;
+      &lt;router-link to=&quot;/&quot; class=&quot;navbar-brand&quot;&gt;
+        &lt;img
+          src=&quot;@/assets/logo.png&quot;
+          width=&quot;30&quot;
+          height=&quot;30&quot;
+          class=&quot;d-inline-block align-top&quot;
+          alt=&quot;&quot;
+        /&gt;
+        Picterest
+      &lt;/router-link&gt;
+      &lt;ProfileBlock&gt;&lt;/ProfileBlock&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import ProfileBlock from '@/components/ProfileBlock'
+
+export default {
+  name: 'TheNavbarMinimal',
+
+  components: {
+    ProfileBlock
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;&lt;/style&gt;
+
+</code></pre>
+<h4 id="profileblockvue">ProfileBlock.vue</h4>
+<pre><code>&lt;template&gt;
+  &lt;div class=&quot;d-flex align-items-center&quot;&gt;
+    &lt;router-link to=&quot;/profile&quot; class=&quot;mx-2&quot;&gt;
+      &lt;img src=&quot;@/assets/img/avatar.png&quot; alt=&quot;profile&quot; width=&quot;30&quot; height=&quot;30&quot;/&gt;
+    &lt;/router-link&gt;
+    &lt;svg v-if=&quot;isLoggedIn&quot; @click=&quot;logout&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;24&quot; height=&quot;24&quot; fill=&quot;black&quot; class=&quot;bi bi-box-arrow-right ml-3&quot; viewBox=&quot;0 0 16 16&quot;&gt;
+      &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z&quot;/&gt;
+      &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z&quot;/&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'ProfileBlock',
+
+  data () {
+    return {
+      isLoggedIn: false
+    }
+  },
+
+  mounted () {
+    if (localStorage.getItem('accessToken')) {
+      this.isLoggedIn = true
+    }
+  },
+
+  methods: {
+    logout () {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('user')
+      this.$router.push('/login')
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;
+</code></pre>
+<h3 id="store">Store</h3>
+<h4 id="indexjs">index.js</h4>
+<pre><code>import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
+
+Vue.use(Vuex)
+
+const accessKey = '4WtZzqzkj1jpOdx3igqSGJuGBWg2gheh_QvIARzn40M'
+
+export default new Vuex.Store({
+  state: {
+    photos: null,
+    postPhoto: null,
+    likedPhotos: null
+  },
+
+  getters: {
+    photos (state) {
+      return state.photos
+    },
+
+    postPhoto (state) {
+      return state.postPhoto
+    },
+
+    likedPhotos (state) {
+      return state.likedPhotos
+    }
+  },
+
+  mutations: {
+    setPhotos (state, payload) {
+      state.photos = payload
+    },
+
+    setPostPhoto (state, payload) {
+      state.postPhoto = payload
+    },
+
+    setLikedPhotos (state, payload) {
+      state.likedPhotos = payload
+    }
+  },
+
+  actions: {
+    async searchPhotos (context, { query, filters }) {
+      if (query == null) {
+        return
+      }
+
+      if (filters.color === null) {
+        delete filters.color
+      }
+
+      try {
+        const response = await axios.get('https://api.unsplash.com/search/photos', {
+          params: {
+            client_id: accessKey,
+            per_page: 20,
+            query,
+            ...filters
+          }
+        })
+
+        if (response.status === 200) {
+          context.commit('setPhotos', response.data.results)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    async getPhotos (context) {
+      try {
+        const response = await axios.get('https://api.unsplash.com/photos', {
+          params: {
+            client_id: accessKey,
+            order_by: 'popular',
+            per_page: 20
+          }
+        })
+
+        if (response.status === 200) {
+          context.commit('setPhotos', response.data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    async loadPhoto (context, id) {
+      try {
+        const response = await axios.get('https://api.unsplash.com/photos/' + id, {
+          params: {
+            client_id: accessKey
+          }
+        })
+
+        if (response.status === 200) {
+          context.commit('setPostPhoto', response.data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    },
+
+    async getLikedPhotos (context, { accessToken, userId }) {
+      try {
+        const response = await axios.get('http://localhost:3000/600/likedPhotos?userId=' + userId, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken
+          }
+        })
+
+        if (response.status === 200) {
+          context.commit('setLikedPhotos', response.data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+})
+</code></pre>
+<h3 id="router">Router</h3>
+<h4 id="indexjs_1">index.js</h4>
+<pre><code>Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    name: 'Dashboard',
+    component: DashboardView
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
+  },
+  {
+    path: '/post/:id',
+    name: 'Post',
+    component: PostView
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileView
+  },
+  {
+    path: '/signup',
+    name: 'SignUpView',
+    component: SignUpView
+  }
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+
+export default router
+</code></pre>
               
             </div>
           </div><footer>
