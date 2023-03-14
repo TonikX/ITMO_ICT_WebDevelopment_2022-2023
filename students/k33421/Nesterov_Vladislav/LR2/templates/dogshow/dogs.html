@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dog Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #4831D4;
+            text-align: center;
+            color: #CCF381;
+        }
+        .info {
+            color: #4831D4;
+            width: 20%;
+            font-size: 20px;
+            text-align: left;
+            border-radius: 25px;
+            background-color: #CCF381;
+            padding: 10px;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+<h1>Dog details</h1>
+<div class="info">
+    <p>ID: {{ id }}</p>
+    <p>Nickname: {{ nickname }}</p>
+    <p>Breed: {{ breed }}</p>
+    <p>Age: {{ age }}</p>
+    <p>Classiness: {{ classiness }}</p>
+    <p>Pedigree document number: {{ pedigree_document_number }}</p>
+    <p>Parent nicknames: {{ parent_nicknames }}</p>
+    <p>Last vaccination date: {{ last_vaccination_date }}</p>
+    <p>Owner's first name: {{ owner_first_name }}</p>
+    <p>Owner's last name: {{ owner_last_name }}</p>
+    <p>Owner's patronymic: {{ owner_patronymic }}</p>
+    <p>Owner's passport data: {{ owner_passport_data }}</p>
+    <p>Club ID: {{ club_id }}</p>
+</div>
+<h3 style="opacity: 0.1">Я из директории djangoProject/templates/dogshow</h3>
+</body>
+</html>

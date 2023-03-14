@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Science conference</title>
+    <style>
+        body {
+            background-color: rgba(72, 49, 212, 0.73);
+            text-align: center;
+            color: #CCF381;
+        }
+
+        .info {
+            color: #4831D4;
+            width: 20%;
+            font-size: 20px;
+            text-align: left;
+            border-radius: 25px;
+            background-color: #CCF381;
+            padding: 10px;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+        }
+
+        table {
+            border: 3px dashed #CCF381;
+            border-radius: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 5px;
+        }
+
+        td {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Science Conference</h1>
+<h3>Conference Overview</h3>
+<p>Here you can find a list of conferences, topics, locations, periods, descriptions, and more. Sign up to attend or submit
+    your talks!</p>
+<h3>Registration</h3>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+{% else %}
+    <p>Sign up to attend or submit talks to any of the conferences.</p>
+    <form method="post" action="{% url 'register_user' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        <input type="submit" value="Register">
+    </form>
+{% endif %}
+<h3>Conferences</h3>
+<table>
+    <thead>
+    <th>Conference</th>
+    <th>Topics</th>
+    <th>Location</th>
+    <th>Period</th>
+    <th>Description</th>
+    <th>Location Description</th>
+    <th>Conditions</th>
+    </thead>
+    <tbody>
+    {% for conference in conferences %}
+        <tr>
+            <td>{{ conference.name }}</td>
+            <td>{{ conference.topics }}</td>
+            <td>{{ conference.location }}</td>
+            <td>{{ conference.period }}</td>
+            <td>{{ conference.description }}</td>
+            <td>{{ conference.location_description }}</td>
+            <td>{{ conference.participation_conditions }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h3>Submit a Talk</h3>
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'submit_talk' %}">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+        <label for="conference">Conference:</label>
+        <select name="conference" id="conference">
+            {% for conference in conferences %}
+                <option value="{{ conference.name }}">{{ conference.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
+        <input type="submit" value="Submit Talk">
+    </form>
+{% else %}
+    <p>You must be registered to submit a talk.</p>
+{% endif %}
+<h3>Reviews</h3>
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'add_review' %}">
+        {% csrf_token %}
+        <label for="conference">Conference:</label>
+        <select name="conference" id="conference">
+            {% for conference in conferences %}
+                <option value="{{ conference.name }}">{{ conference.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="rating" min="1" max="10" required>
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment"></textarea>
+        <input type="submit" value="Submit Review">
+    </form>
+{% else %}
+    <p>You must be registered to submit a review.</p>
+{% endif %}
+<h3>Authors</h3>
+<table>
+    <thead>
+    <th>Author login</th>
+    <th>Conference theme</th>
+    </thead>
+    <tbody>
+    {% for author in authors %}
+        <tr>
+            <td>{{ author.user.username }}</td>
+            <td>{{ author.conference.name }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
