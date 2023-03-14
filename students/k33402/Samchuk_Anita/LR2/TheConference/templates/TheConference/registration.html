@@ -1,0 +1,72 @@
+{% extends 'TheConference/base_conf.html' %}
+
+
+
+  {% block title %}
+    {{ conf.name }} - {{ block.super }}
+  {% endblock %}
+
+  {% block content %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <h1 class="mt-4">
+      {{ conf.name }}
+    </h1>
+    <p class="fs-5">
+      {{conf.date|date:"d N Y"}}, <b>{{conf.date|date:"H:i"}}</b>
+    </p>
+    <p class=border-end">
+      {{conf.place}}
+    </p>
+    <p>
+      {% for tag in conf.topics.all %}
+        <a type="button" class="btn btn-dark" href="{{ tag.get_absolute_url }}"
+          style="padding: 0.25rem 1rem 0.5rem 1rem; --bs-btn-font-size: 1rem; border-radius: 50px;">
+          {{ tag.title|lower }}
+        </a>
+      {% endfor %}
+    </p>
+    <div class="mt-2">
+      {{ conf.conf_description|linebreaks }}
+    </div>
+    <p>
+      <b>Условия участия:</b>
+      {{ conf.terms_of_participation }}
+    </p>
+    <p>
+      <b>Адрес:</b>
+      {{ conf.place_description }}
+    </p>
+
+    <a href="{{ conf.get_absolute_reg_url }}">
+      <button type="button" class="btn btn-primary btn-lg mt-3 mb-4">Подать заявку</button>
+    </a>
+
+    <h4>Участники ({{ perfs.count }}):</h4>
+    {% if perfs %}
+      {% include 'TheConference/includes/participants_table.html' %}
+    {% else %}
+      <p>Зарегистрируйтесь первым!</p>
+    {% endif %}
+    <h4 class="mt-5">Отзывы ({{ comments.count }})</h4>
+    {% if request.user.is_authenticated %}
+      <form method="post" class="my-3">
+				{% csrf_token %}
+				<input type="hidden" name="next" value="{{ next }}">
+
+				{{ form.as_p }}
+
+				<button type="submit" class="btn btn-primary btn-block">Оставить комментарий</button>
+			</form>
+    {% endif %}
+    {% if comments%}
+      {% for comment in comments %}
+				{% include 'TheConference/includes/comment_card.html' %}
+			{% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  {% endblock %}

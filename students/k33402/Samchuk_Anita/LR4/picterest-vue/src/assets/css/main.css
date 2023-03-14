@@ -1,0 +1,52 @@
+.search-input {
+    background: var(--input-color);
+    /*box-shadow: 0 5px 14px -10px rgb(0 0 0 / 60%);*/
+    border-radius: 10px;
+    border: 0;
+    transition: 0.3s;
+    width: 300px;
+    color: black;
+    padding: 4px 12px;
+}
+
+.search-input:focus {
+    outline: none;
+    width: 800px;
+}
+
+.post-wrap {
+    background: var(--theme-color);
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
+    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
+}
+
+.post-image {
+    border-radius: 12px 0px 0px 12px;
+    max-height: 85vh;
+}
+
+.pinterest-grid {
+    width: 100%;
+    margin: 20px auto;
+    columns: 3;
+    column-gap: 40px;
+}
+
+.pinterest-grid-profile {
+    width: 100%;
+    margin: 20px auto;
+    columns: 2;
+    column-gap: 40px;
+}
+
+.search-input-group {
+    background: var(--input-color);
+    /*box-shadow: 0 5px 14px -10px rgb(0 0 0 / 60%);*/
+    border-radius: 10px;
+    border: 0;
+    transition: 0.3s;
+    color: black;
+    padding: 4px 12px;
+}

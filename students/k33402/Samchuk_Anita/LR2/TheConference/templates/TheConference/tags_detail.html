@@ -1,0 +1,20 @@
+{% extends 'TheConference/base_conf.html' %}
+
+  {% block title %}
+    {{ tag.title }} - {{ block.super }}
+  {% endblock %}
+
+  {% block content %}
+    <h1 class="mt-4 mb-3">
+      Конференции по теме
+      <a type="button" class="btn btn-dark center"
+        style="padding: 0.25rem 1rem 0.5rem 1rem; --bs-btn-font-size: 2rem; border-radius: 50px;">
+        {{ tag.title|lower }}
+      </a>
+    </h1>
+  <div class="row">
+    {% for conf in tag.confs.all %}
+      {% include 'TheConference/includes/conf_card_template.html' %}
+    {% endfor %}
+  </div>
+  {% endblock %}

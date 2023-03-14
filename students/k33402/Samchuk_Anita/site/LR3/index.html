@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://fokkely.github.io/LR3/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>LR3 - Web-programming</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "LR3";
+        var mkdocs_page_input_path = "LR3.md";
+        var mkdocs_page_url = "/LR3/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Web-programming
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">About me</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR1/">LR1</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR2/">LR2</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">LR3</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">Библиотека</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">Модели</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">Юрлы</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#views">Views</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#serializers">Serializers</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../LR4/">LR4</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Web-programming</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>LR3</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="no3">Лабораторная №3</h1>
+<h2 id="_1">Библиотека</h2>
+<h3 id="_2">Модели</h3>
+<pre><code>class User(AbstractUser):
+    tel = models.CharField(verbose_name='Телефон', max_length=15, null=True, blank=True)
+
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'tel']
+
+    def __str__(self):
+        return self.username
+
+
+class Instance(models.Model):
+    id_instance = models.AutoField(&quot;ID_экземпляра&quot;, primary_key=True)
+    section = models.CharField(max_length=20, verbose_name='Раздел')
+    code = models.CharField(max_length=20, verbose_name='Артикул')
+    year = models.IntegerField(verbose_name='Год издания')
+    conditions = (
+        ('х', 'хорошее'),
+        ('у', 'удовлетворительное'),
+        ('с', 'старое'),
+    )
+    condition = models.CharField(max_length=1, choices=conditions, verbose_name='Состояние экземпляра')
+    book = models.ForeignKey('Book', verbose_name='Книга', on_delete=CASCADE)
+
+    def __str__(self):
+        return self.code
+
+
+class Book(models.Model):
+    id_book = models.AutoField(&quot;ID_книги&quot;, primary_key=True)
+    name = models.CharField(max_length=50, verbose_name='Название')
+    author = models.CharField(max_length=70, verbose_name=&quot;ФИО автора&quot;)
+    publisher = models.CharField(max_length=30, verbose_name='Издательство')
+
+    def __str__(self):
+        return self.name
+
+
+class Reader(models.Model):
+    ticket = models.CharField(max_length=20, verbose_name='Номер читательского билета')
+    name = models.CharField(max_length=70, verbose_name=&quot;ФИО&quot;)
+    passport = models.CharField(max_length=20, verbose_name='Номер паспорта')
+    birth_date = models.DateField(verbose_name='Дата рождения')
+    address = models.CharField(max_length=100, verbose_name='Адрес')
+    phone_number = models.CharField(max_length=20, verbose_name='Номер телефона')
+    educations = (
+        ('н', 'начальное'),
+        ('с', 'среднее'),
+        ('в', 'высшее'),
+    )
+    education = models.CharField(max_length=1, choices=educations, verbose_name='Образование')
+    degree = models.BooleanField(default=False, verbose_name='Наличие ученой степени')
+    registration_date = models.DateField(verbose_name='Дата регистрации')
+    instances = models.ManyToManyField('Instance', verbose_name='Взятые книги', through='ReaderBook',
+                                       related_name='reader_book')
+    room = models.ForeignKey('Room', verbose_name='Зал, за которым закреплен читатель', on_delete=CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ReaderRoom(models.Model):
+    reader = models.ForeignKey('Reader', verbose_name='Читатель', on_delete=CASCADE)
+    room = models.ForeignKey('Room', verbose_name='Зал', on_delete=CASCADE)
+    date = models.DateField(verbose_name='Дата закрепления зала', null=True)
+
+
+class BookInst(models.Model):
+    inst = models.ForeignKey('Instance', verbose_name='Экземпляр', on_delete=CASCADE)
+    book = models.ForeignKey('Book', verbose_name='Книга', on_delete=CASCADE)
+
+
+class ReaderBook(models.Model):
+    reader = models.ForeignKey('Reader', verbose_name='Читатель', on_delete=CASCADE)
+    book = models.ForeignKey('Instance', verbose_name='Экземпляр', on_delete=CASCADE)
+    date = models.DateField(verbose_name='Дата выдачи экземпляра книги', null=True)
+
+
+class BookRoom(models.Model):
+    book = models.ForeignKey('Instance', verbose_name='Книга', on_delete=CASCADE)
+    room = models.ForeignKey('Room', verbose_name='Зал', on_delete=CASCADE)
+
+
+class Room(models.Model):
+    name = models.CharField(max_length=20, verbose_name='Название')
+    capacity = models.IntegerField(verbose_name='Вместимость')
+    books = models.ManyToManyField('Instance', verbose_name='Книги', through='BookRoom', related_name='book_room')
+
+    def __str__(self):
+        return self.name
+</code></pre>
+<h3 id="_3">Юрлы</h3>
+<pre><code>urlpatterns = [
+    path('readers/list/', ReaderListAPIView.as_view()),
+    path('readers/create/', CreateReader.as_view()),
+    path('readers/&lt;int:pk&gt;/', OneReader.as_view()),
+    path('books/list/', BookListAPIView.as_view()),
+    path('books/create/', CreateBook.as_view()),
+    path('books/&lt;int:pk&gt;/', OneBook.as_view()),
+    path('inst/list/', InstanceListAPIView.as_view()),
+    path('inst/create/', CreateInstance.as_view()),
+    path('inst/&lt;int:pk&gt;/', OneInstance.as_view()),
+    path('rooms/list/', RoomListAPIView.as_view()),
+    path('rooms/create/', RoomCreateAPIView.as_view()),
+    path('rooms/&lt;int:pk&gt;/', OneRoom.as_view()),
+    path('book/readers/', BookReaders.as_view()),
+    path('book/room/', RoomBook.as_view()),
+    path('room/readers/', RoomReader.as_view()),
+    path('book/inst/', BookInst.as_view()),
+    path('readers/inst/&lt;int:pk&gt;', ReadersInst.as_view()),
+]
+</code></pre>
+<h3 id="views">Views</h3>
+<pre><code>class ReaderListAPIView(ListAPIView):
+    serializer_class = ReaderSerializer
+    queryset = Reader.objects.all()
+
+
+class CreateReader(CreateAPIView):
+    serializer_class = ReaderSerializer
+    queryset = Reader.objects.all()
+
+
+class BookListAPIView(ListAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+
+class CreateBook(CreateAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+
+class InstanceListAPIView(ListAPIView):
+    serializer_class = InstanceSerializer
+    queryset = Instance.objects.all()
+
+
+class CreateInstance(CreateAPIView):
+    serializer_class = InstanceSerializer
+    queryset = Instance.objects.all()
+
+
+class OneBook(RetrieveUpdateDestroyAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
+
+
+class OneInstance(RetrieveUpdateDestroyAPIView):
+    serializer_class = InstanceSerializer
+    queryset = Instance.objects.all()
+
+
+class OneReader(RetrieveUpdateDestroyAPIView):
+    serializer_class = ReaderSerializer
+    queryset = Instance.objects.all()
+
+
+class BookReaders(CreateAPIView):
+    serializer_class = ReaderBookSerializer
+    queryset = ReaderBook.objects.all()
+
+
+class RoomListAPIView(ListAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+
+class RoomCreateAPIView(CreateAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+
+class OneRoom(RetrieveUpdateDestroyAPIView):
+    serializer_class = RoomSerializer
+    queryset = Room.objects.all()
+
+
+class RoomBook(CreateAPIView):
+    serializer_class = BookRoomSerializer
+    queryset = BookRoom.objects.all()
+
+
+class RoomReader(CreateAPIView):
+    serializer_class = ReaderRoomSerializer
+    queryset = ReaderRoom.objects.all()
+
+
+class BookInst(CreateAPIView):
+    serializer_class = BookInstSerializer
+    queryset = BookInst.objects.all()
+
+
+class ReadersInst(generics.RetrieveAPIView):
+    serializer_class = ReaderInstsSerializer
+    queryset = Reader.objects.all()
+</code></pre>
+<h3 id="serializers">Serializers</h3>
+<pre><code>class ReaderSerializer(serializers.ModelSerializer):
+    books = serializers.SlugRelatedField(read_only=True, many=True, slug_field='books')
+
+    class Meta:
+        model = Reader
+        fields = &quot;__all__&quot;
+
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = &quot;__all__&quot;
+
+
+class InstanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instance
+        fields = &quot;__all__&quot;
+
+
+class ReaderBookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderBook
+        fields = &quot;__all__&quot;
+
+
+class RoomSerializer(serializers.ModelSerializer):
+    books = serializers.SlugRelatedField(read_only=True, many=True, slug_field='id_instance')
+
+    class Meta:
+        model = Room
+        fields = &quot;__all__&quot;
+
+
+class BookRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookRoom
+        fields = &quot;__all__&quot;
+
+
+class ReaderRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderRoom
+        fields = &quot;__all__&quot;
+
+
+class BookInstSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookInst
+        fields = &quot;__all__&quot;
+
+
+class ReaderInstsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reader
+        fields = [&quot;instances&quot;]
+
+
+class RecentlyBookDateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReaderBook
+        fields = [&quot;reader&quot;]
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../LR2/" class="btn btn-neutral float-left" title="LR2"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../LR4/" class="btn btn-neutral float-right" title="LR4">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../LR2/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../LR4/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

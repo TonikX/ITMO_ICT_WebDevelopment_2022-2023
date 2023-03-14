@@ -1,0 +1,14 @@
+{% extends 'TheConference/base_conf.html' %}
+
+    {% block title %}
+      TheConf
+    {% endblock %}
+
+    {% block content %}
+			<h1 class="mb-3">Conferences list:</h1>
+			<div class="row">
+			{% for conf in confs %}
+				{% include 'TheConference/includes/conf_card_template.html' %}
+			{% endfor %}
+			</div>
+    {% endblock %}

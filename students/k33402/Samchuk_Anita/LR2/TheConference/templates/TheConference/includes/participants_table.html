@@ -1,0 +1,32 @@
+<table class="table mt-2">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Topic</th>
+      <th scope="col">Approval</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for perf in perfs %}
+      <tr>
+        <td></td>
+        <td>{{ perf.author.first_name }}</td>
+        <td>{{ perf.author.last_name }}</td>
+        <td>{{ perf.title }}</td>
+        {% if perf.is_recommended %}
+          <td>✅</td>
+        {% else %}
+          <td>❌</td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+$('.table tbody tr').each(function(i) {
+var number = i + 1;
+$(this).find('td:first').text(number);
+});
+</script>

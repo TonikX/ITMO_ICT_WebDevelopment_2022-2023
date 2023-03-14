@@ -1,0 +1,12 @@
+<div class="card mb-3">
+  <div class="card-header">
+    {{ comment.author.first_name }} {{ comment.author.last_name }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Оценка: {{ comment.rating }}</h5>
+    <p class="card-text">{{ comment.body }}</p>
+  </div>
+  <div class="card-footer text-muted text-right">
+    {{ comment.created_on|date:"d/m/Y H:i" }}
+  </div>
+</div>

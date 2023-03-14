@@ -1,0 +1,55 @@
+{% extends 'TheConference/base_conf.html' %}
+
+  {% block title %}
+    Account
+  {% endblock %}
+
+  {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <h1 class="mt-4">
+      Здравствуйте, {{ request.user.first_name }}!
+    </h1>
+    {% if perfs %}
+      <h3 class="mt-5">Ваши регистрации на конференции ({{ perfs.count }}):</h3>
+          <table class="table mt-2">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Conference</th>
+            <th scope="col">Title</th>
+            <th scope="col">Approval</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for perf in perfs %}
+            <tr>
+              <td></td>
+              <td class="btn-link"><a href="{{ perf.conference.get_absolute_url }}">{{ perf.conference.name }}</a></td>
+              <td>{{ perf.title }}</td>
+              {% if perf.is_recommended %}
+                <td>✅</td>
+              {% else %}
+                <td>❌</td>
+              {% endif %}
+              <td>
+                <a href="{% url 'performance_edit_url' perf.id %}">
+                  <img src="https://img.icons8.com/external-kiranshastry-lineal-kiranshastry/512/external-edit-interface-kiranshastry-lineal-kiranshastry.png" width=30 height=30>
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <script>
+      $('.table tbody tr').each(function(i) {
+      var number = i + 1;
+      $(this).find('td:first').text(number);
+      });
+      </script>
+    {% else %}
+      <p class="mt-5">Вы не зарегистрированы ни на одну конференцию</p>
+    {% endif %}
+    
+  {% endblock %}
+  

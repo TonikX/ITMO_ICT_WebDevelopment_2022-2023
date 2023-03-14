@@ -1,0 +1,11 @@
+.login-img {
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.login-wrap {
+    background: var(--theme-color-secondary);
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 20px 0px;
+}

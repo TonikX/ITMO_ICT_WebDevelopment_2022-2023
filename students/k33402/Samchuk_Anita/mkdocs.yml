@@ -1,0 +1,12 @@
+site_name: Web-programming
+site_url: https://fokkely.github.io
+nav:
+    - About me: index.md
+    - LR1: LR1.md
+    - LR2: LR2.md
+    - LR3: LR3.md
+    - LR4: LR4.md
+
+theme:
+    name: readthedocs
+

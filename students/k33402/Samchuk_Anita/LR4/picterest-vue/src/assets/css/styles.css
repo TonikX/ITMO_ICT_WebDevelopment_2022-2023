@@ -1,0 +1,66 @@
+body {
+    background: var(--theme-color);
+    color: var(--text-color);
+}
+
+.my-navbar {
+    background: var(--theme-color-secondary);
+}
+
+.btn-primary {
+    background: #e60023;
+    border: 0;
+}
+
+.btn-primary:hover {
+    background: #c00;
+}
+
+.btn-primary:active {
+    background: #b60000 !important;
+}
+
+.btn-primary:focus {
+    background: #e60023;
+    color: white;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+.btn-secondary {
+    background: white;
+    border: 1px solid black;
+    color: black;
+    transition: 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #efefef;
+    border: 1px solid black;
+    color: black;
+}
+
+.btn-secondary:active {
+    background: #e1e1e1 !important;
+    color: black !important;
+    border: 1px solid black;
+}
+
+.btn-secondary:focus {
+    outline: none;
+    box-shadow: none !important;
+}
+
+.main-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    break-inside: avoid;
+}
+
+.post-wrap {
+    background: var(--theme-color-secondary);
+}
