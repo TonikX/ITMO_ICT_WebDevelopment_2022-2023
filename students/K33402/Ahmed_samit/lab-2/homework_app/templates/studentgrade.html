@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<table>
+    <tr>
+            <th>Grade of Student </th>
+    </tr>
+
+    {% for ass in object_list %}
+        <tr>
+            <td>{{ ass.homework.name }}</td>
+            <td> {{ass.grade}}
+
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

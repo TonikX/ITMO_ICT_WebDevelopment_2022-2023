@@ -1,0 +1,66 @@
+
+.custom-colored-h1
+{
+	color: var(	--color-text-h1) !important;
+}
+
+.header{
+	background-color: var(--nav-color) !important;
+}
+
+.color-main{
+	background-color: var(--bac-color) !important;
+}
+
+.card-color{
+	background-color: var(--nav-color) !important;
+}
+
+.text-card{
+	color: var(--color-text) !important
+}
+
+.nav-text {
+ color: var(--color-text) !important;
+}
+
+.button-color{
+	background-color: var(--button-color) !important;
+	color: var(--color-text-btn) !important
+}
+
+.footer-color{
+	background-color: var(--nav-color) !important;
+}
+
+.footer-text{
+	color: var(--color-text) !important;
+}
+
+.form-select-sm {
+	border-color:#1f4e60 !important;
+	color:#1f4e60 !important;
+}
+
+.btn-info {
+	border-color:#fcc149 !important
+}
+
+.card-img-top {
+	width: 100%;
+}
+
+.icon-main{
+	stroke: currentColor;
+	fill: none;
+	width: 16px;
+	height: 16px
+}
+
+.img{
+	width: 70%
+}
+
+.card-colors {
+	background-color: var(--bg-color) !important;
+}

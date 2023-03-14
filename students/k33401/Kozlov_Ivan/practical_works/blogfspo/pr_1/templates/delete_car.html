@@ -1,0 +1,21 @@
+<!-- publisher_confirm_delete.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete car</title>
+</head>
+
+<body>
+    <form method="post">{% csrf_token %}
+        <p>Are you sure you want to delete car "{{ object.marka }}"?</p>
+        <input type="submit" value="Confirm">
+    </form>
+    <br>
+    <br>
+    <a href="/all_cars/">Get back</a>
+</body>
+
+</html>

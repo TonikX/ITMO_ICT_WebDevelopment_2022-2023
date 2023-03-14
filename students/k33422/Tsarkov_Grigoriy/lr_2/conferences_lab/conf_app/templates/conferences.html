@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>conferences</title>
+    <style>
+   .layer {
+    border: 2px solid black;
+    padding: 20px;
+   }
+    </style>
+</head>
+<body class="layer">
+<h2>conferences</h2>
+<a href="{% url 'index' %}">main</a>
+<br/>
+{% if user.is_active %}
+<a href="{% url 'account_logout' %}">sign out</a>
+{% else %}
+<a href="{% url 'account_login' %}">sign in</a>
+{% endif %}
+{% if conferences %}
+{% for conference in conferences %}
+<p>
+    {{ conference }}
+    <br/>
+    <a href="/conferences/{{ conference.id }}">detail</a>
+    {% endfor %}
+</p>
+{% else %}
+<p>no conferences yet</p>
+{% endif %}
+</body>
+</html>

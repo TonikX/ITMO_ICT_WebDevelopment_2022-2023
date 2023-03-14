@@ -1,0 +1,12 @@
+
+py -3.11 MyHTTPServer.py 127.0.0.1 53210 example.local
+
+# create mark
+POST /marks?name=Web&mark=5 HTTP/1.1
+Host: example.local
+
+# get marks
+GET /marks HTTP/1.1
+Host: example.local
+Accept: text/html
+

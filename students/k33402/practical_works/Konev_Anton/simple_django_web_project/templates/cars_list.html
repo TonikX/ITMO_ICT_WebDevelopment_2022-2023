@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars list</title>
+    <style>
+        li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    {% for car in car_list %}
+        <li>Id_car: {{ car.car_id }}</li>
+        <li>Plate_number: {{ car.number_plate }}</li>
+        <li>Brand: {{ car.brand }}</li>
+        <li>Model: {{ car.model }}</li>
+        <li>Color: {{ car.color }}</li>
+        <br>
+    {% empty %}
+        List is empty
+    {% endfor %}
+</div>
+<br>
+<a href="/admin/">Get back</a>
+</body>
+</html>

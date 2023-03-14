@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
+    <h1>My reservations</h1>
+    <table style="width:80%">
+            <tr>
+                <th>Flight number</th>
+                <th>Ticket number</th>
+                <th>Type</th>
+                <th>Gate</th>
+                <th>Seat</th>
+            </tr>
+            {% for ticket in tickets %}.
+            <tr>
+                <td>{{ticket.flight}}</td>
+                <td>{{ticket.ticket_id}}</td>
+                <td>{{ticket.type}}</td>
+                <td>{{ticket.gate}}</td>
+                <td>{{ticket.seat}}</td>
+                <td>
+                    <ul>
+                        {% if user.get_username != 'admin' %}
+                        <li><a href="http://127.0.0.1:8000/ticket/{{ticket.ticket_id}}/update">Update</a></li>
+                        <li><a href="http://127.0.0.1:8000/ticket/{{ticket.ticket_id}}/delete">Delete</a></li>
+                        <li><a href="http://127.0.0.1:8000/flight/{{ticket.flight_id}}/leave_feedback">Leave feedback</a></li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+    </table>
+</body>
+</html>
