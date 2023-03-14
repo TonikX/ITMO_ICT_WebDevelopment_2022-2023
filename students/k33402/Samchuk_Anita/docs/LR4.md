@@ -1,9 +1,7 @@
 # Лабораторная №4
-
 ## Picterest
 Альтернатива популярного сайта Pinterest, где пользователи могут просматривать различные фотографии и сохранять их
 ![](img/LR4/Снимок экрана 2023-03-14 в 23.12.59.png)
-
 ### Views
 #### DashboardView.vue
 ```
@@ -60,7 +58,6 @@ export default {
 }
 </script>
 ```
-
 #### PostView.vue
 ```
 <template>
@@ -142,7 +139,6 @@ export default {
 
 <style scoped></style>
 ```
-
 #### LoginView.view
 ```
 <template>
@@ -258,7 +254,6 @@ export default {
 }
 </style>
 ```
-
 #### SignUpView.vue
 ```
 <template>
@@ -391,7 +386,6 @@ export default {
 
 <style scoped></style>
 ```
-
 #### ProfileView.vue
 ```
 <template>
@@ -469,9 +463,7 @@ export default {
 
 <style scoped></style>
 ```
-
 ### Components
-
 #### NavbarMinimal.vue
 ```
 <template>
@@ -506,7 +498,6 @@ export default {
 
 <style scoped></style>
 ```
-
 #### NavbarWithFilters.vue
 ```
 <template>
@@ -542,7 +533,6 @@ export default {
 <style scoped></style>
 
 ```
-
 #### ProfileBlock.vue
 ```
 <template>
@@ -587,9 +577,7 @@ export default {
 
 </style>
 ```
-
 ### Store
-
 #### index.js
 ```
 import Vue from 'vue'
@@ -715,9 +703,7 @@ export default new Vuex.Store({
   }
 })
 ```
-
 ### Router
-
 #### index.js
 ```
 Vue.use(VueRouter)
