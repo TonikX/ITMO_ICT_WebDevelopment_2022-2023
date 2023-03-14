@@ -1,0 +1,41 @@
+{% extends "header.html" %}
+{% block content %}
+{% load static %}
+
+<div class="px-4 pt-5 my-5 text-center">
+    <h1 class="display-4 fw-bold">Ваши бронирования {{ user.name }} {{ user.surname }}</h1>
+    <div class="col-lg-6 mx-auto">
+    <p class="lead mb-5">Здесь вы можете удалить или поменять детали брони</p>
+    </div>
+</div>
+<section class="container">
+  <div class="bg-white border rounded-5">
+      <section class="w-100 p-4 text-center table-responsive">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Номер</th>
+              <th scope="col">Дата вселения</th>
+              <th scope="col">Дата выселения</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <td>{{ booking.room }}</td>
+              <td>{{ booking.checkin_date }}</td>
+              <td>{{ booking.checkout_date }}</td>
+              <td><a href="/booking/{{ booking.pk }}/edit" class="btn btn-primary">Изменить</a> </td>
+              <td><a href="/booking/{{ booking.pk }}/delete" class="btn btn-danger">Удалить</a></td>
+            </tr>
+          {% endfor %}
+            <tr>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+  </div>
+</section>
+{% endblock %}

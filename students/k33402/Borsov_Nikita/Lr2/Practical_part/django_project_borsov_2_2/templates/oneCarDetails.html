@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAR INFO</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <h1>CAR №{{ object.car_id }}</h1>
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>STATE NUMBER</th>
+                <th>BRAND</th>
+                <th>MODEL</th>
+                <th>COLOR</th>
+            </tr>
+            <tr>
+                <td>{{ object.car_id }}</td>
+                <td>{{ object.state_number }}</td>
+                <td>{{ object.car_brand }}</td>
+                <td>{{ object.car_model }}</td>
+                <td>{{ object.car_color }}</td>
+            </tr>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

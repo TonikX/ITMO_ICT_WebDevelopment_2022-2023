@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAR №{{ car_id }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <h1>ALL OWNERS OF CAR №{{ car_id }}</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Owner Name</th>
+                <th>Start date</th>
+                <th>End date</th>
+            </tr>
+            {% for object in  car_properties%}
+            <tr>
+                <td>{{ object.owner_id.first_name }} {{ object.owner_id.last_name }}</td>
+                <td>{{ object.start_date }}</td>
+                <td>{{ object.end_date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td> No Data </td>
+                <td> No Data </td>
+                <td> No Data </td>
+            </tr>
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

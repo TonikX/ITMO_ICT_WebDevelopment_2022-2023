@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAR №{{ car_id }}</title>
+</head>
+<body>
+    <h1>ABOUT THIS CAR №{{ car_id }}</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Attribute name</th>
+                <th>Attribute value</th>
+            </tr>
+            <tr>
+                <td><b>First name:</b></td>
+                <td>{{ car_first_owner.first_name }}</td>
+            </tr>
+            <tr>
+                <td><b>Last name:</b></td>
+                <td>{{ car_first_owner.last_name }}</td>
+            </tr>
+            <tr>
+                <td><b>Birthdate:</b></td>
+                <td>{{ car_first_owner.birthdate}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
