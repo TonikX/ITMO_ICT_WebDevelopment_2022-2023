@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report card</title>
+</head>
+<body>
+    <h1>Таблица успеваемости:</h1>
+    <style>
+        table {
+
+            border: 1px solid grey;
+            border-collapse: collapse;
+
+        }
+        td {
+
+            border: 1px solid grey;
+
+        }
+        th {
+
+            border: 1px solid grey;
+
+        }
+    </style>
+    <table>
+        <tr>
+            <th>ФИО(ID) Ученика</th>
+            {% for task in tasks %}
+            <th>Задание {{task.pk}}</th>
+            {% endfor %}
+        </tr>
+        {% for student, all_tasks in report_card.items %}
+          <tr>
+            <td>{{student}}</td>
+            {% for task_id, mark in all_tasks.items %}
+            <td>{{mark}}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+    </table>
+    <a href="/assignments/">Список заданий</a>
+    <a href="/exit/">Выйти</a>
+</body>
+</html>

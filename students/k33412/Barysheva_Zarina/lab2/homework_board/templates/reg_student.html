@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reg new user</title>
+</head>
+<body>
+    <h1>Зарегистрироваться</h1>
+
+<form action="/reg/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Зарегистрироваться">
+</form>
+{% block auth %} 
+<a class="btn btn-primary mr-2" href="{% url 'login' %}">Войти</a>
+{% endblock auth %}
+</body>
+</html>

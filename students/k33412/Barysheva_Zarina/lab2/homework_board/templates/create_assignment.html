@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create task</title>
+</head>
+<body>
+    <h1>Создать задание</h1>
+
+<form action="/create/assignment/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Создать">
+</form>
+
+<a href="/report_card/">Табель</a>
+<a href="/assignments/">Список заданий</a>
+</body>
+</html>
