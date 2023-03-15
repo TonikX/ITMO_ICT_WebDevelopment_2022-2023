@@ -1,0 +1,12 @@
+site_name: Kirillova Vika - WEB - ICT
+
+theme:
+  name: "material"
+
+   
+nav:
+  - Главная: index.md
+  - Лабораторная работа №1: lr_1.md
+  - Лабораторная работа №2: lr_2.md
+  - Лабораторная работа №3: lr_3.md
+

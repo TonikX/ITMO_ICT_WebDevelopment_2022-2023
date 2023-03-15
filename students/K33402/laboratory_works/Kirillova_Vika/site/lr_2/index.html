@@ -1,0 +1,663 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../lr_1/">
+      
+      
+        <link rel="next" href="../lr_3/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.3">
+    
+    
+      
+        <title>Лабораторная работа №2 - Kirillova Vika - WEB - ICT</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.c4a75a56.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#no2-django" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Kirillova Vika - WEB - ICT" class="md-header__button md-logo" aria-label="Kirillova Vika - WEB - ICT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kirillova Vika - WEB - ICT
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Лабораторная работа №2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Kirillova Vika - WEB - ICT" class="md-nav__button md-logo" aria-label="Kirillova Vika - WEB - ICT" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kirillova Vika - WEB - ICT
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Главная
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lr_1/" class="md-nav__link">
+        Лабораторная работа №1
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Лабораторная работа №2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Лабораторная работа №2
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Цель
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    Используемое ПО
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    Описание задачи:
+  </a>
+  
+    <nav class="md-nav" aria-label="Описание задачи:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    Доска домашних заданий
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    Необходимо реализовать следующий функционал:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    Листинги
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lr_3/" class="md-nav__link">
+        Лабораторная работа №3
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    Цель
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    Используемое ПО
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    Описание задачи:
+  </a>
+  
+    <nav class="md-nav" aria-label="Описание задачи:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    Доска домашних заданий
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    Необходимо реализовать следующий функционал:
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    Листинги
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="no2-django">Лабораторная работа №2 - Реализация простого сайта на django</h1>
+<h2 id="_1">Цель</h2>
+<ul>
+<li>Овладеть практическими навыками и умениями реализации web-сервисов средствами Django.</li>
+</ul>
+<h2 id="_2">Используемое ПО</h2>
+<ul>
+<li>Python 3.10, Django 3.</li>
+</ul>
+<h2 id="_3">Описание задачи:</h2>
+<h3 id="_4">Доска домашних заданий</h3>
+<p>О домашнем задании должна храниться следующая информация: предмет, преподаватель, дата выдачи, период выполнения, текст задания, информация о штрафах. </p>
+<h2 id="_5">Необходимо реализовать следующий функционал:</h2>
+<ul>
+<li>Регистрация новых пользователей. </li>
+<li>Просмотр домашних заданий по всем дисциплинам (сроки выполнения, описание задания).</li>
+<li>Сдача домашних заданий в текстовом виде. </li>
+<li>Администратор (учитель) должен иметь возможность поставить оценку за задание средствами Django-admin.</li>
+<li>В клиентской части должна формироваться таблица, отображающая оценки всех учеников класса.</li>
+</ul>
+<h2 id="_6">Листинги</h2>
+<ul>
+<li><code>models.py</code></li>
+</ul>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import User, AbstractUser
+from django.dispatch import receiver
+
+
+class Homework(models.Model):
+    homework_id = models.IntegerField(blank=False, primary_key=True)
+    name = models.CharField(max_length=100, blank=False)
+    subject = models.CharField(max_length=30, blank=False)
+    teacher = models.CharField(max_length=30, blank=False)
+    begin_date = models.DateField(blank=False)
+    deadline = models.DateField(blank=False)
+    task = models.CharField(max_length=1000)
+    penalty = models.CharField(max_length=100)
+    students = models.ManyToManyField('Student', through='Assignment')
+
+    def __str__(self):
+        return self.name
+
+
+class Assignment(models.Model):
+    assignment_id = models.IntegerField(blank=False, primary_key=True)
+    student = models.ForeignKey('Student', on_delete=models.CASCADE)
+    homework = models.ForeignKey('Homework', on_delete=models.CASCADE)
+    grade = models.CharField(default='-', max_length=5, blank=True)
+    submission = models.CharField(max_length=1000, blank=True)
+
+    def __str__(self):
+        return f'{self.student.first_name} {self.student.last_name}:\
+        {self.homework.name}\
+        | {&quot;graded&quot; if self.grade != &quot;-&quot; else &quot;submitted&quot; if len(self.submission) else &quot;in process&quot;}'
+
+
+class Student(AbstractUser):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+
+@receiver(models.signals.post_save, sender=Homework)
+def execute_after_save(sender, instance, created, *args, **kwargs):
+    if created:
+        students = Student.objects.exclude(username=&quot;teacher&quot;).all()
+        for student in students:
+            duplicates = Assignment.objects.filter(student=student, homework=instance).all()
+            if not len(duplicates):
+                assignment = Assignment(student=student, homework=instance)
+                assignment.save()
+
+</code></pre>
+<ul>
+<li><code>forms.py</code></li>
+</ul>
+<pre><code class="language-python">from django import forms
+from main.models import Assignment
+
+
+class AssignmentForm(forms.ModelForm):
+    submission = forms.CharField(widget=forms.Textarea)
+
+    class Meta:
+        model = Assignment
+        fields = ['submission']
+
+</code></pre>
+<ul>
+<li><code>views.py</code></li>
+</ul>
+<pre><code class="language-python">from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.db import IntegrityError
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from main.models import Student, Homework, Assignment
+from main.forms import AssignmentForm
+
+
+def register(request):
+    if request.method == &quot;POST&quot;:
+        username = request.POST[&quot;username&quot;]
+        password = request.POST[&quot;password&quot;]
+        email = request.POST[&quot;email&quot;]
+        first_name = request.POST.get(&quot;first_name&quot;, 'NaN')
+        last_name = request.POST.get(&quot;last_name&quot;, 'NaN')
+
+        confirmation = request.POST[&quot;confirmation&quot;]
+        if password != confirmation:
+            return render(request, &quot;register.html&quot;, {
+                &quot;message&quot;: &quot;passwords do not match&quot;
+            })
+
+        try:
+            student = Student.objects.create_user(username, email, password)
+            student.first_name = first_name
+            student.last_name = last_name
+            student.save()
+            homeworks = Homework.objects.all()
+            for homework in homeworks:
+                assignment = Assignment(student=student, homework=homework)
+                assignment.save()
+        except IntegrityError:
+            return render(request, &quot;register.html&quot;, {
+                &quot;message&quot;: &quot;username already taken&quot;
+            })
+        login(request, student)
+        return redirect(reverse(&quot;homework_list&quot;))
+    else:
+        return render(request, &quot;register.html&quot;)
+
+
+def log_in(request):
+    if request.method == &quot;POST&quot;:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect(reverse('homework_list'))
+        else:
+            error_text = 'invalid credentials'
+
+    return render(request, 'login.html', locals())
+
+
+@login_required
+def log_out(request):
+    logout(request)
+    return redirect(reverse('login'))
+
+
+@login_required
+def class_grades_list(request):
+    context = {}
+    students = Student.objects.exclude(username=&quot;teacher&quot;).all()
+    context[&quot;students&quot;] = students
+    context[&quot;homeworks&quot;] = Homework.objects.all()
+    context[&quot;grades&quot;] = {}
+    assignments = Assignment.objects.all()
+    for homework in context[&quot;homeworks&quot;]:
+        for assignment in assignments:
+            if assignment.homework == homework and assignment.student.pk != 3:
+                if not assignment.student.pk in context[&quot;grades&quot;]:
+                    context[&quot;grades&quot;][assignment.student.pk] = []
+                context[&quot;grades&quot;][assignment.student.pk].append(
+                    assignment.grade)
+
+    return render(request, 'class_grades.html', context)
+
+
+class HomeworkList(ListView):
+    model = Homework
+    template_name = 'homework_list.html'
+
+
+class HomeworkDetail(DetailView):
+    model = Homework
+    template_name = 'homework_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AssignmentForm()
+        return context
+
+
+@login_required
+def hand_in(request, pk):
+    homework = Homework.objects.get(pk=pk)
+    assignment = Assignment.objects.get(student=request.user,
+                                        homework=homework)
+    form = AssignmentForm(request.POST, instance=assignment)
+    if form.is_valid():
+        form.save()
+
+        return redirect(reverse('homework_list'))
+
+</code></pre>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.efa0ade1.min.js"></script>
+      
+    
+  </body>
+</html>
