@@ -12,7 +12,7 @@ class User(AbstractUser):
     user_image = models.ImageField(default="img/profile.png", upload_to="img")
 
     def __str__(self):
-        return "{}".format(self.id)
+        return "{} {}".format(self.username, self.id)
 
 
 class Category(models.Model):

@@ -8,27 +8,27 @@ from .serializers import *
 
 class UserUpdateAPIView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
 
 
 class UserCreateAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
 
 
 class UserListAPIView(generics.ListAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
 
 
 class UserDestroyAPIView(generics.DestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = MyUserSerializer
 
 
 class CategoryUpdateAPIView(generics.RetrieveUpdateAPIView):
@@ -153,6 +153,8 @@ class UserEventEnrollmentDestroyAPIView(generics.DestroyAPIView):
 
 
 class UserEventEnrollmentRetrieveAPIView(generics.RetrieveAPIView):
-    queryset = UserEventEnrollment.objects.all()
+    queryset =UserEventEnrollment.objects.all()
     serializer_class = UserEventEnrollmentSerializer
+
+
 

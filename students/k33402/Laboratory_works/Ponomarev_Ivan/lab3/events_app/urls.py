@@ -29,4 +29,8 @@ urlpatterns = [
     path('categories/update/<int:pk>', CategoryUpdateAPIView.as_view()),
     path('categories/all', CategoryListAPIView.as_view()),
     path('categories/new', CategoryCreateAPIView.as_view()),
+
+    path('enrollments/<int:pk>', UserEventEnrollmentRetrieveAPIView.as_view()),
+    path('enrollments/all', UserEventEnrollmentListAPIView.as_view()),
+    path('enrollments/new', UserEventEnrollmentCreateAPIView.as_view()),
 ]
