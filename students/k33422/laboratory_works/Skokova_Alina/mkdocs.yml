@@ -9,6 +9,7 @@ nav:
   - report_lab2.md
   - report_pr3.md
   - report_lab3.md
+  - report_lab4.md
 
 markdown_extensions:
   - pymdownx.highlight:
