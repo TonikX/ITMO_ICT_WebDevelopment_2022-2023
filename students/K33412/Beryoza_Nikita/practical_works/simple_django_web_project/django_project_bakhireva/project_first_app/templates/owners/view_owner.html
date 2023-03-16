@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>{{owner.first_name}} {{owner.last_name}}</h1>
+    <ul>
+        <li>Дата рождения {{owner.birthday.date}}</li>
+        <li>Адрес: {{owner.address}}</li>
+        <li>Национальность: {{owner.nationality}}</li>
+        <li>Паспорт: {{owner.passport}}</li>
+    </ul>
+{% endblock %}

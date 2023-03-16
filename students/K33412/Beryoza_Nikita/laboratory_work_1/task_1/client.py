@@ -1,10 +1,9 @@
 import socket
 
-LOCALHOST = "127.0.0.1"
-PORT = 3000
+sock = socket.socket()
+sock.connect((socket.gethostname(), 9090))
+sock.send(b"Hello, server!")
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect((LOCALHOST, PORT))
-client.send(b"Hello, world!")
-client.close()
-
+msg = sock.recv(1024)
+print(msg.decode("utf-8"))
+sock.close()

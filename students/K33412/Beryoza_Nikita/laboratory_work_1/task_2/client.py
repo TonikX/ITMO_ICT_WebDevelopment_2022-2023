@@ -1,27 +1,12 @@
-from socket import *
-import sys
+import socket
 
-LOCALHOST = "127.0.0.1"
-PORT = 3000
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect((socket.gethostname(), 9090))
+s = input("Enter the base:")
+h = input("Enter the height:")
+sock.send(s.encode())
+sock.send(h.encode())
 
-tcp_socket = socket(AF_INET, SOCK_STREAM)
-tcp_socket.connect((LOCALHOST, PORT))
-tcp_socket.send("989796".encode())
-res = tcp_socket.recv(4096)
-res = res.decode('utf-8')
-
-
-data = input(res)
-if not data:
-    tcp_socket.close()
-    sys.exit(1)
-
-while True:
-    data = str.encode(data)
-    tcp_socket.send(data)
-    data = tcp_socket.recv(4096)
-    data = data.decode("utf-8")
-    print(data)
-    tcp_socket.close()
-    break
-
+msg = sock.recv(1024)
+print(msg.decode("utf-8"))
+sock.close()

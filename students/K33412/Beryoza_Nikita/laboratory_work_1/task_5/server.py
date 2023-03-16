@@ -1,90 +1,93 @@
 import socket
 
-LOCALHOST = "127.0.0.1"
-PORT = 3000
-OK_STATUS = "HTTP/1.1 200 OK\n"
-BAD_STATUS = "HTTP/1.1 500 BAD\n"
-CLOSING_SOCKET = "Socket Closed\n"
-database = []
 
+class MyHTTPServer:
 
-def run_server():
-    serv_sock = create_serv_sock()
-    while True:
-        client_sock = accept_client_conn(serv_sock)
-        serve_client(client_sock)
+    def __init__(self, host, port, name):
+        self.host = host
+        self.port = port
+        self.name = name
+        self.marks = [('Example', 'example_number')]
 
+    def serve_forever(self):
 
-def create_serv_sock():
-    serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    serv_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    serv_sock.bind((LOCALHOST, PORT))
-    serv_sock.listen(10)
-    print(f"Сервер запущен на порту > {LOCALHOST}:{PORT}")
-    return serv_sock
+        serve_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        serve_socket.bind((self.host, self.port))
+        serve_socket.listen(10)
+        print('Starting')
+        while True:
+            client_socket, address = serve_socket.accept()
+            self.serve_client(client_socket)
 
+    def serve_client(self, sock):
 
-def accept_client_conn(serv_sock):
-    client_sock, client_addr = serv_sock.accept()
-    print(f'Клиент подключился с порта > {client_addr[0]}:{client_addr[1]}')
-    return client_sock
+        data = sock.recv(4096).decode("utf-8")
+        request = self.parse_request(data)
+        response = self.handle_request(request)
+        sock.send(response.encode())
 
+    def parse_request(self, data):
 
-def serve_client(client):
-    data = client.recv(4096).decode()
-    if data is None:
-        print(f'Клиент неожиданно отключился')
-        return
-    response = handle_request(data)
-    client.send(response.encode())
+        request_line = data.split('\r\n')[0]
+        words = request_line.split()
+        print(data.split('\r\n'))
+        if len(words) == 3:
+            try:
+                par = data.split('\r\n')[-1]
+                param = {}
+                for p in par.split("&"):
+                    param[p[:p.index('=')]] = p[p.index('=') + 1:]
+                req = {"method": words[0], "url": words[1],
+                       "version": words[2], "parametrs": param}
+            except:
+                req = {"method": words[0], "url": words[1],
+                       "version": words[2], "parametrs": {}}
+        else:
+            raise Exception('Invalid request line')
+        print(words, req)
+        return req
 
+    def parse_headers(self, data):
+        lines = data.split('\r\n')[1:]
+        headers = {}
+        for line in lines:
+            parts = line.split(': ')
+            headers[parts[0]] = parts[1]
+        return headers
 
-def parse_request(data):
-    try:
-        req = data[:data.index("\r\n")]
-    except ValueError:
-        req = data
-        return req, "", ""
-    if "\r\n\r\n" in data:
-        headers, body = data[data.index("\r\n") + 1:].split("\r\n\r\n")
-    else:
-        headers, body = data[data.index("\r\n") + 1:], ""
-    return req, headers, body
+    def handle_request(self, request):
+        response = f"{request['version']} 200 OK\n\n"
 
+        if request['method'] == 'GET' and request['url'] == "/":
+            with open('task_5/index.html') as page:
+                response += page.read()
+        elif request['method'] == 'GET' and request['url'] == "/view":
+            body = '<!DOCTYPE html>' \
+                '<html lang="ru">' \
+                '<head>' \
+                '<meta charset="UTF-8">' \
+                '<title>Оценки</title>' \
+                '</head>' \
+                '<body>' \
+                '<table align="center" width="20%" border="1">'
+            for subject, mark in self.marks:
+                body += f"<tr><td>{subject}</td><td>{mark}</td></tr>"
+            body += '</table></body></html>'
+            response += body
+            print(request['method'], response)
+        elif request['method'] == 'POST':
+            self.marks.append(
+                (request['parametrs']['subject'], request['parametrs']['mark']))
 
-def parse_body(body):
-    body_dict = {}
-    for elem in body.split('&'):
-        name = elem[:elem.index('=')]
-        value = elem[elem.index('=') + 1:].replace('+', ' ')
-        body_dict[name] = value
-    return body_dict
-
-
-def handle_request(data):
-    req, headers, body = parse_request(data)
-    headers += "\nAccess-Control-Allow-Origin: *"
-    method, url, ver = req.split()
-    response = f"{ver} 200 OK\r\n"
-    error_response = f"{ver} 400\r\n\r\nBad request"
-    if method == 'GET' and url == '/index':
-        with open('index.html') as f:
-            response += f.read()
-    elif method == 'GET' and url == '/table':
-        with open('table.html') as f:
-            lines = f.readlines()
-        table = [f"<tr><td>{s}</td><td>{g}</td></tr>" for s, g in database]
-        # response += headers + '\r\n'.join(lines[:8]) + '\r\n'.join(table) + '\r\n'.join(lines[8:])
-        response += headers + '\r\n\r\n' + '\r\n'.join(table)
-        print("Response\n", response)
-    elif method == 'POST' and url == '/send':
-        parsed_body = parse_body(body)
-        database.append((parsed_body['subject'], parsed_body['grade']))
         return response
-    else:
-        return error_response
-    return response
 
 
 if __name__ == '__main__':
-    run_server()
+    host = 'localhost'
+    port = 9095
+    name = 'Marks'
+    serv = MyHTTPServer(host, port, name)
+    try:
+        serv.serve_forever()
+    except KeyboardInterrupt:
+        pass

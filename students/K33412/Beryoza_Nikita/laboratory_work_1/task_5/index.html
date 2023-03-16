@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <title>Marks</title>
+     <script>
+         function submitForm() {
+             let http = new XMLHttpRequest();
+             http.open("POST", "http://127.0.0.1:9095/view", true);
+             http.setRequestHeader("Content","text/html");
+             let params = "?mark=" + document.getElementById("mark").value + "&subject=" + document.getElementById("subject").value;
+             http.send(params);
+         }
+
+     </script>
+ </head>
+ <body>
+ <form action="" method="post" align="center" onsubmit="submitForm();">
+     <br>
+     <div>
+         <label for="subject">Subject:</label>
+         <input type="text" id="subject" name="subject"/>
+     </div>
+     <br>
+     <div>
+         <label for="mark">Mark:</label>
+         <input type="number" id="mark" name="mark"/>
+     </div>
+     <br>
+     <div>
+         <input type="submit">
+     </div>
+ </form>
+ </body>
