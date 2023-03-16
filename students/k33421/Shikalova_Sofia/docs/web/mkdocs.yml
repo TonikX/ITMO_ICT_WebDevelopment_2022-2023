@@ -1,0 +1,16 @@
+site_name: WebDevelopment_sofshik
+
+theme:
+    name: mkdocs
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+ 
+nav:
+ - Превью: index.md
+ - Лабраторная работа №2: lr2.md
+ - Лабраторная работа №3: lr3.md

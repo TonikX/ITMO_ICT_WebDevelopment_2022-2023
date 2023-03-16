@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <h1 class="mt-2">Бронирование комнаты</h1>
+          <hr class="mt-0 mb-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-success g-5">Сохранить</button>
+                  </div>
+            </form>
+        </div>
+      </div>
+    </div>
+{% endblock %}

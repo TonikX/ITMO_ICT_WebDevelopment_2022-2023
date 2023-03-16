@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои бронирования{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3 class="mt-5">Введите номер паспорта</h3>
+        <form method="POST" enctype="multipart/form-data" class=mt-4>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="text" name="passport"><br>
+            <input type="submit" value="Продолжить" class="btn btn-dark mt-3 px-3">
+        </form>
+    </div>
+{% endblock %}

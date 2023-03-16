@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="main">
+
+        {% for obj in data %}
+
+        {{ obj }}
+        <br>
+        <ul>
+            <li>B-day: {{ obj.birthday }}</li>
+            <li>Passport: {{ obj.passport }}</li>
+            <li>Nationality: {{ obj.nationality }}</li>
+            <li>Address: {{ obj.address }}</li>
+        </ul>
+        <hr>
+
+        {% endfor %}
+
+    </div>
+</body>
+</html>

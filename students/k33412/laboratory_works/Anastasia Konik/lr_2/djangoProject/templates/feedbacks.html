@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Feedbacks</title>
+</head>
+<body>
+<h1>Feedbacks on {{flight}}</h1>
+<table style="width: 80%">
+    <tr>
+        <th>Flight date</th>
+        <th>Rate</th>
+        <th>Comment</th>
+        <th>Username</th>
+    </tr>
+    {% for feedback in feedbacks %}.
+    <tr>
+        <td>{{feedback.date}}</td>
+        <td>{{feedback.rate}}</td>
+        <td>{{feedback.comment}}</td>
+        <td>{{feedback.user}}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+<a href="http://127.0.0.1:8000/flights">Back to flights</a>
+</body>
+</html>

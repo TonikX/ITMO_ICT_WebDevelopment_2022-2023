@@ -1,0 +1,18 @@
+<p>To delete registration enter:</p><br>
+<p>http:.../reg_race/(your reg number)/delete/</p><br>
+
+<p>To edit registration enter:</p><br>
+<p>http:.../reg_race/(your reg number)/update/</p><br>
+    
+    <ul>
+        {% for object in object_list %}
+        <li>{{ object.num_reg }}</li>
+        <span>{{ object.num_race_reg }}</span> <br>
+        <span>{{ object.num_user_reg }}</span>
+        <hr/>
+        {% empty %}
+        <span>No objects yet.</span>
+        {% endfor %}
+    
+    </ul>
+    <a href="/home/">Back</a> <br>

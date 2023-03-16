@@ -1,0 +1,22 @@
+{% extends 'conferences/main.html' %}
+
+{% block content %}
+
+<div>
+    <div class="header-bar">
+  <h1>Тема: {{theme.name}}</h1>
+</div>
+    {% for conference in conferences %}
+        <div class="conference">
+        <h2 class="header"><a href={% url 'conference' conference.id %}>{{conference.conference.name}}</a></h2>
+        <p class="description">{{conference.conference.description}}</p>
+        <div class="info">
+            <p class="place">Адрес: <i>{{conference.place.name}} | {{conference.place.address}}</i></p>
+            <p class="date">{{conference.start_date}} - {{conference.end_date}}</p>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
+
