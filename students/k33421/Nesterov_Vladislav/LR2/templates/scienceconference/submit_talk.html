@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit a Talk</title>
+    <style>
+        body {
+            background-color: rgba(72, 49, 212, 0.73);
+            text-align: center;
+            color: #CCF381;
+        }
+
+        .info {
+            color: #4831D4;
+            width: 20%;
+            font-size: 20px;
+            text-align: left;
+            border-radius: 25px;
+            background-color: #CCF381;
+            padding: 10px;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+</head>
+    <body>
+        <h1>Submit a Talk</h1>
+        <form method="post" action="{% url 'submit_talk' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit Talk">
+        </form>
+    </body>
+</html>

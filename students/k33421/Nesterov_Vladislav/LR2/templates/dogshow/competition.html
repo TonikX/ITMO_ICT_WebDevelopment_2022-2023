@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Competition Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #4831D4;
+            text-align: center;
+            color: #CCF381;
+        }
+        .info {
+            color: #4831D4;
+            width: 20%;
+            font-size: 20px;
+            text-align: left;
+            border-radius: 25px;
+            background-color: #CCF381;
+            padding: 10px;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+</head>
+<body>
+<h1>Competition details</h1>
+<div class="info">
+    <p>ID: {{ id }}</p>
+    <p>Exercise 1 score: {{ exercise_1_score }}</p>
+    <p>Exercise 2 score: {{ exercise_2_score }}</p>
+    <p>Exercise 3 score: {{ exercise_3_score }}</p>
+    <p>Dog ID: {{ dog_id }}</p>
+    <p>Expert ID: {{ expert_id }}</p>
+    <p>Sponsor ID: {{ sponsor_id }}</p>
+    <p>Ring Number: {{ ring }}</p>
+    <p>Competition type: {{ exhibition_type }}</p>
+    <p>Exhibition: {{ exhibition_name }}</p>
+</div>
+</body>
+</html>
