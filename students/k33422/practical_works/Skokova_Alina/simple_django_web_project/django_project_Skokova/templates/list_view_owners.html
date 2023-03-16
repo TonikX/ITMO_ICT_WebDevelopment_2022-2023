@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Список автовладельцев</title>
+    </head>
+    <body>
+        <div class="main">
+  
+            {% for data in dataset %}
+          
+            {{ data.id_owner }}<br>
+            {{ data.first_name }}<br>
+            {{ data.last_name }}<br>
+            {{ data.birth_date }}<br>
+            {{ data.passport }}<br>
+            {{ data.home_address }}<br>
+            {{ data.nationality }}<br>
+            <hr>
+          
+            {% endfor %}
+          
+        </div>
+    </body>
+</html>
