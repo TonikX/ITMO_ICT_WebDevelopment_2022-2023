@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All homeworks</title>
+</head>
+<body>
+
+<p><a class="btn btn-primary" href="/our_grades" role="button">Grades</a></p>
+<p><a class="btn btn-primary" href="/logout" role="button">Log out</a></p>
+<br>
+<h2>All homework</h2>
+
+	{% for hw in object_list %}
+        <p class="h5"><b> {{ hw }} </b></p>
+        <p><strong>Name:</strong> {{ hw.name }} </p>
+      	<p><strong>Subject:</strong> {{ hw.subject }} </p>
+        <p><strong>Teacher:</strong> {{ hw.teacher }} </p>
+        <p><strong>Post date:</strong> {{ hw.post_date }} </p>
+        <p><strong>Deadline:</strong> {{ hw.deadline }} </p>
+        <p><a class="btn btn-primary" href="/hw/{{ hw.id }}" role="button">More</a></p>
+	{% empty %}
+	<p>No more tasks!</p>
+	{% endfor %}
+</body>
+</html>
