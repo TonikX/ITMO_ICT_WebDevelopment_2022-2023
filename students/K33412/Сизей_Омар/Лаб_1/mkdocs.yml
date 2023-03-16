@@ -1,0 +1,15 @@
+site_name: Сизей Омар K33412
+site_url: https://mylab.com
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+nav:
+ - Лабораторная работа №1: lr1.md
