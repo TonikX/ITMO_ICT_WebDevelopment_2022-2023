@@ -1,0 +1,25 @@
+<div class="modal fade" id="flightModal" tabindex="-1" aria-labelledby="flightModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                         <div class="modal-header">
+                             <h1 class="modal-title fs-5" id="flightModalLabel">Booking</h1>
+                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                <div class="modal-body">
+                    <form action="{% url 'book_url' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <select class="form-select" aria-label="seat" name="seat">
+                            {% for seat in flight.get_seats %}
+                                <option value="{{ seat }}">{{ seat }}</option>
+                            {% endfor %}
+                        </select>
+                    <input type="hidden" name="flight_number" value="{{ flight.flight_number }}">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <input type="submit" name="submit" class="btn btn-secondary" style="margin-top: 10px">
+                    </form>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div></div>

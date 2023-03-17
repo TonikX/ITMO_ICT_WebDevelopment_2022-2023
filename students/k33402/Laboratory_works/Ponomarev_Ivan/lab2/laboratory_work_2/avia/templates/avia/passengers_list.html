@@ -1,0 +1,17 @@
+{%  extends 'avia/base_html.html' %}
+
+{%  block title %}
+    Passengers list
+{%  endblock %}
+
+{% block content %}
+    <h2 style="text-align: center;">Passengers on flight {{ flight_n }}</h2>
+    <ul class="list-group" style="margin-top: 50px">
+        {% for ticket in tickets %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ ticket.passenger.second_name }} {{ ticket.passenger.first_name }}
+                <span class="badge bg-dark rounded-pill">Seat: {{ ticket.seat }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

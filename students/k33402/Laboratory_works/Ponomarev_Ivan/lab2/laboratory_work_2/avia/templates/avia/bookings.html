@@ -1,0 +1,29 @@
+{% extends 'avia/base_html.html' %}
+
+{% block title %}
+    My bookings
+{% endblock %}
+
+{% block content %}
+    {% for ticket in tickets %}
+        <div class="card text-bg-white border-light mb-3">
+            <h5 class="card-header">
+                <p class="fs-7 text fw-bold justify-content-end">
+                    {{ ticket.flight_number }}
+                </p>
+                {{ ticket.flight_number.out_place }} ---> {{ ticket.flight_number.arrival_place }}
+            </h5>
+            <div class="card-body">
+                <p class="card-text">
+                    <br>Seat: {{ ticket.seat }}
+                </p>
+                <a href="{{ ticket.get_absolute_url }}" class="btn btn-dark">К резервации</a>
+                {% if ticket.flight_number.is_done %}
+                <a href="{{ ticket.get_absolute_url }}/review" class="btn btn-dark">Оставить отзыв</a>
+                {% endif %}
+                <a href="{{ ticket.get_absolute_url }}/delete" class="btn btn-dark">Удалить</a>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}
