@@ -123,11 +123,14 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 CORS_ALLOWED_ORIGINS = [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:5555",
-    "http://127.0.0.1:5555"
+    "http://127.0.0.1:5555",
+    "http://localhost:8080"
 ]
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -152,7 +155,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DJOSER = {
-    'SEND_ACTIVATION_EMAIL': False
+    'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+         'user_create': 'events_app.serializers.UserRegistrationSerializer'
+    }
 }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

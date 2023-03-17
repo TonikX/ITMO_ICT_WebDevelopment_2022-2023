@@ -8,11 +8,11 @@ from django.db import models
 
 class User(AbstractUser):
     last_name = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=12)
+    phone = models.BigIntegerField(default=79999999999, editable=True)
     user_image = models.ImageField(default="img/profile.png", upload_to="img")
 
     def __str__(self):
-        return "{} {}".format(self.username, self.id)
+        return "{} {}".format(self.username, self.id, self.phone)
 
 
 class Category(models.Model):
@@ -40,14 +40,15 @@ class Location(models.Model):
 
 
 class Event(models.Model):
-    organizer = models.CharField(max_length=20)
+    organizer = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     place = models.ForeignKey(Location, on_delete=models.CASCADE)
     about = models.CharField(max_length=2000)
-    intro = models.CharField(max_length=50)
+    intro = models.CharField(max_length=500)
     date = models.DateField(default=datetime.date.today())
     time = models.TimeField(default=datetime.time.max)
-    name = models.CharField(max_length=100, default='none')
+    name = models.CharField(max_length=500, default='none')
+    participants = models.ManyToManyField(User, through="UserEventEnrollment")
 
     def __str__(self):
         return "{}".format(self.name)

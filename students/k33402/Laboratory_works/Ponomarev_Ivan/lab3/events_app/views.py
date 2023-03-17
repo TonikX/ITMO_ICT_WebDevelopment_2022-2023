@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.response import Response
+
 from .models import *
 from .serializers import *
 
@@ -127,22 +129,42 @@ class UserEventEnrollmentUpdateAPIView(generics.RetrieveUpdateAPIView):
 
 class UserEventEnrollmentCreateAPIView(generics.CreateAPIView):
     queryset = UserEventEnrollment.objects.all()
-    serializer_class = UserEventEnrollmentSerializer
+    serializer_class = UserEventEnrollmentCreateSerializer
+    def create(self, request, *args, **kwargs):
+
+        enrollment_data = self.request.data
+
+        enrollment = UserEventEnrollment.objects.filter(user_id=enrollment_data['user'],
+                                        event_id=enrollment_data['event'])
+
+        if enrollment:
+            return Response({'err':'enrollment already exist'})
+
+        else:
+            user = User.objects.get(id=enrollment_data['user'])
+            event = Event.objects.get(id=enrollment_data['event'])
+
+            new_enrollment = UserEventEnrollment.objects.create(user=user,
+                                                                event=event)
+            new_enrollment.save()
+            serializer = UserEventEnrollmentSerializer(new_enrollment)
+
+            return Response(serializer.data, status=201)
 
 
 class UserEventEnrollmentListAPIView(generics.ListAPIView):
-    queryset = UserEventEnrollment.objects.all()
     serializer_class = UserEventEnrollmentSerializer
+
 
     def get_queryset(self):
         queryset = UserEventEnrollment.objects.all()
 
         parameters = self.request.query_params
 
-        user = parameters.get('user_id')
+        user_id = parameters.get('user_id')
 
-        if user:
-            queryset = queryset.filter(user_id=user)
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
 
         return queryset
 
