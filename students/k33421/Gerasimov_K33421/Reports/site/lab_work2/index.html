@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Лабораторная работа №2 - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Web-программирование 2022-2023</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../lab_work1/" class="nav-link">Лабораторная работа №1</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Лабораторная работа №2</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../pr_w_3/" class="nav-link">Практическая работа 3.1</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../lab_work1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../pr_w_3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#no2" class="nav-link">Лабораторная работа №2</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">Задание</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="no2">Лабораторная работа №2</h1>
+<h2 id="_1">Задание</h2>
+<p>Хранится информация о номере рейса, авиакомпании, отлете, прилете, типе
+(прилет, отлет), номере гейта.
+Необходимо реализовать следующий функционал:</p>
+<ul>
+<li>
+<p>Регистрация новых пользователей.</p>
+</li>
+<li>
+<p>Просмотр и резервирование мест на рейсах. Пользователь должен иметь
+возможность редактирования и удаления своих резервирований.</p>
+</li>
+<li>Администратор должен иметь возможность зарегистрировать на рейс
+пассажира и вписать в систему номер его билета средствами Django-admin.</li>
+<li>В клиентской части должна формироваться таблица, отображающая всех
+пассажиров рейса.</li>
+<li>
+<p>Написание отзывов к рейсам. При добавлении комментариев, должны
+сохраняться дата рейса, текст комментария, рейтинг (1-10), информация о
+комментаторе.</p>
+</li>
+<li>
+<p><code>Файл urls.py</code></p>
+</li>
+</ul>
+<pre><code class="language-python">from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('register', views.register, name='register'),
+    path('login', views.login, name='login'),
+    path('logout', views.logout, name='logout'),
+    path('rooms', views.rooms, name='rooms'),
+    path('room/&lt;str:pk&gt;', views.room, name='room'),
+    path('reservation/&lt;str:pk&gt;', views.reservation, name='reservation'),
+    path('profile', views.profile, name='book_list'),
+    path('delete_res/&lt;str:pk&gt;', views.delete_reservation, name='delete_reservation'),
+    path('edit_res/&lt;str:pk&gt;', views.edit_reservation, name='edit_reservation'),
+    path('comment/&lt;str:pk&gt;', views.add_comment, name='add_comment'),
+    path('lastmonth', views.show_last_month, name='last_month'),
+    path('search_rooms', views.search_rooms, name='search_rooms')
+]
+
+</code></pre>
+<ul>
+<li><code>Файл views.py</code></li>
+</ul>
+<pre><code class="language-python">rom django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
+from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from .models import *
+from .forms import *
+from datetime import datetime, timedelta
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage
+
+
+def index(request):
+    return render(request, 'index.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+
+        if password == password2:
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Email already used!')
+                return redirect('register')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, 'Username already used!')
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                return redirect('login')
+        else:
+            messages.info(request, 'Passwords dont match')
+            return redirect('register')
+
+    else:
+        return render(request, 'register.html')
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'User doesnt exists')
+            return redirect('login')
+    else:
+        return render(request, 'login.html')
+
+
+@login_required
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+
+def rooms(request):
+    free_rooms = Room.objects.filter(is_reserved=False)
+    p = Paginator(free_rooms, 1)
+    page_num = request.GET.get('page', 1)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+    return render(request, 'rooms.html', {'rooms': page})
+
+
+def search_rooms(request):
+    searched = request.POST['search_value']
+    obj = Room.objects.filter(number=searched, is_reserved=False)
+    return render(request, 'search_rooms.html', {'room': obj})
+
+
+def room(request, pk):
+    room = Room.objects.get(id=pk)
+    comments = Comment.objects.filter(room=room)
+    return render(request, 'room.html', {'room': room, 'comments': comments})
+
+
+@login_required
+def reservation(request, pk):
+    obj = get_object_or_404(Room, id=pk)
+    user = request.user
+    if request.method == &quot;POST&quot;:
+        form = ReservationForm(request.POST)
+        if form['arrival_date'].value() != form['departure_date'].value():
+            if form.is_valid():
+                res = form.save(commit=False)
+                res.user = user
+                obj.is_reserved = True
+                res.room = obj
+                obj.save()
+                res.save()
+                return redirect('/')
+        else:
+            messages.info(request, 'Arrival and departure date are equal')
+    else:
+        form = ReservationForm()
+    return render(request, 'reservation.html', {'form': form, 'room': obj})
+
+
+@login_required
+def profile(request):
+    user = request.user
+    reservations = Reservation.objects.all().order_by('-reserve_time')
+    return render(request, 'profile.html', {'reservations': reservations, 'user': user})
+
+
+@login_required
+def delete_reservation(request, pk):
+    obj = get_object_or_404(Reservation, id=pk)
+    room = obj.room
+    room.is_reserved = False
+    room.save()
+    obj.delete()
+    return redirect('/profile')
+
+
+@login_required
+def edit_reservation(request, pk):
+    obj = get_object_or_404(Reservation, id=pk)
+    room = obj.room
+    form = ReservationForm(request.POST or None, instance=obj)
+    if form['arrival_date'].value() != form['departure_date'].value():
+        if form.is_valid():
+            res = form.save(commit=False)
+            res.reserve_time = datetime.now()
+            res.save()
+            return redirect('/profile')
+    else:
+        messages.info(request, 'Arrival and departure date are equal')
+
+    return render(request, 'reservation.html', {'form': form, 'room': room})
+
+
+@login_required
+def add_comment(request, pk):
+    obj = get_object_or_404(Room, id=pk)
+    user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form['text'].value():
+            if form['rate'].value():
+                if form.is_valid():
+                    com = form.save(commit=False)
+                    com.user = user
+                    com.room = obj
+                    com.save()
+                    return redirect('/rooms')
+            else:
+                messages.info(request, 'You must rate the room!')
+        else:
+            messages.info(request, 'You should type something!')
+    else:
+        form = CommentForm()
+    return render(request, 'comment.html', {'form': form})
+
+
+@login_required
+def show_last_month(request):
+    obj = Reservation.objects.filter(departure_date__gt=datetime.now() - timedelta(days=30))
+    print(datetime.now() - timedelta(30))
+    return render(request, 'lastmonth.html', {'objects': obj})
+</code></pre>
+<ul>
+<li><code>Файл models.py</code></li>
+</ul>
+<pre><code class="language-python">from django.db import models
+from django.contrib.auth.models import User
+from datetime import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
+
+
+class Room(models.Model):
+    number = models.IntegerField()
+    type = models.CharField(max_length=100)
+    max_occupancy = models.IntegerField()
+    is_reserved = models.FloatField(default=False)
+
+
+class Reservation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    reserve_time = models.DateTimeField(default=datetime.now, blank=True)
+    arrival_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
+    departure_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    create_time = models.DateTimeField(default=datetime.now, blank=True)
+    text = models.CharField(max_length=100000, blank=True)
+    rate = models.IntegerField(default=1,
+                               validators=[
+                                   MaxValueValidator(10),
+                                   MinValueValidator(1)
+                               ])
+
+</code></pre>
+<ul>
+<li><code>Файл views.py</code></li>
+</ul>
+<pre><code class="language-python">from django import forms
+from .models import *
+
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ['arrival_date', 'departure_date']
+        exclude = ['user', 'room', 'reserve_time', 'comment']
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 30, 'cols': 100, 'placeholder': 'Type your comment...'}),
+        }
+        fields = ['text', 'rate']
+        exclude = ['user', 'create_time']
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

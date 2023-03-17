@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Оценки</title>
+	<link href="/assets/style.css" rel="stylesheet"/>
+</head>
+<body>
+<form action="/post" method="post">
+	<div>
+		<label>
+			Предмет
+			<select name="subject" required>
+				<option value=-1>Выберите предмет</option>
+				{subject_options}
+			</select>
+		</label>
+	</div>
+
+	<div>
+		<label>
+			Оценка
+			<select name="grade" required>
+				{subject_grades}
+			</select>
+		</label>
+	</div>
+
+	<div>
+		<input type="submit" value="Отправить"/>
+	</div>
+</form>
+
+<table>
+	{grades_table}
+</table>
+
+</body>
+</html>

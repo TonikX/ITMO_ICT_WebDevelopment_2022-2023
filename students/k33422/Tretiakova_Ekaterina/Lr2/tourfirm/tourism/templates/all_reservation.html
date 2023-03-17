@@ -1,0 +1,17 @@
+<body bgcolor="#f5f5dc">
+<ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+    <strong>{{ object.tour_id }}</strong><br>
+    <a href="/reservation/{{ object.id}}/edit/">Edit a reservation</a> <br>
+    <a href="/reservation/{{ object.id }}/delete/">Delete a reservation</a> <br>
+
+    <hr/>
+    <!-- If objet_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+    <a href="/home/registered">Back</a> <br>
+</ul>
+</body>

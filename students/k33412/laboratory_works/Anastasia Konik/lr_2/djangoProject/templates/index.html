@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+    <h1>Main page</h1>
+    <p>User: {{ user.first_name }} {{ user.lastname }}</p>
+    <a href="http://127.0.0.1:8000/logout">Log out</a>
+    <br> <br>
+    Menu:
+    <ul>
+        {% if user.get_username != 'admin' %}
+       <li>
+           <a href="http://127.0.0.1:8000/tickets">My reservations</a>
+       </li>
+        {% endif %}
+        <li>
+            <a href="http://127.0.0.1:8000/flights">Flights</a>
+        </li>
+    </ul>
+</body>
+</html>

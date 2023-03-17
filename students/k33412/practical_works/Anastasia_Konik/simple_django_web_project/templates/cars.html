@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All cars</title>
+</head>
+<body>
+        <div class="main">
+            {% for car in object_list %}
+                Id_car: {{ car.id }} <br/>
+                State_number: {{ car.state_number }} <br/>
+                Make: {{ car.make_car}} <br/>
+                Model: {{ car.model_car }} <br/>
+                Colour: {{ car.colour }} <br/>
+                <hr/>
+            {% endfor %}
+        </div>
+        <a href="http://127.0.0.1:8000/admin/">Get back</a>
+</body>
+</html>

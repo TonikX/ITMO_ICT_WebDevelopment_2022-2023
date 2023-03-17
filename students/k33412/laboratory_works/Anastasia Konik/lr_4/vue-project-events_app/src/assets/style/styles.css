@@ -1,0 +1,95 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    padding-bottom: 60px;
+    position: relative;
+}
+
+header {
+    order: 1;
+    border-bottom: solid 1px lightgray;
+}
+
+
+.nav-link {
+    color: var(--link-color);
+}
+
+main {
+    order: 2;
+    flex-grow: 1;
+}
+
+footer {
+    order: 3;
+    width: 100%;
+    border-top: solid 1px lightgray;
+    bottom: 0;
+    height :60px;
+    position: absolute;
+}
+
+
+footer p {
+    margin: 0;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.card {
+    background-color: var(--card-color);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 40%;
+    object-fit: cover;
+}
+
+.purple_button {
+    background-color: var(--btn-color);
+    color: var(--btn-text-color)
+}
+
+.placeholder_text {
+    color: var(--placeholder-color);
+}
+
+.filter {
+    background-color: var(--filter-bg-color);
+    color: var(--filter-text-color);
+}
+
+.info {
+    background-color: var(--info-bg-color);
+    color: var(--info-text-color);
+}
+
+.icon {
+    stroke: currentColor;
+    width: 16px;
+    height: 16px;
+}
+
+.rainbow_button {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+    height: 40px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
