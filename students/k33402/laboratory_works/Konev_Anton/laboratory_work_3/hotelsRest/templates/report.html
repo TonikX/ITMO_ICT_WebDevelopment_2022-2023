@@ -1,0 +1,9 @@
+{% for room in rooms %}
+    <p>Room number: {{ room.name }}. Booking count: {{ room.count }}. Profit: {{ room.profit }}</p>
+{% endfor %}
+
+{% for floor in floors %}
+    <p>Floor: {{ floor.floor }}. Rooms count: {{ floor.count }}</p>
+{% endfor %}
+
+<p>Quarter profit: {{ profit }}</p>
