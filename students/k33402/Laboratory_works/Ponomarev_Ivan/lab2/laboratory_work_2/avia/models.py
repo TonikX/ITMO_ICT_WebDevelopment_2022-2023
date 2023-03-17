@@ -14,7 +14,7 @@ class User(AbstractUser):
     passport = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.username
+        return self.first_name+" "+self.last_name
 
 
 class Plane(models.Model):
@@ -67,7 +67,7 @@ class Flight(models.Model):
         return self.arrival_date.date() <= datetime.date.today()
 
     def __str__(self):
-        return self.flight_number
+        return "{} {} {}".format(self.flight_number, self.out_place, self.arrival_place)
 
 
 class Ticket(models.Model):
