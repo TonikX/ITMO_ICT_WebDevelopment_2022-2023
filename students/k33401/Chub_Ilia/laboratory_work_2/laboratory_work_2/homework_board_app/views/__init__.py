@@ -1,0 +1,6 @@
+from .registration_view import RegistrationView
+from .all_homework_tasks_view import AllHomeworkTasksView
+from .login_view import LoginBaseView
+from .logout_view import LogoutBaseView
+from .submit_homework_task_view import SubmitHomeworkTaskView
+from .educational_journal_view import EducationalJournalModel

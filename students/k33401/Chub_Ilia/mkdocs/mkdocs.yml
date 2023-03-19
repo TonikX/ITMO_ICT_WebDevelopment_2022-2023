@@ -1,0 +1,31 @@
+site_name: Chub Ilia, K33401
+
+theme:
+    name: material
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  
+nav:
+ - Laboratory work №2:
+    - Task: laboratory-work-2-task.md
+    - Models: laboratory-work-2-models.md
+    - Views: laboratory-work-2-views.md
+    - Forms: laboratory-work-2-forms.md
+    - URLs: laboratory-work-2-url.md
+ - Laboratory work №3:
+    - Task: laboratory-work-3-task.md
+    - Models: laboratory-work-3-models.md
+    - Views: laboratory-work-3-views.md
+    - Serializers: laboratory-work-3-serializers.md
+    - URLs: laboratory-work-3-url.md
+    - API: laboratory-work-3-api.md
+ - Laboratory work №4:
+    - Task: laboratory-work-4-task.md
+    - Views: laboratory-work-4-views.md
+    - Components: laboratory-work-4-components.md
+    - Router: laboratory-work-4-router.md
