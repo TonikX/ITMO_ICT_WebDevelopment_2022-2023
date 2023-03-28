@@ -1,0 +1,20 @@
+{% extends 'hotels/main.html' %} {% block content %}
+
+<div class="room">
+  <div class="header-bar">
+    <h1 class="header">{{room.type.name}}</h1>
+  </div>
+  <h3 class="header">Резервирование комнаты</h3>
+
+  {% if request.user.is_authenticated %}
+  <form class="comment-form" method="post">
+    {% csrf_token %}
+    <p class="rating">Дата заезда: {{ form.date_check_in }}</p>
+    <p class="rating">Дата выезда: {{ form.date_check_out }}</p>
+    {{form.guest}} {{form.room}}
+    <input class="button" type="submit" value="Зарезервировать" />
+  </form>
+  {% endif %}
+</div>
+
+{% endblock content %}
