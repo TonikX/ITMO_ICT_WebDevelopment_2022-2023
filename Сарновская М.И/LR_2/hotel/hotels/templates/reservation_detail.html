@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <title>Ваше резервирование</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-light">
+        <a class="navbar-brand" href="main.html">Отели! Отели! Отели!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/hotel/">Отели</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reservation/">Резервирование</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/guests/">Таблица постояльцев</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/logout/">Выйти</a>
+            </li>
+        </ul>
+        </div>
+    </nav>
+</header>
+  <h1>Ваше резервирование</h1>
+    <p><strong>Гость:</strong> {{ reservation.guest }} </p>
+    <p><strong>Отель:</strong> {{ reservation.hotel  }}</p>
+    <p><strong>Команата:</strong> {{ reservation.room_type }}</p>
+    <p><strong>Количество гостей:</strong> {{ reservation.num_of_guests }}</p>
+    <p><strong>Дата заезда:</strong> {{ reservation.check_in_date }}</p>
+    <p><strong>Дата выезда:</strong> {{ reservation.check_out_date }}</p>
+    <p><strong>Статус заявки:</strong> {{ reservation.approval }}</p>
+  <a href="/reservation/{{ reservation.id }}/update">Изменить</a>
+  <a href="/reservation/{{ reservation.id }}/delete">Удалить</a>
+</body>
+</html>
