@@ -1,0 +1,43 @@
+{% extends 'hotels/main.html' %}
+
+{% block content %}
+
+<div class="room">
+    <div class="header-bar">
+      <h2 class="author">{{room.type.name|title}}</h2>
+      <h3 class="rating">{{room.type.price}} руб.</h3>
+      <h4 class="availability">{{room.availability}}</h4>
+      <h4><a href={% url "room_reservation" room.hotel.id room.id%}>Зарезервировать</a></h4>
+    </div>
+    <div class="header-bar">
+      <p class="text">Кол-во человек: {{room.type.capacity}}</p>
+      <p class="text">Удобства: {{room.type.amenities}}</p>
+    </div>
+    <h4>Комментарии: </h4>
+    {% if request.user.is_authenticated %}
+        <form class='comment-form' method="post">
+            {% csrf_token %}
+            <p class="rating">Рейтинг: {{ comment_form.rating }}</p>
+            <p class="text">Текст: <br /> {{comment_form.text}}</p>
+            {{comment_form.reservation}}
+            <input class="button" type="submit" value="Добавить">
+        </form>
+    {% endif %}
+
+    {% for comment in comments %}
+        <div class="comment">
+        <div class="header-bar">
+            <h4 class="author">{{comment.reservation.guest|title}}</h4>
+            <h3 class="rating">{{comment.rating|title}}</h3>
+            <p>даты пребывания: {{comment.reservation.date_check_in}} - {{comment.reservation.date_check_out}}</p>
+        </div>
+        <p class="text">{{comment.text}}</p>
+        </div>
+    {% endfor %}
+    
+</div>
+
+
+
+{% endblock content %}
+

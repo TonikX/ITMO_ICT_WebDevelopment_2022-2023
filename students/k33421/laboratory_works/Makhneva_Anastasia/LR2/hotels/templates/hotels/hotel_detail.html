@@ -1,0 +1,41 @@
+{% extends 'hotels/main.html' %} {% block content %} 
+
+<div class="hotel">
+  <div class="header-bar">
+    <h1 class="header">{{hotel.name}}</h1>
+    {% comment %} {% if request.user.is_authenticated %}
+      <a class="inroll" href={% url 'conference_register' conference.id%}>Записаться выступающим</a>
+    {% endif %} {% endcomment %}
+  </div>
+  <h3>Описание</h3>
+  <p class="description">{{hotel.description}}</p>
+  
+  <h3>Информация об отеле</h3>
+  <div class="info">
+    <p class="place">Адрес: <i>{{hotel.address}}</i></p>
+    <p class="owner">Владелец: {{hotel.owner}}</p>
+  </div>
+</div>
+
+<div class="room-section">
+  <div class="header-bar">
+    <h3 class="header">Комнаты</h3>
+  </div>
+  {% for room in rooms %}
+    <div class="room">
+      <div class="header-bar">
+        <h2 class="author"><a href={% url 'room' hotel.id room.id%}>{{room.type.name|title}}</a></h2>
+        <h3 class="rating">{{room.type.price}} руб.</h3>
+        <h4 class="availability">{{room.availability}}</h4>
+      </div>
+      <div class="header-bar">
+        <p class="text">Кол-во человек: {{room.type.capacity}}</p>
+        <p class="text">Удобства: {{room.type.amenities}}</p>
+      </div>
+      
+    </div>
+  {% endfor %}
+
+</div>
+
+{% endblock content %}

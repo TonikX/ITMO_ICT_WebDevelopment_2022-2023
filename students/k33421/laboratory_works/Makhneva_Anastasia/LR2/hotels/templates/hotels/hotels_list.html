@@ -1,0 +1,18 @@
+{% extends 'hotels/main.html' %} {% block content %}
+
+<div class="header-bar">
+  <h1>отели</h1>
+</div>
+
+{% for hotel in hotels %}
+
+<div class="hotel">
+  <h2 class="header"><a href={% url 'hotel' hotel.id %}>{{hotel.name}}</a></h2>
+  <p class="description">{{hotel.description}}</p>
+  <div class="info">
+    <p class="place">Адрес: <i>{{hotel.address}}</i></p>
+    <p class="owner">Владелец: {{hotel.owner}}</p>
+  </div>
+</div>
+
+{% endfor %} {% endblock content %}

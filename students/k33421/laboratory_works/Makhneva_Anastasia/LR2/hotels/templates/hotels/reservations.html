@@ -1,0 +1,19 @@
+{% extends 'hotels/main.html' %} {% block content %}
+
+<div class="header-bar">
+  <h1>Мои резервирования</h1>
+</div>
+
+{% for reservation in reservations %}
+
+{% if reservation.guest.id == request.user.id %}
+
+<div class="reservation">
+  <h2 class="header">Отель: {{reservation.room.hotel.name}}</h2>
+  <h3 class="header">Комната: {{reservation.room.type.name}}</h3>
+  <h4 class="header">Период: {{reservation.date_check_in}} - {{reservation.date_check_out}}</h4>
+  <h4 class="header">Статус: {{reservation.status}}</h4>
+  <a class='delete' href={% url 'reservation_delete' reservation.id %}>Удалить</a>
+</div>
+{% endif %}
+{% endfor %} {% endblock content %}
