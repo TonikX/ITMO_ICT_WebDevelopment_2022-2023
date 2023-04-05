@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Base one</title>
+</head>
+<body>
+<ul class="sidebar-nav">
+
+   {% if user.is_authenticated %}
+     <li>User: {{ user.get_username }}</li>
+     <li><a href="{% url 'logout'%}">Logout</a></li>
+   {% else %}
+     <li><a href="{% url 'login'%}">Login</a></li>
+   {% endif %}
+</ul>
+
+{% block content %}
+
+{% endblock content %}
+
+</body>
+</html>

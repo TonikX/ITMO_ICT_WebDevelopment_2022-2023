@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+  <h1>Главная страница</h1>
+  {% block content %}
+  <li><a href="/account/login/">Log in</a></li>
+  <li><a href="/signup/">Register</a></li>
+  {% endblock content %}
+</body>
+</html>
