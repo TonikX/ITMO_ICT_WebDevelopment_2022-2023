@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Owners List</title>
+</head>
+<body>
+<h1>Car Owners List</h1>
+<table border="2" cellspacing="0" bordercolor="black">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Username</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Дата рождения</th>
+            <th>Номер паспорта</th>
+            <th>Домашний адрес</th>
+            <th>Национальность</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for owner in owners %}.
+        <tr>
+            <td><a href="/owner/{{owner.id_owner}}">{{owner.id_owner}}</a></td>
+            <td>{{owner.username}}</td>
+            <td>{{owner.first_name}}</td>
+            <td>{{owner.last_name}}</td>
+            <td>{{owner.date_of_birth}}</td>
+            <td>{{owner.passport_number}}</td>
+            <td>{{owner.address}}</td>
+            <td>{{owner.nationality}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/">Назад</a>
+</body>
+</html>

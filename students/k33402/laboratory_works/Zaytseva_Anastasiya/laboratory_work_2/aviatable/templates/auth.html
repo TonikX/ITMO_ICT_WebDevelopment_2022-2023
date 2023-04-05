@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход - Авиатабло</title>
+</head>
+<body>
+    <h1>Вход в Авиатабло</h1>
+    <form method="POST" action="/auth" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="username">
+            Username:
+            <input type="text" name="username" id="username">
+        </label>
+        <label for="password">
+            Password:
+            <input type="password" name="password" id="password">
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+    {% if error %}
+    <strong style="color:red">{{ error }}</strong>
+    {% endif  %}
+    <br>
+    <a href="/signup">Регистрация</a>
+</body>
+</html>
