@@ -1,23 +1,39 @@
 import socket
-from threading import Thread
+import threading
 
-client = socket.socket(
-    socket.AF_INET,
-    socket.SOCK_STREAM
-)
-client.connect(('127.0.0.1', 9090))
 
-def listen():
-    while True:
-        data = client.recv(2048)
-        print(data.decode('utf-8'))
+class MyClient:
+    def __init__(self, ip, port):
+        self.alias = ""
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((ip, port))
 
-def send():
-    lis_thread = Thread(target=listen) #слушаем в потоке
-    lis_thread.start()
-    while True:
-        client.send((nick + ': ' + input()).encode('utf-8'))
+    def receive(self):
+        while True:
+            try:
+                message = self.sock.recv(1024).decode()
+                if message == "What is your alias?":
+                    self.sock.send(self.alias.encode())
+                else:
+                    print(message)
+            except:
+                print("Error!")
+                self.sock.close()
+                break
 
-if __name__== '__main__':
-    nick = input('Введите ник: ')
-    send()
+    def send(self):
+        while True:
+            message = input()
+            self.sock.send(message.encode())
+
+    def start(self):
+        self.alias = input("Enter your alias: ")
+        receive_thread = threading.Thread(target=self.receive)
+        receive_thread.start()
+
+        send_thread = threading.Thread(target=self.send)
+        send_thread.start()
+
+
+if __name__ == "__main__":
+    MyClient("127.0.0.1", 9091).start()

@@ -1,44 +1,43 @@
-import socket
-from threading import Thread
-
-server = socket.socket(
-    socket.AF_INET,
-    socket.SOCK_STREAM
-)
-server.bind(('127.0.0.1', 9090))
-server.listen(10)
-
-users = []
-
-# отправляем новое сообщение всем юзерам
-def send_all(mes):
-    for user in users:
-        user.send(mes)
-
-# случшаем юзеров
-def user_listen(user):
-    print(users)
-    print('user listen')
-    while True:
-        data = user.recv(2048)  # не раскодируем байты, так как их будем дальше отправлять
-        if not data:
-            # Клиент отключился
-            break
-        send_all(data)
+import socket, threading
 
 
-# запуск сервера и добавление юзеров
-def start_server():
-    while True:
-        user_sock, addr = server.accept()  # блокирующий поток
-        print(f'User<{addr[0]}> con')
+class MyChat:
+    def __init__(self, ip, host):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.bind((ip, host))
+        self.sock.listen()
+        self.clients = {}  # {client:alias}
 
-        users.append(user_sock)
-        user_thread = Thread(target=user_listen,
-                             args=[user_sock])  # запятая - показывает питону, что список неизменяемый
-        user_thread.start()  # запуск потока
+    def broadcast(self, message, alias):
+        for client in self.clients.keys():
+            client.send(f"{alias}: {message}".encode())
+
+    def handle_client(self, client):
+        while True:
+            try:
+                message = client.recv(1024).decode()
+                self.broadcast(message, self.clients[client])
+            except:
+                client.close()
+                self.broadcast(f'{self.clients[client]} has left the chat...'.encode('utf-8'))
+                self.clients.pop(client)
+                break
+
+    def receive(self):
+        print("Server has started")
+        while True:
+            client, address = self.sock.accept()
+            print(f"{str(address)} connected!")
+            client.send(b"What is your alias?")
+            alias = client.recv(1024).decode()
+            self.clients[client] = alias
+            self.broadcast(f"{alias} has connected to the chat", "Server")
+            thread = threading.Thread(target=self.handle_client, args=(client,))
+            thread.start()
+
+    def run(self):
+        self.receive()
 
 
-
-if __name__ == '__main__':
-    start_server()
+if __name__ == "__main__":
+    MyChat("127.0.0.1", 9091).run()

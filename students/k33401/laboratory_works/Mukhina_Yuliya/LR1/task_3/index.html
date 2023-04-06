@@ -2,38 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cool page</title>
 </head>
 <body>
-<p>Hello world</p>
-<form name="mark_input" id="form" method="post" accept-charset="UTF-8">
-    <div>
-        <input id="Discipline" name="Discipline" required type="text" placeholder="Discipline">
-    </div>
-    <p></p>
-    <div>
-        <input id="Mark" name="Mark" required type="number" placeholder="Mark" value="value" >
-    </div>
-    <p></p>
-    <div id="cont-button"></div>
-</form>
-<div id="in_serv">
-</div>
-<script>
-   function sub(e) {
-        let Discipline = document.getElementById('Discipline');
-        let Mark = document.getElementById('Mark');
-        fetch('/?Discipline=' + Discipline.value+ '&Mark=' + Mark.value, {
-            method: 'POST'
-        })
-    }
-
-    let button = document.createElement('button');
-    button.onclick=(sub)
-    button.innerHTML='Submit'
-
-    let cont = document.getElementById('cont-button');
-    document.getElementById('cont-button').append(button);
-</script>
+  <h1>Hello world!</h1>
+  <article>
+    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+  </article>
 </body>
 </html>
