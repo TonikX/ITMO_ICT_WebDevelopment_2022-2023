@@ -12,7 +12,7 @@ class CountryViewSet(ReadOnlyModelViewSet):
 
 
 class CityViewSet(ReadOnlyModelViewSet):
-    """Предаставление для городов (только чтение)"""
+    """Представление для городов (только чтение)"""
     queryset = City.objects.all()
     permission_classes = [AllowAny]
     serializer_class = CitySerializer

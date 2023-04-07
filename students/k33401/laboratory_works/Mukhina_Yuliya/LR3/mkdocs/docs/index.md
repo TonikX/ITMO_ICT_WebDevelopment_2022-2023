@@ -1,19 +1,7 @@
+# Мухина_Lr3
 # REST API погоды
 
-### Установка
 
-Создание виртуалльного окружения и все настройки:
-```commandline
-python -m venv venv
-venv\Scripts\activate
-python manage.py migrate
-python manage.py createsuperuser
-```
-
-Загрузка городов в базу данных
-```commandline
-python manage.py loaddata data.json
-```
 
 ### Документация API
 `/api/cities` (GET) - список городов
@@ -29,7 +17,6 @@ python manage.py loaddata data.json
   "country": "ru"
 }
 ```
-
 `/api/countries` (GET) - список стран + городов в них
 
 Пример конкретной страны:
@@ -98,3 +85,7 @@ python manage.py loaddata data.json
   }
 ]
 ```
+
+## Videos
+
+[Videos](https://drive.google.com/drive/folders/1jAS5c_T15Ac0HnWsUDuKHo8e8bArSbRT?usp=sharing)

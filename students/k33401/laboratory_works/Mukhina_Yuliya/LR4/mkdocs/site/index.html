@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>My Docs</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href=".">My Docs</a>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#_lr4" class="nav-link">Мухина_Lr4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">Реализованы три основные страницы:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#personalvue" class="nav-link">Personal.vue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#loginvue" class="nav-link">Login.vue</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#registrationvue" class="nav-link">Registration.vue</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#videos" class="nav-link">Videos</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="_lr4">Мухина_Lr4</h1>
+<h1 id="_1">Реализованы три основные страницы:</h1>
+<p><code>Login.vue</code> - Вход в аккаунт
+<code>Personal.vue</code> - Страница с погодой выьранных городов
+<code>Registration.vue</code> - Страница регистрации</p>
+<h1 id="personalvue">Personal.vue</h1>
+<pre><code>&lt;template&gt;
+    &lt;main&gt;
+        &lt;div class=&quot;justify-content-center row&quot;&gt;
+            &lt;div class=&quot;col-sm-5 my-3 mx-5 justify-content-center row&quot;&gt;
+                &lt;RegistrationForm /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;justify-content-center row&quot;&gt;
+        &lt;div class=&quot;col-sm-5 my-3 mx-5 justify-content-center row&quot;&gt;
+            &lt;img src=&quot;../assets/regist.jpg&quot; class=&quot;card-img-top&quot; alt=&quot;...&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/main&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import RegistrationForm from &quot;@/components/RegistrationForm&quot;;
+    export default {
+        name: &quot;Registration&quot;,
+        components: {RegistrationForm}
+    }
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;
+</code></pre>
+<p>В скрипт мы передаём компонент RegistrationForm, в котором и написана вся форма регистрации</p>
+<h1 id="loginvue">Login.vue</h1>
+<pre><code>&lt;template&gt;
+    &lt;main&gt;
+       &lt;div class=&quot;justify-content-center row&quot;&gt;
+        &lt;div class=&quot;justify-content-center row&quot;&gt;
+            &lt;div class=&quot;justify-content-center col-sm-5 my-3 mx-5 &quot;&gt;
+                &lt;LoginForm /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;col-sm-5 my-3 mx-5 justify-content-center row&quot;&gt;
+            &lt;img src=&quot;../assets/img21.jpg&quot; class=&quot;card-img-top&quot; alt=&quot;...&quot;&gt;
+        &lt;/div&gt;
+
+     &lt;/div&gt;
+    &lt;/main&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import LoginForm from &quot;@/components/LoginForm&quot;;
+    export default {
+        name: &quot;Login&quot;,
+        components: {LoginForm}
+    }
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+
+&lt;/style&gt;
+</code></pre>
+<p>В скрипт мы передаём компонент LoginForm, в котором и написана вся форма входа</p>
+<h1 id="registrationvue">Registration.vue</h1>
+<pre><code>&lt;template&gt;
+    &lt;form @submit.prevent=&quot;registration&quot;&gt;
+        &lt;div class=&quot;form-group my-3 mx-5&quot;&gt;
+            &lt;label for=&quot;username&quot;&gt;Ваш ник&lt;/label&gt;
+            &lt;input required v-model=&quot;form.username&quot; type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;username&quot; placeholder=&quot;Введите ваш ник&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group my-3 mx-5&quot;&gt;
+            &lt;label for=&quot;Name&quot;&gt;Ваше имя&lt;/label&gt;
+            &lt;input v-model=&quot;form.first_name&quot; type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;Name&quot; placeholder=&quot;Введите имя&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group my-3 mx-5&quot;&gt;
+            &lt;label for=&quot;lastName&quot;&gt;Ваша фамилия&lt;/label&gt;
+            &lt;input v-model=&quot;form.last_name&quot; type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;lastName&quot; placeholder=&quot;Введите фамилию&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group my-3 mx-5&quot;&gt;
+            &lt;label for=&quot;city&quot;&gt;Ваш город&lt;/label&gt;
+            &lt;v-select
+                    id=&quot;city&quot;
+                    @input=&quot;setSelected&quot;
+                    :options=&quot;cities&quot;
+                    :value=&quot;selectedCity&quot;
+                    label=&quot;name&quot;
+                    placeholder=&quot;Город&quot;&gt;&lt;/v-select&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group my-3 mx-5&quot;&gt;
+            &lt;label for=&quot;Password&quot;&gt;Пароль&lt;/label&gt;
+            &lt;input required v-model=&quot;form.password&quot; type=&quot;password&quot; class=&quot;form-control&quot; id=&quot;Password&quot; placeholder=&quot;Введите пароль&quot;&gt;
+        &lt;/div&gt;
+        &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary my-3 mx-5 buttom-my&quot;&gt;Зарегистрироваться&lt;/button&gt;
+        &lt;router-link class=&quot;btn btn-outline-primary my-3 buttom-my&quot; to=&quot;/login&quot;&gt;Войти&lt;/router-link&gt;
+    &lt;/form&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import {mapGetters} from &quot;vuex&quot;;
+
+    export default {
+        name: &quot;RegistrationForm&quot;,
+        data() {
+            return {
+                form: {
+                    username: &quot;&quot;,
+                    first_name: &quot;&quot;,
+                    last_name: &quot;&quot;,
+                    password: &quot;&quot;,
+                    city: &quot;&quot;
+                },
+                selectedCity: ''
+            };
+        },
+        computed: {
+            ...mapGetters({
+                cities: 'cities',
+            })
+        },
+        mounted() {
+            this.$store.dispatch('getCities')
+        },
+        methods: {
+            registration() {
+                this.$store.dispatch('Registration', this.form);
+            },
+            setSelected(val) {
+                this.selectedCity = val.name
+                this.form.city = val.id
+            }
+        }
+    }
+&lt;/script&gt;
+
+&lt;style scoped&gt;
+    .buttom-my {
+        background-color: #DC143C !important;
+        color: #000 !important;
+        border:#DC143C !important;
+    }
+&lt;/style&gt;
+</code></pre>
+<p>В скрипт мы передаём компонент RegistrationForm, в котором форма регистрации
+Записываем всё в базу
+Функции для отображения городов: списка и названия
+Функция регистрации объявлена в methods
+Там же функция для города</p>
+<h2 id="videos">Videos</h2>
+<p><a href="https://drive.google.com/drive/folders/1jAS5c_T15Ac0HnWsUDuKHo8e8bArSbRT?usp=sharing">Videos</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.4.2
+Build Date UTC : 2023-04-07 07:19:01.675525+00:00
+-->

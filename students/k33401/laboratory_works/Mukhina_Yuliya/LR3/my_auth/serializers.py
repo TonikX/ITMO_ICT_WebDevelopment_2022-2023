@@ -11,7 +11,7 @@ class RegistrationSerializer(UserCreateSerializer):
     city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all(), write_only=True)
 
     def validate(self, attrs):
-        # Не пердаем в родительский validate() атрибут city, чтобы не было бага
+        # Не передаем в родительский validate() атрибут city, чтобы не было бага
         attrs_without_city = attrs.copy()
         attrs_without_city.pop('city')
         super(RegistrationSerializer, self).validate(attrs_without_city)

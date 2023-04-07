@@ -8,6 +8,7 @@ class MyHTTPServer:
         self.host = host
         self.port = port
         self.name = name
+        # Иниализация самого сервера
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.marks = {"Web-программирование": "1",
                       "Компьютерные сети": "5",
@@ -17,9 +18,11 @@ class MyHTTPServer:
     def serve_forever(self):
         try:
             self.server.bind((self.host, self.port))
+            # Сервер начинает слушать входящие подключения
             self.server.listen()
             while True:
                 client, address = self.server.accept()
+                # В бесконечном цикле осуществляет прием входящих соединений
                 self.serve_client(client)
         except KeyboardInterrupt:
             self.server.close()
@@ -27,20 +30,24 @@ class MyHTTPServer:
     def serve_client(self, client):
         try:
             data = client.recv(1024).decode()
+            # Получаем сообщение от клиента в виде байтов и преобразуем в строку
             req = self.parse_request(data)
             res = self.handle_request(req)
             self.send_response(client, res)
         except Exception as e:
             print(e)
         client.close()
-
+# Чтение и разбор HTTP-запроса
     def parse_request(self, data):
+        #Читает строки
         req = data.split("\r\n")
         method, target, ver = req[0].split(" ")
         headers = self.parse_headers(req)
+        # Отправляем соответствующий Request
         return Request(method=method, target=target, version=ver, headers=headers, data=data)
 
     def parse_headers(self, req):
+        # Создаём словарик из заголовков
         headers = [h for h in req[1:req[1:].index("") + 1]]
         hdict = {}
         for h in headers:
@@ -51,6 +58,7 @@ class MyHTTPServer:
     def handle_request(self, req):
         try:
             if req.method == "GET" and req.path == "/":
+                # отправляет html со всеми оценками
                 return self.handle_root()
             if req.method == "POST" and req.path.startswith("/api"):
                 _id = int(req.query["id"][0]) - 1
