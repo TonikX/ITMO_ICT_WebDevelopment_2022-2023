@@ -2,6 +2,7 @@ import socket
 from Request import Request
 from Response import Response
 from urllib.parse import parse_qs
+import codecs
 
 class MyHTTPServer:
     def __init__(self, host, port, name):
@@ -59,6 +60,7 @@ class MyHTTPServer:
         try:
             if req.method == "GET" and req.path == "/":
                 # отправляет html со всеми оценками
+                print (req)
                 return self.handle_root()
             if req.method == "POST" and req.path.startswith("/api"):
                 _id = int(req.query["id"][0]) - 1
@@ -84,17 +86,17 @@ class MyHTTPServer:
         client.sendall(f'HTTP/1.1 {res.status} OK\r\n{res.headers}\r\n\r\n{res.body}'.encode())
 
     def handle_root(self):
-        body = """<!DOCTYPE html><html lang="en"><head>"""
+        body = """<!DOCTYPE html><html lang="ru"><head>"""
         with open("res/style.css", "r") as file:
             body += "<style>"
             body += file.read()
             body += "</style>"
-        body += """<meta charset="UTF-8"><title>Start page</title></head><body><table>"""
+        body += """<meta charset="utf-8"><title>Start page</title></head><body><table>"""
         body += f"<thead><tr><th>ID</tр><th>Предмет</th><th>Оценка</th></tr></thead><tbody>"
         for i, mark in enumerate(self.marks.items()):
             body += f"<tr><td>{i + 1}</td><td>{mark[0]}</td><td>{mark[1]}</td></tr>"
         body += """</tbody></table>"""
-        with open("res/form.html", "r") as file:
+        with codecs.open("res/form.html", "r", encoding="koi8-r") as file:
             body += file.read()
         body += """</body></html>"""
         return Response(200, "OK", "Content-Type: text/html; charset=utf-8", body)
