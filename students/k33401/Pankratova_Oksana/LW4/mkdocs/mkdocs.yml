@@ -1,0 +1,14 @@
+site_name: Description of frontend on Vue Airport_app
+
+nav:
+  - Home: index.md
+  - Views:
+      - Main: Views/Main.md
+      - LogIn: Views/LogIn.md
+      - SignUp: Views/SignUp.md
+      - Home: Views/Home.md
+      - FlightAdd: Views/FlightAdd.md
+  - Router: Router/router.md
+
+theme:
+  name: cinder
