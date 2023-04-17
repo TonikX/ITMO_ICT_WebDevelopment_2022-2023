@@ -1,0 +1,16 @@
+site_name: The description of a service Airport_app
+
+nav:
+  - Home: index.md
+  - Airport_app:
+    - models: Airport_app/models.md
+    - serializers: Airport_app/serializers.md
+    - views: Airport_app/views.md
+    - urls: Airport_app/url.md
+  - Airport:
+    - settings: Airport/settings.md
+    - urls: Airport/urls.md
+
+theme:
+  name: cinder
+
