@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All autos</title>
+</head>
+<body>
+<ul>
+    {% for object in object_list %}
+
+    <li>{{ object.gos_number }}</li>
+    <li>{{ object.mark }}</li>
+    <li>{{ object.model }}</li>
+    <li>{{ object.color }}</li>
+
+    <hr/>
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

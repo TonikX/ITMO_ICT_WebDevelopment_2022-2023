@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tickets</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Tickets</h1>
+
+    {% if tickets %}
+    <ul>
+
+      {% for ticket in tickets %}
+        <li>Flight: <a href="{% url 'flight' pk=ticket.flight_id.id %}">{{ticket.flight_id.number}}</a><br>
+        Food: {{ticket.food}}<br>
+        Class: {{ticket.clas}}<br>
+        <a href="{% url 'tic_ch' pk=ticket.id %}">Change detales?</a><br>
+        <a href="{% url 'tic_del' pk=ticket.id %}">Delete ticket?</a><br></li>
+        <br>
+
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no tickets.</p>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

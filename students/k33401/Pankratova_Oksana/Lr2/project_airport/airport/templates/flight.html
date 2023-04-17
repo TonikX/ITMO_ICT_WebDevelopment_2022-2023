@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight</title>
+</head>
+<body>
+<a href="{% url 'tickets' %}">Go back</a><br><br>
+Number: {{context.number}}<br>
+Company: {{context.company}}<br>
+Type: {{context.type}}<br>
+Arrival: {{context.arr_time}}<br>
+Departure: {{context.dep_time}}<br>
+Gate: {{context.gate}}<br>
+<br>
+Comments:
+{% for com in comments %}
+    <li>Flight: {{context.number}}<br>
+        {{context.dep_time}} - {{context.arr_time}}<br>
+        {{com.passenger.first_name}} {{com.passenger.last_name}}<br>
+        {{com.grade}}<br>
+        {{com.text}}
+    </li>
+    <br>
+{% endfor %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send</button>
+</form>
+<br>
+Passengers list:
+
+{% for pass in context.passengers.all %}
+    <li>{{pass.last_name}} {{pass.first_name}}</li>
+
+{% endfor %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comments</title>
+</head>
+<body>
+Comments:
+{% for com in context %}
+    <li>{{com.flight_id.number}}<br>
+        {{com.flight_id.dep_time}} - {{com.flight_id.arr_time}}<br>
+        {{com.passenger_id.first_name}} {{com.passenger_id.last_name}}<br>
+        {{com.grade}}<br>
+        {{com.text}}
+    </li>
+{% endfor %}
+</body>
+</html>
