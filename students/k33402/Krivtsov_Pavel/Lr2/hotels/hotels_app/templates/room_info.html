@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3">
+    <h1>{{ room.name }}</h1>
+
+    <ul class="list-group py-3">
+      <li class="list-group-item list-group-item-secondary">Вместимость: {{ room.capacity }}</li>
+      <li class="list-group-item list-group-item-secondary">Тип: {{ room.type }}</li>
+      <li class="list-group-item list-group-item-secondary">Цена: {{ room.price }} руб/ночь</li>
+    </ul>
+
+    <ul class="list-group">
+        {% for facility, value in room.facilities.get_fields %}
+        {% if value %}
+            <li class="list-group-item list-group-item-success">{{ facility }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+    <div class="py-4">
+        <a href="{% url 'reserve' pk=room.id %}" class="btn btn btn-lg btn-outline-success" role="button">Зарезервировать</a>
+    </div>
+
+    <hr/>
+
+    <h3>Комментарии</h3>
+    {% for comment in comments %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ comment.user.username }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ comment.created }}</h6>
+              {% if comment.reservation %}
+                  <p>Период проживания: с {{ comment.reservation.date_start }} по {{ comment.reservation.date_end }}</p>
+                  <p>Оценка: {{ comment.rating }}</p>
+              {% endif %}
+            <p class="card-text">{{ comment.body }}</p>
+          </div>
+        </div>
+    {% empty %}
+        <p>Комментариев пока нет. Оставьте первый!</p>
+    {% endfor %}
+
+    {% if request.user.is_authenticated %}
+    <div class="card">
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div>
+                <button class="w-100 btn btn-lg btn-dark" type="submit">Опубликовать</button>
+            </div>
+        </form>
+      </div>
+    </div>
+
+
+    {% else %}
+        <div class="card border-danger mb-3 text-center">
+          <div class="card-body text-secondary">
+            Зарегистрируйтесь, чтобы оставлять комментарии!
+          </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

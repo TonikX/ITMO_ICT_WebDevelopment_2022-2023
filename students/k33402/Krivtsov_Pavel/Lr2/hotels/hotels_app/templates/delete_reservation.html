@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-3">
+    <h2>{{ title }}</h2>
+
+    <form method="post">{% csrf_token %}
+        <p>Вы уверены, что хотите отменить бронирование "{{ reservation.room }}"? Это действие нельзя отменить</p>
+        <div class="row">
+        <div class="col-2 col-xl-1">
+          <a href="{% url 'profile' %}" class="btn btn-secondary" role="button">Назад</a>
+        </div>
+        <div class="col-2 col-sm-1">
+            <input type="submit" class="btn btn-danger" role="button" value="Подтвердить">
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
