@@ -1,0 +1,34 @@
+# clirnt.py
+
+import socket
+ 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+addr = ('127.0.0.1', 45862)
+ 
+data = input("Your message: ")
+s.sendto(data.encode(), addr)
+response, addr = s.recvfrom(1024)
+print(f'Answer: {response.decode()}\n')
+print(f"Disconnected...")
+
+s.close()
+
+
+
+## server.py
+
+import socket
+ 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(("127.0.0.1", 45862))
+print("UDP server started...")
+ 
+while True:
+    data, addr = s.recvfrom(1024)
+    print(f"Msg from {addr}: {data.decode()}\n")
+    if data == b"Hello, server":
+        s.sendto(b"Hello, client", addr)
+    else:
+        s.sendto(b"What?...", addr)
+
+s.close()

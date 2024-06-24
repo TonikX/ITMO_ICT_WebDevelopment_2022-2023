@@ -1,0 +1,55 @@
+# client.py
+
+from socket import *
+
+tcp_socket = socket(AF_INET,SOCK_STREAM)
+tcp_socket.connect(('127.0.0.1', 45862))
+
+tcp_socket.send('get'.encode())
+http_adress = tcp_socket.recv(1024)
+print(http_adress.decode())
+
+tcp_socket.close()
+
+## index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection</title>
+</head>
+<body>
+    <ul>
+        <h1>Connection between:</h1>
+        <li>Server</li>
+        <li>Client</li>
+    </ul>
+</body>
+</html>
+file:///Users/snyderlt/Desktop/%D0%9B%D1%8F%D0%BD%20%D0%A2%D0%B0%D0%BE/%D0%9B%D0%A0_3/index.html
+
+### server.py
+
+import socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server_socket.bind(('127.0.0.1', 45862))
+server_socket.listen()
+
+while True:
+    connection, address = server_socket.accept()
+
+    client_msg = connection.recv(1024).decode()    
+    html = open('index.html')
+    response = 'HTTP/1.0 200 OK\n\n' + html.read()
+    html.close()
+
+    if client_msg == 'get':
+        connection.send('Website address: http://127.0.0.1:45862'.encode())
+    else:
+        connection.sendall(response.encode())
+    connection.close()
+
+server_socket.close()

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars List</title>
+</head>
+<body>
+    <h1>Cars</h1>
+    <a href="create"><b>Add+</b></a>
+    <ul>
+      {% for object in object_list %}
+      <li>
+          <a href="/car/{{ object.id }}/delete"><b>Delete</b></a>
+          <br>
+          <a href="/car/{{ object.id }}/edit"><b>Edit</b></a>
+          <br>
+          <a href="/car/{{ object.id }}"><b>Detail</b></a>
+
+          <p><strong>Car number:</strong> <a href="?id={{ object.id }}">{{ object.number }}</a></p>
+          <p><strong>Brand:</strong> {{ object.brand }}</p>
+          <p><strong>Model:</strong> {{ object.model }}</p>
+          <p><strong>Color:</strong> {{ object.color }}</p>
+      </li>
+
+      <hr/>
+      {% empty %}
+      <li>No objects yet.</li>
+      {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,82 @@
+# client.py
+
+import socket
+import threading
+
+nickname = input("Your name: ")
+
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(('127.0.0.1', 45862))
+
+def req():
+    while True:
+        try:
+            msg = client.recv(1024).decode()
+            if msg == 'name':
+                client.send(nickname.encode())
+            else:
+                print(msg)
+        except:
+            break
+        
+def res():
+    while True:
+        message = input('')
+        if message == 'exit':
+            client.close()
+            break
+        client.send(message.encode())
+
+req_thread = threading.Thread(target = req)
+req_thread.start()
+
+res_thread = threading.Thread(target = res)
+res_thread.start()
+
+## server.py
+
+import socket
+import threading
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('127.0.0.1', 45862))
+server.listen()
+
+clients = []
+names = []
+
+def broadcast(msg, name = 'Server', ignore = ''):
+    for client in clients:
+        if client != ignore:
+            client.send(f'{name} > {msg.decode()}'.encode())
+        
+def handle(client):
+    while True:
+        try:
+            msg = client.recv(1024)
+            broadcast(msg, names[clients.index(client)], client)
+        except:
+            index = clients.index(client)
+            nickname = names[index]
+            clients.remove(client)
+            client.close()
+            broadcast(f'{nickname} out!'.encode())
+            names.remove(nickname)
+            break
+        
+def receive():
+    while True:
+        client_conn, addr = server.accept()
+
+        client_conn.send('name'.encode())
+        nickname = client_conn.recv(1024).decode()
+        names.append(nickname)
+        clients.append(client_conn)
+
+        client_conn.send('Connected to server!\n'.encode())
+        broadcast(f"{nickname} joined!".encode())
+        
+        thread = threading.Thread(target=handle, args=(client_conn,))
+        thread.start()
+
+receive()
