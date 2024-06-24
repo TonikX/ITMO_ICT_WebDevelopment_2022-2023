@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+
+<body>
+{% if not registered %}
+    <form class="ui-form" method="post">
+        {% csrf_token %}
+        {{ create_user_form.as_p }}
+        <br>
+        <input type="submit" name="" value="register">
+    </form>
+{% else %}
+    <div class="ui-form"><label for=""></label>
+        <h2>You have done the register</h2> <br>
+        <label for=""><a href="login" class="button">To login</a></label>
+    </div>
+{% endif %}
+</body>
+
+</html>

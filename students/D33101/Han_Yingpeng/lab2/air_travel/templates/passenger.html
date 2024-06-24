@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Passenger </title>
+  </head>
+  <body>
+    <h2>Passengers of flight: {{travel.flight_number}}</h2>
+    <table border="1">
+      <tr>
+        <th>username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+      </tr>
+      {% for i in list %}
+        <tr>
+          <td>{{ i.username }}</td>
+          <td>{{ i.first_name}}</td>
+          <td>{{ i.last_name }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <form action="http://127.0.0.1:8000/home/{{ user.id }}" method="post">
+      {% csrf_token %}
+      <input type="submit" name="" value="Home">
+  </form>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Review </title>
+  </head>
+  <body>
+    <h2>Review of flight: {{travel_name.flight_number}}</h2>
+    <br>
+    <div>
+    {% for i in list %}
+    <fieldset>
+      <br>
+      <legend>Review of: {{travel.flight_number}}</legend>
+      <br>
+      <p>{{i.text}}</p>
+      <br>
+      <b>Rating: {{i.rating}}</b>
+    </fieldset>
+    {% endfor %}
+    </div>
+    <br>
+    <br>
+    <textarea name="text" rows="4" cols="50" form="review">Comment here about the flight...</textarea>
+    <form action="http://127.0.0.1:8000/create_comment/{{ user }}/{{ travel_name.id }}" method="post" id="review">
+      {% csrf_token %}
+      <br>
+      <label>Rating the flight</label>
+      <input type="number" name="rating" min="1" max="10">
+      <br>
+      <br>
+      <input type="submit" value="Send">
+      <br>
+    </form>
+    <form action="http://127.0.0.1:8000/home/{{ user}}" method="post">
+      {% csrf_token %}
+      <input type="submit" name="" value="Home">
+    </form>
+  </body>
+</html>
