@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings</title>
+</head>
+<body>
+<ul>
+    <h1>{{user.username}}'s bookings</h1>
+
+    {% for booking in bookings_list %}
+
+    Hotel: {{ booking.room.hotel }} <br/>
+    Room: {{ booking.room.number }} <br/>
+    Date in: {{booking.date_in}} <br/>
+    Date out: {{ booking.date_out }} <br/>
+    Checked in: <strong>{{ booking.checked_in|yesno:"Yes,No"  }}</strong> <br/>
+
+
+    <a href="bookings/delete/{{ booking.id }}/"><button class="btn btn-secondary">Delete</button></a>
+
+        {% if booking.checked_in is True %}
+        <a href="bookings/add_review">Leave a review of this room</a> |
+
+        {% endif %}
+
+    <hr/>
+
+    {% empty %}
+    <li>no bookings yet</li>
+    {% endfor %}
+
+</ul>
+
+
+    <a href="/profile">Back to profile</a>
+
+
+</body>
+</html>
+
+  {% endblock %}

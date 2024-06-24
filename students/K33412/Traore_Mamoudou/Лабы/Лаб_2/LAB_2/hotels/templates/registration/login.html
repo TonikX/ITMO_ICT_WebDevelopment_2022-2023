@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <title>Login</title>
+</head>
+
+<body>
+    {% if form.errors %}
+    <p>Something's not right</p>
+    {% endif %}
+
+
+    <form method="post" action="{% url 'login' %}">
+        <div class="form-group">
+
+        {% csrf_token %}
+
+        <p> Username: {{ form.username }}</p>
+        <p> Password: {{ form.password }}</p>
+
+        <button class="btn btn-secondary">Log in</button>
+        </div>
+    </form>
+</body>
+
+{% endblock %}

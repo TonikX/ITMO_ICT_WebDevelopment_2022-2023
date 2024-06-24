@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+</head>
+<body>
+<ul>
+    <h1>Reviews</h1>
+
+    {% for review in reviews %}
+
+    User: {{ review.user }} <br/>
+    Hotel: {{ review.room.hotel }} <br/>
+    Room: {{ review.room.number }} <br/>
+    Date in: {{review.date_in}} <br/>
+    Date out: {{ review.date_out }} <br/>
+    Rating: {{review.get_rating_display}} <br/>
+    Review: {{ review.body }} <br/>
+
+    <hr/>
+
+
+    {% empty %}
+    <li>no reviews yet</li>
+    {% endfor %}
+
+</ul>
+
+
+</body>
+</html>
+
+{% endblock %}

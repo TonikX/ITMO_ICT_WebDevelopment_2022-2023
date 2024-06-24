@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of guests</title>
+</head>
+<body>
+
+ <h1>List of guests from the last month</h1>
+
+ <br>
+
+ {% for guest in guests_list %}
+
+ <table class="table">
+      <tr>
+      <th>Username</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Hotel</th>
+      <th>Room</th>
+      </tr>
+
+     <tr>
+         <td>{{ guest.user }}</td>
+         <td>{{guest.user.first_name}}</td>
+         <td>{{guest.user.last_name}}</td>
+         <td>{{ guest.room.hotel }}</td>
+         <td>{{ guest.room.number }}</td>
+     </tr>
+
+
+
+</table>
+
+
+    <!--Username: {{ guest.user }} <br/>-->
+    <!--First name: {{guest.user.first_name}} <br/>-->
+    <!--Last name: {{guest.user.last_name}} <br/>-->
+    <!--<br/>-->
+    <!--Hotel: {{ guest.room.hotel }} <br/>-->
+    <!--Room: {{ guest.room.number }} <br/>-->
+
+
+    <hr/>
+
+    {% empty %}
+    <li>no bookings yet</li>
+    {% endfor %}
+
+</body>
+</html>
+
+{% endblock %}
