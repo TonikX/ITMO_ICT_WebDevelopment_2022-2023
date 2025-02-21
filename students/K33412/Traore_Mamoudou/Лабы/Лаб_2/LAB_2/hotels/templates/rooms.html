@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul>
+    <h1>All rooms by price ascending</h1>
+
+    {% for room in rooms %}
+
+    Hotel: {{room.hotel}} <br/>
+    Room number: {{ room.number }} <br/>
+    Room type: {{ room.get_room_type_display }} <br/>
+    Price per night: {{ room.price }} <br/>
+    Number of persons: {{ room.num_persons }} <br/>
+
+
+    <a href="/rooms/{{ room.id }}/">Details</a>
+
+
+
+    <hr/>
+
+    {% empty %}
+    <li>no rooms yet</li>
+    {% endfor %}
+
+</ul>
+
+{% endblock %}

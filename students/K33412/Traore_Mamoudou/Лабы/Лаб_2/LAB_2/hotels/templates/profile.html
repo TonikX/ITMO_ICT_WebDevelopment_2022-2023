@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <title>Profile</title>
+</head>
+
+<body>
+    <h1>{{ user.username }}'s personal page</h1>
+    <br>
+
+    Username: {{ user.username }} <br>
+    Email: {{ user.email }} <br>
+    First name: {{ user.first_name }} <br>
+    Last name: {{ user.last_name }} <br>
+    Date of birth: {{ user.birth_date }} <br>
+    Passport number: {{ user.passport }} <br>
+    Phone number: {{ user.phone_number }} <br>
+
+    <a href="/profile/edit">Edit</a> <br>  <br>
+
+<a href="bookings"><button class="btn btn-secondary">My bookings</button></a>
+
+
+
+</body>
+
+{% endblock %}
